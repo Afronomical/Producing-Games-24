@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 25898749901852154}
   - component: {fileID: 7478881452083739247}
   - component: {fileID: 3215300811682511481}
+  - component: {fileID: -6324045327250011248}
+  - component: {fileID: 4092795374760118392}
   m_Layer: 0
   m_Name: CubePrefab
   m_TagString: Untagged
@@ -105,3 +107,34 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-6324045327250011248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7824952522015762862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdc23528bd828334cb7da21ed06e32ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  message: Click to pick up
+--- !u!114 &4092795374760118392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7824952522015762862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0.03330612, g: 1, b: 0, a: 1}
+  outlineWidth: 3
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
