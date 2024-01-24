@@ -5,48 +5,56 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+    public InputManager inputManager;
+
     public Rigidbody rb;
-    public float moveSpeed = 5f;
-    public InputAction playerControls;
 
-    Vector3 moveVec = Vector3.zero;
+    [Header("Player Movement Stats")]
+    public float speed = 5;
+    public float sprintSpeed = 10;
+    public float jumpForce = 200;
 
-    private InputAction move;
-    private InputAction crouch;
-
-
-    private void OnEnable()
+    private bool isGrounded;
+    private void Start()
     {
-        //move = playerControls.Player.Move;
-        //move.Enable();
-        playerControls.Enable();
+        inputManager.playerControls.Player.Jump.started += _ => Jump();
     }
 
-    private void OnDisable()
+    private void Update()
     {
-        //move.Disable();
-        playerControls.Disable();
-    }
-    private void Awake()
-    {
-        //playerControls = new PlayerControls();
-    }
+        float forward = inputManager.playerControls.Player.MoveForward.ReadValue<float>();
+        float right = inputManager.playerControls.Player.MoveRight.ReadValue<float>();
 
+        Vector3 move = transform.right * right + transform.forward * forward;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
+        move *= inputManager.playerControls.Player.Sprint.ReadValue<float>() == 0 ? speed : sprintSpeed; //check if sprint button is being pressed
+
+        transform.localScale = new Vector3(1, inputManager.playerControls.Player.Crouch.ReadValue<float>() == 0 ? 1f : 0.5f, 1); //check if player is crouching
+
+        rb.velocity = new Vector3(move.x, rb.velocity.y, move.z);
     }
 
-    // Update is called once per frame
-    void Update()
+    void Jump()
     {
-        moveVec = playerControls.ReadValue<Vector3>();
+        if (isGrounded)
+            rb.AddForce(Vector3.up * jumpForce);
     }
 
-    private void FixedUpdate()
+
+    private void OnCollisionEnter(Collision collision)
     {
-        rb.velocity = new Vector3(moveVec.x * moveSpeed, moveVec.y, moveVec.z * moveSpeed);
+        if(collision.transform.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.transform.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
     }
 }

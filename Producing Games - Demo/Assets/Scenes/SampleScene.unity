@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 252807778}
   - component: {fileID: 252807783}
   - component: {fileID: 252807784}
+  - component: {fileID: 252807785}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -171,7 +172,7 @@ MonoBehaviour:
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 963194227}
 --- !u!136 &252807779
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -273,73 +274,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ab3774bc68a143449cb0b6559adc3cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
-  moveSpeed: 5
-  playerControls:
-    m_Name: Player Controls
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 47cd91e7-bc67-40c8-a9c4-58887222a866
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: WASD
-      m_Id: ee32a7ee-3b64-4cb8-91c7-24f3d6be178d
-      m_Path: 3DVector
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Controls
-      m_Flags: 4
-    - m_Name: up
-      m_Id: db538959-ea7f-4169-a5dd-14f7a2ef7a49
-      m_Path: 
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Controls
-      m_Flags: 8
-    - m_Name: down
-      m_Id: df280054-489d-4c7e-9bc2-15dd125c573c
-      m_Path: 
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Controls
-      m_Flags: 8
-    - m_Name: left
-      m_Id: 16410267-ffa4-4486-8cfb-abfda7a4527a
-      m_Path: <Keyboard>/a
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Controls
-      m_Flags: 8
-    - m_Name: right
-      m_Id: f652750f-7663-482e-bbcf-95561228ae0f
-      m_Path: <Keyboard>/d
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Controls
-      m_Flags: 8
-    - m_Name: forward
-      m_Id: 0bc5f4d5-8d13-4aa3-9ba8-56776bcac1f6
-      m_Path: <Keyboard>/w
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Controls
-      m_Flags: 8
-    - m_Name: backward
-      m_Id: 4f99a698-7504-4d73-9b32-e55e8249edd2
-      m_Path: <Keyboard>/s
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Controls
-      m_Flags: 8
-    m_Flags: 0
+  inputManager: {fileID: 252807785}
+  rb: {fileID: 252807784}
+  speed: 5
+  sprintSpeed: 10
+  jumpForce: 200
 --- !u!54 &252807784
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -365,8 +304,20 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &252807785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 252807777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a057c5b27d8314f97c28d90fba41a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &506601205
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,7 +332,7 @@ GameObject:
   - component: {fileID: 506601206}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -578,6 +529,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -659,6 +611,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 252807782}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb89607084d70649bcf85e97e754012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputManager: {fileID: 252807785}
+  mouseSensitivity: 20
+  playerBody: {fileID: 252807782}
 --- !u!1 &1051816985
 GameObject:
   m_ObjectHideFlags: 0
