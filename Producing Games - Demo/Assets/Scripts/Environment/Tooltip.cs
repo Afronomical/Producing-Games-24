@@ -13,13 +13,13 @@ public class Tooltip : MonoBehaviour
     }
     private void OnMouseEnter()
     {
-        TooltipManager.Instance.ShowTooltip(message);
+        //TooltipManager.Instance.ShowTooltip(message);
         gameObject.GetComponent<Outline>().enabled = true;
     }
 
     private void OnMouseExit()
     { 
-        TooltipManager.Instance.HideTooltip();
+        //TooltipManager.Instance.HideTooltip();
         gameObject.GetComponent<Outline>().enabled = false;
     }
 }

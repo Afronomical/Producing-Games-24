@@ -18,6 +18,6 @@ public class InteractiveObject : ScriptableObject
     public string tooltipText;
     public Sprite kbImage, contImage, psImage;
 
-    [Header("Keypad")]
-    public string solution;
+    //[Header("Keypad")]
+    //public string solution;
 }

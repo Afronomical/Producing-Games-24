@@ -16,7 +16,7 @@ MonoBehaviour:
   obj: {fileID: 7824952522015762862, guid: 3caa920475e4b7c4680fc1a94271a2c3, type: 3}
   prefab: {fileID: 7824952522015762862, guid: 3caa920475e4b7c4680fc1a94271a2c3, type: 3}
   description: 
-  tooltipText: Pick Up
+  tooltipText: Example
   kbImage: {fileID: 0}
   contImage: {fileID: 0}
   psImage: {fileID: 0}
