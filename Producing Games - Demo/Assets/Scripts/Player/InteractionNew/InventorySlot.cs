@@ -7,10 +7,13 @@ public class InventorySlot : MonoBehaviour
 {
     public List<InteractiveObject> inventory = new List<InteractiveObject>();
     int currentIndex;
+    public InteractiveObject emptySlot;
 
     public List<GameObject> itemSlots = new List<GameObject>();
+    private int centerSlotIndex = 2;
 
     public static InventorySlot instance;
+
 
     private void Awake()
     {
@@ -23,15 +26,13 @@ public class InventorySlot : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        currentIndex = itemSlots.Count/2;
-    }
 
     private void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) ScrollInventory(-1);
+        if (Input.GetKeyDown(KeyCode.RightArrow)) ScrollInventory(1);
     }
+
 
     public void AddToInventory(InteractiveObject item)
     {
@@ -39,37 +40,45 @@ public class InventorySlot : MonoBehaviour
         ScrollInventory(0);  // Refresh the inventory images
     }
 
+
     public void RemoveFromInventory(InteractiveObject item)
     {
         inventory.Remove(item);  // Remove the item from the inventory
         ScrollInventory(0);  // Refresh the inventory images
     }
 
+
     void ScrollInventory(int dir)
     {
         currentIndex += dir;
+        if (currentIndex < 0)
+            currentIndex = inventory.Count - 1;
+        else if (currentIndex > inventory.Count - 1)
+            currentIndex = 0;
         
-        int centerSlotIndex = itemSlots.Count/2;
         itemSlots[centerSlotIndex - 2].GetComponent<Image>().sprite = GetItemFromInventory(currentIndex - 2).objectImage;
         itemSlots[centerSlotIndex - 1].GetComponent<Image>().sprite = GetItemFromInventory(currentIndex - 1).objectImage;
         itemSlots[centerSlotIndex].GetComponent<Image>().sprite = GetItemFromInventory(currentIndex).objectImage;
         itemSlots[centerSlotIndex + 1].GetComponent<Image>().sprite = GetItemFromInventory(currentIndex + 1).objectImage;
         itemSlots[centerSlotIndex + 2].GetComponent<Image>().sprite = GetItemFromInventory(currentIndex + 2).objectImage;
+
+
+        Debug.Log("Currently holding " + inventory[currentIndex].objectName);
     }
 
     InteractiveObject GetItemFromInventory(int itemIndex)
     {
+        /*if (itemIndex < 0)
+            itemIndex = inventory.Count - 1 + itemIndex;
+
+        if (itemIndex > inventory.Count - 1)
+            itemIndex = itemIndex - inventory.Count - 1;*/
+
+
         if (itemIndex < 0)
-            itemIndex = inventory.Count + itemIndex;
-
-        if (itemIndex > inventory.Count)
-            itemIndex = itemIndex - inventory.Count;
-
-
-        if (itemIndex < 0)
-            return inventory[0];
-        else if (itemIndex > inventory.Count)
-            return inventory[inventory.Count];
+            return emptySlot;
+        else if (itemIndex > inventory.Count - 1)
+            return emptySlot;
         else
             return inventory[itemIndex];
     }

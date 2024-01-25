@@ -15,7 +15,7 @@ MonoBehaviour:
   objectName: Cube
   obj: {fileID: 7824952522015762862, guid: 3caa920475e4b7c4680fc1a94271a2c3, type: 3}
   prefab: {fileID: 7824952522015762862, guid: 3caa920475e4b7c4680fc1a94271a2c3, type: 3}
-  objectImage: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  objectImage: {fileID: 21300000, guid: ab7a5d1d6d5c6ec43a8c8a2862dcfb64, type: 3}
   description: 
   tooltipText: Example
   kbImage: {fileID: 0}
