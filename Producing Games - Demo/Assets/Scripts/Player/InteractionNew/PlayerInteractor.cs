@@ -52,10 +52,14 @@ public class PlayerInteractor : MonoBehaviour
                             case InteractableTemplate.ObjectType.Paper:
                                 Debug.Log("Collected paper");
                                 break;
+                            case InteractableTemplate.ObjectType.Door:
+                                Debug.Log("Opened door");
+                                break;
                             default:
                                 break;
                         }
-                        Destroy(interactableTemplate.gameObject);
+                        interactableTemplate.onInteract?.Invoke();
+                        
                     }
                     
                     outline = interactableTemplate.gameObject.GetComponent<Outline>();

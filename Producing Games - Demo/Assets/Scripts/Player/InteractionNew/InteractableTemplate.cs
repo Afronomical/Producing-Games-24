@@ -11,12 +11,14 @@ public class InteractableTemplate : MonoBehaviour, IInteractable
     public Sprite objectIcon;
     public Vector2 iconSize;
     [SerializeField] public InteractiveObject collectible;
-    
+
+    Vector3 doorPos;
     public enum ObjectType
     {
         Paper,
         Stick,
-        Cube
+        Cube,
+        Door
     }
 
     [SerializeField] public ObjectType type;
@@ -31,7 +33,15 @@ public class InteractableTemplate : MonoBehaviour, IInteractable
     public void Interact()
     {
         Debug.Log("Interacted with " + collectible.name);
-        Collect();
+        //Collect();
+    }
+
+    public void OpenDoor()
+    {
+        doorPos = transform.position;
+        doorPos += new Vector3(0, 10, 0);
+        gameObject.transform.position  = doorPos;
+
     }
 
     public string Name { get; }
