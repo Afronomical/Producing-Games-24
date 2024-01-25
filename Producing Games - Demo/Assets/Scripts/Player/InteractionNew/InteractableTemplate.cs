@@ -27,13 +27,13 @@ public class InteractableTemplate : MonoBehaviour, IInteractable
 
     public void Collect()
     {
+        InventorySlot.instance.AddToInventory(collectible);
         Destroy(gameObject);
     }
 
     public void Interact()
     {
         Debug.Log("Interacted with " + collectible.name);
-        //Collect();
     }
 
     public void OpenDoor()

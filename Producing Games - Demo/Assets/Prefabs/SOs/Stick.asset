@@ -15,9 +15,9 @@ MonoBehaviour:
   objectName: Stick
   obj: {fileID: 11759742422874786, guid: 3b11e73bf287ef54e952367a56355f26, type: 3}
   prefab: {fileID: 11759742422874786, guid: 3b11e73bf287ef54e952367a56355f26, type: 3}
+  objectImage: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   description: 
   tooltipText: Pick Up
   kbImage: {fileID: 0}
   contImage: {fileID: 0}
   psImage: {fileID: 0}
-  solution: 
