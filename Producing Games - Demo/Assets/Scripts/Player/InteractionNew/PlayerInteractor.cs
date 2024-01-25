@@ -37,21 +37,26 @@ public class PlayerInteractor : MonoBehaviour
                 {
 
                     TooltipManager.Instance.ShowTooltip(interactableTemplate.collectible.tooltipText + " " + interactableTemplate.collectible.objectName);
-                    ////checks what type of interactable object it is
-                    //switch (interactableTemplate.type)
-                    //{
-                    //    case InteractableTemplate.ObjectType.Cube:
-                    //        Debug.Log("Interacted with cube");
-                    //        break;
-                    //    case InteractableTemplate.ObjectType.Stick:
-                    //        Debug.Log("Interacted with stick");
-                    //        break;
-                    //    case InteractableTemplate.ObjectType.Paper:
-                    //        Debug.Log("Interacted with paper");
-                    //        break;
-                    //    default:
-                    //        break;
-                    //}
+
+                    if(Input.GetMouseButtonDown(0))
+                    {
+                        //checks what type of interactable object it is
+                        switch (interactableTemplate.type)
+                        {
+                            case InteractableTemplate.ObjectType.Cube:
+                                Debug.Log("Collected cube");
+                                break;
+                            case InteractableTemplate.ObjectType.Stick:
+                                Debug.Log("Collected stick");
+                                break;
+                            case InteractableTemplate.ObjectType.Paper:
+                                Debug.Log("Collected paper");
+                                break;
+                            default:
+                                break;
+                        }
+                        Destroy(interactableTemplate.gameObject);
+                    }
                     
                     outline = interactableTemplate.gameObject.GetComponent<Outline>();
                     if(outline != null)

@@ -423,7 +423,7 @@ MonoBehaviour:
   objectIcon: {fileID: 0}
   iconSize: {x: 0, y: 0}
   collectible: {fileID: 11400000, guid: 79dfcdceaf598a444973567781c3cfe5, type: 2}
-  type: 0
+  type: 1
 --- !u!1 &485187693
 GameObject:
   m_ObjectHideFlags: 0
@@ -1606,7 +1606,7 @@ MonoBehaviour:
   objectIcon: {fileID: 0}
   iconSize: {x: 0, y: 0}
   collectible: {fileID: 11400000, guid: 466d28f252da7d14ea55f7cc9ffeb6fe, type: 2}
-  type: 0
+  type: 2
 --- !u!1 &1838825697
 GameObject:
   m_ObjectHideFlags: 0
