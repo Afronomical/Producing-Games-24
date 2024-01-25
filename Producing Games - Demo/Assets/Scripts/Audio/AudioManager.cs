@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering;
 using static Unity.VisualScripting.Member;
 
 public class AudioManager : MonoBehaviour
@@ -10,17 +11,22 @@ public class AudioManager : MonoBehaviour
 
     public Camera camera;
 
+    public GameObject sourcePrefab;
+    public int numberOfEffectSources;
+
     public float globalVolume = 1;
     public float soundEffectVolume = 1;
     public float musicVolume = 1;
 
-    private List<AudioSource> effectSources;
-    private AudioSource musicSource;
+    private List<AudioSource> effectSources = new List<AudioSource>();
+    private AudioSource musicSource, ambienceSource;
 
     [Header("Spacial Audio")]
     public float maxListenDistance;
     public AnimationCurve distanceFalloff;
 
+
+    public SoundEffect testSound;
 
 
     public void Awake()
@@ -37,25 +43,43 @@ public class AudioManager : MonoBehaviour
 
         camera = Camera.main;
 
+        SetupAudioSources();
+    }
 
 
-        int i = 0;
-        foreach (Transform child in transform)
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.J))
         {
-            if (i == 0)  
-                musicSource = child.GetComponent<AudioSource>();  // Set the music source
-            else
-                effectSources.Add(child.GetComponent<AudioSource>());  // Add the effect sources
-            Debug.Log(i);
-            i++;
+            GameObject obj = Instantiate(sourcePrefab);
+            obj.transform.position = new Vector3(Random.Range(0, 50), Random.Range(0, 50), Random.Range(0, 50));
+            PlaySound(testSound, obj.transform);
         }
     }
 
 
 
-    public void PlaySound(SoundEffect effect, Vector3 effectPosition)
+    private void SetupAudioSources()
+    {
+        musicSource = transform.GetChild(0).GetComponent<AudioSource>();
+        ambienceSource = transform.GetChild(1).GetComponent<AudioSource>();
+
+        for (int i = 0; i < numberOfEffectSources; i++)
+        {
+            GameObject newSource = Instantiate(sourcePrefab);
+            newSource.transform.SetParent(transform);
+            newSource.name = "Effect Source (" + i + ")";
+            effectSources.Add(newSource.GetComponent<AudioSource>());
+        }
+    }
+
+
+
+    public void PlaySound(SoundEffect effect, Transform effectParent)
     {
         AudioSource source = musicSource;
+
 
         if (!effect.isMusic)
         {
@@ -64,6 +88,7 @@ public class AudioManager : MonoBehaviour
                 if (!effectSources[i].isPlaying)
                 {
                     source = effectSources[i];
+                    break;
                 }
             }
 
@@ -81,29 +106,30 @@ public class AudioManager : MonoBehaviour
                 Debug.Log("Sound effect stopped due to not having enough free sources, Source: " + lowestPrioritySource.name + " Priority: " + lowestPrioritySource.priority);
             }
         }
+        Debug.Log(source.name);
 
-
-
-        float volume = effect.volume;
-        volume *= globalVolume;
-        volume *= effect.isMusic ? musicVolume : soundEffectVolume;
-
-        source.volume = volume;
-        source.clip = effect.audioClip;
-        source.pitch = effect.pitch;
-        source.priority = effect.priority;
-        source.loop = effect.loop;
-
+        SetMainSourceSettings(source, effect);
 
         if (effect.spacialAudio)
         {
-            source.transform.position = effectPosition;
+            source.transform.position = effectParent.position;
+
+            if (effect.followObject)
+                source.transform.parent = effectParent;
+            else
+                source.transform.parent = transform;
+
             source.spatialBlend = 1;
-            source.maxDistance = maxListenDistance;
+            source.maxDistance = effect.travelDistance;
             source.SetCustomCurve(AudioSourceCurveType.CustomRolloff, distanceFalloff);
         }
         else
+        {
             source.spatialBlend = 0;
+            source.transform.parent = transform;
+        }
+
+        source.Play();
     }
 
 
@@ -112,22 +138,26 @@ public class AudioManager : MonoBehaviour
     {
         AudioSource source = musicSource;
 
-        float volume = effect.volume;
-        volume *= globalVolume;
-        volume *= musicVolume;
+        SetMainSourceSettings(source, effect);
 
-        source.volume = volume;
-        source.clip = effect.audioClip;
-        source.pitch = effect.pitch;
-        source.priority = effect.priority;
-        source.loop = effect.loop;
+        source.Play();
+    }
+
+
+    public void PlayGlobalAmbience(SoundEffect effect)
+    {
+        AudioSource source = ambienceSource;
+
+        SetMainSourceSettings(source, effect);
+
+        source.Play();
     }
 
 
 
     public void StopSound(SoundEffect effect)
     {
-        for (int i = 0; i < effectSources.Count; i++)
+        for (int i = 0; i < effectSources.Count; i++)  // Check through all effect sources
         {
             if (effectSources[i].clip == effect.audioClip)  // Find the source playing this clip
             {
@@ -145,6 +175,13 @@ public class AudioManager : MonoBehaviour
 
 
 
+    public void StopGlobalAmbience(SoundEffect effect)
+    {
+        ambienceSource.Stop();
+    }
+
+
+
     public void StopAllSounds()
     {
         for (int i = 0; i < effectSources.Count; i++)  // For every effect source
@@ -155,8 +192,16 @@ public class AudioManager : MonoBehaviour
 
 
 
-    public float GetSoundDistance(Vector3 effectPosition)
+    private void SetMainSourceSettings(AudioSource source, SoundEffect effect)
     {
-        return Vector3.Distance(camera.transform.position, effectPosition);
+        source.clip = effect.audioClip;
+        source.pitch = effect.pitch;
+        source.priority = effect.priority;
+        source.loop = effect.loop;
+
+        float volume = effect.volume;
+        volume *= globalVolume;
+        volume *= effect.isMusic ? musicVolume : soundEffectVolume;
+        source.volume = volume;
     }
 }

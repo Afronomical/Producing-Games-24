@@ -18,6 +18,7 @@ public class SoundEffect : ScriptableObject
 
     [Header("Spacial Audio")]
     public bool spacialAudio = true;  // Whether the sound effect is in the world or not (3D Audio)
+    public bool followObject = false;  // Should the sound just play where it is called or should it move with the object
     [Range(0, 150)] public float travelDistance = 30;  // The max distance that you can hear the sound from
 
     [Header("Subtitles")]
