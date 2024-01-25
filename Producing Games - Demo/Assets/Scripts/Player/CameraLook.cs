@@ -6,7 +6,7 @@ public class CameraLook : MonoBehaviour
 {
     [Header("Camera Properties")]
     public InputManager inputManager;
-    public float mouseSensitivity = 20f;
+    public float mouseSensitivity = 30f;
     public Transform playerBody;
 
     private float xRot = 0f;
