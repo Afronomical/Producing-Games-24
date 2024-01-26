@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 using static Unity.VisualScripting.Member;
 
 public class PlayerMovement : MonoBehaviour
@@ -15,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     private InputAction move;
     private InputAction crouch;
 
+    public float timeBetweenFootSteps;
+    private float footStepTime;
     public GameObject audioManager;
     private AudioManager audioManagerInstance;
     private bool movementSoundCheck = false;
@@ -50,15 +53,20 @@ public class PlayerMovement : MonoBehaviour
     {
         moveVec = playerControls.ReadValue<Vector3>();
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKey(KeyCode.W))
         {
-           audioManagerInstance.PlaySound(audioManagerInstance.WalkingSound, gameObject.transform);
-            
-            
+           footStepTime -= Time.deltaTime;
+        
+            if(footStepTime <= 0 )
+            {
+                footStepTime = timeBetweenFootSteps;
+                audioManagerInstance.PlaySound(audioManagerInstance.WalkingSound, gameObject.transform);
+            }
         }
+
         if(Input.GetKeyUp(KeyCode.W))
         {
-            audioManagerInstance.StopSound(audioManagerInstance.WalkingSound);
+            footStepTime = timeBetweenFootSteps;
         }
     }
 
