@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static Unity.VisualScripting.Member;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class PlayerMovement : MonoBehaviour
     private InputAction move;
     private InputAction crouch;
 
+    public GameObject audioManager;
+    private AudioManager audioManagerInstance;
+    private bool movementSoundCheck = false;
 
     private void OnEnable()
     {
@@ -37,12 +41,25 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        audioManagerInstance = audioManager.GetComponent<AudioManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
         moveVec = playerControls.ReadValue<Vector3>();
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+           audioManagerInstance.PlaySound(audioManagerInstance.WalkingSound, gameObject.transform);
+            
+            
+        }
+        if(Input.GetKeyUp(KeyCode.W))
+        {
+            audioManagerInstance.StopSound(audioManagerInstance.WalkingSound);
+        }
     }
 
     private void FixedUpdate()

@@ -87,6 +87,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   testSound: {fileID: 11400000, guid: 4818a99d7af0d3141a40a98f74220798, type: 2}
+  WalkingSound: {fileID: 11400000, guid: 97b7edab1706ac54384b1d42ec44583c, type: 2}
 --- !u!1 &4264095059726856070
 GameObject:
   m_ObjectHideFlags: 0

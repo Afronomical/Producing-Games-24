@@ -27,6 +27,7 @@ public class AudioManager : MonoBehaviour
 
 
     public SoundEffect testSound;
+    public SoundEffect WalkingSound;
 
 
     public void Awake()
@@ -130,6 +131,13 @@ public class AudioManager : MonoBehaviour
         }
 
         source.Play();
+
+        Collider[] col = Physics.OverlapSphere(source.transform.position, source.maxDistance);
+        for (int i = 0; i < col.Length; i++)
+        {
+            if (col[i].TryGetComponent(out AudioListenScript audioListener))
+                audioListener.canSoundBeHeard = true;
+        }
     }
 
 
