@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour
+public class InventoryHotbar : MonoBehaviour
 {
     public List<InteractiveObject> inventory = new List<InteractiveObject>();
     int currentIndex;
@@ -12,7 +12,7 @@ public class InventorySlot : MonoBehaviour
     public List<GameObject> itemSlots = new List<GameObject>();
     private int centerSlotIndex = 2;
 
-    public static InventorySlot instance;
+    public static InventoryHotbar instance;
 
 
     private void Awake()

@@ -8,16 +8,16 @@ using static Unity.VisualScripting.Member;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
+    private Camera camera;
 
-    public Camera camera;
+    [Header("Settings")]
+    [Range(0, 1)] public float globalVolume = 1;
+    [Range(0, 1)] public float soundEffectVolume = 1;
+    [Range(0, 1)] public float musicVolume = 1;
 
-    public GameObject sourcePrefab;
-    public int numberOfEffectSources;
-
-    public float globalVolume = 1;
-    public float soundEffectVolume = 1;
-    public float musicVolume = 1;
-
+    [Header("Audio Sources")]
+    public GameObject sourcePrefab;  // The prefab used for sound effect sources
+    [Range(25, 85)] public int numberOfEffectSources;  // How many sound effect sources are in the scene, increase if it is stopping sounds often but this will have a slight performance impact
     private List<AudioSource> effectSources = new List<AudioSource>();
     private AudioSource musicSource, ambienceSource;
 
@@ -27,15 +27,14 @@ public class AudioManager : MonoBehaviour
 
 
     public SoundEffect testSound;
-    public SoundEffect WalkingSound;
 
 
     public void Awake()
     {
-        if (instance == null)
+        if (instance == null)  // Creates a singleton
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);  // This object won't be destroyed between scenes
         }
         else
             Destroy(gameObject);
@@ -51,7 +50,7 @@ public class AudioManager : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.J))  // Used for testing spacial audio, will play a sound effect at a random location
         {
             GameObject obj = Instantiate(sourcePrefab);
             obj.transform.position = new Vector3(Random.Range(0, 50), Random.Range(0, 50), Random.Range(0, 50));
@@ -61,16 +60,16 @@ public class AudioManager : MonoBehaviour
 
 
 
-    private void SetupAudioSources()
+    private void SetupAudioSources()  // Create a certain number of audio sources, these will be pooled and then used whenever a sound needs to be played
     {
-        musicSource = transform.GetChild(0).GetComponent<AudioSource>();
+        musicSource = transform.GetChild(0).GetComponent<AudioSource>();  // Get references to the music and ambience specific sources
         ambienceSource = transform.GetChild(1).GetComponent<AudioSource>();
 
         for (int i = 0; i < numberOfEffectSources; i++)
         {
             GameObject newSource = Instantiate(sourcePrefab);
             newSource.transform.SetParent(transform);
-            newSource.name = "Effect Source (" + i + ")";
+            newSource.name = "Sound Effect Source (" + i + ")";
             effectSources.Add(newSource.GetComponent<AudioSource>());
         }
     }
@@ -82,32 +81,29 @@ public class AudioManager : MonoBehaviour
         AudioSource source = musicSource;
 
 
-        if (!effect.isMusic)
+        for (int i = 0; i < effectSources.Count; i++)
         {
-            for (int i = 0; i < effectSources.Count; i++)
+            if (!effectSources[i].isPlaying)
             {
-                if (!effectSources[i].isPlaying)
-                {
-                    source = effectSources[i];
-                    break;
-                }
-            }
-
-            if (source == musicSource)  // If it couldn't find an empty source
-            {
-                AudioSource lowestPrioritySource = effectSources[0];
-                for (int i = 0; i < effectSources.Count; i++)  // Find the active source with the lowest priority
-                {
-                    if (effectSources[i].priority < lowestPrioritySource.priority)
-                    {
-                        lowestPrioritySource = effectSources[i];
-                    }
-                }
-
-                Debug.Log("Sound effect stopped due to not having enough free sources, Source: " + lowestPrioritySource.name + " Priority: " + lowestPrioritySource.priority);
+                source = effectSources[i];
+                break;
             }
         }
-        Debug.Log(source.name);
+
+        if (source == musicSource)  // If it couldn't find an empty source
+        {
+            AudioSource lowestPrioritySource = effectSources[0];
+            for (int i = 0; i < effectSources.Count; i++)  // Find the active source with the lowest priority
+            {
+                if (effectSources[i].priority < lowestPrioritySource.priority)
+                {
+                    lowestPrioritySource = effectSources[i];
+                }
+            }
+
+            Debug.Log("Sound effect stopped due to not having enough free sources, Source: " + lowestPrioritySource.name + " Priority: " + lowestPrioritySource.priority);
+        }
+
 
         SetMainSourceSettings(source, effect);
 

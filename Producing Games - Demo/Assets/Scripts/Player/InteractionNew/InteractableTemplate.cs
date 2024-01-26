@@ -27,7 +27,7 @@ public class InteractableTemplate : MonoBehaviour, IInteractable
 
     public void Collect()
     {
-        InventorySlot.instance.AddToInventory(collectible);
+        InventoryHotbar.instance.AddToInventory(collectible);
         Destroy(gameObject);
     }
 

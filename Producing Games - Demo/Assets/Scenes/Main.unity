@@ -587,7 +587,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &252807785
 MonoBehaviour:
@@ -1498,8 +1498,8 @@ Camera:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.19824672, g: 0.21916163, b: 0.254717, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1974,7 +1974,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &1585147156
 Light:
   m_ObjectHideFlags: 0
@@ -2737,6 +2737,7 @@ SceneRoots:
   - {fileID: 252807782}
   - {fileID: 627657799}
   - {fileID: 1213995310}
+  - {fileID: 107059262}
   - {fileID: 1016100846}
   - {fileID: 1084420843}
   - {fileID: 162966026}
@@ -2744,4 +2745,3 @@ SceneRoots:
   - {fileID: 1603010671}
   - {fileID: 915941414}
   - {fileID: 7267891988399775968}
-  - {fileID: 107059262}
