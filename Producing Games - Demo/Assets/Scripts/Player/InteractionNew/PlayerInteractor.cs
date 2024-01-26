@@ -70,11 +70,20 @@ public class PlayerInteractor : MonoBehaviour
                     }
                 }
             }
+            else
+            {
+                TooltipManager.Instance.HideTooltip();
+                if(outline != null)
+                {
+                    outline.enabled = false;
+
+                }
+            }
         }
         else
         {
             TooltipManager.Instance.HideTooltip();
-            if(outline != null)
+            if (outline != null)
             {
                 outline.enabled = false;
 
