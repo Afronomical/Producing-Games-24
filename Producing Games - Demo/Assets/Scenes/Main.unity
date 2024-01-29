@@ -667,6 +667,8 @@ MonoBehaviour:
   jumpForce: 200
   timeBetweenFootsteps: 0.5
   walkingSound: {fileID: 11400000, guid: 97b7edab1706ac54384b1d42ec44583c, type: 2}
+  runningSound: {fileID: 11400000, guid: c35d827bb1339de49a264976395a1ba6, type: 2}
+  crouchingSound: {fileID: 11400000, guid: 9befc63620fbd4e40b0c278fff90ce3f, type: 2}
 --- !u!54 &252807784
 Rigidbody:
   m_ObjectHideFlags: 0

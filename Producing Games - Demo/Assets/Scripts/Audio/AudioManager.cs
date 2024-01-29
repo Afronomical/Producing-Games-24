@@ -128,6 +128,7 @@ public class AudioManager : MonoBehaviour
 
         source.Play();
 
+        //Creates an invisible sphere that will be the size of the max distance that the sound can be heard from, any Audio listener scripts within that sphere will be detected and triggered
         Collider[] col = Physics.OverlapSphere(source.transform.position, source.maxDistance);
         for (int i = 0; i < col.Length; i++)
         {

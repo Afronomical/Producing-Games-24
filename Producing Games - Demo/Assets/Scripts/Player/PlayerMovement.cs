@@ -23,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
     public float timeBetweenFootsteps;
     private float footstepTimer;
     public SoundEffect walkingSound;
+    public SoundEffect runningSound;
+    public SoundEffect crouchingSound;
 
 
     private void Start()
@@ -57,7 +59,18 @@ public class PlayerMovement : MonoBehaviour
             if(footstepTimer <= 0 )
             {
                 footstepTimer = timeBetweenFootsteps;
-                AudioManager.instance.PlaySound(walkingSound, gameObject.transform);
+
+                if(isCrouching)
+                    AudioManager.instance.PlaySound(crouchingSound, gameObject.transform);
+                    
+                
+                else if (isSprinting)
+                    AudioManager.instance.PlaySound(runningSound, gameObject.transform);
+                   
+                else 
+                    AudioManager.instance.PlaySound(walkingSound, gameObject.transform);
+                  
+               
             }
         }
 
