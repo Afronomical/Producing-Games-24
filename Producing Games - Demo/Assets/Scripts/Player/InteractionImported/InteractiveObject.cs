@@ -19,8 +19,4 @@ public class InteractiveObject : ScriptableObject
     public string tooltipText;
     public Sprite kbImage, contImage, psImage;
 
-    //public InteractiveBaseClass interactiveBaseClass;// = GameObject.Find("InteractiveBaseClass");
-
-    //[Header("Keypad")]
-    //public string solution;
 }
