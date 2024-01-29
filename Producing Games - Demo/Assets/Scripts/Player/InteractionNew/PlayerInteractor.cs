@@ -48,7 +48,7 @@ public class PlayerInteractor : MonoBehaviour
                                 break;
                             case InteractableTemplate.ObjectType.Stick:
                                 Debug.Log("Collected stick");
-                                break;
+                                break; 
                             case InteractableTemplate.ObjectType.Paper:
                                 Debug.Log("Collected paper");
                                 break;

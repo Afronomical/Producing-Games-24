@@ -1,0 +1,5 @@
+Duplicate the TemplateFolder folder and rename it to your name.
+
+Use this for your personal work
+
+The moment you've completed your work move it to a relative folder in the "Producing Games" folder
