@@ -400,7 +400,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7824952522015762862, guid: 3caa920475e4b7c4680fc1a94271a2c3, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1176048494}
+      addedObject: {fileID: 1176048500}
   m_SourcePrefab: {fileID: 100100000, guid: 3caa920475e4b7c4680fc1a94271a2c3, type: 3}
 --- !u!1 &211388127
 GameObject:
@@ -1961,14 +1961,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7824952522015762862, guid: 3caa920475e4b7c4680fc1a94271a2c3, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2051217247}
+      addedObject: {fileID: 2051217253}
   m_SourcePrefab: {fileID: 100100000, guid: 3caa920475e4b7c4680fc1a94271a2c3, type: 3}
 --- !u!1 &1176048493 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7824952522015762862, guid: 3caa920475e4b7c4680fc1a94271a2c3, type: 3}
   m_PrefabInstance: {fileID: 162966026}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1176048494
+--- !u!114 &1176048500
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1982,24 +1982,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onInteract:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1176048494}
-        m_TargetAssemblyTypeName: InteractableTemplate, Assembly-CSharp
-        m_MethodName: Collect
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   ID: 0
   objectIcon: {fileID: 0}
   iconSize: {x: 0, y: 0}
   collectible: {fileID: 11400000, guid: 466d28f252da7d14ea55f7cc9ffeb6fe, type: 2}
-  type: 2
+  type: 0
 --- !u!1 &1213995307
 GameObject:
   m_ObjectHideFlags: 0
@@ -2631,24 +2619,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onInteract:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1765011786}
-        m_TargetAssemblyTypeName: InteractableTemplate, Assembly-CSharp
-        m_MethodName: Collect
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   ID: 0
   objectIcon: {fileID: 0}
   iconSize: {x: 0, y: 0}
   collectible: {fileID: 11400000, guid: 466d28f252da7d14ea55f7cc9ffeb6fe, type: 2}
-  type: 2
+  type: 0
 --- !u!1 &1838825697
 GameObject:
   m_ObjectHideFlags: 0
@@ -2761,7 +2737,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7824952522015762862, guid: 3caa920475e4b7c4680fc1a94271a2c3, type: 3}
   m_PrefabInstance: {fileID: 1084420843}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2051217247
+--- !u!114 &2051217253
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2775,24 +2751,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onInteract:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2051217247}
-        m_TargetAssemblyTypeName: InteractableTemplate, Assembly-CSharp
-        m_MethodName: Collect
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   ID: 0
   objectIcon: {fileID: 0}
   iconSize: {x: 0, y: 0}
   collectible: {fileID: 11400000, guid: 466d28f252da7d14ea55f7cc9ffeb6fe, type: 2}
-  type: 2
+  type: 0
 --- !u!1 &2082671417
 GameObject:
   m_ObjectHideFlags: 0
