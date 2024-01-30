@@ -32,6 +32,12 @@ public class InventoryHotbar : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow)) ScrollInventory(-1);
         if (Input.GetKeyDown(KeyCode.RightArrow)) ScrollInventory(1);
+
+        if (inventory.Count != 0)
+        {
+            currentItem = inventory[currentIndex];
+
+        }
     }
 
 
@@ -63,9 +69,9 @@ public class InventoryHotbar : MonoBehaviour
         itemSlots[centerSlotIndex + 1].GetComponent<Image>().sprite = GetItemFromInventory(currentIndex + 1).objectImage;
         itemSlots[centerSlotIndex + 2].GetComponent<Image>().sprite = GetItemFromInventory(currentIndex + 2).objectImage;
 
-        currentItem = inventory[currentIndex];
 
-        Debug.Log("Currently holding " + inventory[currentIndex].objectName);
+        if (inventory.Count != 0)
+            Debug.Log("Currently holding " + inventory[currentIndex].objectName);
     }
 
     InteractiveObject GetItemFromInventory(int itemIndex)
