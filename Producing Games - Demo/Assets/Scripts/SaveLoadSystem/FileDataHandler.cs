@@ -113,7 +113,7 @@ public class FileDataHandler
 
         // INFO: Write all the data held by the GameData class into the file located at the fullPath
         // Indented formatting just makes the data easier to read
-        File.WriteAllText(fullPath, JsonConvert.SerializeObject(data, Formatting.Indented));
+        File.WriteAllText(fullPath, JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented));
 
         // INFO: Verify that newly saved file can be loaded
         GameData verifiedGameData = Load(profileID);
