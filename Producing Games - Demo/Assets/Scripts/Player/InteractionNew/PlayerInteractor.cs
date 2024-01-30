@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 interface IInteractable
 {
@@ -40,26 +41,29 @@ public class PlayerInteractor : MonoBehaviour
 
                     if(Input.GetMouseButtonDown(0))
                     {
+                        interactableTemplate.collectible.obj.GetComponent<InteractiveBaseClass>().Interact();
+                        //InventoryHotbar.instance.AddToInventory(interactableTemplate.collectible);
+                        //interactableTemplate.collectible.GameObject().gameObject.SetActive(false);
                         //checks what type of interactable object it is
-                        switch (interactableTemplate.type)
-                        {
-                            case InteractableTemplate.ObjectType.Cube:
-                                Debug.Log("Collected cube");
-                                break;
-                            case InteractableTemplate.ObjectType.Stick:
-                                Debug.Log("Collected stick");
-                                break;
-                            case InteractableTemplate.ObjectType.Paper:
-                                Debug.Log("Collected paper");
-                                break;
-                            case InteractableTemplate.ObjectType.Door:
-                                Debug.Log("Opened door");
-                                break;
-                            default:
-                                break;
-                        }
-                        interactableTemplate.onInteract?.Invoke();
-                        
+                        //switch (interactableTemplate.type)
+                        //{
+                        //    case InteractableTemplate.ObjectType.Cube:c
+                        //        Debug.Log("Collected cube");
+                        //        break;
+                        //    case InteractableTemplate.ObjectType.Stick:
+                        //        Debug.Log("Collected stick");
+                        //        break;
+                        //    case InteractableTemplate.ObjectType.Paper:
+                        //        Debug.Log("Collected paper");
+                        //        break;
+                        //    case InteractableTemplate.ObjectType.Door:
+                        //        Debug.Log("Opened door");
+                        //        break;
+                        //    default:
+                        //        break;
+                        //}
+                        //interactableTemplate.onInteract?.Invoke();
+
                     }
                     
                     outline = interactableTemplate.gameObject.GetComponent<Outline>();

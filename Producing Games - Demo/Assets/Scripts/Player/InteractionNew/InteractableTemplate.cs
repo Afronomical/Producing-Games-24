@@ -21,7 +21,15 @@ public class InteractableTemplate : MonoBehaviour, IInteractable
         Paper,
         Stick,
         Cube,
-        Door
+        Door,
+        HolyWater,
+        BlessedOil,
+        FlashLight,
+        Beads,
+        Medicine,
+        Syringe,
+        Candles,
+        Cabinet
     }
 
     [SerializeField] public ObjectType type;
