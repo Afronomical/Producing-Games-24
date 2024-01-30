@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using UnityEngine.UIElements;
 using static Unity.VisualScripting.Member;
 
 public class PlayerMovement : MonoBehaviour
@@ -32,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         inputManager = GetComponent<InputManager>();
         inputManager.playerControls.Player.Jump.started += _ => Jump();
+        inputManager.playerControls.Player.DropItem.started += _ => DropItem();
     }
 
 
@@ -87,6 +89,23 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce);
     }
 
+    void DropItem()
+    {
+        if(InventoryHotbar.instance.inventory.Count == 0)
+        {
+            InventoryHotbar.instance.currentItem = null;
+
+        }
+        if(InventoryHotbar.instance.currentItem != null)
+        {
+            GameObject go = GameObject.Instantiate(InventoryHotbar.instance.currentItem.prefab,
+                                    new Vector3(transform.position.x * 1.2f, transform.position.y, transform.position.z), Quaternion.identity);
+            
+
+            InventoryHotbar.instance.RemoveFromInventory(InventoryHotbar.instance.currentItem);
+
+        }
+    }
 
     private void OnCollisionEnter(Collision collision)
     {

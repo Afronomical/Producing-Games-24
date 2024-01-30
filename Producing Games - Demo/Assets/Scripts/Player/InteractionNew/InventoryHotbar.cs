@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class InventoryHotbar : MonoBehaviour
 {
     public List<InteractiveObject> inventory = new List<InteractiveObject>();
-    int currentIndex;
+    public int currentIndex;
     public InteractiveObject emptySlot;
 
     public List<GameObject> itemSlots = new List<GameObject>();
@@ -14,6 +14,7 @@ public class InventoryHotbar : MonoBehaviour
 
     public static InventoryHotbar instance;
 
+    public InteractiveObject currentItem;
 
     private void Awake()
     {
@@ -62,6 +63,7 @@ public class InventoryHotbar : MonoBehaviour
         itemSlots[centerSlotIndex + 1].GetComponent<Image>().sprite = GetItemFromInventory(currentIndex + 1).objectImage;
         itemSlots[centerSlotIndex + 2].GetComponent<Image>().sprite = GetItemFromInventory(currentIndex + 2).objectImage;
 
+        currentItem = inventory[currentIndex];
 
         Debug.Log("Currently holding " + inventory[currentIndex].objectName);
     }

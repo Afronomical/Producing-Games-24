@@ -7,9 +7,9 @@ using UnityEngine.Events;
 public class InteractableTemplate : MonoBehaviour, IInteractable
 {
     //public UnityEvent onInteract;
-    public int ID;
+    //public int ID;
     public Sprite objectIcon;
-    public Vector2 iconSize;
+    //public Vector2 iconSize;
     [SerializeField] public InteractiveObject collectible;
 
     public string Name => throw new System.NotImplementedException();
