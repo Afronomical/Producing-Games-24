@@ -6,7 +6,7 @@ using UnityEngine;
 /// Written By: Matthew Brake 
 /// Moderated By: .......
 /// 
-/// This Class is responsible entirely for spawning interactable objects in random pre-set locations across the level. 
+/// This Class is responsible entirely for spawning interactable objects in random pre-set locations across the level. Pass in the transform of the spawn location empty game object into the spawn location parameters
 /// </summary>
 
 public class InteractableSpawner : MonoBehaviour
@@ -19,7 +19,8 @@ public class InteractableSpawner : MonoBehaviour
     }
 
     public List<ObjectSpawn> ObjectsToBeSpawned = new List<ObjectSpawn>();
-    public List<Vector3> PossibleSpawnLocations = new List<Vector3>();
+    //public List<Vector3> PossibleSpawnLocations = new List<Vector3>();
+    public List<Transform> PossibleSpawn = new List<Transform> ();
     private List<Vector3> SpawnedLocations = new List<Vector3>();
     //public GameObject MedicineBottle;
     //public GameObject Rosary;
@@ -51,14 +52,14 @@ public class InteractableSpawner : MonoBehaviour
         {
             for (int i = 0; i < amount; i++)
             {
-                int Size = PossibleSpawnLocations.Count;
+                int Size = PossibleSpawn.Count;
                 if (Size > 0)
                 {
                     int randomIndex = UnityEngine.Random.Range(0, Size);
-                    Instantiate(objectToSpawn, PossibleSpawnLocations[randomIndex], Quaternion.identity);
-                    Debug.Log("Spawned: " + objectToSpawn.gameObject.name + " at: " + PossibleSpawnLocations[randomIndex]);
-                    PossibleSpawnLocations.RemoveAt(randomIndex);
-                    SpawnedLocations.Add(PossibleSpawnLocations[randomIndex]); 
+                    Instantiate(objectToSpawn, PossibleSpawn[randomIndex].position, Quaternion.identity);
+                    Debug.Log("Spawned: " + objectToSpawn.gameObject.name + " at: " + PossibleSpawn[randomIndex]);
+                    //SpawnedLocations.Add(PossibleSpawnLocations[randomIndex]); 
+                    PossibleSpawn.RemoveAt(randomIndex);
                 }
                 else
                 {

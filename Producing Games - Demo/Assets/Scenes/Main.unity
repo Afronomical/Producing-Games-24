@@ -2671,8 +2671,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectsToBeSpawned: []
-  PossibleSpawnLocations: []
-  SpawnedLocations: []
+  PossibleSpawn: []
 --- !u!1 &1887254234
 GameObject:
   m_ObjectHideFlags: 0
