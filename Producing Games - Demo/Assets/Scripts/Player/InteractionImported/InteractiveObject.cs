@@ -12,15 +12,7 @@ public class InteractiveObject : ScriptableObject
     public Sprite objectImage;
     //public Sound sound;
 
-    [Header("Inventory")]
-    public string description;
-
     [Header("Tooltip")]
     public string tooltipText;
-    public Sprite kbImage, contImage, psImage;
 
-    //public InteractiveBaseClass interactiveBaseClass;// = GameObject.Find("InteractiveBaseClass");
-
-    //[Header("Keypad")]
-    //public string solution;
 }
