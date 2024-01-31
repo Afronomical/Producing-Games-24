@@ -28,6 +28,7 @@ public static class LevelManager
         Tutorial,
         Settings,
         Main,
+        Credits,
         Menu
     }
 
