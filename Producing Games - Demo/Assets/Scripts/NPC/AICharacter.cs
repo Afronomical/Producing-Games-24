@@ -11,9 +11,11 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+[RequireComponent(typeof(Rigidbody))]
 
 public class AICharacter : MonoBehaviour
 {
+   public Rigidbody rb;
     public enum CharacterTypes
     {
         Patient,
@@ -39,12 +41,13 @@ public class AICharacter : MonoBehaviour
     public float walkSpeed, runSpeed, crawlSpeed;
     public float turnSpeed;
     public float turnDistance;
+    public float DetectionRadius;
+    public float step;
 
     [Header("States")]
     public States currentState;
     public StateBaseClass stateScript;
     public GameObject player;
-    
     [HideInInspector] public bool isMoving;
     [HideInInspector] public bool knowsAboutPlayer;
 
@@ -57,7 +60,8 @@ public class AICharacter : MonoBehaviour
         health = startingHealth;
         ChangeState(States.Idle);  // The character will start in the idle state
         player = GameObject.FindGameObjectWithTag("Player");
-        
+        rb = GetComponent<Rigidbody>();
+        DetectionRadius = 10f;
     }
 
 
@@ -136,4 +140,9 @@ public class AICharacter : MonoBehaviour
         return player.transform.position;
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, DetectionRadius);
+    }
 }

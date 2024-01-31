@@ -64,8 +64,10 @@ public class InteractableSpawner : MonoBehaviour
         }
     }
 
-
-   public void SpawnAllObjects()
+    /// <summary>
+    /// Spawns all pre set objects at random pre set locations. 
+    /// </summary>
+   private void SpawnAllObjects()
     {
         if(ObjectsToBeSpawned.Count > 0)
         {
@@ -79,5 +81,27 @@ public class InteractableSpawner : MonoBehaviour
             Debug.Log("No Objects to be spawned"); 
         }
         
+    }
+    /// <summary>
+    /// Spawns a specific item bought from the computer shop.
+    /// </summary>
+    /// <param name="objectToSpawn"></param>
+    /// <param name="transform"></param>
+    public void SpawnSpecificObject(GameObject objectToSpawn, Transform transform)
+    {
+        Instantiate(objectToSpawn, transform.position, Quaternion.identity);
+    }
+
+    /// <summary>
+    /// spawns all purchased items from computer shop. 
+    /// </summary>
+    /// <param name="Purchaseditems"></param>
+    public void SpawnAllPurchasedItems(List<GameObject> Purchaseditems) 
+    {
+       ////temporary until char sim have "purchasing objects" functionality 
+       foreach(GameObject item in Purchaseditems)
+        {
+
+        }
     }
 }
