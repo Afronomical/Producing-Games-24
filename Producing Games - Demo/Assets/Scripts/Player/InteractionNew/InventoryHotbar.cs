@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class InventoryHotbar : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class InventoryHotbar : MonoBehaviour
     public static InventoryHotbar instance;
 
     public InteractiveObject currentItem;
+
+    public delegate void ItemPickedUpEvent();
+    public event ItemPickedUpEvent OnItemPickedUp;
+    public event Action OnItemSelected;
 
     private void Awake()
     {
@@ -45,6 +50,10 @@ public class InventoryHotbar : MonoBehaviour
     {
         inventory.Add(item);  // Add the item to the inventory
         ScrollInventory(0);  // Refresh the inventory images
+
+        // Trigger the event when an item is picked up
+        if (OnItemPickedUp != null)
+            OnItemPickedUp.Invoke();
     }
 
 
@@ -57,6 +66,7 @@ public class InventoryHotbar : MonoBehaviour
 
     void ScrollInventory(int dir)
     {
+        OnItemSelected?.Invoke();
         currentIndex += dir;
         if (currentIndex < 0)
             currentIndex = inventory.Count - 1;
@@ -72,6 +82,8 @@ public class InventoryHotbar : MonoBehaviour
 
         if (inventory.Count != 0)
             Debug.Log("Currently holding " + inventory[currentIndex].objectName);
+
+        
     }
 
     InteractiveObject GetItemFromInventory(int itemIndex)
