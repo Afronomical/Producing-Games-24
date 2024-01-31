@@ -15,8 +15,8 @@ public class CameraLook : MonoBehaviour
 
     [Header("Head Bobbing")]
     [SerializeField] private bool canHeadBob = true;
-    [SerializeField] private float bobAmplitude = 0.02f;
-    [SerializeField] private float bobFrequency = 1.0f;
+    [SerializeField] [Range(0.1f, 5f)] private float bobAmplitude = 0.5f;
+    [SerializeField][Range(5f, 15f)] private float bobFrequency = 10f;
     private float bobOffSpeed = 400f;
     private Vector3 camStartPos;
 
@@ -77,8 +77,8 @@ public class CameraLook : MonoBehaviour
     private Vector3 FootStepMotion()
     {
         Vector3 pos = Vector3.zero;
-        pos.y += Mathf.Sin(Time.time * bobFrequency) * bobAmplitude;
-        pos.x += Mathf.Cos(Time.time * bobFrequency / 2) * bobAmplitude * 2;
+        pos.y += Mathf.Sin(Time.time * bobFrequency) * bobAmplitude * Time.deltaTime;
+        pos.x += Mathf.Cos(Time.time * bobFrequency / 2) * bobAmplitude * 2 * Time.deltaTime;
         return pos;
     }
     
