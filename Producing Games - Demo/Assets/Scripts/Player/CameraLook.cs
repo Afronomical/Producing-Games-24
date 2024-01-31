@@ -1,65 +1,79 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CameraLook : MonoBehaviour
 {
     [Header("Camera Properties")]
-    public InputManager inputManager;
-    public float mouseSensitivity = 30f;
-    public Transform playerBody;
+    [Range(0, 1)] public float mouseSensitivity = 0.5f;
+    private Vector2 currentInput;
 
-    [Header("Head bobbing")]
+    public Transform playerBody;
+    private PlayerMovement playerMovement;
+    private CharacterController playerController;
+
+    [Header("Head Bobbing")]
     [SerializeField] private bool canHeadBob = true;
     [SerializeField] private float bobAmplitude = 0.02f;
     [SerializeField] private float bobFrequency = 1.0f;
-    private float bobOffSpeed = 3f;
+    private float bobOffSpeed = 400f;
     private Vector3 camStartPos;
 
-    private Rigidbody playerRb;
 
     private float xRot = 0f;
-    // Start is called before the first frame update
+
+
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        playerRb = GameObject.FindWithTag("Player").GetComponent<Rigidbody>();
         camStartPos = transform.localPosition;
+        playerMovement = playerBody.GetComponent<PlayerMovement>();
+        playerController = playerBody.GetComponent<CharacterController>();
     }
 
-    // Update is called once per frame
+
+
     void Update()
     {
-        float mouseX = inputManager.playerControls.CameraLook.MouseX.ReadValue<float>() * mouseSensitivity * Time.deltaTime;
-        float mouseY = inputManager.playerControls.CameraLook.MouseY.ReadValue<float>() * mouseSensitivity * Time.deltaTime;
+        float mouseX = currentInput.x / 5 * mouseSensitivity;
+        float mouseY = currentInput.y / 5 * mouseSensitivity;
 
         xRot -= mouseY;
         xRot = Mathf.Clamp(xRot, -60f, 60f);
 
-        transform.localRotation = Quaternion.Euler(xRot, 0f, 0f);
+        transform.localRotation = Quaternion.Euler(xRot, 0f, 0f);  // Rotate the camera
+        playerBody.Rotate(Vector3.up * mouseX);  // Rotate the player left and right
 
-        playerBody.Rotate(Vector3.up * mouseX);
-
+        // Head Bob
         if (canHeadBob)
         {
             CheckMovement();
         }
-        
-        
     }
-    
+
+
+
+    public void OnLookInput(InputAction.CallbackContext context)
+    {
+        currentInput = context.ReadValue<Vector2>();
+    }
+
+
+
     private void CheckMovement()
     {
-        float speed = new Vector3(playerRb.velocity.x, 0, playerRb.velocity.z).magnitude;
-        if (speed < bobOffSpeed)
-        {
-            BobReset();
-        }
-        else
-        {
-            transform.localPosition += FootStepMotion();
-        }
+        //float speed = new Vector3(playerRb.velocity.x, 0, playerRb.velocity.z).magnitude;
+        float speed = new Vector3(playerController.velocity.x, 0, playerController.velocity.z).magnitude * 100f;
+
+        if (speed < bobOffSpeed || !playerMovement.isGrounded) BobReset();
+
+        else transform.localPosition += FootStepMotion();
     }
+
+
+
     private Vector3 FootStepMotion()
     {
         Vector3 pos = Vector3.zero;
@@ -71,8 +85,6 @@ public class CameraLook : MonoBehaviour
     private void BobReset()
     {
         if (transform.localPosition != camStartPos)
-        {
             transform.localPosition = Vector3.Lerp(transform.localPosition, camStartPos, Time.deltaTime);
-        }
     }
 }
