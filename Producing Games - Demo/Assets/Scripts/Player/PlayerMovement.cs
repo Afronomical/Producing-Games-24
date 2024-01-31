@@ -27,6 +27,11 @@ public class PlayerMovement : MonoBehaviour
     public SoundEffect runningSound;
     public SoundEffect crouchingSound;
 
+    [Header("Interaction values")]
+    public Transform interactorSource;
+    public float interactionRange = 4f;
+
+    private Camera cam;
 
     private void Start()
     {
@@ -34,6 +39,9 @@ public class PlayerMovement : MonoBehaviour
         inputManager = GetComponent<InputManager>();
         inputManager.playerControls.Player.Jump.started += _ => Jump();
         inputManager.playerControls.Player.DropItem.started += _ => DropItem();
+
+        interactorSource = Camera.main.transform;
+        cam = Camera.main;
     }
 
 
@@ -98,9 +106,22 @@ public class PlayerMovement : MonoBehaviour
         }
         if(InventoryHotbar.instance.currentItem != null)
         {
-            GameObject go = GameObject.Instantiate(InventoryHotbar.instance.currentItem.prefab,
-                                    new Vector3(transform.position.x * 1.2f, transform.position.y, transform.position.z), Quaternion.identity);
-            
+            Ray r = new Ray(interactorSource.position, interactorSource.forward);
+
+            if (Physics.Raycast(r, out RaycastHit hit, interactionRange))
+            {
+                if (hit.collider != null)
+                {
+                    GameObject go = GameObject.Instantiate(InventoryHotbar.instance.currentItem.prefab,
+                                    hit.point, Quaternion.Euler(90,0,0));
+                }
+            }
+            else
+            {
+                GameObject go = GameObject.Instantiate(InventoryHotbar.instance.currentItem.prefab, cam.transform.position + cam.transform.forward * 1.2f, Quaternion.Euler(90, 0, 0));
+
+            }
+
 
             InventoryHotbar.instance.RemoveFromInventory(InventoryHotbar.instance.currentItem);
 
