@@ -19,14 +19,9 @@ public class InteractableSpawner : MonoBehaviour
     }
 
     public List<ObjectSpawn> ObjectsToBeSpawned = new List<ObjectSpawn>();
-    //public List<Vector3> PossibleSpawnLocations = new List<Vector3>();
     public List<Transform> PossibleSpawn = new List<Transform> ();
     private List<Vector3> SpawnedLocations = new List<Vector3>();
-    //public GameObject MedicineBottle;
-    //public GameObject Rosary;
-    //public int RosariesToSpawn;
-    //public int MedicineToSpawn; 
-   
+    
      
     // Start is called before the first frame update
     void Start()

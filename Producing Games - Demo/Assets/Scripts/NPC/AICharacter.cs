@@ -39,7 +39,6 @@ public class AICharacter : MonoBehaviour
     public float walkSpeed, runSpeed, crawlSpeed;
     public float turnSpeed;
     public float turnDistance;
-    
 
     [Header("States")]
     public States currentState;
@@ -58,6 +57,7 @@ public class AICharacter : MonoBehaviour
         health = startingHealth;
         ChangeState(States.Idle);  // The character will start in the idle state
         player = GameObject.FindGameObjectWithTag("Player");
+        
     }
 
 
