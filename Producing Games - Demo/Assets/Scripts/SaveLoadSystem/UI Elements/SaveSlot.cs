@@ -16,8 +16,8 @@ public class SaveSlot : MonoBehaviour
     [Header("Content:")]
     [SerializeField] private GameObject noData;
     [SerializeField] private GameObject hasData;
-    [SerializeField] private TextMeshProUGUI profileIDNameText;
-    [SerializeField] private TextMeshProUGUI clicksCompletedText;
+    [SerializeField] private TextMeshProUGUI profileIDNameText; // INFO: Doesn't have to be this, this is just an example
+    [SerializeField] private TextMeshProUGUI clicksCompletedText; // INFO: Doesn't have to be this, this is just an example
 
     private Button saveSlotButton;
 

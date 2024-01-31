@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 public class SaveSlotsMenu : MonoBehaviour
 {
     [Header("Menu Navigation")]
-    //[SerializeField] private MainMenuController mainMenu;
+    [SerializeField] private MainMenuControllerMatej mainMenu; //INFO: Rename to whatever script controls the main menu, this is just for the sake of the showcase
 
     private SaveSlot[] saveSlots;
 
@@ -41,12 +41,12 @@ public class SaveSlotsMenu : MonoBehaviour
 
         // INFO: Currently loads the default scene, this will need to be changed
         // based on whatever level we want the save to load to
-        SceneManager.LoadSceneAsync("Testbed");
+        SceneManager.LoadSceneAsync("SaveLoadShowcaseSceneMatej");
     }
 
     public void OnBackClicked()
     {
-        //mainMenu.ActivateMenu();
+        mainMenu.ActivateMenu();
         DeactivateMenu();
     }
 
