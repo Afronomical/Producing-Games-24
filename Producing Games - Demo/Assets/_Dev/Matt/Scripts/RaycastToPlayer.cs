@@ -2,18 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
-/// Written By: Matt Brake
+/// <para>Written By: Matt Brake</para>
 /// Moderated By: .....
-/// 
-/// Points a raycast from AI to player. Initially for use in escorted state. 
+/// <para>Points a raycast from AI to player. Initially for use in escorted state.  </para>
 /// </summary>
 
 public class RaycastToPlayer : MonoBehaviour
 {
     private AICharacter character;
-    public float detectionRange = 40f;
+   [ShowOnly][SerializeField] private float detectionRange = 10f;
     public LayerMask UnwalkableLayer;
-    public float PlayerDistance; 
+   [ShowOnly] public float PlayerDistance; 
     
     // Start is called before the first frame update
     void Start()
@@ -41,9 +40,20 @@ public class RaycastToPlayer : MonoBehaviour
         RaycastHit hitInfo; 
         if(Physics.Raycast(ray, out hitInfo,detectionRange,UnwalkableLayer))
         {
-            Debug.DrawLine(ray.origin, hitInfo.point,Color.red);
-            Debug.Log("Obstacle Detected: " + hitInfo.collider.gameObject.name);
-            return false;
+            float distToPlayer = Vector3.Distance(character.transform.position, character.player.transform.position);
+            if(hitInfo.distance < distToPlayer)
+            {
+                Debug.DrawLine(ray.origin, hitInfo.point, Color.red);
+                Debug.Log("Obstacle Detected: " + hitInfo.collider.gameObject.name);
+                return false;
+            }
+            else
+            {
+                Debug.DrawLine(ray.origin, ray.origin + ray.direction * detectionRange, Color.green);
+                return true; 
+            }
+            
+            
         }
         else
         {

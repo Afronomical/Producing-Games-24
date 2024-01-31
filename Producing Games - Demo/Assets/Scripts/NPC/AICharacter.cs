@@ -29,6 +29,7 @@ public class AICharacter : MonoBehaviour
         Moving,
         Escorted,
         Wandering,
+        Abandoned,
         Possessed,
         Exorcised,//??
 
@@ -46,7 +47,10 @@ public class AICharacter : MonoBehaviour
     public float turnDistance;
     public float DetectionRadius;
     public float step;
-    public float EscortSpeed; 
+    public float EscortSpeed;
+    private float MinSanity = 0;
+    private float MaxSanity = 100;
+    private float CurrentSanity; 
 
     [Header("States")]
     public States currentState;
@@ -62,6 +66,7 @@ public class AICharacter : MonoBehaviour
         runSpeed /= 2;
         crawlSpeed /= 2;
         health = startingHealth;
+        CurrentSanity = MaxSanity; 
         EscortSpeed = 0.05f;
         ChangeState(States.Escorted);  // The character will start in the idle state
         player = GameObject.FindGameObjectWithTag("Player");

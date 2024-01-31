@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
-/// Written By: Matthew Brake 
+/// <para> Written By: Matthew Brake  </para>
 /// Moderated By: .......
-/// 
-/// This Class is responsible entirely for spawning interactable objects in random pre-set locations across the level. Pass in the transform of the spawn location empty game object into the spawn location parameters
+/// <para>This Class is responsible entirely for spawning interactable objects in random pre-set locations across the level.</para> 
+/// Pass in the transform of the spawn location empty game object into the spawn location parameters.
 /// </summary>
 
 public class InteractableSpawner : MonoBehaviour
