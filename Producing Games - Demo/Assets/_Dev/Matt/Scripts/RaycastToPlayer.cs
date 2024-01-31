@@ -11,9 +11,9 @@ using UnityEngine;
 public class RaycastToPlayer : MonoBehaviour
 {
     private AICharacter character;
-    public float detectionRange = 10f;
+    public float detectionRange = 40f;
     public LayerMask UnwalkableLayer;
-    private float PlayerDistance; 
+    public float PlayerDistance; 
     
     // Start is called before the first frame update
     void Start()
@@ -25,7 +25,7 @@ public class RaycastToPlayer : MonoBehaviour
     void Update()
     {
         transform.LookAt(character.player.transform.position);
-        PlayerDistance = Vector3.Distance(transform.position ,character.player.transform.position);
+        PlayerDistance = Vector3.Distance(character.transform.position ,character.player.transform.position);
     }
 
     /// <summary>
@@ -34,27 +34,32 @@ public class RaycastToPlayer : MonoBehaviour
     /// <returns></returns>
    public bool PlayerDetected()
     {
-        Ray ray = new Ray(transform.position, transform.forward);
+        //Vector3 playerDir = (character.player.transform.position - character.transform.position);
+        
+        Ray ray = new Ray(character.transform.position, transform.forward);
 
         RaycastHit hitInfo; 
         if(Physics.Raycast(ray, out hitInfo,detectionRange,UnwalkableLayer))
         {
             Debug.DrawLine(ray.origin, hitInfo.point,Color.red);
+            Debug.Log("Obstacle Detected: " + hitInfo.collider.gameObject.name);
             return false;
         }
         else
         {
             Debug.DrawLine(ray.origin,ray.origin + ray.direction * detectionRange,Color.green);
-            if(PlayerDistance <= 10f)
+           
+           
+            if (PlayerDistance <= detectionRange)
             {
+                Debug.Log("Player Detected at distance");
                 return true;
             }
-            else
-            {
-                return false;
-            }
-           // return true;
+
+           
         }
+        //Debug.Log("returning as false");
+        return false;
         
     }
 }

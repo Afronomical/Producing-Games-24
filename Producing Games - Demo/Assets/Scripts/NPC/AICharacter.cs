@@ -13,6 +13,7 @@ using UnityEngine;
 using UnityEngine.UI;
 [RequireComponent(typeof(Rigidbody))]
 
+
 public class AICharacter : MonoBehaviour
 {
    public Rigidbody rb;
@@ -26,6 +27,8 @@ public class AICharacter : MonoBehaviour
     {
         Idle,
         Moving,
+        Escorted,
+        Wandering,
         Possessed,
         Exorcised,//??
 
@@ -43,6 +46,7 @@ public class AICharacter : MonoBehaviour
     public float turnDistance;
     public float DetectionRadius;
     public float step;
+    public float EscortSpeed; 
 
     [Header("States")]
     public States currentState;
@@ -58,7 +62,8 @@ public class AICharacter : MonoBehaviour
         runSpeed /= 2;
         crawlSpeed /= 2;
         health = startingHealth;
-        ChangeState(States.Idle);  // The character will start in the idle state
+        EscortSpeed = 0.05f;
+        ChangeState(States.Escorted);  // The character will start in the idle state
         player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody>();
         DetectionRadius = 10f;
@@ -107,6 +112,10 @@ public class AICharacter : MonoBehaviour
                 case States.Possessed:
                     stateScript = transform.AddComponent<PosessedState>();
                     break;
+                case States.Escorted:
+                    stateScript = transform.AddComponent<EscortedState>();
+                    break;
+                    
 
 
                 case States.None:
@@ -140,9 +149,9 @@ public class AICharacter : MonoBehaviour
         return player.transform.position;
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, DetectionRadius);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.yellow;
+    //    Gizmos.DrawWireSphere(transform.position, DetectionRadius);
+    //}
 }
