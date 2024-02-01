@@ -18,8 +18,8 @@ public class EscortedState : StateBaseClass
     private bool ShouldFollow = true;
     private bool HasPickedUpNPC = false;
     private bool BedInRange; 
-    private float TimeInAbandonded = 0;
-    private float MaxAbandonedTime = 3f;
+    private float TimeAlone = 0;
+    private float MaxTimeAlone = 5f;
     public override void UpdateLogic()
     {
 
@@ -32,7 +32,7 @@ public class EscortedState : StateBaseClass
         
        
         
-       if(RaycastToPlayer != null && RaycastToPlayer.PlayerDetected())
+       if(RaycastToPlayer.PlayerDetected())
         {
            // Debug.Log("calling move towards player");
             HasPickedUpNPC = true;
@@ -42,12 +42,12 @@ public class EscortedState : StateBaseClass
        else if(HasPickedUpNPC && !RaycastToPlayer.PlayerDetected())
         {
             //Debug.Log("Abandoned NPC!");
-            TimeInAbandonded += Time.deltaTime;
+            TimeAlone += Time.deltaTime;
             //Debug.Log(TimeInAbandonded);
-            if(TimeInAbandonded >= MaxAbandonedTime) ///gives player 3 seconds to recollect NPC before they enter wandering state again 
+            if(TimeAlone >= MaxTimeAlone) ///gives player 3 seconds to recollect NPC before they enter wandering state again 
             {
-                //character.ChangeState(AICharacter.States.Abandoned); no state script for this at time of writing. 
-                TimeInAbandonded = 0;
+                character.ChangeState(AICharacter.States.Abandoned); //no state script for this at time of writing. 
+                TimeAlone = 0;
             }
 
             return; 
@@ -60,6 +60,7 @@ public class EscortedState : StateBaseClass
                 Debug.Log("BED LOCATED");
                 BedInRange = true;
                 ShouldFollow = false;
+                character.ChangeState(AICharacter.States.None);
                 ///move to bed instead of player, and then enter bed state 
             }
         }
@@ -98,10 +99,10 @@ public class EscortedState : StateBaseClass
     {
 
 
-        TimeInAbandonded = 0;
+        TimeAlone = 0;
         
 
-        if (character.rb != null && ShouldFollow)
+        if (character.rb != null && ShouldFollow == true)
         {
             character.step = character.walkSpeed * Time.deltaTime;
             currentPos = character.transform.position;

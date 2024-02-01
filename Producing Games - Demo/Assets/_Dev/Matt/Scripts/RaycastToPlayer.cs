@@ -25,6 +25,8 @@ public class RaycastToPlayer : MonoBehaviour
     {
         transform.LookAt(character.player.transform.position);
         PlayerDistance = Vector3.Distance(character.transform.position ,character.player.transform.position);
+        
+       
     }
 
     /// <summary>
@@ -50,6 +52,7 @@ public class RaycastToPlayer : MonoBehaviour
             else
             {
                 Debug.DrawLine(ray.origin, ray.origin + ray.direction * detectionRange, Color.green);
+                ///obstacle in range but behind player 
                 return true; 
             }
             
@@ -59,6 +62,7 @@ public class RaycastToPlayer : MonoBehaviour
         {
             Debug.DrawLine(ray.origin,ray.origin + ray.direction * detectionRange,Color.green);
             Debug.Log("Player Detected within range");
+           
             return true;
            
             //if (PlayerDistance <= detectionRange)

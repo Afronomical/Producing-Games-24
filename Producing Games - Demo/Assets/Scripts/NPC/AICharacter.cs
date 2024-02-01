@@ -68,7 +68,7 @@ public class AICharacter : MonoBehaviour
         health = startingHealth;
         CurrentSanity = MaxSanity; 
         EscortSpeed = 0.05f;
-        ChangeState(States.Escorted);  // The character will start in the idle state
+        ChangeState(States.Abandoned);  // The character will start in the idle state
         player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody>();
         DetectionRadius = 5f;
@@ -120,7 +120,9 @@ public class AICharacter : MonoBehaviour
                 case States.Escorted:
                     stateScript = transform.AddComponent<EscortedState>();
                     break;
-                    
+                case States.Abandoned:
+                    stateScript = transform.AddComponent<AbandonedState>();
+                    break;
 
 
                 case States.None:
