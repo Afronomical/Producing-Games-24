@@ -38,7 +38,7 @@ public class HotBarEffect : MonoBehaviour
     private IEnumerator SizeEffectCoroutine()
     {
         float elapsedTime = 0f;
-        Vector3 targetSize = originalSize * 1.5f;
+        Vector3 targetSize = originalSize * 1.2f;
 
         while (elapsedTime < 1f)
         {

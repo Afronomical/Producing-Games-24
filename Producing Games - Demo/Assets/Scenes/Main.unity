@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1045,8 +1045,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 1735288004}
-  increaseSpeed: 4
-  decreaseSpeed: 4
+  increaseSpeed: 2.5
+  decreaseSpeed: 2.5
   waitDuration: 1
 --- !u!4 &360416501
 Transform:
@@ -1056,12 +1056,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 360416499}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 460.5, y: 46.018753, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1233.9457, y: -321.49872, z: 0}
+  m_LocalScale: {x: 4.7642674, y: 4.7642674, z: 4.764268}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 627657799}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &449547311
 GameObject:
@@ -1594,6 +1594,7 @@ RectTransform:
   - {fileID: 1735288004}
   - {fileID: 1271254414}
   - {fileID: 2013931910}
+  - {fileID: 360416501}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1873,6 +1874,7 @@ GameObject:
   - component: {fileID: 728126524}
   - component: {fileID: 728126526}
   - component: {fileID: 728126525}
+  - component: {fileID: 728126527}
   m_Layer: 6
   m_Name: Pause menu
   m_TagString: Untagged
@@ -1942,6 +1944,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 728126523}
   m_CullTransparentMesh: 1
+--- !u!114 &728126527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728126523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9daab1aa813412447bfd91e82b5f19fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &825742453 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 11759742422874786, guid: 3b11e73bf287ef54e952367a56355f26, type: 3}
@@ -5681,4 +5695,3 @@ SceneRoots:
   - {fileID: 211388131}
   - {fileID: 1596969591}
   - {fileID: 528156041502462493}
-  - {fileID: 360416501}
