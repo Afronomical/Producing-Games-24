@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Task : MonoBehaviour
@@ -23,7 +24,7 @@ public class Task : MonoBehaviour
     }
 
 
-    public virtual void CheckTaskConditions()
+    public virtual void CheckTaskConditions(GameObject interactedObject)
     {
 
     }
@@ -31,12 +32,12 @@ public class Task : MonoBehaviour
 
     public virtual void CompleteTask()
     {
-
+        Debug.Log("Completed Task");
     }
 
 
     public virtual void FailTask()
     {
-
+        Debug.Log("Failed Task");
     }
 }

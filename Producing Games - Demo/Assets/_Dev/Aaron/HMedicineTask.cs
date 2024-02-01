@@ -16,20 +16,28 @@ public class HMedicineTask : Task
     }
 
 
-    public override void CheckTaskConditions()
+    public override void CheckTaskConditions(GameObject interactedObject)
     {
-        base.CheckTaskConditions();
+        /*if (interactedObject == patient)
+        {
+
+        }
+
+        if (InventoryHotbar.instance.heldObject)
+        base.CheckTaskConditions();*/
     }
 
 
     public override void CompleteTask()
     {
+
         base.CompleteTask();
     }
 
 
     public override void FailTask()
     {
+
         base.FailTask();
     }
 }
