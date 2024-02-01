@@ -11,7 +11,10 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.AI;
+using UnityEngine.AI;
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(NavMeshAgent))]
 
 
 public class AICharacter : MonoBehaviour
@@ -60,6 +63,8 @@ public class AICharacter : MonoBehaviour
     [HideInInspector] public bool isMoving;
     [HideInInspector] public bool knowsAboutPlayer;
 
+    public NavMeshAgent agent;
+
 
     void Start()
     {
@@ -68,11 +73,13 @@ public class AICharacter : MonoBehaviour
         crawlSpeed /= 2;
         health = startingHealth;
         CurrentSanity = MaxSanity; 
-        EscortSpeed = 0.05f;
+        EscortSpeed = 1.0f;
         ChangeState(States.Abandoned);  // The character will start in the idle state
         player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody>();
         DetectionRadius = 5f;
+
+        agent = GetComponent<NavMeshAgent>();
     }
 
 
@@ -126,6 +133,9 @@ public class AICharacter : MonoBehaviour
                     break;
                 case States.Bed:
                     stateScript = transform.AddComponent<BedState>();
+                    break;
+                case States.Wandering:
+                    stateScript = transform.AddComponent<WanderingState>();
                     break;
 
                 case States.None:

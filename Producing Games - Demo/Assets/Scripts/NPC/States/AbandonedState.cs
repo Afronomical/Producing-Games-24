@@ -6,10 +6,12 @@ public class AbandonedState : StateBaseClass
 {
     private RaycastToPlayer RaycastToPlayer;
     private float TimeAbandoned = 0;
-    private float MaxTimeAbandoned = 1f; 
+    private float MaxTimeAbandoned = 5f; 
 
     public override void UpdateLogic()
     {
+        TimeAbandoned += Time.deltaTime;
+
         GetComponent<AICharacter>().isMoving = false;
         Debug.Log("NPC in Abandoned State");
         if (RaycastToPlayer == null)
@@ -22,6 +24,9 @@ public class AbandonedState : StateBaseClass
             character.ChangeState(AICharacter.States.Escorted);
         }
         
-
+        if (TimeAbandoned > MaxTimeAbandoned)
+        {
+            character.ChangeState(AICharacter.States.Wandering);
+        }
     }
 }

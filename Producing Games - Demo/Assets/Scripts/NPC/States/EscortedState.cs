@@ -20,6 +20,9 @@ public class EscortedState : StateBaseClass
     private bool BedInRange; 
     private float TimeAlone = 0;
     private float MaxTimeAlone = 5f;
+
+    private Vector3 lastPlayerPos;
+
     public override void UpdateLogic()
     {
 
@@ -37,10 +40,14 @@ public class EscortedState : StateBaseClass
            // Debug.Log("calling move towards player");
             HasPickedUpNPC = true;
             
+            lastPlayerPos = character.player.transform.position;
+
             MoveTowardsPlayer(); 
         }
        else if(HasPickedUpNPC && !RaycastToPlayer.PlayerDetected())
         {
+            character.agent.SetDestination(lastPlayerPos);
+
             //Debug.Log("Abandoned NPC!");
             TimeAlone += Time.deltaTime;
             //Debug.Log(TimeInAbandonded);
@@ -111,7 +118,8 @@ public class EscortedState : StateBaseClass
             Vector3 newPos = Vector3.MoveTowards(currentPos, targetPos, character.EscortSpeed);
             character.transform.LookAt(character.player.transform);
 
-            character.rb.MovePosition(newPos); 
+            //character.rb.MovePosition(newPos);
+            character.agent.SetDestination(newPos);
            // Debug.Log("moving to: " + newPos); 
         }
         else
