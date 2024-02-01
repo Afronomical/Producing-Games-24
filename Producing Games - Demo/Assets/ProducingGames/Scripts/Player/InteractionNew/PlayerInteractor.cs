@@ -37,7 +37,7 @@ public class PlayerInteractor : MonoBehaviour
                 if(interactable is InteractableTemplate interactableTemplate) 
                 {
 
-                    TooltipManager.Instance.ShowTooltip(interactableTemplate.collectible.tooltipText + " " + interactableTemplate.collectible.objectName);
+                    TooltipManager.Instance.ShowTooltip(interactableTemplate.collectible.tooltipText/* + " " + interactableTemplate.collectible.objectName*/);
 
                     if(Input.GetMouseButtonDown(0))
                     {
