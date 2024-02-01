@@ -15,10 +15,10 @@ EditorBuildSettings:
     path: Assets/ProducingGames/Scenes/Loading.unity
     guid: 3b6016abd3a395345b6d51bbd76627d8
   - enabled: 1
-    path: Assets/Scenes/Settings.unity
+    path: Assets/_Dev/Liam/Scenes/Settings.unity
     guid: 5349b31abed80bd4293d23004e223707
   - enabled: 1
-    path: Assets/Scenes/Credits.unity
+    path: Assets/_Dev/Liam/Scenes/Credits.unity
     guid: 01948d6a14a914742b7d4023548c7bfe
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
