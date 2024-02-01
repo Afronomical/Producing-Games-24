@@ -12,6 +12,7 @@ public class RaycastToPlayer : MonoBehaviour
     private AICharacter character;
    [ShowOnly][SerializeField] private float detectionRange = 10f;
     public LayerMask UnwalkableLayer;
+    private LayerMask Player;
    [ShowOnly] public float PlayerDistance; 
     
     // Start is called before the first frame update

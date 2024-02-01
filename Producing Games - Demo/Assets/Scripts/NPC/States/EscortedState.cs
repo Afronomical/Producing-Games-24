@@ -60,7 +60,7 @@ public class EscortedState : StateBaseClass
                 Debug.Log("BED LOCATED");
                 BedInRange = true;
                 ShouldFollow = false;
-                character.ChangeState(AICharacter.States.None);
+                character.ChangeState(AICharacter.States.Bed);
                 ///move to bed instead of player, and then enter bed state 
             }
         }

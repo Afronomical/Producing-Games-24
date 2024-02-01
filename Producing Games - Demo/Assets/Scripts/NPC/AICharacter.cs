@@ -31,6 +31,7 @@ public class AICharacter : MonoBehaviour
         Wandering,
         Abandoned,
         Possessed,
+        Bed,
         Exorcised,//??
 
         None
@@ -123,7 +124,9 @@ public class AICharacter : MonoBehaviour
                 case States.Abandoned:
                     stateScript = transform.AddComponent<AbandonedState>();
                     break;
-
+                case States.Bed:
+                    stateScript = transform.AddComponent<BedState>();
+                    break;
 
                 case States.None:
                     stateScript = null;
