@@ -33,6 +33,9 @@ public class PlayerMovement : MonoBehaviour
 
     private Camera cam;
 
+    public CameraShake cameraShake;
+
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -87,6 +90,11 @@ public class PlayerMovement : MonoBehaviour
         else if(move.x == 0 && move.z == 0)
         {
             footstepTimer = timeBetweenFootsteps;
+        }
+
+        if (Input.GetKeyDown(KeyCode.O)) 
+        {
+            StartCoroutine(cameraShake.CamShake(.15f, .2f));
         }
     }
 
