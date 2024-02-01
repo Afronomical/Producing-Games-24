@@ -2,72 +2,142 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DansCutscenes : MonoBehaviour
+public class DansCutscenes : InteractableTemplate
 {
-    public Camera cam;
+    private Camera cam;
+    private GameObject playerRef;
     public List<Transform> points;
-    private int index = 0;
 
-    bool GoIn;
-    bool GoOut;
+    private Animator animDoorRight;
+    private Animator animDoorLeft;
+    bool goIn;
+    bool goOut;
+    bool isInside;
+    private Vector3 camPos;
+    private Quaternion camRot;
+
+    private bool goToPoint2 = false;
+    private bool goToPoint1 = true;
 
     private void Start()
     {
-        //cam = Camera.main;
+        cam = Camera.main;
+        playerRef = GameObject.Find("Player");
+        animDoorRight = GameObject.Find("CupboardDoorRight").GetComponent<Animator>();
+        animDoorLeft = GameObject.Find("CupboardDoorLeft").GetComponent<Animator>();
+        /*
+        Had issues while tidying code, will be fixing shortly...
+        camPos = cam.transform.position;
+        camRot = cam.transform.rotation;
+        */
     }
 
     private void Update()
     {
-        //if (points == null || points.Count < 1)
-        //    return;
+        if (points == null || points.Count < 1)
+            return;
 
-        if (Input.GetKeyDown(KeyCode.K))
-            GoIn = true;
+        if(Input.GetKeyDown(KeyCode.C) && !goIn) 
+            goOut = true;
+        
 
-        if (GoIn)
+        //Go in hiding spot
+        if (goIn)
         {
-            cam.transform.position = Vector3.MoveTowards(cam.transform.position, points[index].position, 2.5f * Time.deltaTime);
+            //Disable player's movement and body
+            //=======================================================================
+            playerRef.GetComponent<PlayerMovement>().enabled = false;
+            playerRef.GetComponent<Rigidbody>().useGravity = false;
+            playerRef.GetComponent<MeshRenderer>().enabled = false;
+            gameObject.GetComponent<BoxCollider>().enabled = false;
+            cam.GetComponent<CameraLook>().enabled = false;
+            //=======================================================================
 
-            if(cam.transform.rotation != points[index].rotation)
+            animDoorLeft.SetBool("EnterCupboard", true);
+            animDoorRight.SetBool("EnterCupboard", true);
+            //Go to the entrance of hiding spot
+            if (goToPoint1)
             {
-                cam.transform.rotation = Quaternion.Lerp(cam.transform.rotation, points[index].rotation, 3f * Time.deltaTime);
-            }
-            if (cam.transform.position == points[index].position && cam.transform.rotation == points[index].rotation)
-            {
-                index++;
-                if (index >= points.Count)
+                playerRef.transform.position = Vector3.MoveTowards(playerRef.transform.position, points[0].position, 10f * Time.deltaTime);
+
+                if (playerRef.transform.rotation != points[0].rotation)
                 {
-                    Debug.Log("Done going in");
-                    index = 0;
-                    GoIn = false;
-                    GoOut = true;
+                    playerRef.transform.rotation = Quaternion.Lerp(playerRef.transform.rotation, points[0].rotation, 5f * Time.deltaTime);
                 }
+            }
+            
+            //Go Inside of hiding spot once the camera is at the entrance point
+            if (goToPoint2)
+            {
+                playerRef.transform.position = Vector3.MoveTowards(playerRef.transform.position, points[1].position, 4f * Time.deltaTime);
+
+                if (playerRef.transform.rotation != points[1].rotation)
+                {
+                    /*if (playerRef.transform.position == points[0].position)
+                        playerRef.transform.rotation = points[0].rotation;*/
+
+                    playerRef.transform.rotation = Quaternion.Lerp(playerRef.transform.rotation, points[1].rotation, 4f * Time.deltaTime);
+                }
+
+                
+            }
+
+            //Checks when the camera can transition
+            if (playerRef.transform.position == points[0].position && playerRef.transform.rotation == points[0].rotation)
+            {
+                goToPoint1 = false;
+                goToPoint2 = true;
+            }
+
+            if (playerRef.transform.position == points[1].position && playerRef.transform.rotation == points[1].rotation)
+            {
+                animDoorLeft.SetBool("EnterCupboard", false);
+                animDoorRight.SetBool("EnterCupboard", false);
+                goIn = false;
+                goToPoint1 = true;
+                goToPoint2 = false;
+                isInside = true;
 
             }
         }
 
-        if (GoOut)
+        //Go out of Hiding Spot
+        if (goOut)
         {
-            cam.transform.position = Vector3.MoveTowards(cam.transform.position, points[index].position, 2.5f * Time.deltaTime);
+            animDoorLeft.SetBool("EnterCupboard", true);
+            animDoorRight.SetBool("EnterCupboard", true);
 
-            if (cam.transform.rotation != points[index].rotation)
+            //Moves the Camera to the Entrance of the hiding spot
+            playerRef.transform.position = Vector3.MoveTowards(playerRef.transform.position, points[0].position, 2.5f * Time.deltaTime);
+
+            if (playerRef.transform.rotation != points[0].rotation)
             {
-                cam.transform.rotation = Quaternion.Lerp(cam.transform.rotation, points[index].rotation, 3f * Time.deltaTime);
+                playerRef.transform.rotation = Quaternion.Lerp(playerRef.transform.rotation, points[0].rotation, 3f * Time.deltaTime);
             }
-            if (cam.transform.position == points[index].position && cam.transform.rotation == points[index].rotation)
+            if (playerRef.transform.position == points[0].position && playerRef.transform.rotation == points[0].rotation)
             {
-                index++;
-                if (index >= points.Count)
-                {
-                    Debug.Log("Done going in");
-                    index = 0;
-                    GoOut = false;
-                }
+                animDoorLeft.SetBool("EnterCupboard", false);
+                animDoorRight.SetBool("EnterCupboard", false);
+                goOut = false;
+                 isInside = false;
 
+                //Enables player's movement and body
+                //=======================================================================
+                playerRef.GetComponent<PlayerMovement>().enabled = true;
+                playerRef.GetComponent<Rigidbody>().useGravity = true;
+                playerRef.GetComponent<MeshRenderer>().enabled = true;
+                gameObject.GetComponent<BoxCollider>().enabled = true;
+                cam.GetComponent<CameraLook>().enabled = true;
+                //=======================================================================
             }
         }
-            
-            
 
+    }
+
+    public override void Interact()
+    {
+        if(!isInside)
+            goIn = true;
+        
     }
 }
