@@ -71,7 +71,7 @@ public class AICharacter : MonoBehaviour
         ChangeState(States.Escorted);  // The character will start in the idle state
         player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody>();
-        DetectionRadius = 10f;
+        DetectionRadius = 5f;
     }
 
 
@@ -154,9 +154,9 @@ public class AICharacter : MonoBehaviour
         return player.transform.position;
     }
 
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.yellow;
-    //    Gizmos.DrawWireSphere(transform.position, DetectionRadius);
-    //}
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, DetectionRadius);
+    }
 }

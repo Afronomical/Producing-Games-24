@@ -16,9 +16,13 @@ public class EscortedState : StateBaseClass
     private Vector3 targetPos;
     private RaycastToPlayer RaycastToPlayer;
     private bool ShouldFollow = true;
-    private bool HasPickedUpNPC = false; 
+    private bool HasPickedUpNPC = false;
+    private bool BedInRange; 
+    private float TimeInAbandonded = 0;
+    private float MaxAbandonedTime = 3f;
     public override void UpdateLogic()
     {
+
         followPos = character.player.transform.position;
         GetComponent<AICharacter>().isMoving = true;
         if(RaycastToPlayer == null)
@@ -32,51 +36,69 @@ public class EscortedState : StateBaseClass
         {
            // Debug.Log("calling move towards player");
             HasPickedUpNPC = true;
+            
             MoveTowardsPlayer(); 
         }
-        else
+       else if(HasPickedUpNPC && !RaycastToPlayer.PlayerDetected())
         {
-            ///enter abandoned state 
-            Debug.Log(" not detected"); 
+            //Debug.Log("Abandoned NPC!");
+            TimeInAbandonded += Time.deltaTime;
+            //Debug.Log(TimeInAbandonded);
+            if(TimeInAbandonded >= MaxAbandonedTime) ///gives player 3 seconds to recollect NPC before they enter wandering state again 
+            {
+                //character.ChangeState(AICharacter.States.Abandoned); no state script for this at time of writing. 
+                TimeInAbandonded = 0;
+            }
+
+            return; 
         }
 
-
-       if(HasPickedUpNPC && !RaycastToPlayer.PlayerDetected())
+       if(HasPickedUpNPC)
         {
-            Debug.Log("Abandoned NPC!");
-            //character.ChangeState(AICharacter.States.Abandoned); no state script for this at time of writing. 
-            return; 
+           if(CheckBedInRange())
+            {
+                Debug.Log("BED LOCATED");
+                BedInRange = true;
+                ShouldFollow = false;
+                ///move to bed instead of player, and then enter bed state 
+            }
         }
         
 
     }
-   
-    //void CheckRange()
-    //{
-    //    Collider[] colliders = Physics.OverlapSphere(transform.position, character.DetectionRadius);
-    //    bool PlayerInRange = false;
-    //    bool BedInRange = false;
-
-    //    foreach(Collider collider in colliders)
-    //    {
-    //        if(collider.CompareTag("Player"))
-    //        {
-    //            PlayerInRange = true;
-    //            //FollowPlayer(); 
-    //        }
-    //    }
-    //}
 
 
-    /// <summary>
-    /// <para>Primary Function in escorting state.</para>
-    /// <para>Checks if player is within range and follows them if true.</para>
-    /// </summary>
+    bool CheckBedInRange() /*only perform if player has picked NPC up */
+    {
+        
+        
+        Collider[] colliders = Physics.OverlapSphere(character.transform.position, character.DetectionRadius);
+        foreach(Collider collider in colliders)
+        {
+            if(collider.gameObject.name == "Bed") ///just for testing 
+            {
+                Debug.Log("found bed"); 
+                return true;
+            }
+            else
+            {
+                Debug.Log("BED NOT FOUND"); 
+            }
+        }
+        
+        return false;
+    }
+
+
+/// <summary>
+/// <para>Primary Function in escorting state.</para>
+/// <para>Checks if player is within range and follows them if true.</para>
+/// </summary>
     void MoveTowardsPlayer()
     {
-       
-           
-            
+
+
+        TimeInAbandonded = 0;
         
 
         if (character.rb != null && ShouldFollow)

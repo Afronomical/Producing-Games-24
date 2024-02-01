@@ -55,18 +55,19 @@ public class RaycastToPlayer : MonoBehaviour
             
             
         }
-        else
+        else if(PlayerDistance <= detectionRange)
         {
             Debug.DrawLine(ray.origin,ray.origin + ray.direction * detectionRange,Color.green);
+            Debug.Log("Player Detected within range");
+            return true;
            
-           
-            if (PlayerDistance <= detectionRange)
-            {
-                Debug.Log("Player Detected at distance");
-                return true;
-            }
+            //if (PlayerDistance <= detectionRange)
+            //{
+            //    Debug.Log("Player Detected within range");
+            //    return true;
+            //}
 
-           
+
         }
         //Debug.Log("returning as false");
         return false;
