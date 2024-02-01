@@ -46,7 +46,7 @@ public class CheckCameras : InteractableTemplate
             //GetComponent<CameraLook>().enabled = true;
 
         }
-        else if(Input.GetKeyDown(KeyCode.RightArrow))
+        else if(Input.GetKeyDown(KeyCode.RightArrow) && looking)
         {
             if(index == cameraScreens.Length - 1)
             {
@@ -55,7 +55,7 @@ public class CheckCameras : InteractableTemplate
             }
             index++;
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        else if (Input.GetKeyDown(KeyCode.LeftArrow) && looking)
         {
             if(index == 0)
             {
