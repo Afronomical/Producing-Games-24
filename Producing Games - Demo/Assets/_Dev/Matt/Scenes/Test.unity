@@ -2308,6 +2308,7 @@ GameObject:
   - component: {fileID: 1182042499}
   - component: {fileID: 1182042505}
   - component: {fileID: 1182042506}
+  - component: {fileID: 1182042507}
   m_Layer: 3
   m_Name: AI TEST
   m_TagString: Untagged
@@ -2331,7 +2332,6 @@ MonoBehaviour:
   characterType: 0
   startingHealth: 3
   health: 0
-  hungerValue: 1
   walkSpeed: 0
   runSpeed: 0
   crawlSpeed: 0
@@ -2355,7 +2355,7 @@ Rigidbody:
   m_GameObject: {fileID: 1182042498}
   serializedVersion: 4
   m_Mass: 3
-  m_Drag: 0
+  m_Drag: 5
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -2500,6 +2500,20 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1182042507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182042498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42b4559a1ae016544bd31bc5d2b1786a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 0}
+  ToolTipText: NPC
 --- !u!1 &1213995307
 GameObject:
   m_ObjectHideFlags: 0

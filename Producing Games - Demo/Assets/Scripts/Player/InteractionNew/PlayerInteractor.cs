@@ -11,6 +11,7 @@ interface IInteractable
 }interface INPCInteractable
 {
     public string Name { get;}
+    public void Interact();
     public void Give();
     public void Take();
     public void Escort();
@@ -68,10 +69,21 @@ public class PlayerInteractor : MonoBehaviour
                 if(NPCInteractable is NPCInteractableTemplate NPCTemplate)
                 {
                     Debug.Log("AI Hit");
-                    if(Input.GetMouseButtonDown(0))
+                    if(NPCTemplate.character.currentState == AICharacter.States.Wandering)
                     {
-                        currentNPC.Escort();
+                        TooltipManager.Instance.ShowTooltip("ESCORT " + NPCTemplate.ToolTipText);
+                        if (Input.GetMouseButtonDown(0))
+                        {
+                            currentNPC.Escort();
+                        }
                     }
+                    else if(NPCTemplate.character.currentState == AICharacter.States.Bed)
+                    {
+                      ////can interact unless dead 
+                      
+                    }
+                    
+                    
                 }
             }
             else

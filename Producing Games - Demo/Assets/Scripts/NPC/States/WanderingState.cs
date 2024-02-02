@@ -52,7 +52,7 @@ public class WanderingState : StateBaseClass
         if (raycastToPlayer.PlayerDetected())
         {
             character.agent.isStopped = true;
-            character.ChangeState(AICharacter.States.Escorted);
+            //character.ChangeState(AICharacter.States.Escorted);
         }
     }
 

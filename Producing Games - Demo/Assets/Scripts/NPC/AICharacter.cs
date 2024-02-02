@@ -44,9 +44,8 @@ public class AICharacter : MonoBehaviour
 
     [Header("Character Stats")]
     public CharacterTypes characterType;
-    public int startingHealth = 3;
+    public int startingHealth = 100;
     public int health;
-    public int hungerValue = 1;
     public float walkSpeed, runSpeed, crawlSpeed;
     public float turnSpeed;
     public float turnDistance;
@@ -55,7 +54,8 @@ public class AICharacter : MonoBehaviour
     public float EscortSpeed;
     private float MinSanity = 0;
     private float MaxSanity = 100;
-    private float CurrentSanity; 
+    private float CurrentSanity;
+    
 
     [Header("States")]
     public States currentState;
@@ -75,7 +75,7 @@ public class AICharacter : MonoBehaviour
         health = startingHealth;
         CurrentSanity = MaxSanity; 
         EscortSpeed = 1.0f;
-        ChangeState(States.Abandoned);  // The character will start in the idle state
+        ChangeState(States.Wandering);  // The character will start in the idle state
         player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody>();
         DetectionRadius = 5f;
