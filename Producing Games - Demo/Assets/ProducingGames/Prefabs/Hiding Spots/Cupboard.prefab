@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1540071701609377720}
   - component: {fileID: 1403695495643665801}
   - component: {fileID: 5791948351371637965}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cupboard Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 7014677655897207326}
   - component: {fileID: 1124540689945453972}
   - component: {fileID: 1115737276847647063}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BackWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 4412372969006870843}
   - component: {fileID: 324406087992726780}
   - component: {fileID: 8071485507213165196}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CupboardDoorLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -281,7 +281,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2138230919458092409}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerStandingPoint
   m_TagString: Untagged
   m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
@@ -312,7 +312,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7293726588213827187}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnterPoint
   m_TagString: Untagged
   m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
@@ -345,7 +345,7 @@ GameObject:
   - component: {fileID: 2459337886936630995}
   - component: {fileID: 9214718119831733536}
   - component: {fileID: 5004278949346898259}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cupboard Wall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -395,7 +395,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -428,7 +428,7 @@ GameObject:
   - component: {fileID: 1199260821230442235}
   - component: {fileID: 8568640385934423533}
   - component: {fileID: 9129943809932447398}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cupboard Roof
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -478,7 +478,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -512,7 +512,7 @@ GameObject:
   - component: {fileID: 1288794458737925992}
   - component: {fileID: 1339625529704329449}
   - component: {fileID: 6461516788742771502}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CupboardDoorRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -562,7 +562,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -617,7 +617,7 @@ GameObject:
   - component: {fileID: 3661842027560466089}
   - component: {fileID: 3007118883857862081}
   - component: {fileID: 7466595318320274680}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cupboard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -689,7 +689,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5193287216423405472}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Object
   m_TagString: Untagged
   m_Icon: {fileID: 0}
