@@ -11,9 +11,16 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.AI;
+using UnityEngine.AI;
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(EscortNPCTest))]
+
 
 public class AICharacter : MonoBehaviour
 {
+    public Rigidbody rb; 
     public enum CharacterTypes
     {
         Patient,
@@ -24,7 +31,11 @@ public class AICharacter : MonoBehaviour
     {
         Idle,
         Moving,
+        Escorted,
+        Wandering,
+        Abandoned,
         Possessed,
+        Bed,
         Exorcised,//??
 
         None
@@ -33,21 +44,27 @@ public class AICharacter : MonoBehaviour
 
     [Header("Character Stats")]
     public CharacterTypes characterType;
-    public int startingHealth = 3;
+    public int startingHealth = 100;
     public int health;
-    public int hungerValue = 1;
     public float walkSpeed, runSpeed, crawlSpeed;
     public float turnSpeed;
     public float turnDistance;
+    public float DetectionRadius;
+    public float step;
+    public float EscortSpeed;
+    private float MinSanity = 0;
+    private float MaxSanity = 100;
+    private float CurrentSanity;
     
 
     [Header("States")]
     public States currentState;
     public StateBaseClass stateScript;
     public GameObject player;
-    
     [HideInInspector] public bool isMoving;
     [HideInInspector] public bool knowsAboutPlayer;
+
+    public NavMeshAgent agent;
 
 
     void Start()
@@ -56,8 +73,14 @@ public class AICharacter : MonoBehaviour
         runSpeed /= 2;
         crawlSpeed /= 2;
         health = startingHealth;
-        ChangeState(States.Idle);  // The character will start in the idle state
+        CurrentSanity = MaxSanity; 
+        EscortSpeed = 1.0f;
+        ChangeState(States.Wandering);  // The character will start in the idle state
         player = GameObject.FindGameObjectWithTag("Player");
+        rb = GetComponent<Rigidbody>();
+        DetectionRadius = 5f;
+
+        agent = GetComponent<NavMeshAgent>();
     }
 
 
@@ -103,7 +126,18 @@ public class AICharacter : MonoBehaviour
                 case States.Possessed:
                     stateScript = transform.AddComponent<PosessedState>();
                     break;
-
+                case States.Escorted:
+                    stateScript = transform.AddComponent<EscortedState>();
+                    break;
+                case States.Abandoned:
+                    stateScript = transform.AddComponent<AbandonedState>();
+                    break;
+                case States.Bed:
+                    stateScript = transform.AddComponent<BedState>();
+                    break;
+                case States.Wandering:
+                    stateScript = transform.AddComponent<WanderingState>();
+                    break;
 
                 case States.None:
                     stateScript = null;
@@ -136,4 +170,9 @@ public class AICharacter : MonoBehaviour
         return player.transform.position;
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, DetectionRadius);
+    }
 }

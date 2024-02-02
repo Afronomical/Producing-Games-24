@@ -8,6 +8,15 @@ interface IInteractable
     public void Interact();
     public void Collect();
 
+}interface INPCInteractable
+{
+    public string Name { get;}
+    public void Interact();
+    public void Give();
+    public void Take();
+    public void Escort();
+    public void Exorcise(); 
+
 }
 public class PlayerInteractor : MonoBehaviour
 {
@@ -16,6 +25,7 @@ public class PlayerInteractor : MonoBehaviour
     public float interactionRange;
 
     private IInteractable currentObject;
+    private INPCInteractable currentNPC; 
 
     private Outline outline;
 
@@ -51,6 +61,29 @@ public class PlayerInteractor : MonoBehaviour
                         interactableTemplate.gameObject.GetComponent<Outline>().enabled = true;
 
                     }
+                }
+            }
+            else if(hit.collider.gameObject.TryGetComponent(out INPCInteractable NPCInteractable))
+            {
+                currentNPC = NPCInteractable;
+                if(NPCInteractable is NPCInteractableTemplate NPCTemplate)
+                {
+                    Debug.Log("AI Hit");
+                    if(NPCTemplate.character.currentState == AICharacter.States.Wandering)
+                    {
+                        TooltipManager.Instance.ShowTooltip("ESCORT " + NPCTemplate.ToolTipText);
+                        if (Input.GetMouseButtonDown(0))
+                        {
+                            currentNPC.Escort();
+                        }
+                    }
+                    else if(NPCTemplate.character.currentState == AICharacter.States.Bed)
+                    {
+                      ////can interact unless dead 
+                      
+                    }
+                    
+                    
                 }
             }
             else
