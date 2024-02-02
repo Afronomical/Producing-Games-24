@@ -1,24 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Flashlight : MonoBehaviour
 {
     public GameObject flashlight;
-    public bool isOn;
     public Light light;
-    public float m_Intensity = 1.0f;
-    public float maxIntensity = 2.0f;   
 
-    void Start()
-    {
-        isOn = false;
-        flashlight.SetActive(false);
-    }
+    public float[] intensities;
+    private int intensityIndex = 0;
+
 
     void Update()
     {
-        if (light.intensity > maxIntensity)
+        if (intensityIndex == 0)
+        {
+            flashlight.SetActive(false);
+            light.intensity = 0;
+        }
+
+        else if (light.intensity != intensities[intensityIndex])
+        {
+            flashlight.SetActive(true);
+            light.intensity = intensities[intensityIndex];
+        }
+
+
+        /*if (light.intensity > maxIntensity)
             light.intensity = maxIntensity;       
 
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
@@ -37,6 +46,16 @@ public class Flashlight : MonoBehaviour
         {
             light.intensity += scrollInput * m_Intensity;
             light.intensity = Mathf.Max(0, light.intensity);
-        }              
+        }  */
+    }
+
+    public void OnFlashlightInput(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            intensityIndex++;
+            if (intensityIndex >= intensities.Length)
+                intensityIndex = 0;
+        }
     }
 }
