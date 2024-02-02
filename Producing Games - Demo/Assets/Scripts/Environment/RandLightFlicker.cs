@@ -6,7 +6,7 @@ public class RandLightFlicker : MonoBehaviour
 {
     public bool isFlickering = false;
     private float flickerDelay;
-    public float flickerSpeed; //lower the number the faster the flicker
+    public float flickerInterval; //lower the number the faster the flicker
 
     void Update()
     {
@@ -21,10 +21,10 @@ public class RandLightFlicker : MonoBehaviour
     {
         isFlickering=true;
         this.gameObject.GetComponent<Light>().enabled = false;
-        flickerDelay = Random.Range(0.01f, flickerSpeed);
+        flickerDelay = Random.Range(0.01f, flickerInterval);
         yield return new WaitForSeconds(flickerDelay);
         this.gameObject.GetComponent<Light>().enabled = true;
-        flickerDelay = Random.Range(0.01f, flickerSpeed);
+        flickerDelay = Random.Range(0.01f, flickerInterval);
         yield return new WaitForSeconds(flickerDelay);
         isFlickering = false;
     }
