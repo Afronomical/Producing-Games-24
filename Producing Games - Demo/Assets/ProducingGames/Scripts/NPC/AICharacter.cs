@@ -75,7 +75,8 @@ public class AICharacter : MonoBehaviour
         health = startingHealth;
         CurrentSanity = MaxSanity; 
         EscortSpeed = 1.0f;
-        ChangeState(States.Wandering);  // The character will start in the idle state
+        ChangeState(States.Abandoned);
+        //ChangeState(States.Wandering);  // The character will start in the idle state
         player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody>();
         DetectionRadius = 5f;

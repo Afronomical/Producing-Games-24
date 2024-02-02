@@ -74,7 +74,8 @@ public class PlayerInteractor : MonoBehaviour
                         TooltipManager.Instance.ShowTooltip("ESCORT " + NPCTemplate.ToolTipText);
                         if (Input.GetMouseButtonDown(0))
                         {
-                            currentNPC.Escort();
+                            NPCTemplate.character.ChangeState(AICharacter.States.Escorted);
+                            //currentNPC.Escort();
                         }
                     }
                     else if(NPCTemplate.character.currentState == AICharacter.States.Bed)

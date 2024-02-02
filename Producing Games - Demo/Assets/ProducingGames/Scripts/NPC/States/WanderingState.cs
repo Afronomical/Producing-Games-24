@@ -34,8 +34,6 @@ public class WanderingState : StateBaseClass
 
         character.agent.SetDestination(wanderDestination);
 
-        Debug.Log(Vector3.Distance(character.transform.position, wanderDestination));
-
         if (Vector3.Distance(character.transform.position, wanderDestination) < distanceFromDestination)
         {
             currentIdleTime += Time.deltaTime;
@@ -49,11 +47,11 @@ public class WanderingState : StateBaseClass
             //Invoke(nameof(ChooseNewDestination), idleTime);
         }
 
-        if (raycastToPlayer.PlayerDetected())
-        {
-            character.agent.isStopped = true;
-            //character.ChangeState(AICharacter.States.Escorted);
-        }
+        //if (raycastToPlayer.PlayerDetected())
+        //{
+        //    character.agent.isStopped = true;
+        //    character.ChangeState(AICharacter.States.Escorted);
+        //}
     }
 
     private void ChooseNewDestination()

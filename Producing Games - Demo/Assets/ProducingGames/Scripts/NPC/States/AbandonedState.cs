@@ -19,10 +19,10 @@ public class AbandonedState : StateBaseClass
             RaycastToPlayer = GetComponent<RaycastToPlayer>();
         }
 
-        if(RaycastToPlayer.PlayerDetected())
-        {
-            character.ChangeState(AICharacter.States.Escorted);
-        }
+        //if(RaycastToPlayer.PlayerDetected())
+        //{
+        //    character.ChangeState(AICharacter.States.Escorted);
+        //}
         
         if (TimeAbandoned > MaxTimeAbandoned)
         {

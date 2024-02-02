@@ -23,6 +23,11 @@ public class EscortedState : StateBaseClass
 
     private Vector3 lastPlayerPos;
 
+    private void Start()
+    {
+        character.agent.ResetPath();
+    }
+
     public override void UpdateLogic()
     {
 
@@ -115,26 +120,38 @@ public class EscortedState : StateBaseClass
             currentPos = character.transform.position;
             targetPos = followPos;
 
-            Vector3 newPos = Vector3.MoveTowards(currentPos, targetPos, character.EscortSpeed);
+            //Vector3 newPos = Vector3.MoveTowards(currentPos, targetPos, character.EscortSpeed);
+
+            //if (RaycastToPlayer.PlayerDistance > 3)
+            //{
+            //    newPos = Vector3.MoveTowards(currentPos, targetPos, character.EscortSpeed);
+            //}
             character.transform.LookAt(character.player.transform);
 
             //character.rb.MovePosition(newPos);
-            character.agent.SetDestination(newPos);
+            character.agent.SetDestination(targetPos);
+            //if (RaycastToPlayer.PlayerDistance > 3)
+                //character.agent.SetDestination(newPos);
+            //else
+                //character.agent.isStopped = true;
            // Debug.Log("moving to: " + newPos); 
         }
-        else
-        {
-            //Debug.Log("rb is null"); 
-        }
+
+        Debug.Log(character.rb.velocity);
+
        if(RaycastToPlayer.PlayerDistance < 3)
         {
             targetPos = currentPos;
             ShouldFollow = false;
             targetPos = Vector3.zero;
+            character.agent.ResetPath();
+            character.agent.isStopped = true;
+            character.rb.velocity = Vector3.zero;
         }
        else
         {
             ShouldFollow = true;
+            character.agent.isStopped = false;
         }
     }
     
