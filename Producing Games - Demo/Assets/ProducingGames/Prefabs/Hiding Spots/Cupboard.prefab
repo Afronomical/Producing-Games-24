@@ -615,7 +615,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3661842027560466089}
-  - component: {fileID: 6033214933609707149}
+  - component: {fileID: 3007118883857862081}
   - component: {fileID: 7466595318320274680}
   m_Layer: 0
   m_Name: Cupboard
@@ -642,7 +642,7 @@ Transform:
   - {fileID: 2138230919458092409}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6033214933609707149
+--- !u!114 &3007118883857862081
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -651,7 +651,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5837303818483238476}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fcf523185c5e654c8c7e9a10cb06a89, type: 3}
+  m_Script: {fileID: 11500000, guid: acf1a57a42cf99440a6ed5895b92525c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   objectIcon: {fileID: 0}
@@ -678,8 +678,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.7272756, y: 2.5725672, z: 3.183015}
-  m_Center: {x: -1.8129846, y: 0.13806593, z: 0.09349501}
+  m_Size: {x: 1.7272756, y: 2.5725672, z: 2.343802}
+  m_Center: {x: -1.8129846, y: 0.13806593, z: 0.042251587}
 --- !u!1 &9200916343421225718
 GameObject:
   m_ObjectHideFlags: 0

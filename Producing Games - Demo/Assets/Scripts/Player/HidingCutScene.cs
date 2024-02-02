@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DansCutscenes : InteractableTemplate
+public class HidingCutScene : InteractableTemplate
 {
     private Camera cam;
-    private GameObject playerRef;
+    private Transform playerRef;
     public List<Transform> points;
 
     private Animator animDoorRight;
@@ -16,13 +16,13 @@ public class DansCutscenes : InteractableTemplate
     private Vector3 camPos;
     private Quaternion camRot;
 
-    private bool goToPoint2 = false;
-    private bool goToPoint1 = true;
+    private bool goToPoint1 = false;
+    private bool goToPoint0 = true;
 
     private void Start()
     {
         cam = Camera.main;
-        playerRef = GameObject.Find("Player");
+        playerRef = GameObject.Find("Player").transform;
         animDoorRight = GameObject.Find("CupboardDoorRight").GetComponent<Animator>();
         animDoorLeft = GameObject.Find("CupboardDoorLeft").GetComponent<Animator>();
         /*
@@ -51,51 +51,49 @@ public class DansCutscenes : InteractableTemplate
             playerRef.GetComponent<MeshRenderer>().enabled = false;
             gameObject.GetComponent<BoxCollider>().enabled = false;
             cam.GetComponent<CameraLook>().enabled = false;
+            cam.transform.rotation = playerRef.transform.rotation;
             //=======================================================================
 
             animDoorLeft.SetBool("EnterCupboard", true);
             animDoorRight.SetBool("EnterCupboard", true);
             //Go to the entrance of hiding spot
-            if (goToPoint1)
+            if (goToPoint0)
             {
-                playerRef.transform.position = Vector3.MoveTowards(playerRef.transform.position, points[0].position, 10f * Time.deltaTime);
+                playerRef.position = Vector3.MoveTowards(playerRef.position, points[0].position, 3f * Time.deltaTime);
 
-                if (playerRef.transform.rotation != points[0].rotation)
+                if (Quaternion.Angle(playerRef.rotation, points[0].rotation) > 0.1)
                 {
-                    playerRef.transform.rotation = Quaternion.Lerp(playerRef.transform.rotation, points[0].rotation, 5f * Time.deltaTime);
+                    playerRef.rotation = Quaternion.Lerp(playerRef.rotation, points[0].rotation, 3f * Time.deltaTime);
                 }
             }
             
             //Go Inside of hiding spot once the camera is at the entrance point
-            if (goToPoint2)
+            if (goToPoint1)
             {
-                playerRef.transform.position = Vector3.MoveTowards(playerRef.transform.position, points[1].position, 4f * Time.deltaTime);
+                playerRef.position = Vector3.MoveTowards(playerRef.position, points[1].position, 4f * Time.deltaTime);
 
-                if (playerRef.transform.rotation != points[1].rotation)
+                if (Quaternion.Angle(playerRef.rotation, points[0].rotation) > 0.1)
                 {
-                    /*if (playerRef.transform.position == points[0].position)
-                        playerRef.transform.rotation = points[0].rotation;*/
-
-                    playerRef.transform.rotation = Quaternion.Lerp(playerRef.transform.rotation, points[1].rotation, 4f * Time.deltaTime);
+                    playerRef.rotation = Quaternion.Lerp(playerRef.rotation, points[1].rotation, 4f * Time.deltaTime);
                 }
 
                 
             }
 
             //Checks when the camera can transition
-            if (playerRef.transform.position == points[0].position && playerRef.transform.rotation == points[0].rotation)
+            if (playerRef.position == points[0].position && Quaternion.Angle(playerRef.rotation, points[0].rotation) > 0.1)
             {
-                goToPoint1 = false;
-                goToPoint2 = true;
+                goToPoint0 = false;
+                goToPoint1 = true;
             }
-
-            if (playerRef.transform.position == points[1].position && playerRef.transform.rotation == points[1].rotation)
+            float testRot = Quaternion.Angle(playerRef.rotation, points[1].rotation);
+            if (playerRef.position == points[1].position && Quaternion.Angle(playerRef.rotation, points[1].rotation) < 0.5)
             {
                 animDoorLeft.SetBool("EnterCupboard", false);
                 animDoorRight.SetBool("EnterCupboard", false);
                 goIn = false;
-                goToPoint1 = true;
-                goToPoint2 = false;
+                goToPoint0 = true;
+                goToPoint1 = false;
                 isInside = true;
 
             }
@@ -108,18 +106,20 @@ public class DansCutscenes : InteractableTemplate
             animDoorRight.SetBool("EnterCupboard", true);
 
             //Moves the Camera to the Entrance of the hiding spot
-            playerRef.transform.position = Vector3.MoveTowards(playerRef.transform.position, points[0].position, 2.5f * Time.deltaTime);
+            playerRef.position = Vector3.MoveTowards(playerRef.position, points[0].position, 2.5f * Time.deltaTime);
 
-            if (playerRef.transform.rotation != points[0].rotation)
+            //if (playerRef.rotation != points[0].rotation)
+            if (Quaternion.Angle(playerRef.rotation, points[0].rotation) > 0.1)
             {
-                playerRef.transform.rotation = Quaternion.Lerp(playerRef.transform.rotation, points[0].rotation, 3f * Time.deltaTime);
+                playerRef.rotation = Quaternion.Lerp(playerRef.rotation, points[0].rotation, 3f * Time.deltaTime);
             }
-            if (playerRef.transform.position == points[0].position && playerRef.transform.rotation == points[0].rotation)
+
+            if (playerRef.position == points[0].position && Quaternion.Angle(playerRef.rotation, points[0].rotation) < 0.1)
             {
                 animDoorLeft.SetBool("EnterCupboard", false);
                 animDoorRight.SetBool("EnterCupboard", false);
                 goOut = false;
-                 isInside = false;
+                isInside = false;
 
                 //Enables player's movement and body
                 //=======================================================================
