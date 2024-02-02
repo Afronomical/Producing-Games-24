@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3246153001112231666}
   - component: {fileID: 1202567693486931996}
   - component: {fileID: 6112931132074692956}
-  - component: {fileID: 1127413908604872262}
+  - component: {fileID: 3895094622733195479}
   m_Layer: 0
   m_Name: DoorPrefab
   m_TagString: Untagged
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106,7 +106,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1127413908604872262
+--- !u!114 &3895094622733195479
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,14 +115,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 733333763478795650}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c854af3c2ec25de4981d19d729ba3418, type: 3}
+  m_Script: {fileID: 11500000, guid: 523d05c6df4f2cb46b97872acaf8ad72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onInteract:
-    m_PersistentCalls:
-      m_Calls: []
-  ID: 0
   objectIcon: {fileID: 0}
-  iconSize: {x: 0, y: 0}
-  collectible: {fileID: 0}
-  type: 0
+  collectible: {fileID: 11400000, guid: ddf09297b4404ee4f98ca49c78bbdad6, type: 2}
+  cameraShake: {fileID: 0}

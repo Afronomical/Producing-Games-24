@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 5179808657546576947}
   - component: {fileID: 5235168099384526293}
   - component: {fileID: 7167265373561131683}
-  - component: {fileID: 4482970019832266588}
   - component: {fileID: -2685185601210431850}
   - component: {fileID: 728261037250361362}
   - component: {fileID: 2230730962757808427}
+  - component: {fileID: 7862448179439273387}
   m_Layer: 0
   m_Name: Stick
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 11759742422874786}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.7067303, w: 0.7074831}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7067303, w: 0.7074831}
   m_LocalPosition: {x: 5.87, y: 0.5, z: 5.63}
   m_LocalScale: {x: 0.34593, y: 2.1097233, z: 0.34593}
   m_ConstrainProportionsScale: 0
@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -111,19 +111,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &4482970019832266588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 11759742422874786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdc23528bd828334cb7da21ed06e32ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  message: Click to pick up
 --- !u!54 &-2685185601210431850
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -158,7 +145,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 11759742422874786}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -170,6 +157,20 @@ MonoBehaviour:
   bakeKeys: []
   bakeValues: []
 --- !u!114 &2230730962757808427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11759742422874786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 520662312ba91bd4ebce23c3f677176d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectIcon: {fileID: 21300000, guid: 04a0b9fba2a5c744680e4458c64733c6, type: 3}
+  collectible: {fileID: 11400000, guid: 79dfcdceaf598a444973567781c3cfe5, type: 2}
+--- !u!114 &7862448179439273387
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
