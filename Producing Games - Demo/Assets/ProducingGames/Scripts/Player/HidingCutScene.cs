@@ -37,7 +37,7 @@ public class HidingCutScene : InteractableTemplate
         if (points == null || points.Count < 1)
             return;
 
-        if(Input.GetKeyDown(KeyCode.C) && !goIn) 
+        if(Input.GetKeyDown(KeyCode.C) && !goIn && playerRef.position == points[1].position) 
             goOut = true;
         
 
