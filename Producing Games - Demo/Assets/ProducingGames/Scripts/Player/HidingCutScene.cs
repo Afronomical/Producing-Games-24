@@ -47,7 +47,7 @@ public class HidingCutScene : InteractableTemplate
             //Disable player's movement and body
             //=======================================================================
             playerRef.GetComponent<PlayerMovement>().enabled = false;
-            playerRef.GetComponent<Rigidbody>().useGravity = false;
+            playerRef.GetComponent<CharacterController>().enabled = false;
             playerRef.GetComponent<MeshRenderer>().enabled = false;
             gameObject.GetComponent<BoxCollider>().enabled = false;
             cam.GetComponent<CameraLook>().enabled = false;
@@ -124,7 +124,7 @@ public class HidingCutScene : InteractableTemplate
                 //Enables player's movement and body
                 //=======================================================================
                 playerRef.GetComponent<PlayerMovement>().enabled = true;
-                playerRef.GetComponent<Rigidbody>().useGravity = true;
+                playerRef.GetComponent<CharacterController>().enabled = true;
                 playerRef.GetComponent<MeshRenderer>().enabled = true;
                 gameObject.GetComponent<BoxCollider>().enabled = true;
                 cam.GetComponent<CameraLook>().enabled = true;
