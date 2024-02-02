@@ -15,11 +15,12 @@ using Unity.AI;
 using UnityEngine.AI;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(EscortNPCTest))]
 
 
 public class AICharacter : MonoBehaviour
 {
-   public Rigidbody rb;
+    public Rigidbody rb; 
     public enum CharacterTypes
     {
         Patient,
