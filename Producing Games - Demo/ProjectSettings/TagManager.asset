@@ -5,16 +5,17 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Bed
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - NPCTest
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Unwalkable
+  - FloorTest
+  - Ground
   - 
   - 
   - 
