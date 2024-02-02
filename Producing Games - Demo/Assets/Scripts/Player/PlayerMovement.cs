@@ -80,10 +80,10 @@ public class PlayerMovement : MonoBehaviour
                 else if (isSprinting)
                     AudioManager.instance.PlaySound(runningSound, gameObject.transform);
                    
-                else 
+                else                   
                     AudioManager.instance.PlaySound(walkingSound, gameObject.transform);
-                  
-               
+
+
             }
         }
 
@@ -102,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
     void Jump()
     {
         if (isGrounded)
-            rb.AddForce(Vector3.up * jumpForce);
+            rb.AddForce(Vector3.up * jumpForce);       
     }
 
     void DropItem()
