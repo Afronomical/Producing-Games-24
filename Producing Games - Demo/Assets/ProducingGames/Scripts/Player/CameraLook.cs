@@ -17,7 +17,7 @@ public class CameraLook : MonoBehaviour
     [SerializeField] private bool canHeadBob = true;
     [SerializeField] [Range(0.1f, 5f)] private float bobAmplitude = 0.5f;
     [SerializeField][Range(5f, 15f)] private float bobFrequency = 10f;
-    private float bobOffSpeed = 400f;
+    private float bobOffSpeed = 3f;
     private Vector3 camStartPos;
 
 
@@ -65,11 +65,11 @@ public class CameraLook : MonoBehaviour
     private void CheckMovement()
     {
         //float speed = new Vector3(playerRb.velocity.x, 0, playerRb.velocity.z).magnitude;
-        float speed = new Vector3(playerController.velocity.x, 0, playerController.velocity.z).magnitude * 100f;
-
+        float speed = new Vector3(playerController.velocity.x, 0, playerController.velocity.z).magnitude; //* 100f;
         if (speed < bobOffSpeed || !playerMovement.isGrounded) BobReset();
 
         else transform.localPosition += FootStepMotion();
+        bobFrequency = Mathf.Lerp(0, 20, (speed / 10));
     }
 
 
