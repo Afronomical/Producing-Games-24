@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -45,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
     public SoundEffect crouchingSound;
     private float footstepTimer;
 
-
+    public CameraShake cameraShake;
 
 
     private void Start()
@@ -74,6 +75,10 @@ public class PlayerMovement : MonoBehaviour
         //controller.height = isCrouching ? 1f : 2f;  // Make character shorter when crouching
 
         FootstepSounds();
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            StartCoroutine(cameraShake.CamShake(0.15f, .2f));
+        }
     }
 
 
