@@ -50,6 +50,7 @@ public class InspectDoor : InteractableTemplate
             {
                 stopLooking = false;
                 GameObject.Find("Player").GetComponent<PlayerMovement>().enabled = true;
+                mainCam.GetComponent<CameraLook>().canHeadBob = true;
             }
         }
 
@@ -74,5 +75,7 @@ public class InspectDoor : InteractableTemplate
 
         looking = true;
         playerCanMove = false;
+
+        mainCam.GetComponent<CameraLook>().canHeadBob = false;
     }
 }

@@ -82,6 +82,7 @@ public class CheckCameras : InteractableTemplate
             {
                 stopLooking = false;
                 GameObject.Find("Player").GetComponent<PlayerMovement>().enabled = true;
+                mainCam.GetComponent<CameraLook>().canHeadBob = true;
             }
         }
 
@@ -106,6 +107,7 @@ public class CheckCameras : InteractableTemplate
 
         looking = true;
         playerCanMove = false;
+        mainCam.GetComponent<CameraLook>().canHeadBob = false;
     }
 
     private void ScrollMaterial()

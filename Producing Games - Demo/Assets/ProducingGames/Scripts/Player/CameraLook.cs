@@ -14,7 +14,7 @@ public class CameraLook : MonoBehaviour
     private CharacterController playerController;
 
     [Header("Head Bobbing")]
-    [SerializeField] private bool canHeadBob = true;
+    [SerializeField] public bool canHeadBob = true;
     [SerializeField] [Range(0.1f, 5f)] private float bobAmplitude = 0.5f;
     [SerializeField][Range(5f, 15f)] private float bobFrequency = 10f;
     private float bobOffSpeed = 3f;
