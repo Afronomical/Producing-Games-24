@@ -69,7 +69,7 @@ public class EscortedState : StateBaseClass
         {
            if(CheckBedInRange())
             {
-                Debug.Log("BED LOCATED");
+                //Debug.Log("BED LOCATED");
                 BedInRange = true;
                 ShouldFollow = false;
                 character.ChangeState(AICharacter.States.Bed);
@@ -90,12 +90,12 @@ public class EscortedState : StateBaseClass
         {
             if(collider.gameObject.name == "Bed") ///just for testing 
             {
-                Debug.Log("found bed"); 
+                //Debug.Log("found bed"); 
                 return true;
             }
             else
             {
-                Debug.Log("BED NOT FOUND"); 
+                //Debug.Log("BED NOT FOUND"); 
             }
         }
         
@@ -137,7 +137,7 @@ public class EscortedState : StateBaseClass
            // Debug.Log("moving to: " + newPos); 
         }
 
-        Debug.Log(character.rb.velocity);
+        //Debug.Log(character.rb.velocity);
 
        if(RaycastToPlayer.PlayerDistance < 3)
         {

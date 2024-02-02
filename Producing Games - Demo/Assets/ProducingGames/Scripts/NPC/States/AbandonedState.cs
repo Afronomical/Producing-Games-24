@@ -13,7 +13,7 @@ public class AbandonedState : StateBaseClass
         TimeAbandoned += Time.deltaTime;
 
         GetComponent<AICharacter>().isMoving = false;
-        Debug.Log("NPC in Abandoned State");
+        //Debug.Log("NPC in Abandoned State");
         if (RaycastToPlayer == null)
         {
             RaycastToPlayer = GetComponent<RaycastToPlayer>();

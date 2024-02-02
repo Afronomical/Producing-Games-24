@@ -18,5 +18,7 @@ public class HourlyTask : ScriptableObject
 
     public PatientTaskManager.TaskLocation location;
 
+    public InteractiveObject itemToGive;
+
     public bool genericTask;
 }

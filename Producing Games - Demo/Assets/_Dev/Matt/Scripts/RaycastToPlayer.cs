@@ -46,8 +46,8 @@ public class RaycastToPlayer : MonoBehaviour
             float distToPlayer = Vector3.Distance(character.transform.position, character.player.transform.position);
             if(hitInfo.distance < distToPlayer)
             {
-                Debug.DrawLine(ray.origin, hitInfo.point, Color.red);
-                Debug.Log("Obstacle Detected: " + hitInfo.collider.gameObject.name);
+                //Debug.DrawLine(ray.origin, hitInfo.point, Color.red);
+                //Debug.Log("Obstacle Detected: " + hitInfo.collider.gameObject.name);
                 return false;
             }
             else
@@ -62,7 +62,7 @@ public class RaycastToPlayer : MonoBehaviour
         else if(PlayerDistance <= detectionRange)
         {
             Debug.DrawLine(ray.origin,ray.origin + ray.direction * detectionRange,Color.green);
-            Debug.Log("Player Detected within range");
+            //Debug.Log("Player Detected within range");
            
             return true;
            

@@ -2,20 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HMedicineTask : Task
+public class HInjectionTask : Task
 {
-    void Start()
-    {
-        
-    }
-
-
-    void Update()
-    {
-        
-    }
-
-
     public override void CheckTaskConditions(GameObject interactedObject)
     {
         if (interactedObject == taskTarget)  // Check for the correct patient being interacted with
@@ -31,7 +19,7 @@ public class HMedicineTask : Task
 
     public override void CompleteTask()
     {
-        Debug.Log("Completed medicine task");
+        Debug.Log("Completed injection task");
         base.CompleteTask();
     }
 
@@ -40,8 +28,8 @@ public class HMedicineTask : Task
     {
         if (taskTarget.TryGetComponent(out AICharacter character))
         {
-            character.health -= 2;
-            Debug.Log("Patient lost 2 health due to failed medicine task");
+            character.CurrentSanity -= 4;
+            Debug.Log("Patient lost 4 sanity due to failed injection task");
         }
 
         base.FailTask();

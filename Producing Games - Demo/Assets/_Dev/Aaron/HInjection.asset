@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bdfcf11202b697448b0dcdc743394992, type: 3}
-  m_Name: HMedicine
+  m_Name: HInjection
   m_EditorClassIdentifier: 
-  taskType: 0
-  chanceToHappen: 70
+  taskType: 1
+  chanceToHappen: 60
   BlockingTasks: []
-  taskName: Pills
-  taskDescription: Give the patient their pills
+  taskName: Injection
+  taskDescription: Give the patient their injection
   location: 0
-  itemToGive: {fileID: 11400000, guid: 466d28f252da7d14ea55f7cc9ffeb6fe, type: 2}
+  itemToGive: {fileID: 11400000, guid: 79dfcdceaf598a444973567781c3cfe5, type: 2}
   genericTask: 0

@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class PatientTaskManager : MonoBehaviour
 {
-    public enum HourlyTasks { Medicine };
+    public enum HourlyTasks { Medicine, Injection };
     public enum TaskLocation { Bed, Bedside, Board, Altar };
 
 
@@ -36,32 +36,32 @@ public class PatientTaskManager : MonoBehaviour
     }
 
 
-    void CheckTaskConditions(GameObject interactedObject)
+    public void CheckTaskConditions(GameObject interactedObject)
     {
-        foreach (Task t in currentTasks)
+        for (int i = currentTasks.Count - 1; i >= 0; i--)
         {
-            t.CheckTaskConditions(interactedObject);
+            currentTasks[i].CheckTaskConditions(interactedObject);
         }
     }
 
 
     void SetHourlyTasks()
     {
-        for (int p = 0; p < patients.Length; p++)
+        for (int i = 0; i < patients.Length; i++)
         {
             for (int j = 0; j < tasksPerPatient; j++)
             {
                 List<HourlyTask> choiceOfTasks = new List<HourlyTask>();
                 int totalChance = 0;
-                for (int i = 0; i < hourlyTasks.Length; i++)  // Check for invalid tasks and calculate total chance
+                foreach (HourlyTask t in hourlyTasks)  // Check for invalid tasks and calculate total chance
                 {
                     // Check for blocking tasks here
-                    totalChance += hourlyTasks[i].chanceToHappen;
-                    choiceOfTasks.Add(hourlyTasks[i]);
+                    totalChance += t.chanceToHappen;
+                    choiceOfTasks.Add(t);
                 }
 
                 int rand = Random.Range(0, totalChance);
-                HourlyTasks chosenTask = HourlyTasks.Medicine;
+                HourlyTask chosenTask = choiceOfTasks[0];
                 Task newTask = null;
 
                 int x = 0;
@@ -70,24 +70,29 @@ public class PatientTaskManager : MonoBehaviour
                     x += t.chanceToHappen;
                     if (rand <= t.chanceToHappen)
                     {
-                        chosenTask = t.taskType;
-                        break;
+                        chosenTask = t;
                     }
                 }
 
 
 
-                switch (chosenTask)
+                switch (chosenTask.taskType)
                 {
                     case HourlyTasks.Medicine:
                         newTask = transform.AddComponent<HMedicineTask>();
                         break;
+                    case HourlyTasks.Injection:
+                        newTask = transform.AddComponent<HInjectionTask>();
+                        break;
                 }
+
+                if (newTask.isHourlyTask) newTask.hTask = chosenTask;
+                else if (!newTask.isHourlyTask) newTask.rTask = chosenTask;
 
                 if (newTask != null)
                 {
                     currentTasks.Add(newTask);
-                    newTask.patient = patients[p];
+                    newTask.taskTarget = patients[i];
                 }
             }
         }
@@ -97,6 +102,13 @@ public class PatientTaskManager : MonoBehaviour
     void SetRandomTask()
     {
 
+    }
+
+
+    public void CompleteTask(Task task)
+    {
+        currentTasks.Remove(task);
+        Destroy(task);
     }
 
 

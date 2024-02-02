@@ -68,7 +68,9 @@ public class PlayerInteractor : MonoBehaviour
                 currentNPC = NPCInteractable;
                 if(NPCInteractable is NPCInteractableTemplate NPCTemplate)
                 {
-                    Debug.Log("AI Hit");
+                    if (Input.GetMouseButtonDown(0))
+                        PatientTaskManager.instance.CheckTaskConditions(NPCTemplate.character.gameObject);
+
                     if(NPCTemplate.character.currentState == AICharacter.States.Wandering)
                     {
                         TooltipManager.Instance.ShowTooltip("ESCORT " + NPCTemplate.ToolTipText);

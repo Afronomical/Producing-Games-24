@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class Task : MonoBehaviour
 {
-    public GameObject patient;
+    public GameObject taskTarget;  // Patient that the task is for or object such as altar (The thing the player must interact with)
 
     public bool isHourlyTask = true;
-    [HideInInspector] HourlyTask hTask;
-    [HideInInspector] HourlyTask rTask;
+    [HideInInspector] public HourlyTask hTask;
+    [HideInInspector] public HourlyTask rTask;
     [HideInInspector] public bool taskNoticed = true;  // Used for telling the player about a random task
 
     void Start()
@@ -32,12 +32,12 @@ public class Task : MonoBehaviour
 
     public virtual void CompleteTask()
     {
-        Debug.Log("Completed Task");
+        PatientTaskManager.instance.CompleteTask(this);
     }
 
 
     public virtual void FailTask()
     {
-        Debug.Log("Failed Task");
+
     }
 }

@@ -15,7 +15,7 @@ public class BedState : StateBaseClass
     public override void UpdateLogic()
     {
         GetComponent<AICharacter>().isMoving = false;
-        Debug.Log("Player in Bed State"); 
+        //Debug.Log("Player in Bed State"); 
         ////fix character transform to bed pos. 
     }
 }

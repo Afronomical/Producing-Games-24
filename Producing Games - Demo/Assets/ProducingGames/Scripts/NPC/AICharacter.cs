@@ -1,10 +1,3 @@
-/*
- *This script should be placed on the AI character
- *It is responsible for the character's main logic
- * 
- * Written by Aaron & Adam
- */
-
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -54,7 +47,7 @@ public class AICharacter : MonoBehaviour
     public float EscortSpeed;
     private float MinSanity = 0;
     private float MaxSanity = 100;
-    private float CurrentSanity;
+    public float CurrentSanity;
     
 
     [Header("States")]
