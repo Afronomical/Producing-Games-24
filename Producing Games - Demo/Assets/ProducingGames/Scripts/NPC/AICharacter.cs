@@ -28,6 +28,7 @@ public class AICharacter : MonoBehaviour
         Wandering,
         Abandoned,
         Possessed,
+        Dead,
         Bed,
         Exorcised,//??
 
@@ -82,6 +83,11 @@ public class AICharacter : MonoBehaviour
     {
         if (stateScript != null)
             stateScript.UpdateLogic();  // Calls the virtual function for whatever state scripts
+
+        if(health <= 0)
+        {
+            ChangeState(States.Dead);
+        }
     }
 
 
@@ -132,7 +138,9 @@ public class AICharacter : MonoBehaviour
                 case States.Wandering:
                     stateScript = transform.AddComponent<WanderingState>();
                     break;
-
+                case States.Dead:
+                    stateScript = transform.AddComponent<DeadState>();
+                    break;
                 case States.None:
                     stateScript = null;
                     break;
