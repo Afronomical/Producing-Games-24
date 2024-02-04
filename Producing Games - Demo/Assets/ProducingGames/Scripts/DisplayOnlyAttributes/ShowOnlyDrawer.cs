@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomPropertyDrawer(typeof(ShowOnlyAttribute))]
-public class ShowOnlyDrawer : PropertyDrawer
+//[CustomPropertyDrawer(typeof(ShowOnlyAttribute))]
+public class ShowOnlyDrawer// : PropertyDrawer
 {
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    /*public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         string valueString;
         
@@ -38,5 +38,5 @@ public class ShowOnlyDrawer : PropertyDrawer
         }
 
         EditorGUI.LabelField(position, label.text, valueString);
-    }
+    }*/
 }
