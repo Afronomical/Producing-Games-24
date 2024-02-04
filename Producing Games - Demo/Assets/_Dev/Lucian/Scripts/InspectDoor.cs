@@ -5,6 +5,7 @@ using UnityEngine;
 public class InspectDoor : InteractableTemplate
 {
     private Camera mainCam;
+    private CameraLook camLookScript;
     public Vector3 camRotation;// = new Vector3(0,0,0);
     public Vector3 camPosition;// = new Vector3(-1.54999995f, 0.310000002f, 7.25f);
     private Quaternion oldCamRotation;
@@ -16,6 +17,7 @@ public class InspectDoor : InteractableTemplate
     private void Start()
     {
         mainCam = Camera.main;
+        camLookScript = Camera.main.GetComponent<CameraLook>();
     }
 
     private void Update()
@@ -36,7 +38,9 @@ public class InspectDoor : InteractableTemplate
         if (looking)
         {
             mainCam.transform.position = Vector3.MoveTowards(mainCam.transform.position, camPosition, 2.5f * Time.deltaTime);
-            mainCam.transform.rotation = Quaternion.Lerp(mainCam.transform.rotation, Quaternion.Euler(camRotation), 2.5f * Time.deltaTime);
+            mainCam.transform.rotation = Quaternion.Lerp(mainCam.transform.localRotation, Quaternion.Euler(camRotation), 2.5f * Time.deltaTime);
+            //mainCam.transform.rotation = Quaternion.RotateTowards(mainCam.transform.localRotation, Quaternion.Euler(camRotation), 360);
+            camLookScript.enabled = false; 
         }
         
         if(stopLooking)
@@ -45,12 +49,13 @@ public class InspectDoor : InteractableTemplate
             mainCam.transform.rotation = Quaternion.Lerp(mainCam.transform.rotation, oldCamRotation, 2.5f * Time.deltaTime);
 
             mainCam.transform.parent = GameObject.Find("Player").transform;
-
+            
             if(mainCam.transform.position == oldCamPosition)
             {
                 stopLooking = false;
                 GameObject.Find("Player").GetComponent<PlayerMovement>().enabled = true;
                 mainCam.GetComponent<CameraLook>().canHeadBob = true;
+                camLookScript.enabled = true;
             }
         }
 
