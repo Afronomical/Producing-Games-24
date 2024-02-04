@@ -21,4 +21,6 @@ public class HourlyTask : ScriptableObject
     public InteractiveObject itemToGive;
 
     public bool genericTask;
+
+    public Material basicEyes, taskEyes;
 }

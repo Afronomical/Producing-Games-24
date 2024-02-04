@@ -93,6 +93,8 @@ public class PatientTaskManager : MonoBehaviour
                 {
                     currentTasks.Add(newTask);
                     newTask.taskTarget = patients[i];
+                    patients[i].transform.Find("Eye 1").GetComponent<MeshRenderer>().material = chosenTask.taskEyes;
+                    patients[i].transform.Find("Eye 2").GetComponent<MeshRenderer>().material = chosenTask.taskEyes;
                 }
             }
         }
