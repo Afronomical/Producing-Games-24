@@ -7,6 +7,8 @@ public class InspectDoor : InteractableTemplate
     private Camera mainCam;
     private CameraLook camLookScript;
     public Vector3 camRotation;// = new Vector3(0,0,0);
+    public Transform camMoveTransform;
+
     public Vector3 camPosition;// = new Vector3(-1.54999995f, 0.310000002f, 7.25f);
     private Quaternion oldCamRotation;
     private Vector3 oldCamPosition;
@@ -18,6 +20,8 @@ public class InspectDoor : InteractableTemplate
     {
         mainCam = Camera.main;
         camLookScript = Camera.main.GetComponent<CameraLook>();
+        camPosition = camMoveTransform.position;
+        camRotation = camMoveTransform.rotation.eulerAngles;
     }
 
     private void Update()
