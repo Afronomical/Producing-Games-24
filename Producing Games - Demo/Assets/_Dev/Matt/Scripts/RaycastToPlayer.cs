@@ -24,7 +24,7 @@ public class RaycastToPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(character.player.transform.position);
+        
         PlayerDistance = Vector3.Distance(character.transform.position ,character.player.transform.position);
         
        
