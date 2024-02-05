@@ -40,25 +40,25 @@ public class EscortedState : StateBaseClass
         
        
         
-       if(RaycastToPlayer.PlayerDetected())
+       if(RaycastToPlayer.PlayerDetected()) //player is detected. following player function is called. 
         {
-           // Debug.Log("calling move towards player");
+          
             HasPickedUpNPC = true;
             
             lastPlayerPos = character.player.transform.position;
 
             MoveTowardsPlayer(); 
         }
-       else if(HasPickedUpNPC && !RaycastToPlayer.PlayerDetected())
+       else if(HasPickedUpNPC && !RaycastToPlayer.PlayerDetected()) ///if NPC previously picked up but currently not detecting player 
         {
-            character.agent.SetDestination(lastPlayerPos);
+            character.agent.SetDestination(lastPlayerPos); ///NPC moves to player last known position to check whether they are still in range 
 
-            //Debug.Log("Abandoned NPC!");
+            
             TimeAlone += Time.deltaTime;
-            //Debug.Log(TimeInAbandonded);
+            
             if(TimeAlone >= MaxTimeAlone) ///gives player 3 seconds to recollect NPC before they enter wandering state again 
             {
-                character.ChangeState(AICharacter.States.Abandoned); //no state script for this at time of writing. 
+                character.ChangeState(AICharacter.States.Abandoned); //changes state to abandoned
                 TimeAlone = 0;
             }
 
@@ -67,9 +67,9 @@ public class EscortedState : StateBaseClass
 
        if(HasPickedUpNPC)
         {
-           if(CheckBedInRange())
+           if(CheckBedInRange()) ///checking whether bed is in range 
             {
-                //Debug.Log("BED LOCATED");
+               
                 BedInRange = true;
                 ShouldFollow = false;
                 character.ChangeState(AICharacter.States.Bed);
@@ -81,7 +81,7 @@ public class EscortedState : StateBaseClass
     }
 
 
-    bool CheckBedInRange() /*only perform if player has picked NPC up */
+    bool CheckBedInRange() /*only perform if player has picked NPC up */ //function to check whether bed in range 
     {
         
         
@@ -120,26 +120,17 @@ public class EscortedState : StateBaseClass
             currentPos = character.transform.position;
             targetPos = followPos;
 
-            //Vector3 newPos = Vector3.MoveTowards(currentPos, targetPos, character.EscortSpeed);
-
-            //if (RaycastToPlayer.PlayerDistance > 3)
-            //{
-            //    newPos = Vector3.MoveTowards(currentPos, targetPos, character.EscortSpeed);
-            //}
+            
             character.transform.LookAt(character.player.transform);
 
-            //character.rb.MovePosition(newPos);
-            character.agent.SetDestination(targetPos);
-            //if (RaycastToPlayer.PlayerDistance > 3)
-                //character.agent.SetDestination(newPos);
-            //else
-                //character.agent.isStopped = true;
-           // Debug.Log("moving to: " + newPos); 
+            
+            character.agent.SetDestination(targetPos); /// sets target position to player last pos 
+           
         }
 
-        //Debug.Log(character.rb.velocity);
+        
 
-       if(RaycastToPlayer.PlayerDistance < 3)
+       if(RaycastToPlayer.PlayerDistance < 3)  ////stops NPC moving any closer than 3 units 
         {
             targetPos = currentPos;
             ShouldFollow = false;
