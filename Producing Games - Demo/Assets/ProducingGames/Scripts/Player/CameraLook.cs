@@ -17,6 +17,7 @@ public class CameraLook : MonoBehaviour
     [SerializeField] public bool canHeadBob = true;
     [SerializeField] [Range(0.1f, 5f)] private float bobAmplitude = 0.5f;
     [SerializeField][Range(5f, 15f)] private float bobFrequency = 10f;
+    public float bobResetSpeed = 1.0f;
     private float bobOffSpeed = 3f;
     private Vector3 camStartPos;
 
@@ -85,6 +86,6 @@ public class CameraLook : MonoBehaviour
     private void BobReset()
     {
         if (transform.localPosition != camStartPos)
-            transform.localPosition = Vector3.Lerp(transform.localPosition, camStartPos, Time.deltaTime);
+            transform.localPosition = Vector3.Lerp(transform.localPosition, camStartPos, Time.deltaTime * bobResetSpeed);
     }
 }
