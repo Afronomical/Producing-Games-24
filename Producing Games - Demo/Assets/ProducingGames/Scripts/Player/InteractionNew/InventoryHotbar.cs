@@ -21,6 +21,11 @@ public class InventoryHotbar : MonoBehaviour
     public event ItemPickedUpEvent OnItemPickedUp;
     public event Action OnItemSelected;
 
+
+    public Transform spawnPos;
+    public GameObject go;
+    bool holding = false;
+
     private void Awake()
     {
         if (instance == null)
@@ -41,7 +46,7 @@ public class InventoryHotbar : MonoBehaviour
         if (inventory.Count != 0)
         {
             currentItem = inventory[currentIndex];
-
+            //go = currentItem.prefab.gameObject;
         }
     }
 
@@ -60,6 +65,7 @@ public class InventoryHotbar : MonoBehaviour
     public void RemoveFromInventory(InteractiveObject item)
     {
         inventory.Remove(item);  // Remove the item from the inventory
+        Destroy(go);
         ScrollInventory(0);  // Refresh the inventory images
     }
 
@@ -81,8 +87,27 @@ public class InventoryHotbar : MonoBehaviour
 
 
         if (inventory.Count != 0)
+        {
             Debug.Log("Currently holding " + inventory[currentIndex].objectName);
-
+            if (!holding)
+            {
+                go = Instantiate(inventory[currentIndex].prefab, spawnPos.position, Quaternion.identity);
+                go.transform.parent = spawnPos.transform;
+                go.transform.GetComponent<Rigidbody>().useGravity = false;
+                go.transform.GetComponent<Collider>().enabled = false;
+                holding = true;
+            }
+            else
+            {
+                Destroy(go);
+                go = Instantiate(inventory[currentIndex].prefab, spawnPos.position, Quaternion.identity);
+                go.transform.parent = spawnPos.transform;
+                go.transform.GetComponent<Rigidbody>().useGravity = false;
+                go.transform.GetComponent<Collider>().enabled = false;
+            }
+            
+        }
+            
         
     }
 
