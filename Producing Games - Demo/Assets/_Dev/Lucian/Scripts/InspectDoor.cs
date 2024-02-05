@@ -33,20 +33,19 @@ public class InspectDoor : InteractableTemplate
             playerCanMove = true;
             stopLooking = true;
 
-            //GameObject.Find("Player").GetComponent<PlayerMovement>().enabled = true;
+            //re-enable interaction ability
             this.gameObject.GetComponent<BoxCollider>().enabled = true;
-            //GetComponent<CameraLook>().enabled = true;
+            
             
         }
-
+        //move camera to glass panel if door is interacted with
         if (looking)
         {
             mainCam.transform.position = Vector3.MoveTowards(mainCam.transform.position, camPosition, 2.5f * Time.deltaTime);
             mainCam.transform.rotation = Quaternion.Lerp(mainCam.transform.localRotation, Quaternion.Euler(camRotation), 2.5f * Time.deltaTime);
-            //mainCam.transform.rotation = Quaternion.RotateTowards(mainCam.transform.localRotation, Quaternion.Euler(camRotation), 360);
             camLookScript.enabled = false; 
         }
-        
+        //move camera back to initial position if looking is done
         if(stopLooking)
         {
             mainCam.transform.position = Vector3.MoveTowards(mainCam.transform.position, oldCamPosition, 2.5f * Time.deltaTime);
@@ -56,6 +55,7 @@ public class InspectDoor : InteractableTemplate
             
             if(mainCam.transform.position == oldCamPosition)
             {
+                //re-enable player and door interaction when leaving the door
                 stopLooking = false;
                 GameObject.Find("Player").GetComponent<PlayerMovement>().enabled = true;
                 mainCam.GetComponent<CameraLook>().canHeadBob = true;
@@ -69,10 +69,11 @@ public class InspectDoor : InteractableTemplate
         {
             GameObject.Find("Player").GetComponent<PlayerMovement>().enabled = false;
             this.gameObject.GetComponent<BoxCollider>().enabled = false;
-            //GetComponent<CameraLook>().enabled = false;
+            
         }
 
     }
+    //disable interaction functionalities for player and object
     public override void Interact()
     {
         Debug.Log("*** Interacting with door ***");

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-interface IInteractable
+public interface IInteractable
 {
     public string Name { get; }
     public void Interact();
@@ -24,14 +24,16 @@ public class PlayerInteractor : MonoBehaviour
 
     public float interactionRange;
 
-    private IInteractable currentObject;
+    public IInteractable currentObject;
     private INPCInteractable currentNPC; 
 
     private Outline outline;
 
+    public static PlayerInteractor instance;
+
     private void Start()
     {
-        
+        if (instance == null) { instance = this; }
     }
     private void Update()
     {
@@ -46,14 +48,9 @@ public class PlayerInteractor : MonoBehaviour
                 //checks if object is interactable
                 if(interactable is InteractableTemplate interactableTemplate) 
                 {
+                    //shows tooltip on mouse hover
+                    TooltipManager.Instance.ShowTooltip(interactableTemplate.collectible.tooltipText);
 
-                    TooltipManager.Instance.ShowTooltip(interactableTemplate.collectible.tooltipText/* + " " + interactableTemplate.collectible.objectName*/);
-
-                    if(Input.GetMouseButtonDown(0))
-                    {
-                        currentObject.Interact();
-
-                    }
                     
                     outline = interactableTemplate.gameObject.GetComponent<Outline>();
                     if(outline != null)
