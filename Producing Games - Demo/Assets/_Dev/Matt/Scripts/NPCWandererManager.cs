@@ -8,7 +8,8 @@ using UnityEngine;
 /// Moderated By: ...
 /// 
 /// Holds a container of positions that each NPC will choose from to move towards
-/// during the wandering state.
+/// during the wandering state, it's a singleton design as we only want one instance
+/// of the NPC Wandering Manager.
 /// </summary>
 public class NPCWandererManager : MonoBehaviour
 {
@@ -30,6 +31,10 @@ public class NPCWandererManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Chooses a random location from the destinations list for the NPC to wander towards
+    /// </summary>
+    /// <returns></returns>
     public Vector3 RandomDestination()
     {
         return destinationLocations[Random.Range(0, destinationLocations.Count)].position;
