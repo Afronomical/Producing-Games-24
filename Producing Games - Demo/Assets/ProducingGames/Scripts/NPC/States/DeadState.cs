@@ -10,6 +10,6 @@ public class DeadState : StateBaseClass
         character.rb.velocity = Vector3.zero;
         character.agent.velocity = Vector3.zero;
         character.agent.ResetPath(); 
-        transform.Rotate(0, 0 ,- 90);
+        transform.Rotate(0, 0 ,- 90); ///placeholder function to display death
     }
 }
