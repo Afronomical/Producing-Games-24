@@ -11,7 +11,7 @@ public class Flashlight : MonoBehaviour
     public float[] intensities;
     private int intensityIndex = 0;
 
-    public int flickerChance = 10;
+    private int flickerChance = 500;
     public float flickerMultiplier = 1;
 
 
@@ -51,7 +51,16 @@ public class Flashlight : MonoBehaviour
             light.intensity = Mathf.Max(0, light.intensity);
         }  */
 
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            StartCoroutine(flickering());
+        }
         flashFlicker();
+    }
+
+    private void Start()
+    {
+        
     }
 
     public void OnFlashlightInput(InputAction.CallbackContext context)
@@ -71,6 +80,7 @@ public class Flashlight : MonoBehaviour
         if (flickerRandRange == 1)
         {
             StartCoroutine(flickering());
+            Debug.Log(flickerRandRange);
         }
         
     }
@@ -81,7 +91,8 @@ public class Flashlight : MonoBehaviour
         int flickCount = Random.Range(5, 20);
         for (int i = 0; i < flickCount; i++)
         {
-
+            yield return new WaitForSeconds(Random.Range(0.05f, 0.2f));
+            light.intensity *= Random.Range(0.7f, 1.01f);
         }
         yield return new WaitForSeconds(Random.Range(0.2f, 1.0f));
         light.intensity = oldIntensity;
