@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -9,21 +7,22 @@ using UnityEngine;
 /// The wandering state allows the NPC to wonder around the map by choosing a destination
 /// location from a list of potential locations that the NPC can travel to
 /// </summary>
+
 public class WanderingState : StateBaseClass
 {
     private Vector3 wanderDestination;
-    private float distanceFromDestination = 1.1f;
+    private readonly float distanceFromDestination = 1.1f;
 
     // INFO: Timer variables used to define the duration that an NPC waits at a location
     private float currentIdleTime = 0.0f;
-    private float maxIdleTime = 3.0f;
-
-    private float wanderingSpeed = 1.0f;
+    private readonly float maxIdleTime = 3.0f;
 
     private void Start()
     {
+        character.agent.speed = character.walkSpeed;
+        character.agent.ResetPath();
+
         wanderDestination = NPCWandererManager.Instance.RandomDestination();
-        character.agent.speed = wanderingSpeed;
     }
 
     public override void UpdateLogic()
@@ -63,7 +62,6 @@ public class WanderingState : StateBaseClass
 
             newWanderDestination = NPCWandererManager.Instance.RandomDestination();
         }
-
         wanderDestination = newWanderDestination;
     }
 }

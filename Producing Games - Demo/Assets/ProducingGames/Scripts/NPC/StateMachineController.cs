@@ -5,6 +5,7 @@ using Unity.Collections.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
 
+// NOT USED
 public class StateMachineController : MonoBehaviour
 {
     // Handles the switching of the states depending on if certain conditions are met

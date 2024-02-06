@@ -40,7 +40,7 @@ public class HMedicineTask : Task
     {
         if (taskTarget.TryGetComponent(out AICharacter character))
         {
-            character.health -= 2;
+            character.currentHealth -= 2;
             Debug.Log("Patient lost 2 health due to failed medicine task");
         }
 

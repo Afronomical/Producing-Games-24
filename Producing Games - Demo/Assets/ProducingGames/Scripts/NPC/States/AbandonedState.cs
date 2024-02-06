@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 /// <summary>
 /// Written By: Matt Brake
 /// <para> Moderated By: </para>
@@ -9,24 +10,21 @@ using UnityEngine;
 
 public class AbandonedState : StateBaseClass
 {
-    private RaycastToPlayer RaycastToPlayer;
-    private float TimeAbandoned = 0;
-    private float MaxTimeAbandoned = 5f; 
+    private RaycastToPlayer raycastToPlayer;
+    private float timeAbandoned = 0;
+    private readonly float maxTimeAbandoned = 5f; 
 
     public override void UpdateLogic()
     {
-        TimeAbandoned += Time.deltaTime; //logs the time they NPC has been abandoned for.
+        GetComponent<AICharacter>().isMoving = false; //flags character as not moving
 
-        GetComponent<AICharacter>().isMoving = false;  ///flags character as not moving 
-        if (RaycastToPlayer == null)
-        {
-            RaycastToPlayer = GetComponent<RaycastToPlayer>();
-        }
+        timeAbandoned += Time.deltaTime; //logs the time they NPC has been abandoned for.
+
+        if (raycastToPlayer == null)
+            raycastToPlayer = GetComponent<RaycastToPlayer>();
 
         
-        if (TimeAbandoned > MaxTimeAbandoned)
-        {
-            character.ChangeState(AICharacter.States.Wandering); /// once the max time for abandonment is reached, NPC goes wandering. 
-        }
+        if (timeAbandoned > maxTimeAbandoned)
+            character.ChangeState(AICharacter.States.Wandering); // once the max time for abandonment is reached, NPC goes wandering. 
     }
 }

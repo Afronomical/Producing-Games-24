@@ -1,10 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
-using Unity.AI;
 using UnityEngine.AI;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(NavMeshAgent))]
@@ -13,7 +8,7 @@ using UnityEngine.AI;
 
 public class AICharacter : MonoBehaviour
 {
-    public Rigidbody rb; 
+
     public enum CharacterTypes
     {
         Patient,
@@ -22,8 +17,6 @@ public class AICharacter : MonoBehaviour
 
     public enum States
     {
-        Idle,
-        Moving,
         Escorted,
         Wandering,
         Abandoned,
@@ -35,71 +28,59 @@ public class AICharacter : MonoBehaviour
         None
     }
 
-
     [Header("Character Stats")]
     public CharacterTypes characterType;
     public int startingHealth = 100;
-    public int health;
-    public float walkSpeed, runSpeed, crawlSpeed;
-    public float turnSpeed;
-    public float turnDistance;
-    public float DetectionRadius;
-    public float step;
-    public float EscortSpeed;
-    private float MinSanity = 0;
-    private float MaxSanity = 100;
-    public float CurrentSanity;
-    
+    public int currentHealth;
+    public float startingSanity = 100;
+    public float currentSanity;
+    public float walkSpeed = 1.0f;
+    public float runSpeed = 2.0f;
+    public float crawlSpeed = 0.5f;
+    public float detectionRadius = 5.0f;
 
     [Header("States")]
     public States currentState;
-    public StateBaseClass stateScript;
-    public GameObject player;
     [HideInInspector] public bool isMoving;
     [HideInInspector] public bool knowsAboutPlayer;
 
+    [Header("Components")]
+    public StateBaseClass stateScript;
+    public GameObject player;
+    public Rigidbody rb;
     public NavMeshAgent agent;
 
-
-    void Start()
+    private void Start()
     {
-        walkSpeed /= 2;
-        runSpeed /= 2;
-        crawlSpeed /= 2;
-        health = startingHealth;
-        CurrentSanity = MaxSanity; 
-        EscortSpeed = 1.0f;
-        ChangeState(States.Abandoned);
-        //ChangeState(States.Wandering);  // The character will start in the idle state
-        player = GameObject.FindGameObjectWithTag("Player");
-        rb = GetComponent<Rigidbody>();
-        DetectionRadius = 5f;
+        currentHealth = startingHealth;
+        currentSanity = startingSanity;
 
+        player = FindFirstObjectByType<PlayerMovement>().gameObject;
+        rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
+
+        ChangeState(States.Abandoned); //INFO: Starting State
     }
 
 
-    void Update()
+    private void Update()
     {
         if (stateScript != null)
             stateScript.UpdateLogic();  // Calls the virtual function for whatever state scripts
 
-        if(health <= 0)
-        {
+        if (currentHealth <= 0)
             ChangeState(States.Dead);
-        }
     }
 
-
-    public StateBaseClass GetCurrentState()  // Tell the script that called it which state is currently active
+    private void OnDrawGizmos()
     {
-        return stateScript;
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
-
 
     public void ChangeState(States newState)  // Will destroy the old state script and create a new one
     {
-        
+
         if (currentState != newState || stateScript == null)
         {
             if (stateScript != null)
@@ -113,13 +94,6 @@ public class AICharacter : MonoBehaviour
 
             switch (newState)
             {
-                
-                case States.Idle:
-                    stateScript = transform.AddComponent<IdleState>();
-                    break;
-                case States.Moving:
-                    stateScript = transform.AddComponent<MovementState>();
-                    break;
                 case States.Exorcised:
                     stateScript = transform.AddComponent<ExorcisedState>();
                     break;
@@ -145,7 +119,7 @@ public class AICharacter : MonoBehaviour
                     stateScript = null;
                     break;
                 default:
-                    stateScript = transform.AddComponent<IdleState>();
+                    stateScript = null;
                     break;
             }
 
@@ -154,27 +128,4 @@ public class AICharacter : MonoBehaviour
         }
     }
 
-
-    public Vector2 GetPosition()
-    {
-        return transform.position;
-    }
-
-
-    public void SetPosition(Vector2 pos)
-    {
-        transform.position = pos;
-    }
-
-
-    public Vector3 GetPlayerPosition()
-    {
-        return player.transform.position;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, DetectionRadius);
-    }
 }

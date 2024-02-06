@@ -28,7 +28,7 @@ public class HInjectionTask : Task
     {
         if (taskTarget.TryGetComponent(out AICharacter character))
         {
-            character.CurrentSanity -= 4;
+            character.currentSanity -= 4;
             Debug.Log("Patient lost 4 sanity due to failed injection task");
         }
 
