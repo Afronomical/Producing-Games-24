@@ -8,7 +8,8 @@ public interface IInteractable
     public void Interact();
     public void Collect();
 
-}interface INPCInteractable
+}
+public interface INPCInteractable
 {
     public string Name { get;}
     public void Interact();
@@ -25,7 +26,7 @@ public class PlayerInteractor : MonoBehaviour
     public float interactionRange;
 
     public IInteractable currentObject;
-    private INPCInteractable currentNPC; 
+    public INPCInteractable currentNPC; 
 
     private Outline outline;
 
@@ -37,73 +38,73 @@ public class PlayerInteractor : MonoBehaviour
     }
     private void Update()
     {
-        Ray r = new Ray(interactorSource.position, interactorSource.forward);
+        //Ray r = new Ray(interactorSource.position, interactorSource.forward);
 
-        if(Physics.Raycast(r, out RaycastHit hit, interactionRange))
-        {
-            if(hit.collider.gameObject.TryGetComponent(out IInteractable interactable))
-            {
-                currentObject = interactable;
+        //if(Physics.Raycast(r, out RaycastHit hit, interactionRange))
+        //{
+        //    if(hit.collider.gameObject.TryGetComponent(out IInteractable interactable))
+        //    {
+        //        //currentObject = interactable;
 
-                //checks if object is interactable
-                if(interactable is InteractableTemplate interactableTemplate) 
-                {
-                    //shows tooltip on mouse hover
-                    TooltipManager.Instance.ShowTooltip(interactableTemplate.collectible.tooltipText);
+        //        //checks if object is interactable
+        //        //if(interactable is InteractableTemplate interactableTemplate) 
+        //        //{
+        //        //    //shows tooltip on mouse hover
+        //        //    TooltipManager.Instance.ShowTooltip(interactableTemplate.collectible.tooltipText);
 
                     
-                    outline = interactableTemplate.gameObject.GetComponent<Outline>();
-                    if(outline != null)
-                    {
-                        interactableTemplate.gameObject.GetComponent<Outline>().enabled = true;
+        //        //    outline = interactableTemplate.gameObject.GetComponent<Outline>();
+        //        //    if(outline != null)
+        //        //    {
+        //        //        interactableTemplate.gameObject.GetComponent<Outline>().enabled = true;
 
-                    }
-                }
-            }
-            else if(hit.collider.gameObject.TryGetComponent(out INPCInteractable NPCInteractable))
-            {
-                currentNPC = NPCInteractable;
-                if(NPCInteractable is NPCInteractableTemplate NPCTemplate)
-                {
-                    if (Input.GetMouseButtonDown(0))
-                        PatientTaskManager.instance.CheckTaskConditions(NPCTemplate.character.gameObject);
+        //        //    }
+        //        //}
+        //    }
+        //    else if(hit.collider.gameObject.TryGetComponent(out INPCInteractable NPCInteractable))
+        //    {
+        //        currentNPC = NPCInteractable;
+        //        if(NPCInteractable is NPCInteractableTemplate NPCTemplate)
+        //        {
+        //            if (Input.GetMouseButtonDown(0))
+        //                PatientTaskManager.instance.CheckTaskConditions(NPCTemplate.character.gameObject);
 
-                    if(NPCTemplate.character.currentState == AICharacter.States.Wandering)
-                    {
-                        TooltipManager.Instance.ShowTooltip("ESCORT " + NPCTemplate.ToolTipText);
-                        if (Input.GetMouseButtonDown(0))
-                        {
-                            NPCTemplate.character.ChangeState(AICharacter.States.Escorted);
-                            //currentNPC.Escort();
-                        }
-                    }
-                    else if(NPCTemplate.character.currentState == AICharacter.States.Bed)
-                    {
-                      ////can interact unless dead 
+        //            if(NPCTemplate.character.currentState == AICharacter.States.Wandering)
+        //            {
+        //                TooltipManager.Instance.ShowTooltip("ESCORT " + NPCTemplate.ToolTipText);
+        //                if (Input.GetMouseButtonDown(0))
+        //                {
+        //                    NPCTemplate.character.ChangeState(AICharacter.States.Escorted);
+        //                    //currentNPC.Escort();
+        //                }
+        //            }
+        //            else if(NPCTemplate.character.currentState == AICharacter.States.Bed)
+        //            {
+        //              ////can interact unless dead 
                       
-                    }
+        //            }
                     
                     
-                }
-            }
-            else
-            {
-                TooltipManager.Instance.HideTooltip();
-                if(outline != null)
-                {
-                    outline.enabled = false;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        TooltipManager.Instance.HideTooltip();
+        //        if(outline != null)
+        //        {
+        //            outline.enabled = false;
 
-                }
-            }
-        }
-        else
-        {
-            TooltipManager.Instance.HideTooltip();
-            if (outline != null)
-            {
-                outline.enabled = false;
+        //        }
+        //    }
+        //}
+        //else
+        //{
+        //    TooltipManager.Instance.HideTooltip();
+        //    if (outline != null)
+        //    {
+        //        outline.enabled = false;
 
-            }
-        }
+        //    }
+        //}
     }
 }
