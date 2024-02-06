@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
 /// Written By: Matt Brake
-/// <para> Moderated By: </para>
+/// <para> Moderated By: ..... </para>
 /// <para> Clarifies the behaviour of the NPC when abandoned by player.</para>
 /// </summary>
 
