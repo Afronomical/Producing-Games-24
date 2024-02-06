@@ -74,6 +74,11 @@ public class PickUpItem : MonoBehaviour
 
                 }
             }
+            else
+            {
+                TooltipManager.Instance.HideTooltip();
+
+            }
         }
         else
         {

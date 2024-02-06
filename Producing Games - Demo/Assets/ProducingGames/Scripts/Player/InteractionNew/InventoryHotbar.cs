@@ -95,6 +95,7 @@ public class InventoryHotbar : MonoBehaviour
                 go.transform.parent = spawnPos.transform;
                 go.transform.GetComponent<Rigidbody>().useGravity = false;
                 go.transform.GetComponent<Collider>().enabled = false;
+                go.layer = 9;
                 holding = true;
             }
             else
@@ -104,6 +105,7 @@ public class InventoryHotbar : MonoBehaviour
                 go.transform.parent = spawnPos.transform;
                 go.transform.GetComponent<Rigidbody>().useGravity = false;
                 go.transform.GetComponent<Collider>().enabled = false;
+                go.layer = 9;
             }
             
         }
