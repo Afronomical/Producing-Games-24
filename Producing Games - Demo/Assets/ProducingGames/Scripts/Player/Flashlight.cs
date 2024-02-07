@@ -17,17 +17,7 @@ public class Flashlight : MonoBehaviour
 
     void Update()
     {
-        if (intensityIndex == 0)
-        {
-            flashlight.SetActive(false);
-            light.intensity = 0;
-        }
-
-        else if (light.intensity != intensities[intensityIndex])
-        {
-            flashlight.SetActive(true);
-            light.intensity = intensities[intensityIndex];
-        }
+        
 
 
         /*if (light.intensity > maxIntensity)
@@ -53,9 +43,9 @@ public class Flashlight : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.T))
         {
-            StartCoroutine(flickering());
+            StartCoroutine(Flickering());
         }
-        flashFlicker();
+        FlashFlicker();
     }
 
     private void Start()
@@ -70,31 +60,48 @@ public class Flashlight : MonoBehaviour
             intensityIndex++;
             if (intensityIndex >= intensities.Length)
                 intensityIndex = 0;
+            IntensityChange();
         }
     }
 
-    private void flashFlicker()
+    private void IntensityChange()
+    {
+        if (intensityIndex == 0)
+        {
+            flashlight.SetActive(false);
+            light.intensity = 0;
+        }
+
+        else if (light.intensity != intensities[intensityIndex])
+        {
+            flashlight.SetActive(true);
+            light.intensity = intensities[intensityIndex];
+        }
+    }
+
+    private void FlashFlicker()
     {
         int flickerRandRange = Random.Range(1, flickerChance);
         int oldIntensityIndex = intensityIndex;
         if (flickerRandRange == 1)
         {
-            StartCoroutine(flickering());
+            StartCoroutine(Flickering());
             Debug.Log(flickerRandRange);
         }
         
     }
 
-    IEnumerator flickering()
+    IEnumerator Flickering()
     {
         float oldIntensity = light.intensity;
         int flickCount = Random.Range(5, 20);
         for (int i = 0; i < flickCount; i++)
         {
             yield return new WaitForSeconds(Random.Range(0.05f, 0.2f));
-            light.intensity *= Random.Range(0.7f, 1.01f);
+            light.intensity = oldIntensity * Random.Range(0.7f, 1.0f);
         }
         yield return new WaitForSeconds(Random.Range(0.2f, 1.0f));
-        light.intensity = oldIntensity;
+        Debug.Log("LightDone");
+        IntensityChange();
     }
 }
