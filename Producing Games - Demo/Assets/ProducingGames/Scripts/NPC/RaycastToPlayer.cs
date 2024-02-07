@@ -4,20 +4,21 @@ using UnityEngine;
 
 /// <summary>
 /// <para>Written By: Matt Brake</para>
-/// Moderated By: .....
+/// Moderated By: Matej Cincibus
 /// <para>Points a raycast from AI to player. Initially for use in escorted state.  </para>
 /// </summary>
 
 public class RaycastToPlayer : MonoBehaviour
 {
     private AICharacter character;
-    [ShowOnly][SerializeField] private float detectionRange = 10f;
-    public LayerMask unwalkableLayer;
+
+    [SerializeField] private float detectionRange = 10f;
+    [SerializeField] private LayerMask unwalkableLayer;
     [ShowOnly] public float playerDistance;
 
-    private void Start()
+    private void Awake()
     {
-        character = GetComponentInParent<AICharacter>();
+        character = GetComponent<AICharacter>();
     }
 
     private void Update()

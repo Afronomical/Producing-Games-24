@@ -4,7 +4,7 @@ using UnityEngine;
 
 /// <summary>
 /// <para>Written By: Matt Brake</para>
-/// Moderated By: ........ 
+/// Moderated By: Matej Cincibus
 /// 
 ///<para>Tracks the behaviour of AI when being escorted back to their room.</para>
 ///<para>Currently will just move towards player transform, until pathfinding is properly in place.</para>
@@ -23,20 +23,20 @@ public class EscortedState : StateBaseClass
 
     private Vector3 lastPlayerPos;
 
-    private void Start()
+    private void Awake()
     {
-        character.agent.speed = character.runSpeed;
+        GetComponent<AICharacter>().isMoving = true;
+
+        if (raycastToPlayer == null)
+            raycastToPlayer = GetComponent<RaycastToPlayer>();
+
         character.agent.ResetPath();
+        character.agent.speed = character.runSpeed;
     }
 
     public override void UpdateLogic()
     {
-        GetComponent<AICharacter>().isMoving = true;
-
         targetPos = character.player.transform.position;
-
-        if (raycastToPlayer == null)
-            raycastToPlayer = GetComponent<RaycastToPlayer>();
 
         if (raycastToPlayer.PlayerDetected()) //player is detected. following player function is called. 
         {
@@ -49,12 +49,12 @@ public class EscortedState : StateBaseClass
 
             MoveTowardsPlayer();
         }
-        else if (hasPickedUpNPC && !raycastToPlayer.PlayerDetected()) ///if NPC previously picked up but currently not detecting player 
+        else if (hasPickedUpNPC && !raycastToPlayer.PlayerDetected()) //if NPC previously picked up but currently not detecting player 
         {
-            character.agent.SetDestination(lastPlayerPos); ///NPC moves to player last known position to check whether they are still in range 
+            character.agent.SetDestination(lastPlayerPos); //NPC moves to player last known position to check whether they are still in range 
             timeAlone += Time.deltaTime;
 
-            if (timeAlone >= maxTimeAlone) ///gives player 3 seconds to recollect NPC before they enter wandering state again 
+            if (timeAlone >= maxTimeAlone) //gives player 3 seconds to recollect NPC before they enter wandering state again 
             {
                 character.ChangeState(AICharacter.States.Abandoned); //changes state to abandoned
                 timeAlone = 0.0f;
@@ -64,13 +64,12 @@ public class EscortedState : StateBaseClass
 
         if (hasPickedUpNPC)
         {
-            if (CheckBedInRange()) ///checking whether bed is in range 
+            if (CheckBedInRange()) //checking whether bed is in range 
             {
-
                 bedInRange = true;
                 shouldFollow = false;
                 character.ChangeState(AICharacter.States.Bed);
-                ///move to bed instead of player, and then enter bed state 
+                //move to bed instead of player, and then enter bed state 
             }
         }
     }
@@ -101,11 +100,12 @@ public class EscortedState : StateBaseClass
     /// </summary>
     void MoveTowardsPlayer()
     {
+        // INFO: Ensures the NPC only rotates on the y-axis
+        Vector3 playerPosition = new(character.player.transform.position.x, transform.position.y, character.player.transform.position.z);
+        transform.LookAt(playerPosition);
+
         if (character.rb != null && shouldFollow == true)
-        {
-            character.transform.LookAt(character.player.transform);
             character.agent.SetDestination(targetPos); // sets target position to player last pos 
-        }
 
         if (raycastToPlayer.playerDistance < stoppingDistance)  //stops NPC moving any closer than 3 units 
         {

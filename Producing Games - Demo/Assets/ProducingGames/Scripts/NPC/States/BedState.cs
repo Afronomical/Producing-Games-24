@@ -4,18 +4,22 @@ using UnityEngine;
 
 /// <summary>
 /// Written By: Matt Brake 
-/// <para> Moderated By: ...... </para>
+/// <para> Moderated By: Matej Cincibus</para>
 /// <para> Manages the behaviour of AI when laying in bed. </para>
 /// </summary>
 
 public class BedState : StateBaseClass
 {
-    public int wanderingChance;
-    public int heartAttackChance;  
-    
-    public override void UpdateLogic()
+    private int wanderingChance;
+    private int heartAttackChance;
+
+    private void Awake()
     {
         GetComponent<AICharacter>().isMoving = false;
+    }
+
+    public override void UpdateLogic()
+    {
         //Debug.Log("Player in Bed State"); 
         ////fix character transform to bed pos. 
     }

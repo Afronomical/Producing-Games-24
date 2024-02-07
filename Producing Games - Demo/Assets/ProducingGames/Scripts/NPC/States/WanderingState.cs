@@ -17,19 +17,22 @@ public class WanderingState : StateBaseClass
     private float currentIdleTime = 0.0f;
     private readonly float maxIdleTime = 3.0f;
 
+    private void Awake()
+    {
+        // INFO: Enables the NPCs movement capabilities
+        GetComponent<AICharacter>().isMoving = true;
+
+        character.agent.ResetPath();
+        character.agent.speed = character.walkSpeed;  
+    }
+
     private void Start()
     {
-        character.agent.speed = character.walkSpeed;
-        character.agent.ResetPath();
-
         wanderDestination = NPCWandererManager.Instance.RandomDestination();
     }
 
     public override void UpdateLogic()
     {
-        // INFO: Enables the NPCs movement capabilities
-        GetComponent<AICharacter>().isMoving = true;
-
         character.agent.SetDestination(wanderDestination);
 
         // INFO: Given that the NPC is near to the destination location a timer is started
