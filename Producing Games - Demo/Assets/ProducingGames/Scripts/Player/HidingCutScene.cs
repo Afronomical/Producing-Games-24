@@ -7,59 +7,44 @@ using UnityEngine;
 public class HidingCutScene : InteractableTemplate
 {
     private Camera cam;
-    private Transform playerRef;
+    private int pointIndex;
+
+    [Header("Player Reference/Object Animation")]
+    public Transform playerRef;
+    //public Animator playAnimation;
+
+    [Header("Hiding Animation Position Points")]
     public List<Transform> points;
 
-    private Animator animDoorRight;
-    private Animator animDoorLeft;
-    private Vector3 camPos;
-    private Quaternion camRot;
-
-    private bool isInside;
-    private int pointIndex;
+    [Header("Hiding Animation Speeds")]
+    public float enterTransitionSpeed = 3;
+    public float exitTransitionSpeed = 3;
 
     public enum PlayerHidingStates
     {
-        None,
+        none,
         goIn,
         inside,
         goOut,
         outside
-        
     }
-
     private PlayerHidingStates playerHidingStates;
 
     private void Start()
     {
-
-        
         cam = Camera.main;
-        playerRef = GameObject.Find("Player").transform;
-        animDoorRight = GameObject.Find("CupboardDoorRight").GetComponent<Animator>();
-        animDoorLeft = GameObject.Find("CupboardDoorLeft").GetComponent<Animator>();
-        /*
-        Had issues while tidying code, will be fixing shortly...
-        camPos = cam.transform.position;
-        camRot = cam.transform.rotation;
-        */
     }
 
     private void Update()
     {
+        //Checks if there is any "Hiding Animation Position Points"
         if (points == null || points.Count < 1)
             return;
 
-        /* if(Input.GetKeyDown(KeyCode.C) && !goIn && playerRef.position == points[1].position) 
-             goOut = true;*/
-
-        if(Input.GetKeyDown(KeyCode.K)) 
-            playerHidingStates = PlayerHidingStates.goIn;
-        
-
+        //Will constantly check for a state change (For example, once goIn is finished, inside will be called)
         switch (playerHidingStates)
         {
-            case PlayerHidingStates.None:
+            case PlayerHidingStates.none:
                 break;
 
             case PlayerHidingStates.goIn:
@@ -78,107 +63,79 @@ public class HidingCutScene : InteractableTemplate
                 Outside();
                 break;
         }
-        
-        //Go in hiding spot
-        /*if (PlayerHidingStates.goIn)
-        {
-            //Disable player's movement and body
-            //=======================================================================
-            playerRef.GetComponent<PlayerMovement>().enabled = false;
-            playerRef.GetComponent<CharacterController>().enabled = false;
-            playerRef.GetComponent<MeshRenderer>().enabled = false;
-            gameObject.GetComponent<BoxCollider>().enabled = false;
-            cam.GetComponent<CameraLook>().enabled = false;
-            cam.transform.rotation = playerRef.transform.rotation;
-            //=======================================================================
-
-            animDoorLeft.SetBool("EnterCupboard", true);
-            animDoorRight.SetBool("EnterCupboard", true);
-           
-        }
-
-        //Go out of Hiding Spot
-        if (goOut)
-        {
-            animDoorLeft.SetBool("EnterCupboard", true);
-            animDoorRight.SetBool("EnterCupboard", true);
-
-            //Moves the Camera to the Entrance of the hiding spot
-            playerRef.position = Vector3.MoveTowards(playerRef.position, points[0].position, 2.5f * Time.deltaTime);
-
-            //if (playerRef.rotation != points[0].rotation)
-            if (Quaternion.Angle(playerRef.rotation, points[0].rotation) > 0.1)
-            {
-                playerRef.rotation = Quaternion.Lerp(playerRef.rotation, points[0].rotation, 3f * Time.deltaTime);
-            }
-
-            if (playerRef.position == points[0].position && Quaternion.Angle(playerRef.rotation, points[0].rotation) < 0.1)
-            {
-                animDoorLeft.SetBool("EnterCupboard", false);
-                animDoorRight.SetBool("EnterCupboard", false);
-                goOut = false;
-                isInside = false;
-
-                //Enables player's movement and body
-                //=======================================================================
-                playerRef.GetComponent<PlayerMovement>().enabled = true;
-                playerRef.GetComponent<CharacterController>().enabled = true;
-                playerRef.GetComponent<MeshRenderer>().enabled = true;
-                gameObject.GetComponent<BoxCollider>().enabled = true;
-                cam.GetComponent<CameraLook>().enabled = true;
-                //=======================================================================
-            }
-        }*/
-
     }
 
 
+    //Logic handles the player entering the hiding spot
     public void GoIn()
     {
-         playerRef.position = Vector3.MoveTowards(playerRef.position, points[pointIndex].position, 3f * Time.deltaTime);
+        PlayerControlsAccess(false);
+        playerRef.position = Vector3.MoveTowards(playerRef.position, points[pointIndex].position, enterTransitionSpeed * Time.deltaTime);
                 
-
          if (Quaternion.Angle(playerRef.rotation, points[pointIndex].rotation) > 0.1)
-            playerRef.rotation = Quaternion.Lerp(playerRef.rotation, points[pointIndex].rotation, 3f * Time.deltaTime);
+            playerRef.rotation = Quaternion.Lerp(playerRef.rotation, points[pointIndex].rotation, enterTransitionSpeed * Time.deltaTime);
 
         //Checks when the camera can transition
-        if (Vector2.Distance(playerRef.position, points[pointIndex].position) <= 0.2 && Quaternion.Angle(playerRef.rotation, points[pointIndex].rotation) > 0.5)
+        if (Vector3.Distance(playerRef.position, points[pointIndex].position) <= 0.2 && Mathf.Approximately(Quaternion.Angle(playerRef.rotation, points[pointIndex].rotation), 0))
         {
-            animDoorLeft.SetBool("EnterCupboard", false);
-            animDoorRight.SetBool("EnterCupboard", false);
             pointIndex++;
             
-            if(pointIndex > 1)
+            if(pointIndex == points.Count)
+            {
                 playerHidingStates = PlayerHidingStates.inside;
+                pointIndex = 0;
+            }
         }
-
-        //float testRot = Quaternion.Angle(playerRef.rotation, points[1].rotation);
     }
 
-
+    //If the player is insdie the cupboard, it allows the player to click "c" to exit (moves to the GoOut function)
     public void Inside()
     {
-        if(!isInside)
-            isInside = true;
+        if ((Input.GetKeyDown(KeyCode.C)))
+            playerHidingStates = PlayerHidingStates.goOut;
     }
+
+    //Logic handles the player exiting the hiding spot
     public void GoOut()
     {
+        playerRef.position = Vector3.MoveTowards(playerRef.position, points[pointIndex].position, exitTransitionSpeed * Time.deltaTime);
 
+        //Checks when the camera can transition
+        if (Vector3.Distance(playerRef.position, points[pointIndex].position) <= 0.2)
+        {
+            pointIndex++;
+            if (pointIndex > 0)
+                playerHidingStates = PlayerHidingStates.outside;
+        }
     }
+
+    //This will enable the player's controls again
     public void Outside()
     {
+        PlayerControlsAccess(true);
+        playerHidingStates = PlayerHidingStates.none;
+    }
 
+    //Logic handles the player entering the hiding spot
+    public void PlayerControlsAccess(bool canControl)
+    {
+        playerRef.GetComponent<PlayerMovement>().enabled = canControl;
+        playerRef.GetComponent<CharacterController>().enabled = canControl;
+        playerRef.GetComponent<MeshRenderer>().enabled = canControl;
+        gameObject.GetComponent<BoxCollider>().enabled = canControl;
+        cam.GetComponent<CameraLook>().enabled = canControl;
     }
 
     //This is where the animation will be called
-    public void CupboardAnim()
+    public void CupboardAnim(bool isEntering)
     {
 
     }
 
+    //When the Player interacts with the hiding spot, start entering
     public override void Interact()
     {
-        if (!isInside)
+        if (playerHidingStates == PlayerHidingStates.none)
             playerHidingStates = PlayerHidingStates.goIn;
         
     }
