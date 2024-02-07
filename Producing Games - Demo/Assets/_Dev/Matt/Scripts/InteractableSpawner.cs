@@ -1,10 +1,9 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 /// <summary>
 /// <para> Written By: Matthew Brake  </para>
-/// Moderated By: .......
+/// Moderated By: Matej Cincibus
 /// <para>This Class is responsible entirely for spawning interactable objects in random pre-set locations across the level.</para> 
 /// Pass in the transform of the spawn location empty game object into the spawn location parameters.
 /// </summary>
@@ -12,27 +11,24 @@ using UnityEngine;
 public class InteractableSpawner : MonoBehaviour
 {
     [System.Serializable]
-    public class ObjectSpawn
+    public struct ObjectSpawn
     {
-        public GameObject ObjectToSpawn;
+        public GameObject objectToSpawn;
         public int amount;
     }
 
-    public List<ObjectSpawn> ObjectsToBeSpawned = new List<ObjectSpawn>();
-    public List<Transform> PossibleSpawn = new List<Transform> ();
-    private List<Vector3> SpawnedLocations = new List<Vector3>();
-    
-     
-    // Start is called before the first frame update
-    void Start()
+    public List<ObjectSpawn> objectsToBeSpawned = new();
+    public List<Transform> possibleSpawns = new();
+    private List<Vector3> spawnedLocations = new();
+
+    private void Start()
     {
-        SpawnAllObjects();  
-       
+        SpawnAllObjects();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
+        // Temp Code:
         if (Input.GetKeyDown(KeyCode.G))
         {
             SpawnAllObjects();
@@ -46,18 +42,18 @@ public class InteractableSpawner : MonoBehaviour
     /// <param name="amount"></param>
     private void SpawnObject(GameObject objectToSpawn, int amount)
     {
-        if(objectToSpawn != null && amount > 0)
+        if (objectToSpawn != null && amount > 0)
         {
             for (int i = 0; i < amount; i++)
             {
-                int Size = PossibleSpawn.Count;
+                int Size = possibleSpawns.Count;
                 if (Size > 0)
                 {
-                    int randomIndex = UnityEngine.Random.Range(0, Size);
-                    Instantiate(objectToSpawn, PossibleSpawn[randomIndex].position, Quaternion.identity);
-                    Debug.Log("Spawned: " + objectToSpawn.gameObject.name + " at: " + PossibleSpawn[randomIndex]);
+                    int randomIndex = Random.Range(0, Size);
+                    Instantiate(objectToSpawn, possibleSpawns[randomIndex].position, Quaternion.identity);
+                    Debug.Log("Spawned: " + objectToSpawn.name + " at: " + possibleSpawns[randomIndex]);
                     //SpawnedLocations.Add(PossibleSpawnLocations[randomIndex]); 
-                    PossibleSpawn.RemoveAt(randomIndex);
+                    possibleSpawns.RemoveAt(randomIndex);
                 }
                 else
                 {
@@ -70,21 +66,22 @@ public class InteractableSpawner : MonoBehaviour
     /// <summary>
     /// Spawns all pre set objects at random pre set locations. 
     /// </summary>
-   private void SpawnAllObjects()
+    private void SpawnAllObjects()
     {
-        if(ObjectsToBeSpawned.Count > 0)
+        if (objectsToBeSpawned.Count > 0)
         {
-            foreach (ObjectSpawn objectSpawn in ObjectsToBeSpawned)
+            foreach (ObjectSpawn objectSpawn in objectsToBeSpawned)
             {
-                SpawnObject(objectSpawn.ObjectToSpawn, objectSpawn.amount);
+                SpawnObject(objectSpawn.objectToSpawn, objectSpawn.amount);
             }
         }
         else
         {
-            Debug.Log("No Objects to be spawned"); 
+            Debug.Log("No Objects to be spawned");
         }
-        
+
     }
+
     /// <summary>
     /// Spawns a specific item bought from the computer shop.
     /// </summary>
@@ -99,10 +96,10 @@ public class InteractableSpawner : MonoBehaviour
     /// spawns all purchased items from computer shop. 
     /// </summary>
     /// <param name="Purchaseditems"></param>
-    public void SpawnAllPurchasedItems(List<GameObject> Purchaseditems) 
+    public void SpawnAllPurchasedItems(List<GameObject> Purchaseditems)
     {
-       ////temporary until char sim have "purchasing objects" functionality 
-       foreach(GameObject item in Purchaseditems)
+        //temporary until char sim have "purchasing objects" functionality 
+        foreach (GameObject item in Purchaseditems)
         {
 
         }
