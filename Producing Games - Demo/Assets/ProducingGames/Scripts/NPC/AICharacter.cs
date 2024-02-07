@@ -4,6 +4,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(EscortNPCTest))]
+[RequireComponent(typeof(DemonStatsContainer))]
 
 
 public class AICharacter : MonoBehaviour
