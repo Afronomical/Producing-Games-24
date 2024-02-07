@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class SlowPill : InteractableTemplate, IConsumable
 {
+    GameObject player;
+
+    private void Start()
+    {
+        player = GameObject.Find("Player");
+    }
+
     public void Consume()
     {
         Debug.Log("Consuming slow pill");
-        GameObject.Find("Player").GetComponent<PlayerMovement>().walkSpeed /= 2;
+        player.GetComponent<PlayerMovement>().slowedEffect = true;
+        player.GetComponent<PlayerMovement>().walkSpeed /= 2;
         InventoryHotbar.instance.RemoveFromInventory(collectible);
         Destroy(gameObject);
     }

@@ -5,12 +5,33 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.UIElements;
 using static Unity.VisualScripting.Member;
-
+using Image = UnityEngine.UI.Image;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
     private CharacterController controller;
+
+    [HideInInspector]
+    public float defaultWalkSpeed = 5;
+    [Header("Consumable Values")]
+    public bool boostedEffect = false;
+    public bool slowedEffect = false;
+    public bool stoppedEffect = false;
+    public bool dimmedEffect = false;
+    public float boostedEffectDuration;
+    public float slowedEffectDuration;
+    public float stoppedEffectDuration;
+    public float dimmedEffectDuration;
+
+    //effect timer values
+    private float currentSlowedTime;
+    private float currentStoppedTime;
+    private float currentBoostedTime;
+    private float currentDimmedTime;
+    [HideInInspector]
+    public Image panel;
+
 
     [Header("Ground Movement")]
     [Range(1, 15)] public float walkSpeed = 5;
@@ -52,12 +73,24 @@ public class PlayerMovement : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         groundCheck = transform.Find("Ground Check");
+
+
+        currentBoostedTime = boostedEffectDuration;
+        currentDimmedTime = dimmedEffectDuration;
+        currentSlowedTime = slowedEffectDuration;
+        currentStoppedTime = stoppedEffectDuration;
+        panel = GameObject.Find("CameraDimOverlay").GetComponent<Image>();
     }
 
 
 
     private void Update()
     {
+
+
+        CheckEffect();
+
+
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckDistance, groundLayer);  // Check for ground beneath player
        
         Vector3 move = Movement();
@@ -178,6 +211,65 @@ public class PlayerMovement : MonoBehaviour
         else if (isCrouching && context.canceled)
             isCrouching = false;
     }
+
+
+    public void CheckEffect()
+    {
+        if(boostedEffect)
+        {
+            if (currentBoostedTime <= 0)
+            {
+                boostedEffect = false;
+                walkSpeed = defaultWalkSpeed;
+                currentBoostedTime = boostedEffectDuration;
+            }
+            else
+            {
+                currentBoostedTime -= Time.deltaTime;
+            }
+
+        }
+        if(slowedEffect)
+        {
+            if (currentSlowedTime <= 0)
+            {
+                slowedEffect = false;
+                walkSpeed = defaultWalkSpeed;
+                currentSlowedTime = slowedEffectDuration;
+            }
+            else
+            {
+                currentSlowedTime -= Time.deltaTime;
+            }
+        }
+        if(stoppedEffect)
+        {
+            if(currentStoppedTime <= 0)
+            {
+                stoppedEffect = false;
+                walkSpeed = defaultWalkSpeed;
+                currentStoppedTime = stoppedEffectDuration;
+            }
+            else 
+            {
+                currentStoppedTime -= Time.deltaTime;
+            }
+        }
+        if(dimmedEffect)
+        {
+            if(currentDimmedTime <= 0)
+            {
+                dimmedEffect = false;
+                panel.enabled = false;
+                currentDimmedTime = dimmedEffectDuration;
+            }
+            else
+            {
+                currentDimmedTime -= Time.deltaTime;
+            }
+        }
+    }
+
 }
 
 

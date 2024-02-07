@@ -8,15 +8,18 @@ using UnityEngine.UI;
 public class DimPill : InteractableTemplate, IConsumable
 {
     public Image panel;
+    GameObject player;
 
     private void Start()
     {
         panel = GameObject.Find("CameraDimOverlay").GetComponent<Image>();
+        player = GameObject.Find("Player");
     }
     public void Consume()
     {
         Debug.Log("Consuming dim pill");
         panel.enabled=true;
+        player.GetComponent<PlayerMovement>().dimmedEffect = true;
         InventoryHotbar.instance.RemoveFromInventory(collectible);
         Destroy(gameObject);
     }

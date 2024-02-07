@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class FastPill : InteractableTemplate, IConsumable
 {
+
+    GameObject player;
+
+    private void Start()
+    {
+        player = GameObject.Find("Player");
+    }
+
     public void Consume()
     {
         Debug.Log("Consuming fast pill");
-        GameObject.Find("Player").GetComponent<PlayerMovement>().walkSpeed *= 2;
+        player.GetComponent<PlayerMovement>().boostedEffect = true;
+        player.GetComponent<PlayerMovement>().walkSpeed *= 2;
         InventoryHotbar.instance.RemoveFromInventory(collectible);
         Destroy(gameObject);
     }

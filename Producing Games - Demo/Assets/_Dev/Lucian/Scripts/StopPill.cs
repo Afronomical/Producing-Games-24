@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class StopPill : InteractableTemplate, IConsumable
 {
+    GameObject player;
+
+    private void Start()
+    {
+        player = GameObject.Find("Player");
+    }
+
     public void Consume()
     {
         Debug.Log("Consuming stop pill");
-        GameObject.Find("Player").GetComponent<PlayerMovement>().walkSpeed = 0;
+        player.GetComponent<PlayerMovement>().stoppedEffect = true;
+        player.GetComponent<PlayerMovement>().walkSpeed = 0;
         InventoryHotbar.instance.RemoveFromInventory(collectible);
         Destroy(gameObject);
     }
