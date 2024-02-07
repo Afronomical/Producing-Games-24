@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PauseMenuManager : MonoBehaviour
+public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu;
     public GameObject settingsPanel;
@@ -47,7 +47,8 @@ public class PauseMenuManager : MonoBehaviour
     public void OpenSettings()
     {
         //LevelManager.LoadScene(LevelManager.Scenes.Settings);//
-       settingsPanel.SetActive(true);
+        settingsPanel.SetActive(true);
+        pauseMenu.SetActive(false);
     }
 
     public void CloseSettings()
