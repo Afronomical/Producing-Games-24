@@ -18,7 +18,7 @@ public class PatientTaskManager : MonoBehaviour
     public HourlyTask[] hourlyTasks;
     public HourlyTask[] genericTasks;
     public HourlyTask[] randomTasks;
-    private List<Task> currentTasks = new List<Task>();
+    [HideInInspector] public List<Task> currentTasks = new List<Task>();
 
     public float minTimeBetweenRandomTasks = 10;
     public float maxTimeBetweenRandomTasks = 60;
@@ -96,6 +96,8 @@ public class PatientTaskManager : MonoBehaviour
                     patients[i].transform.Find("Eye 1").GetComponent<MeshRenderer>().material = chosenTask.taskEyes;
                     patients[i].transform.Find("Eye 2").GetComponent<MeshRenderer>().material = chosenTask.taskEyes;
                 }
+
+                CheckList.instance.AddTask(newTask);
             }
         }
     }
@@ -110,6 +112,7 @@ public class PatientTaskManager : MonoBehaviour
     public void CompleteTask(Task task)
     {
         currentTasks.Remove(task);
+        CheckList.instance.RemoveTask(task);
         Destroy(task);
     }
 
@@ -121,6 +124,7 @@ public class PatientTaskManager : MonoBehaviour
             if (currentTasks[i].isHourlyTask)
             {
                 currentTasks[i].FailTask();
+                CheckList.instance.RemoveTask(currentTasks[i]);
                 Destroy(currentTasks[i]);
                 currentTasks.RemoveAt(i);
             }
