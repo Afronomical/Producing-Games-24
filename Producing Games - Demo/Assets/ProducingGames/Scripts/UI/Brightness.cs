@@ -23,7 +23,7 @@ public class BrightnessController : MonoBehaviour
         ShowOverlay();
 
        
-        float brightnessValue = Mathf.Lerp(0f, 0.1f, value);
+        float brightnessValue = Mathf.Lerp(0f, 0.01f, value);
 
       
         Color adjustedColor = new Color(overlayColor.r, overlayColor.g, overlayColor.b, brightnessValue);
