@@ -86,18 +86,27 @@ public class InventoryHotbar : MonoBehaviour
         itemSlots[centerSlotIndex + 1].GetComponent<Image>().sprite = GetItemFromInventory(currentIndex + 1).objectImage;
         itemSlots[centerSlotIndex + 2].GetComponent<Image>().sprite = GetItemFromInventory(currentIndex + 2).objectImage;
 
-
+        //if inventory has at least one item
         if (inventory.Count != 0)
         {
             Debug.Log("Currently holding " + inventory[currentIndex].objectName);
             if (!holding)
             {
+                //instantiate the object currently held
                 go = Instantiate(inventory[currentIndex].prefab, spawnPos.position, Quaternion.identity);
                 go.transform.parent = spawnPos.transform;
                 go.transform.GetComponent<Rigidbody>().useGravity = false;
                 go.transform.GetComponent<Collider>().enabled = false;
                 go.layer = 9;
                 holding = true;
+                if (go.gameObject.TryGetComponent(out IConsumable cons))
+                {
+                    PlayerInteractor.instance.consumable = cons;
+                }
+                else
+                {
+                    PlayerInteractor.instance.consumable = null;
+                }
             }
             else
             {
@@ -107,6 +116,14 @@ public class InventoryHotbar : MonoBehaviour
                 go.transform.GetComponent<Rigidbody>().useGravity = false;
                 go.transform.GetComponent<Collider>().enabled = false;
                 go.layer = 9;
+                if (go.gameObject.TryGetComponent(out IConsumable cons))
+                {
+                    PlayerInteractor.instance.consumable = cons;
+                }
+                else
+                {
+                    PlayerInteractor.instance.consumable = null;
+                }
             }
             
         }
