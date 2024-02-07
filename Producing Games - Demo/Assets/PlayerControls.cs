@@ -98,6 +98,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Consume Item"",
+                    ""type"": ""Button"",
+                    ""id"": ""cceb5768-551b-4ece-91f6-a05b6ef75e5a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -408,6 +417,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Pick Up"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3ebe3f87-3e93-4557-9bea-b9940cc2e798"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Consume Item"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""787cdb07-b5ff-45f0-8733-2ee04dab5f5e"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Consume Item"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -452,6 +483,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Flashlight = m_Player.FindAction("Flashlight", throwIfNotFound: true);
         m_Player_DropItem = m_Player.FindAction("Drop Item", throwIfNotFound: true);
         m_Player_PickUp = m_Player.FindAction("Pick Up", throwIfNotFound: true);
+        m_Player_ConsumeItem = m_Player.FindAction("Consume Item", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -521,6 +553,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Flashlight;
     private readonly InputAction m_Player_DropItem;
     private readonly InputAction m_Player_PickUp;
+    private readonly InputAction m_Player_ConsumeItem;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -533,6 +566,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Flashlight => m_Wrapper.m_Player_Flashlight;
         public InputAction @DropItem => m_Wrapper.m_Player_DropItem;
         public InputAction @PickUp => m_Wrapper.m_Player_PickUp;
+        public InputAction @ConsumeItem => m_Wrapper.m_Player_ConsumeItem;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -566,6 +600,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @PickUp.started += instance.OnPickUp;
             @PickUp.performed += instance.OnPickUp;
             @PickUp.canceled += instance.OnPickUp;
+            @ConsumeItem.started += instance.OnConsumeItem;
+            @ConsumeItem.performed += instance.OnConsumeItem;
+            @ConsumeItem.canceled += instance.OnConsumeItem;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -594,6 +631,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @PickUp.started -= instance.OnPickUp;
             @PickUp.performed -= instance.OnPickUp;
             @PickUp.canceled -= instance.OnPickUp;
+            @ConsumeItem.started -= instance.OnConsumeItem;
+            @ConsumeItem.performed -= instance.OnConsumeItem;
+            @ConsumeItem.canceled -= instance.OnConsumeItem;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -639,5 +679,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnFlashlight(InputAction.CallbackContext context);
         void OnDropItem(InputAction.CallbackContext context);
         void OnPickUp(InputAction.CallbackContext context);
+        void OnConsumeItem(InputAction.CallbackContext context);
     }
 }

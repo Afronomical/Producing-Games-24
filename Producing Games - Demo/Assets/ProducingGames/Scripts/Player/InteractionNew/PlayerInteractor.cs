@@ -19,6 +19,14 @@ public interface INPCInteractable
     public void Exorcise(); 
 
 }
+
+public interface IConsumable
+{
+    public string Name { get; }
+    public void Consume();
+}
+
+
 public class PlayerInteractor : MonoBehaviour
 {
     public Transform interactorSource;
@@ -27,6 +35,7 @@ public class PlayerInteractor : MonoBehaviour
 
     public IInteractable currentObject;
     public INPCInteractable currentNPC; 
+    public IConsumable consumable;
 
     private Outline outline;
 
