@@ -28,7 +28,7 @@ public class WanderingState : StateBaseClass
 
     private void Start()
     {
-        wanderDestination = NPCWandererManager.Instance.RandomDestination();
+        wanderDestination = NPCManager.Instance.RandomDestination();
     }
 
     public override void UpdateLogic()
@@ -61,9 +61,9 @@ public class WanderingState : StateBaseClass
         while (newWanderDestination == wanderDestination)
         {
             // INFO: Prevents infinite while loop if list contains 1 or less locations
-            if (NPCWandererManager.Instance.GetDestinationLocationsCount() <= 1) break;
+            if (NPCManager.Instance.GetDestinationLocationsCount() <= 1) break;
 
-            newWanderDestination = NPCWandererManager.Instance.RandomDestination();
+            newWanderDestination = NPCManager.Instance.RandomDestination();
         }
         wanderDestination = newWanderDestination;
     }

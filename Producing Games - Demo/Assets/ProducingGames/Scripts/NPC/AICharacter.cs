@@ -4,7 +4,6 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(EscortNPCTest))]
-[RequireComponent(typeof(DemonStatsContainer))]
 
 
 public class AICharacter : MonoBehaviour
@@ -39,6 +38,7 @@ public class AICharacter : MonoBehaviour
     public float runSpeed = 2.0f;
     public float crawlSpeed = 0.5f;
     public float detectionRadius = 5.0f;
+    public bool isPossessed = false; 
 
     [Header("States")]
     public States currentState;
@@ -50,6 +50,9 @@ public class AICharacter : MonoBehaviour
     public GameObject player;
     public Rigidbody rb;
     public NavMeshAgent agent;
+   [SerializeField] private DemonItemsSO Demon;
+
+   
 
     private void Start()
     {
@@ -61,6 +64,13 @@ public class AICharacter : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
 
         ChangeState(States.Abandoned); //INFO: Starting State
+        if(isPossessed)
+        {
+            /// add demon state 
+            Demon = NPCManager.Instance.ChosenDemon;
+            ChangeCharacterType(CharacterTypes.Demon);
+            
+        }
     }
 
 
@@ -127,6 +137,10 @@ public class AICharacter : MonoBehaviour
             if (stateScript != null)
                 stateScript.character = this;  // Set the reference that state scripts will use
         }
+    }
+    public void ChangeCharacterType(CharacterTypes type)
+    {
+        characterType = type; 
     }
 
 }
