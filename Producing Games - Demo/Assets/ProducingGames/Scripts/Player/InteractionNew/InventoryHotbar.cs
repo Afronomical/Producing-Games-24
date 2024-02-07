@@ -66,6 +66,7 @@ public class InventoryHotbar : MonoBehaviour
     {
         inventory.Remove(item);  // Remove the item from the inventory
         Destroy(go);
+        currentItem = null;
         ScrollInventory(0);  // Refresh the inventory images
     }
 
