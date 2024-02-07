@@ -70,7 +70,9 @@ public class AICharacter : MonoBehaviour
             Demon = NPCManager.Instance.ChosenDemon;
             ChangeCharacterType(CharacterTypes.Demon);
             
+            InitialiseDemonStats();
         }
+        
     }
 
 
@@ -143,4 +145,14 @@ public class AICharacter : MonoBehaviour
         characterType = type; 
     }
 
+    private void InitialiseDemonStats()
+    {
+        if(isPossessed)
+        {
+            ////add initialisation here 
+            Debug.Log(Demon.DemonName + " stats initialised");
+            Debug.Log(Demon.BattleCry);
+        }
+    }
+    
 }

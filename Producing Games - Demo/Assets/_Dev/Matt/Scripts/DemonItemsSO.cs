@@ -9,10 +9,7 @@ public class DemonItemsSO : ScriptableObject
 
     public List<GameObject> ItemsForExorcism = new();
 
-    ///maybe a container for their most likely states? 
-    //////
-    ///
-   public List<StateBaseClass> LikelyStates = new(); ///possible way to contain most likely states? 
+    public List<StateBaseClass> LikelyStates = new(); 
 
     public string BattleCry;
 }

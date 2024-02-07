@@ -5,11 +5,13 @@ using UnityEngine;
 
 /// <summary>
 /// Written By: Matej Cincibus
-/// Moderated By: ...
+/// <para>Moderated By: Matt Brake</para>
 /// 
 /// Holds a container of positions that each NPC will choose from to move towards
 /// during the wandering state, it's a singleton design as we only want one instance
 /// of the NPC Wandering Manager.
+/// 
+/// <para> **Revised Version by MB. Added functionality of Possessive Demons.** </para>
 /// </summary>
 
 public class NPCManager : MonoBehaviour
@@ -36,6 +38,10 @@ public class NPCManager : MonoBehaviour
          
         
     }
+
+    /// <summary>
+    /// Randomises a demon for the game instance and a selected NPC to possess. 
+    /// </summary>
     public void AssignRandomDemonType()
     {
         int DemonChoice = UnityEngine.Random.Range(0, DemonTypes.Count);
