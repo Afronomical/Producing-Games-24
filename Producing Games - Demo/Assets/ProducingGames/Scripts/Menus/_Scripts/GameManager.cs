@@ -11,29 +11,42 @@ public class GameManager: MonoBehaviour
     public GameObject player;
     //// AI references. 
 
-    [Range(1, 60)] public float hourLength;
+    [Header("Hour System")]
+    [Range(1, 60)] public float hourLength = 10;
     public int startingHour = 1;
     public int finalHour = 8;
     public Transform playerStartPosition;
 
     public int currentHour;
     public float currentTime;
+    public bool shiftEndActive = false;
+
+    [Header("Sanity")]
+    [Range(0, 100)] public int startingSanity = 100;
+    [Range(0, 100)] public int currentSanity;
     
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null) Instance = this;
     }
 
 
     private void Start()
     {
-
+        StartGame();
     }
-   
+
+
+    private void LateUpdate()
+    {
+        UpdateTime();
+    }
+
 
     public void StartGame()
     {
+        currentSanity = startingSanity;
         currentHour = startingHour;
         StartHour();
     }
@@ -53,21 +66,23 @@ public class GameManager: MonoBehaviour
     private void StartHour()
     {
         // Fade?
-
+        Debug.Log("Start Hour");
         player.transform.position = playerStartPosition.position;
         player.transform.rotation = playerStartPosition.rotation;
 
         currentTime = 0;
+        shiftEndActive = false;
     }
 
 
     private void UpdateTime()
     {
-        currentTime += Time.deltaTime * (60 / hourLength);
+        currentTime += Time.deltaTime * (1 / hourLength);
 
         if (currentTime >= 60)
         {
-            StartShiftEnd();
+            //StartShiftEnd();
+            EndHour();
         }
     }
 
@@ -76,7 +91,11 @@ public class GameManager: MonoBehaviour
     {
         currentHour++;
 
-        if (currentHour > finalHour)
+        if (currentHour <= finalHour)
+        {
+            StartHour();
+        }
+        else 
         {
             EndGame();
         }
@@ -85,6 +104,7 @@ public class GameManager: MonoBehaviour
 
     private void StartShiftEnd()
     {
-
+        shiftEndActive = true;
+        // Rage mode activate
     }
 }
