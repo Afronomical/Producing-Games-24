@@ -107,6 +107,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Open Pager"",
+                    ""type"": ""Button"",
+                    ""id"": ""2f1a7d36-3676-442a-9a85-604da6be4d3a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -439,6 +448,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""See Tasks"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e2f6defc-728f-4ed6-aca4-0f7f7acf9ca0"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Open Pager"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ee1fbeff-dca7-4c23-a029-012120f134b6"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Open Pager"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -484,6 +515,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_DropItem = m_Player.FindAction("Drop Item", throwIfNotFound: true);
         m_Player_PickUp = m_Player.FindAction("Pick Up", throwIfNotFound: true);
         m_Player_SeeTasks = m_Player.FindAction("See Tasks", throwIfNotFound: true);
+        m_Player_OpenPager = m_Player.FindAction("Open Pager", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -554,6 +586,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_DropItem;
     private readonly InputAction m_Player_PickUp;
     private readonly InputAction m_Player_SeeTasks;
+    private readonly InputAction m_Player_OpenPager;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -567,6 +600,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @DropItem => m_Wrapper.m_Player_DropItem;
         public InputAction @PickUp => m_Wrapper.m_Player_PickUp;
         public InputAction @SeeTasks => m_Wrapper.m_Player_SeeTasks;
+        public InputAction @OpenPager => m_Wrapper.m_Player_OpenPager;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -603,6 +637,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SeeTasks.started += instance.OnSeeTasks;
             @SeeTasks.performed += instance.OnSeeTasks;
             @SeeTasks.canceled += instance.OnSeeTasks;
+            @OpenPager.started += instance.OnOpenPager;
+            @OpenPager.performed += instance.OnOpenPager;
+            @OpenPager.canceled += instance.OnOpenPager;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -634,6 +671,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SeeTasks.started -= instance.OnSeeTasks;
             @SeeTasks.performed -= instance.OnSeeTasks;
             @SeeTasks.canceled -= instance.OnSeeTasks;
+            @OpenPager.started -= instance.OnOpenPager;
+            @OpenPager.performed -= instance.OnOpenPager;
+            @OpenPager.canceled -= instance.OnOpenPager;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -680,5 +720,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnDropItem(InputAction.CallbackContext context);
         void OnPickUp(InputAction.CallbackContext context);
         void OnSeeTasks(InputAction.CallbackContext context);
+        void OnOpenPager(InputAction.CallbackContext context);
     }
 }
