@@ -40,7 +40,8 @@ public class PatientTaskManager : MonoBehaviour
     {
         for (int i = currentTasks.Count - 1; i >= 0; i--)
         {
-            currentTasks[i].CheckTaskConditions(interactedObject);
+            if (!currentTasks[i].taskCompleted)
+                currentTasks[i].CheckTaskConditions(interactedObject);
         }
     }
 
@@ -109,8 +110,9 @@ public class PatientTaskManager : MonoBehaviour
 
     public void CompleteTask(Task task)
     {
-        currentTasks.Remove(task);
-        Destroy(task);
+
+        //currentTasks.Remove(task);
+        //Destroy(task);
     }
 
 
@@ -120,7 +122,8 @@ public class PatientTaskManager : MonoBehaviour
         {
             if (currentTasks[i].isHourlyTask)
             {
-                currentTasks[i].FailTask();
+                if (!currentTasks[i].taskCompleted)
+                    currentTasks[i].FailTask();
                 Destroy(currentTasks[i]);
                 currentTasks.RemoveAt(i);
             }
