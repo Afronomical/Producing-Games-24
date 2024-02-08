@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Demon Stats", menuName = "New Scriptable Object/New Demon Stats",order = 1)]
+[CreateAssetMenu(fileName = "Demon Stats", menuName = "New Demon Stats",order = 1)]
 public class DemonItemsSO : ScriptableObject
 {
     public string DemonName;
@@ -11,7 +11,9 @@ public class DemonItemsSO : ScriptableObject
 
     public List<StateBaseClass> LikelyStates = new(); 
 
-    public string BattleCryText;
-    public AudioClip BattleCryAudio;
-    public AudioClip DefeatCryAudio; 
+    public SoundEffect BattleCryAudio;
+    public SoundEffect DefeatCryAudio; 
+
+
+
 }

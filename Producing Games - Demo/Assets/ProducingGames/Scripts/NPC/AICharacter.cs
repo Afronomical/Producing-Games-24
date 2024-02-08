@@ -23,6 +23,10 @@ public class AICharacter : MonoBehaviour
         Possessed,
         Dead,
         Bed,
+        Praying,
+        Hiding,
+        Hungry,
+        ReqMeds,
         Exorcised,//??
 
         None
@@ -129,6 +133,14 @@ public class AICharacter : MonoBehaviour
                 case States.Dead:
                     stateScript = transform.AddComponent<DeadState>();
                     break;
+                case States.Praying:
+                    break;
+                case States.Hiding:
+                    break;
+                case States.Hungry:
+                    break;
+                case States.ReqMeds:
+                    break;
                 case States.None:
                     stateScript = null;
                     break;
@@ -152,7 +164,7 @@ public class AICharacter : MonoBehaviour
         {
             ////add initialisation here 
             Debug.Log(Demon.DemonName + " stats initialised");
-            Debug.Log(Demon.BattleCryText);
+            
            
         }
     }
