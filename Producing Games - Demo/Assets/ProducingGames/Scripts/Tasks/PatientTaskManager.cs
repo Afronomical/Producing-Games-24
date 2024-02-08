@@ -26,13 +26,10 @@ public class PatientTaskManager : MonoBehaviour
     public float hourLength = 10;
 
 
-    void Start()
+    void Awake()
     {
         if (instance == null)
             instance = this;
-
-        SetHourlyTasks();
-        StartCoroutine(HourTimer());
     }
 
 
@@ -49,7 +46,7 @@ public class PatientTaskManager : MonoBehaviour
     }
 
 
-    void SetHourlyTasks()
+    public void SetHourlyTasks()
     {
         for (int i = 0; i < patients.Length; i++)
         {
@@ -105,7 +102,7 @@ public class PatientTaskManager : MonoBehaviour
     }
 
 
-    void SetRandomTask()
+    public void SetRandomTask()
     {
 
     }
@@ -119,7 +116,7 @@ public class PatientTaskManager : MonoBehaviour
     }
 
 
-    void ClearHourlyTasks()
+    public void ClearHourlyTasks()
     {
         for (int i = currentTasks.Count - 1; i >= 0; i--)
         {
@@ -131,39 +128,5 @@ public class PatientTaskManager : MonoBehaviour
                 currentTasks.RemoveAt(i);
             }
         }
-    }
-
-
-    /*private IEnumerator TaskConditionCheckTimer()
-    {
-        yield return new WaitForSeconds(1);
-
-        foreach (Task t in currentTasks)
-        {
-            t.CheckTaskConditions();
-        }
-
-        StartCoroutine(TaskConditionCheckTimer());
-    }*/
-
-
-    private IEnumerator HourTimer()
-    {
-        yield return new WaitForSeconds(hourLength);
-
-        ClearHourlyTasks();
-        SetHourlyTasks();
-
-        StartCoroutine(HourTimer());
-    }
-
-
-    private IEnumerator RandomTaskTimer()
-    {
-        yield return new WaitForSeconds(Random.Range(minTimeBetweenRandomTasks, maxTimeBetweenRandomTasks));
-
-        SetRandomTask();
-
-        StartCoroutine(HourTimer());
     }
 }

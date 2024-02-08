@@ -66,12 +66,14 @@ public class GameManager: MonoBehaviour
     private void StartHour()
     {
         // Fade?
-        Debug.Log("Start Hour");
+
         player.transform.position = playerStartPosition.position;
         player.transform.rotation = playerStartPosition.rotation;
 
         currentTime = 0;
         shiftEndActive = false;
+
+        PatientTaskManager.instance.SetHourlyTasks();
     }
 
 
@@ -90,6 +92,7 @@ public class GameManager: MonoBehaviour
     public void EndHour()
     {
         currentHour++;
+        PatientTaskManager.instance.ClearHourlyTasks();
 
         if (currentHour <= finalHour)
         {
