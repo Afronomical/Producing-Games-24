@@ -4,18 +4,6 @@ using UnityEngine;
 
 public class HMedicineTask : Task
 {
-    void Start()
-    {
-        
-    }
-
-
-    void Update()
-    {
-        
-    }
-
-
     public override void CheckTaskConditions(GameObject interactedObject)
     {
         if (interactedObject == taskTarget)  // Check for the correct patient being interacted with

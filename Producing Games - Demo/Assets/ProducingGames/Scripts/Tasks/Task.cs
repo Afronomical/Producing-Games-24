@@ -10,18 +10,12 @@ public class Task : MonoBehaviour
     public bool isHourlyTask = true;
     public bool taskCompleted = false;
     [HideInInspector] public HourlyTask hTask;
-    [HideInInspector] public HourlyTask rTask;
+    [HideInInspector] public RandomTask rTask;
     [HideInInspector] public bool taskNoticed = true;  // Used for telling the player about a random task
 
-    void Start()
+    public virtual void TaskStart()
     {
 
-    }
-
-
-    void Update()
-    {
-        
     }
 
 

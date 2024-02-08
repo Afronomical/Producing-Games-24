@@ -70,6 +70,8 @@ public class GameManager: MonoBehaviour
         player.transform.position = playerStartPosition.position;
         player.transform.rotation = playerStartPosition.rotation;
 
+        // Put Patients in bed
+
         currentTime = 0;
         shiftEndActive = false;
 

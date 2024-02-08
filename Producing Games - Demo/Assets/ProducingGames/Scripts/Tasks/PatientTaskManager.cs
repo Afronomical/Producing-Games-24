@@ -8,6 +8,7 @@ using UnityEngine;
 public class PatientTaskManager : MonoBehaviour
 {
     public enum HourlyTasks { Medicine, Injection };
+    public enum RandomTasks { Wandering, HeartAttack };
     public enum TaskLocation { Bed, Bedside, Board, Altar };
 
 
@@ -17,13 +18,11 @@ public class PatientTaskManager : MonoBehaviour
     public GameObject[] patients;
     public HourlyTask[] hourlyTasks;
     public HourlyTask[] genericTasks;
-    public HourlyTask[] randomTasks;
+    public RandomTask[] randomTasks;
     private List<Task> currentTasks = new List<Task>();
 
-    public float minTimeBetweenRandomTasks = 10;
-    public float maxTimeBetweenRandomTasks = 60;
+    [Range(0, 250)] public int chanceForNoRandomTask = 75;
     public int tasksPerPatient = 1;
-    public float hourLength = 10;
 
 
     void Awake()
@@ -87,12 +86,11 @@ public class PatientTaskManager : MonoBehaviour
                         break;
                 }
 
-                if (newTask.isHourlyTask) newTask.hTask = chosenTask;
-                else if (!newTask.isHourlyTask) newTask.rTask = chosenTask;
 
                 if (newTask != null)
                 {
                     currentTasks.Add(newTask);
+                    newTask.hTask = chosenTask;
                     newTask.taskTarget = patients[i];
                     patients[i].transform.Find("Eye 1").GetComponent<MeshRenderer>().material = chosenTask.taskEyes;
                     patients[i].transform.Find("Eye 2").GetComponent<MeshRenderer>().material = chosenTask.taskEyes;
@@ -102,10 +100,69 @@ public class PatientTaskManager : MonoBehaviour
     }
 
 
+
     public void SetRandomTask()
     {
+        for (int i = 0; i < patients.Length; i++)
+        {
+            List<RandomTask> choiceOfTasks = new List<RandomTask>();
+            int totalChance = chanceForNoRandomTask;
+            foreach (RandomTask t in randomTasks)  // Check for invalid tasks and calculate total chance
+            {
+                // Check for blocking tasks here
 
+                totalChance += t.chanceToHappen;
+                choiceOfTasks.Add(t);
+
+
+                if (t.taskName == "Heart Attack")  // Heart attack chance increase
+                {
+                    AICharacter patient = patients[i].GetComponent<AICharacter>();
+                    int heartAttackChance = patient.startingHealth - patient.health;
+                    for (int j = 0; j < heartAttackChance; j++)
+                    {
+                        totalChance += t.chanceToHappen;
+                        choiceOfTasks.Add(t);
+                    }
+                }
+            }
+
+            int rand = Random.Range(0, totalChance);
+            RandomTask chosenTask = choiceOfTasks[0];
+            Task newTask = null;
+
+            int x = 0;
+            foreach (RandomTask t in choiceOfTasks)
+            {
+                x += t.chanceToHappen;
+                if (rand <= t.chanceToHappen)
+                {
+                    chosenTask = t;
+                }
+            }
+
+
+            switch (chosenTask.taskType)
+            {
+                case RandomTasks.Wandering:
+                    newTask = transform.AddComponent<RWanderingTask>();
+                    break;
+                case RandomTasks.HeartAttack:
+                    newTask = transform.AddComponent<RHeartAttackTask>();
+                    break;
+            }
+
+
+            if (newTask != null)
+            {
+                currentTasks.Add(newTask);
+                newTask.rTask = chosenTask;
+                newTask.taskTarget = patients[i];
+                newTask.TaskStart();
+            }
+        }
     }
+
 
 
     public void CompleteTask(Task task)
