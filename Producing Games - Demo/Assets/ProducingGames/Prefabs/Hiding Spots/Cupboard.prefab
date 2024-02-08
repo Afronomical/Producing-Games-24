@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 324406087992726780}
   - component: {fileID: 8071485507213165196}
   m_Layer: 6
-  m_Name: CupboardDoorLeft
+  m_Name: CupboardDoorRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -194,11 +194,11 @@ Transform:
   m_GameObject: {fileID: 2392782434721998661}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.21155106, y: 0.0038811355, z: -10.423033}
+  m_LocalPosition: {x: -0.21154821, y: 0.0038811355, z: 3.137166}
   m_LocalScale: {x: 1.8178787, y: 0.9912767, z: 5.817335}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7430703744796624482}
+  m_Father: {fileID: 8344174414530196135}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4412372969006870843
 MeshFilter:
@@ -513,7 +513,7 @@ GameObject:
   - component: {fileID: 1339625529704329449}
   - component: {fileID: 6461516788742771502}
   m_Layer: 6
-  m_Name: CupboardDoorRight
+  m_Name: CupboardDoorLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -528,11 +528,11 @@ Transform:
   m_GameObject: {fileID: 5469856524050340907}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.21157101, y: 0.0038811355, z: 10.234328}
+  m_LocalPosition: {x: -0.21157385, y: 0.0038811355, z: -3.32587}
   m_LocalScale: {x: 1.8178787, y: 0.9912767, z: 5.817335}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8344174414530196135}
+  m_Father: {fileID: 7430703744796624482}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1288794458737925992
 MeshFilter:
@@ -715,7 +715,7 @@ Transform:
   m_LocalScale: {x: 0.16737002, y: 2.7066107, z: 0.17190002}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2259120749122624852}
+  - {fileID: 8962804841671782197}
   m_Father: {fileID: 5193287216423405472}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8986438282755653047
@@ -821,7 +821,7 @@ Transform:
   m_LocalScale: {x: 0.16737002, y: 2.7066107, z: 0.17190002}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8962804841671782197}
+  - {fileID: 2259120749122624852}
   m_Father: {fileID: 5193287216423405472}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1405177637908089113

@@ -11,11 +11,17 @@ using static Unity.VisualScripting.Member;
 public class PlayerMovement : MonoBehaviour
 {
     private CharacterController controller;
+    
 
     [Header("Ground Movement")]
     [Range(1, 15)] public float walkSpeed = 5;
     [Range(1, 15)] public float sprintSpeed = 8;
     [Range(1, 15)] public float crouchSpeed = 3;
+    private float maxStamina;
+    [Range(1, 100)]public float stamina = 50;
+    [Range(1, 100)] public float staminaDrainSpeed = 25;
+    [Range(1, 100)] public float staminaRegenSpeed = 25;
+    [Range(1, 100)] public float staminaRequiredToSprint = 25;//The amount of stamina the player needs to Sprint again
 
     [Header("Air Movement")]
     [Range(0.05f, 1.5f)] public float jumpHeight = 0.5f;
@@ -52,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         groundCheck = transform.Find("Ground Check");
+        maxStamina = stamina;
     }
 
 
@@ -75,8 +82,14 @@ public class PlayerMovement : MonoBehaviour
 
         FootstepSounds();
         if (Input.GetKeyDown(KeyCode.O))
-        {
             StartCoroutine(cameraShake.CamShake(0.15f, .2f));
+        
+        if (!isSprinting && stamina <= maxStamina)
+            stamina += staminaRegenSpeed * Time.deltaTime;
+
+        if(stamina <= 1)
+        {
+            isSprinting = false;
         }
     }
 
@@ -88,7 +101,12 @@ public class PlayerMovement : MonoBehaviour
         Vector3.Normalize(move);
 
         if (isCrouching) move *= crouchSpeed;  // Crouch movement
-        else if (isSprinting) move *= sprintSpeed;  // Sprint movement
+
+        else if (isSprinting)// Sprint movement
+        {
+            move *= sprintSpeed;
+            stamina -= staminaDrainSpeed * Time.deltaTime;
+        }
         else move *= walkSpeed;  // Basic movement
 
         return move;
@@ -162,10 +180,16 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnSprintInput(InputAction.CallbackContext context)
     {
-        if (!isSprinting && !isCrouching && context.performed)
+        if (!isSprinting && !isCrouching && context.performed && stamina >= staminaRequiredToSprint)
             isSprinting = true;
-        else if (isSprinting && context.canceled)
+            
+       
+            
+        else if (isSprinting && context.canceled || stamina <= 1)
             isSprinting = false;
+            
+        
+            
     }
 
     public void OnCrouchInput(InputAction.CallbackContext context)
