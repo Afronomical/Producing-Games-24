@@ -16,6 +16,7 @@ public class SlowPill : InteractableTemplate, IConsumable
         Debug.Log("Consuming slow pill");
         player.GetComponent<PlayerMovement>().slowedEffect = true;
         player.GetComponent<PlayerMovement>().walkSpeed /= 2;
+        player.GetComponent<PlayerMovement>().sprintSpeed /= 2;
         InventoryHotbar.instance.RemoveFromInventory(collectible);
         Destroy(gameObject);
     }

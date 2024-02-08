@@ -13,7 +13,9 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController controller;
 
     [HideInInspector]
-    public float defaultWalkSpeed = 5;
+    public float defaultWalkSpeed;
+    [HideInInspector]
+    public float defaultSprintSpeed;
     [Header("Consumable Values")]
     public bool boostedEffect = false;
     public bool slowedEffect = false;
@@ -80,6 +82,8 @@ public class PlayerMovement : MonoBehaviour
         currentSlowedTime = slowedEffectDuration;
         currentStoppedTime = stoppedEffectDuration;
         panel = GameObject.Find("CameraDimOverlay").GetComponent<Image>();
+        defaultWalkSpeed = walkSpeed;
+        defaultSprintSpeed = sprintSpeed;
     }
 
 
@@ -221,6 +225,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 boostedEffect = false;
                 walkSpeed = defaultWalkSpeed;
+                sprintSpeed = defaultSprintSpeed;
                 currentBoostedTime = boostedEffectDuration;
             }
             else
@@ -235,6 +240,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 slowedEffect = false;
                 walkSpeed = defaultWalkSpeed;
+                sprintSpeed = defaultSprintSpeed;
                 currentSlowedTime = slowedEffectDuration;
             }
             else
@@ -248,6 +254,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 stoppedEffect = false;
                 walkSpeed = defaultWalkSpeed;
+                sprintSpeed = defaultSprintSpeed;
                 currentStoppedTime = stoppedEffectDuration;
             }
             else 

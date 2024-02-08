@@ -17,6 +17,7 @@ public class FastPill : InteractableTemplate, IConsumable
         Debug.Log("Consuming fast pill");
         player.GetComponent<PlayerMovement>().boostedEffect = true;
         player.GetComponent<PlayerMovement>().walkSpeed *= 2;
+        player.GetComponent<PlayerMovement>().sprintSpeed *= 2;
         InventoryHotbar.instance.RemoveFromInventory(collectible);
         Destroy(gameObject);
     }

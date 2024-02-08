@@ -16,6 +16,7 @@ public class StopPill : InteractableTemplate, IConsumable
         Debug.Log("Consuming stop pill");
         player.GetComponent<PlayerMovement>().stoppedEffect = true;
         player.GetComponent<PlayerMovement>().walkSpeed = 0;
+        player.GetComponent<PlayerMovement>().sprintSpeed = 0;
         InventoryHotbar.instance.RemoveFromInventory(collectible);
         Destroy(gameObject);
     }
