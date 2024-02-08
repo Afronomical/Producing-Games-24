@@ -7,9 +7,11 @@ public class DemonItemsSO : ScriptableObject
 {
     public string DemonName;
 
-    public List<GameObject> ItemsForExorcism = new();
+    public List<GameObject> ItemsForExorcism  = new();
 
     public List<StateBaseClass> LikelyStates = new(); 
 
-    public string BattleCry;
+    public string BattleCryText;
+    public AudioClip BattleCryAudio;
+    public AudioClip DefeatCryAudio; 
 }

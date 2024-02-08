@@ -17,6 +17,7 @@ public class DeadState : StateBaseClass
         character.agent.velocity = Vector3.zero;
         character.agent.ResetPath(); 
         transform.Rotate(0, 0, -90.0f); //placeholder function to display death
+       
     }
 
     public override void UpdateLogic()

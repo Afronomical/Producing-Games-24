@@ -26,18 +26,6 @@ public class NPCManager : MonoBehaviour
 
     public DemonItemsSO ChosenDemon { get; private set; }
 
-    private void Start()
-    {
-        AICharacter[] aICharacters = FindObjectsByType<AICharacter>(FindObjectsSortMode.None);
-       foreach(AICharacter character in aICharacters)
-        {
-            NPCS.Add(character.gameObject);
-        }
-
-        AssignRandomDemonType();
-         
-        
-    }
 
     /// <summary>
     /// Randomises a demon for the game instance and a selected NPC to possess. 
@@ -56,6 +44,8 @@ public class NPCManager : MonoBehaviour
 
         Debug.Log(ChosenNPC.name + "Has been possessed by: " + ChosenDemon.DemonName);
 
+        
+
     }
 
 
@@ -70,6 +60,16 @@ public class NPCManager : MonoBehaviour
             Destroy(gameObject);
         else
             Instance = this;
+
+
+        AICharacter[] aICharacters = FindObjectsByType<AICharacter>(FindObjectsSortMode.None);
+        foreach (AICharacter character in aICharacters)
+        {
+            NPCS.Add(character.gameObject);
+        }
+
+        AssignRandomDemonType();
+
     }
 
     /// <summary>

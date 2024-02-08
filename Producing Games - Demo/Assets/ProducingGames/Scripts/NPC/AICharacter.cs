@@ -73,6 +73,7 @@ public class AICharacter : MonoBehaviour
             InitialiseDemonStats();
         }
         
+       
     }
 
 
@@ -151,7 +152,8 @@ public class AICharacter : MonoBehaviour
         {
             ////add initialisation here 
             Debug.Log(Demon.DemonName + " stats initialised");
-            Debug.Log(Demon.BattleCry);
+            Debug.Log(Demon.BattleCryText);
+           
         }
     }
     
