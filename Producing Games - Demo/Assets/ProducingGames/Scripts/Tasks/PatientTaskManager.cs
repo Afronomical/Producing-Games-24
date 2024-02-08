@@ -38,10 +38,13 @@ public class PatientTaskManager : MonoBehaviour
 
     public void CheckTaskConditions(GameObject interactedObject)
     {
-        for (int i = currentTasks.Count - 1; i >= 0; i--)
+        if (!GameManager.Instance.shiftEndActive)
         {
-            if (!currentTasks[i].taskCompleted)
-                currentTasks[i].CheckTaskConditions(interactedObject);
+            for (int i = currentTasks.Count - 1; i >= 0; i--)
+            {
+                if (!currentTasks[i].taskCompleted)
+                    currentTasks[i].CheckTaskConditions(interactedObject);
+            }
         }
     }
 
