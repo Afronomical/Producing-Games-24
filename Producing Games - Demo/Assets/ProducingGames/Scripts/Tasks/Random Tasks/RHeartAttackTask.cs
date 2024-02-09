@@ -12,10 +12,10 @@ public class RHeartAttackTask : Task
     {
         // Alert pager
         taskNoticed = true;
-        PagerMessages.instance.DisplayMessage(taskTarget.name + " is about to have a heart attack!", 30);
 
         timeRemaining = timeTillHeartAttack;
         base.TaskStart();
+        PagerMessages.instance.DisplayMessage(taskTarget.name + " is about to be killed by a heart attack", 30);
     }
 
 
@@ -51,7 +51,7 @@ public class RHeartAttackTask : Task
         if (taskTarget.TryGetComponent(out AICharacter character))
         {
             character.currentHealth = 0;
-            Debug.Log("Patient was killed by a heart attack");
+            PagerMessages.instance.DisplayMessage("Patient was killed by a heart attack", 10);
         }
 
         base.FailTask();

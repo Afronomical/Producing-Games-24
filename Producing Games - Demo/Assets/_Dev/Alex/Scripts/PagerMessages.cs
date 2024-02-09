@@ -10,11 +10,14 @@ public class PagerMessages : MonoBehaviour
 
     public static PagerMessages instance;
 
-    private void Start()
+    private void Awake()
     {
         if (instance == null)
             instance = this;
+    }
 
+    private void Start()
+    {
         alert.text = " ";
     }
 
