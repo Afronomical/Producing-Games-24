@@ -76,6 +76,7 @@ public class GameManager: MonoBehaviour
         shiftEndActive = false;
 
         PatientTaskManager.instance.SetHourlyTasks();
+        PatientTaskManager.instance.SetRandomTasks();
     }
 
 
@@ -94,7 +95,7 @@ public class GameManager: MonoBehaviour
     public void EndHour()
     {
         currentHour++;
-        PatientTaskManager.instance.ClearHourlyTasks();
+        PatientTaskManager.instance.ClearTasks();
 
         if (currentHour <= finalHour)
         {

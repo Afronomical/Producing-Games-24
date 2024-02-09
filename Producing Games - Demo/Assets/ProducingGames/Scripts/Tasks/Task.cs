@@ -28,15 +28,23 @@ public class Task : MonoBehaviour
     public virtual void CompleteTask()
     {
         taskCompleted = true;
-        taskTarget.transform.Find("Eye 1").GetComponent<MeshRenderer>().material = hTask.basicEyes;
-        taskTarget.transform.Find("Eye 2").GetComponent<MeshRenderer>().material = hTask.basicEyes;
+
+        if (isHourlyTask)
+        {
+            taskTarget.transform.Find("Eye 1").GetComponent<MeshRenderer>().material = hTask.basicEyes;
+            taskTarget.transform.Find("Eye 2").GetComponent<MeshRenderer>().material = hTask.basicEyes;
+        }
+
         PatientTaskManager.instance.CompleteTask(this);
     }
 
 
     public virtual void FailTask()
     {
-        taskTarget.transform.Find("Eye 1").GetComponent<MeshRenderer>().material = hTask.basicEyes;
-        taskTarget.transform.Find("Eye 2").GetComponent<MeshRenderer>().material = hTask.basicEyes;
+        if (isHourlyTask)
+        {
+            taskTarget.transform.Find("Eye 1").GetComponent<MeshRenderer>().material = hTask.basicEyes;
+            taskTarget.transform.Find("Eye 2").GetComponent<MeshRenderer>().material = hTask.basicEyes;
+        }
     }
 }
