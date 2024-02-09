@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PagerController : MonoBehaviour
 {
@@ -18,17 +19,11 @@ public class PagerController : MonoBehaviour
 
     }
 
-
-    private void Update()
+    public void OnPagerInput(InputAction.CallbackContext context)
     {
-        // Check for TAB key press
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (pagerInterface != null)
         {
-            // Toggle the visibility of the pager interface
-            if (pagerInterface != null)
-            {
-                pagerInterface.SetActive(!pagerInterface.activeSelf);
-            }
-        }      
+            pagerInterface.SetActive(!pagerInterface.activeSelf);
+        }
     }
 }

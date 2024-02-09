@@ -2,85 +2,57 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement; 
 
-/// <summary>
-/// Written By: Matthew Brake.
-/// Moderated By: Matej Cincibus
-/// 
-/// 
-/// .Manages the game state and informs the level manager if level needs changing 
-/// </summary>
 
 public class GameManager: MonoBehaviour
 {
-   public static GameManager Instance;
+    public static GameManager Instance;
 
-    public static event Action<GameState> OnGameStateChanged;
-
-    //// player reference ********** 
+    public GameObject player;
     //// AI references. 
-    ///all for information on their health,sanity etc for use by UI 
 
-    public GameState State;
+    [Header("Hour System")]
+    [Range(1, 60)] public float hourLength = 10;
+    public int startingHour = 1;
+    public int finalHour = 8;
+    public Transform playerStartPosition;
+
+    public int currentHour;
+    public float currentTime;
+    public bool shiftEndActive = false;
+
+    [Header("Sanity")]
+    [Range(0, 100)] public int startingSanity = 100;
+    [Range(0, 100)] public int currentSanity;
+    
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null) Instance = this;
     }
+
 
     private void Start()
     {
-        ///updategamestate to menu 
-        ///
-        #if UNITY_STANDALONE_WIN
-        UpdateGameState(GameState.Menu);
-#endif 
+        StartGame();
     }
-   
-    /// <summary>
-    /// Changes the current state of the game, depending on factors within gameplay. 
-    /// </summary>
-    /// <param name="NewState"></param>
-    public void UpdateGameState(GameState NewState)
+
+
+    private void LateUpdate()
     {
-        State = NewState;
-
-        switch (NewState)
-        {
-            case GameState.Menu:
-                break;
-            case GameState.GameStart:
-                break;
-            case GameState.NPC_Possessed:
-                break; 
-            case GameState.PlayerWin:
-                break;
-            case GameState.PlayerLose:
-                break;
-        }
-
-        OnGameStateChanged?.Invoke(NewState); 
-        ////tells any subscribed functions/classes that the state has changed 
+        UpdateTime();
     }
 
 
-    public enum GameState
+    public void StartGame()
     {
-        Menu,
-        GameStart,
-        NPC_Possessed,
-        PlayerWin,
-        PlayerLose
-
-        /////template states, to be changed 
+        currentSanity = startingSanity;
+        currentHour = startingHour;
+        StartHour();
     }
 
 
-    //public static GameState State { get; private set; }
-
-    ///
-    public static void EndGame()
+    public void EndGame()
     {
         ////if playerstate == win 
         ///win game 
@@ -90,4 +62,55 @@ public class GameManager: MonoBehaviour
         ///lose game. main menu or restart level 
     }
 
+
+    private void StartHour()
+    {
+        // Fade?
+
+        player.transform.position = playerStartPosition.position;
+        player.transform.rotation = playerStartPosition.rotation;
+
+        // Put Patients in bed
+
+        currentTime = 0;
+        shiftEndActive = false;
+
+        PatientTaskManager.instance.SetHourlyTasks();
+        PatientTaskManager.instance.SetRandomTasks();
+    }
+
+
+    private void UpdateTime()
+    {
+        currentTime += Time.deltaTime * (1 / hourLength);
+
+        if (currentTime >= 60)
+        {
+            //StartShiftEnd();
+            EndHour();
+        }
+    }
+
+
+    public void EndHour()
+    {
+        currentHour++;
+        PatientTaskManager.instance.ClearTasks();
+
+        if (currentHour <= finalHour)
+        {
+            StartHour();
+        }
+        else 
+        {
+            EndGame();
+        }
+    }
+
+
+    private void StartShiftEnd()
+    {
+        shiftEndActive = true;
+        // Rage mode activate
+    }
 }
