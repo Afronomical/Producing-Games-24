@@ -39,7 +39,7 @@ public class RHeartAttackTask : Task
 
     public override void CompleteTask()
     {
-        if (taskTarget.TryGetComponent(out AICharacter character)) character.health += 1;
+        if (taskTarget.TryGetComponent(out AICharacter character)) character.currentHealth += 1;
         Debug.Log("Completed heart attack task");
         base.CompleteTask();
     }
@@ -49,7 +49,7 @@ public class RHeartAttackTask : Task
     {
         if (taskTarget.TryGetComponent(out AICharacter character))
         {
-            character.health = 0;
+            character.currentHealth = 0;
             Debug.Log("Patient was killed by a heart attack");
         }
 

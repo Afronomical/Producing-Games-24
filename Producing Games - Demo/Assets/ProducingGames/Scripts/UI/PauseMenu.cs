@@ -10,7 +10,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Start()
     {
-        settingsPanel.SetActive(false);
+        
         // Find the CameraLook script attached to the camera
         cameraLookScript = Camera.main.GetComponent<CameraLook>();
     }

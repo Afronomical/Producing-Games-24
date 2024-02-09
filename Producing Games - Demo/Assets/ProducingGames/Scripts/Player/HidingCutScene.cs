@@ -34,6 +34,7 @@ public class HidingCutScene : InteractableTemplate
     {
         cam = Camera.main;
         Quaternion camRot = cam.transform.rotation;
+        playerRef = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     private void Update()
