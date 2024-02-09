@@ -26,11 +26,14 @@ public class HInjectionTask : Task
 
     public override void FailTask()
     {
-        if (taskTarget.TryGetComponent(out AICharacter character))
-        {
+        
+   
             GameManager.Instance.currentSanity -= 4;
+
+           
+
             Debug.Log("Patient lost 4 sanity due to failed injection task");
-        }
+        
 
         base.FailTask();
     }
