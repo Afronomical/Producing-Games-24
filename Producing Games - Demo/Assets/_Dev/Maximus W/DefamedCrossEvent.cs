@@ -8,7 +8,7 @@ public class DefamedCrossEvent : MonoBehaviour
     public float sanityPenalty = 10f; // Amount of sanity penalty when the event triggers
 
     private GameManager gameManager;
-
+    public Rigidbody rb;
     private void Start()
     {
         //gameManager = GameManager.instance;
@@ -16,6 +16,7 @@ public class DefamedCrossEvent : MonoBehaviour
         {
             Debug.LogError("GameManager instance not found.");
         }
+        rb.useGravity = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -37,7 +38,7 @@ public class DefamedCrossEvent : MonoBehaviour
         GameObject randomCross = crosses[Random.Range(0, crosses.Length)];
 
         // Perform the event action (invert or throw the cross)
-        if (Random.value < 0.5f) // 50% chance of inverting the cross
+        if (Random.value < 0.3f) // 50% chance of inverting the cross
         {
             InvertCross(randomCross);
         }
@@ -59,6 +60,13 @@ public class DefamedCrossEvent : MonoBehaviour
             //gameManager.DecreaseSanity(sanityPenalty);
         }
     }
+
+    private void FallingCross()
+    {
+        //Cross.transform.position += ;
+        rb.useGravity = true;
+    }
+
 
     private void InvertCross(GameObject cross)
     {
