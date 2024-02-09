@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 /// <summary>
@@ -16,6 +17,13 @@ public class BedState : StateBaseClass
     private void Awake()
     {
         GetComponent<AICharacter>().isMoving = false;
+    }
+
+    private void Start()
+    {
+        character.rb.velocity = Vector3.zero;
+        //character.agent.isStopped = true;
+        //character.agent.ResetPath();
     }
 
     public override void UpdateLogic()

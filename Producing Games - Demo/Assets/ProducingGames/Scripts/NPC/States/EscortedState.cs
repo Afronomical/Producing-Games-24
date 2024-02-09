@@ -29,7 +29,10 @@ public class EscortedState : StateBaseClass
 
         if (raycastToPlayer == null)
             raycastToPlayer = GetComponent<RaycastToPlayer>();
+    }
 
+    private void Start()
+    {
         character.agent.ResetPath();
         character.agent.speed = character.runSpeed;
     }
@@ -68,6 +71,7 @@ public class EscortedState : StateBaseClass
             {
                 bedInRange = true;
                 shouldFollow = false;
+                character.agent.enabled = false;
                 character.ChangeState(AICharacter.States.Bed);
                 //move to bed instead of player, and then enter bed state 
             }
@@ -81,8 +85,11 @@ public class EscortedState : StateBaseClass
         {
             if (collider.gameObject.name == "Bed") ///just for testing 
             {
-                //Debug.Log("found bed"); 
+                Vector3 bedPos = new Vector3(collider.gameObject.transform.position.x, collider.gameObject.transform.position.y + 1.0f, collider.gameObject.transform.position.z);
+                
+                transform.position = bedPos;
                 return true;
+
             }
             else
             {
