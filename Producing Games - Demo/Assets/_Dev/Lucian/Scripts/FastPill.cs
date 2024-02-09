@@ -9,7 +9,7 @@ public class FastPill : InteractableTemplate, IConsumable
 
     private void Start()
     {
-        player = GameObject.Find("Player");
+        player = GameManager.Instance.player;// = GameObject.Find("Player");
     }
 
     public void Consume()
