@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: LeviathanStats
   m_EditorClassIdentifier: 
   DemonName: Leviathan
-  ItemsForExorcism: []
+  ItemsForExorcism:
+  - {fileID: 11759742422874786, guid: 3b11e73bf287ef54e952367a56355f26, type: 3}
+  - {fileID: 11759742422874786, guid: 3b11e73bf287ef54e952367a56355f26, type: 3}
+  - {fileID: 11759742422874786, guid: 3b11e73bf287ef54e952367a56355f26, type: 3}
   LikelyStates: []
-  BattleCry: 'LETS HAVE IT '
+  BattleCryAudio: {fileID: 0}
+  DefeatCryAudio: {fileID: 0}

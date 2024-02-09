@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: MammonStats
   m_EditorClassIdentifier: 
   DemonName: Mammon
-  ItemsForExorcism: []
+  ItemsForExorcism:
+  - {fileID: 7824952522015762862, guid: 3caa920475e4b7c4680fc1a94271a2c3, type: 3}
+  - {fileID: 7824952522015762862, guid: 3caa920475e4b7c4680fc1a94271a2c3, type: 3}
+  - {fileID: 7824952522015762862, guid: 3caa920475e4b7c4680fc1a94271a2c3, type: 3}
   LikelyStates: []
-  BattleCry: 'YOURE GONNA DIE '
+  BattleCryAudio: {fileID: 0}
+  DefeatCryAudio: {fileID: 0}

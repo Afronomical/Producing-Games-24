@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: BeezleBubStats
   m_EditorClassIdentifier: 
   DemonName: Beezlebub
-  ItemsForExorcism: []
+  ItemsForExorcism:
+  - {fileID: 11759742422874786, guid: 3b11e73bf287ef54e952367a56355f26, type: 3}
+  - {fileID: 11759742422874786, guid: 3b11e73bf287ef54e952367a56355f26, type: 3}
+  - {fileID: 11759742422874786, guid: 3b11e73bf287ef54e952367a56355f26, type: 3}
   LikelyStates: []
-  BattleCry: WHO AM I
+  BattleCryAudio: {fileID: 0}
+  DefeatCryAudio: {fileID: 0}

@@ -16,6 +16,11 @@ public class ExorcismTable : MonoBehaviour
 
     private int playerItemAmount = 0;
 
+    private void Start()
+    {
+        AcquireDemonObjects();
+    }
+
     private void Update()
     {
         if (playerItemAmount < 3)
@@ -35,20 +40,20 @@ public class ExorcismTable : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, radius);
     }
 
-    /// <summary>
-    /// Enables the exorcism object to know which objects are required for the exorcism at run time, depending on the demon.
-    /// Only takes a list of gameobjects.
-    /// </summary>
-    /// <param name="newObjects"></param>
-    public void SetRequiredObjects(List<GameObject> newObjects) //called from when the demon is spawned to pass in the specific items for demon 
-    {
-        for (int i = 0; i < newObjects.Count; i++)
-        {
-            requiredObjects.Add(newObjects[i]);
-            Debug.Log(newObjects[i].name + "added to list");
-        }
-        Debug.Log("All items added to Required Objects list");
-    }
+    ///// <summary>
+    ///// Enables the exorcism object to know which objects are required for the exorcism at run time, depending on the demon.
+    ///// Only takes a list of gameobjects.
+    ///// </summary>
+    ///// <param name="newObjects"></param>
+    //public void SetRequiredObjects(List<GameObject> newObjects) //called from when the demon is spawned to pass in the specific items for demon 
+    //{
+    //    for (int i = 0; i < newObjects.Count; i++)
+    //    {
+    //        requiredObjects.Add(newObjects[i]);
+    //        Debug.Log(newObjects[i].name + "added to list");
+    //    }
+    //    Debug.Log("All items added to Required Objects list");
+    //}
 
     /// <summary>
     /// Checks whether the required objects match the ones the player has laid down. If one is a mismatch, immediate fail.
@@ -63,7 +68,8 @@ public class ExorcismTable : MonoBehaviour
 
         for (int i = 0; i < RequiredObjects.Count; i++)
         {
-            if (!PlayerObjects.Contains(RequiredObjects[i]))
+          if(playerObjects[i].GetComponent<InteractableTemplate>().collectible.objectName != requiredObjects[i].GetComponent<InteractableTemplate>().collectible.objectName)
+           
                 return false;
         }
 
@@ -100,6 +106,16 @@ public class ExorcismTable : MonoBehaviour
                 Debug.Log("Adding:" + collider.gameObject);
             }
         }
+    }
+
+    void AcquireDemonObjects()
+    {
+        foreach(var item in NPCManager.Instance.ChosenDemon.ItemsForExorcism)
+        {
+            requiredObjects.Add(item.gameObject);
+            Debug.Log(item.gameObject + "has been added to required list ");
+        }
+        
     }
 
 }
