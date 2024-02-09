@@ -11,35 +11,18 @@ public class Flashlight : MonoBehaviour
     public float[] intensities;
     private int intensityIndex = 0;
 
-    private int flickerChance = 500;
-    public float flickerMultiplier = 1;
+    public int randFlickerChance = 500;
+    public int avgFlickerCount = 20;
+    [HideInInspector] public bool shouldReset = true;
+    [Range(0.0f, 1f)] public float flickerLightPower = 0.7f;
+    [Range(0.0f, 1f)] public float flickerLightPowerDiff = 0.3f;
+    private bool isFlickering;
+    private float oldIntensity;
 
 
     void Update()
     {
-        
-
-
-        /*if (light.intensity > maxIntensity)
-            light.intensity = maxIntensity;       
-
-        float scrollInput = Input.GetAxis("Mouse ScrollWheel");
-        if (!isOn && Input.GetKeyDown(KeyCode.F))
-        {
-            flashlight.SetActive(true);
-            isOn = true;            
-        }
-        else if (isOn && Input.GetKeyDown(KeyCode.F))
-        {
-            flashlight.SetActive(false);
-            isOn = false;
-        }
-
-        if(isOn)
-        {
-            light.intensity += scrollInput * m_Intensity;
-            light.intensity = Mathf.Max(0, light.intensity);
-        }  */
+        //Debug.Log(light.intensity);
 
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -77,31 +60,40 @@ public class Flashlight : MonoBehaviour
             flashlight.SetActive(true);
             light.intensity = intensities[intensityIndex];
         }
+
+        oldIntensity = light.intensity;
     }
 
     private void FlashFlicker()
     {
-        int flickerRandRange = Random.Range(1, flickerChance);
+        int flickerRandRange = Random.Range(1, randFlickerChance);
         int oldIntensityIndex = intensityIndex;
         if (flickerRandRange == 1)
         {
             StartCoroutine(Flickering());
-            Debug.Log(flickerRandRange);
         }
         
     }
 
-    IEnumerator Flickering()
+    public IEnumerator Flickering()
     {
-        float oldIntensity = light.intensity;
-        int flickCount = Random.Range(5, 20);
-        for (int i = 0; i < flickCount; i++)
+        if (isFlickering == false)
         {
-            yield return new WaitForSeconds(Random.Range(0.05f, 0.2f));
-            light.intensity = oldIntensity * Random.Range(0.7f, 1.0f);
+            isFlickering = true;
+            int flickCount = Random.Range(avgFlickerCount - 5, avgFlickerCount + 5);
+            for (int i = 0; i < flickCount; i++)
+            {
+                yield return new WaitForSeconds(Random.Range(0.05f, 0.1f));
+                light.intensity = oldIntensity * Random.Range(flickerLightPower, flickerLightPower + flickerLightPowerDiff);
+            }
+            if (shouldReset)
+            {
+                yield return new WaitForSeconds(0.2f);
+                IntensityChange();
+            }
+            
+            isFlickering = false;
         }
-        yield return new WaitForSeconds(Random.Range(0.2f, 1.0f));
-        Debug.Log("LightDone");
-        IntensityChange();
+        
     }
 }
