@@ -514,7 +514,11 @@ GameObject:
   - component: {fileID: 2571292562704163160}
   - component: {fileID: 8169291835860693477}
   - component: {fileID: 975648811581934756}
+<<<<<<< Updated upstream
   - component: {fileID: 558371097002627758}
+=======
+  - component: {fileID: 8275077206551337866}
+>>>>>>> Stashed changes
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -538,7 +542,12 @@ Transform:
   - {fileID: 582459422321957064}
   - {fileID: 6759140246968287996}
   - {fileID: 7713922352505447613}
+<<<<<<< Updated upstream
   - {fileID: 1509273815196164121}
+=======
+  - {fileID: 5502096209297913772}
+  - {fileID: 2974054447550011905}
+>>>>>>> Stashed changes
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &392821061352831744
@@ -874,7 +883,11 @@ MonoBehaviour:
     m_ActionName: 'Player/Open Pager[/Keyboard/tab,/XInputControllerWindows/leftTrigger]'
   - m_PersistentCalls:
       m_Calls:
+<<<<<<< Updated upstream
       - m_Target: {fileID: 558371097002627758}
+=======
+      - m_Target: {fileID: 8275077206551337866}
+>>>>>>> Stashed changes
         m_TargetAssemblyTypeName: ConsumeItem, Assembly-CSharp
         m_MethodName: OnConsumeItem
         m_Mode: 0
@@ -949,7 +962,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aabe75d1db3866140b3d11e6a961fe2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< Updated upstream
 --- !u!114 &558371097002627758
+=======
+--- !u!114 &8275077206551337866
+>>>>>>> Stashed changes
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1235,7 +1252,11 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
+<<<<<<< Updated upstream
 --- !u!1001 &3450556259729465380
+=======
+--- !u!1001 &2662095715998021039
+>>>>>>> Stashed changes
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1243,6 +1264,7 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2604761008673467045}
     m_Modifications:
+<<<<<<< Updated upstream
     - target: {fileID: 84842765130806521, guid: dd492dba33fdcf948802e8aef5f1f56c, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.00041312
@@ -1258,6 +1280,88 @@ PrefabInstance:
     - target: {fileID: 2225659308117284669, guid: dd492dba33fdcf948802e8aef5f1f56c, type: 3}
       propertyPath: m_Value
       value: 0
+=======
+    - target: {fileID: -8154363543850046957, guid: 164f0264242c48847af362d9f4391063, type: 3}
+      propertyPath: clock
+      value: 
+      objectReference: {fileID: 2138519343578117704}
+    - target: {fileID: 987518879385595822, guid: 164f0264242c48847af362d9f4391063, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.716
+      objectReference: {fileID: 0}
+    - target: {fileID: 987518879385595822, guid: 164f0264242c48847af362d9f4391063, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 987518879385595822, guid: 164f0264242c48847af362d9f4391063, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.321
+      objectReference: {fileID: 0}
+    - target: {fileID: 987518879385595822, guid: 164f0264242c48847af362d9f4391063, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 987518879385595822, guid: 164f0264242c48847af362d9f4391063, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 987518879385595822, guid: 164f0264242c48847af362d9f4391063, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 987518879385595822, guid: 164f0264242c48847af362d9f4391063, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 987518879385595822, guid: 164f0264242c48847af362d9f4391063, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 987518879385595822, guid: 164f0264242c48847af362d9f4391063, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 987518879385595822, guid: 164f0264242c48847af362d9f4391063, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1832725260370223921, guid: 164f0264242c48847af362d9f4391063, type: 3}
+      propertyPath: m_Name
+      value: Pager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 164f0264242c48847af362d9f4391063, type: 3}
+--- !u!114 &2138519343578117704 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4133220271771403239, guid: 164f0264242c48847af362d9f4391063, type: 3}
+  m_PrefabInstance: {fileID: 2662095715998021039}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2974054447550011905 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 987518879385595822, guid: 164f0264242c48847af362d9f4391063, type: 3}
+  m_PrefabInstance: {fileID: 2662095715998021039}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8596119838391646097
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2604761008673467045}
+    m_Modifications:
+    - target: {fileID: 869915945437991109, guid: dd492dba33fdcf948802e8aef5f1f56c, type: 3}
+      propertyPath: m_Size
+      value: 0.99999994
+>>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 2812824957360585144, guid: dd492dba33fdcf948802e8aef5f1f56c, type: 3}
       propertyPath: m_Name
@@ -1364,8 +1468,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd492dba33fdcf948802e8aef5f1f56c, type: 3}
+<<<<<<< Updated upstream
 --- !u!4 &1509273815196164121 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4256132731017887805, guid: dd492dba33fdcf948802e8aef5f1f56c, type: 3}
   m_PrefabInstance: {fileID: 3450556259729465380}
+=======
+--- !u!4 &5502096209297913772 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4256132731017887805, guid: dd492dba33fdcf948802e8aef5f1f56c, type: 3}
+  m_PrefabInstance: {fileID: 8596119838391646097}
+>>>>>>> Stashed changes
   m_PrefabAsset: {fileID: 0}

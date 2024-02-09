@@ -89,8 +89,8 @@ GameObject:
   - component: {fileID: 3343100192663172159}
   - component: {fileID: 565469859589592285}
   - component: {fileID: 7384699903040795155}
-  - component: {fileID: 6709708393648814782}
   - component: {fileID: 4498968125733383512}
+  - component: {fileID: -8154363543850046957}
   m_Layer: 0
   m_Name: Pager
   m_TagString: Untagged
@@ -186,22 +186,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6709708393648814782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1832725260370223921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6b1c7354149f1d4db69a2e16ac46041, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clockText: {fileID: 0}
-  expandedClockText: {fileID: 4133220271771403239}
-  timeSpeedMultiplier: 0.25
-  is24HourMode: 1
 --- !u!114 &4498968125733383512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,6 +199,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pagerInterface: {fileID: 1832725260370223921}
+--- !u!114 &-8154363543850046957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1832725260370223921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 985743ff672a99742a1c190d1d7fcf8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clock: {fileID: 0}
 --- !u!1 &3930052886000882953
 GameObject:
   m_ObjectHideFlags: 0
