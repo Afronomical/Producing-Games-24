@@ -617,6 +617,7 @@ GameObject:
   - component: {fileID: 3661842027560466089}
   - component: {fileID: 3007118883857862081}
   - component: {fileID: 7466595318320274680}
+  - component: {fileID: 5858492631600918142}
   m_Layer: 6
   m_Name: Cupboard
   m_TagString: Untagged
@@ -640,6 +641,7 @@ Transform:
   - {fileID: 5193287216423405472}
   - {fileID: 7293726588213827187}
   - {fileID: 2138230919458092409}
+  - {fileID: 894542859654377744}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3007118883857862081
@@ -657,10 +659,12 @@ MonoBehaviour:
   objectIcon: {fileID: 0}
   collectible: {fileID: 11400000, guid: 087b5aeaf21ab394aa101d5919637b8e, type: 2}
   playerRef: {fileID: 0}
+  playAnimation: {fileID: 5858492631600918142}
   points:
   - {fileID: 7293726588213827187}
   - {fileID: 2138230919458092409}
-  enterTransitionSpeed: 3
+  - {fileID: 894542859654377744}
+  enterTransitionSpeed: 5
   exitTransitionSpeed: 5
 --- !u!65 &7466595318320274680
 BoxCollider:
@@ -683,6 +687,59 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.7272756, y: 2.5725672, z: 2.343802}
   m_Center: {x: -1.8129846, y: 0.13806593, z: 0.042251587}
+--- !u!95 &5858492631600918142
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5837303818483238476}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 70d1aeb19adb71b4a94da5df3bddc23b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &6132045311087651420
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 894542859654377744}
+  m_Layer: 6
+  m_Name: ExitPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &894542859654377744
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6132045311087651420}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 1.6439979, y: -0.17000008, z: 0.12200093}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3661842027560466089}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &6449875952240508526
 GameObject:
   m_ObjectHideFlags: 0
