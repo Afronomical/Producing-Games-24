@@ -35,7 +35,7 @@ public class LightFlickProx : MonoBehaviour
         playerLoc = player.transform.position;
         distance = Vector3.Distance(thisLoc, playerLoc);
         
-        if (distance < maxDist) //&& distance > minDist
+        if (distance < maxDist && !(distance < minDist)) //&& distance > minDist
         {
             resetFlicker = true;
             flashScript.shouldReset = false;
@@ -43,6 +43,11 @@ public class LightFlickProx : MonoBehaviour
             flashScript.flickerLightPower = Mathf.Lerp(maxBrightAtMinRange, origFlickerLightPower, distance / maxDist);
             flashScript.flickerLightPowerDiff = Mathf.Lerp(maxDiffAtMinRange, origFlickerLightDiff, distance / maxDist);
             flashScript.avgFlickerCount = 7;
+        }
+        else if (distance < minDist)
+        {
+            StartCoroutine(flashScript.Flickering());
+            Debug.Log("mghbsaddjkhfbaibaigbakladgjhbgk,");
         }
         else if (resetFlicker)
         {
