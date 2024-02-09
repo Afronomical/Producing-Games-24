@@ -22,13 +22,14 @@ public class WanderingState : StateBaseClass
         // INFO: Enables the NPCs movement capabilities
         GetComponent<AICharacter>().isMoving = true;
 
-        character.agent.ResetPath();
-        character.agent.speed = character.walkSpeed;  
     }
 
     private void Start()
     {
         wanderDestination = NPCManager.Instance.RandomDestination();
+
+        character.agent.speed = character.walkSpeed;  
+        character.agent.ResetPath();
     }
 
     public override void UpdateLogic()

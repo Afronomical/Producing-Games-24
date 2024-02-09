@@ -103,8 +103,10 @@ public class PatientTaskManager : MonoBehaviour
                         patients[i].transform.Find("Eye 2").GetComponent<MeshRenderer>().material = chosenTask.taskEyes;
                         CheckList.instance.AddTask(newTask);
                     }
+                    CheckList.instance.AddTask(newTask);
                 }
 
+                
             }
         }
     }
