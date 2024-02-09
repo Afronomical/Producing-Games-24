@@ -101,6 +101,7 @@ public class PatientTaskManager : MonoBehaviour
                         newTask.taskTarget = patients[i];
                         patients[i].transform.Find("Eye 1").GetComponent<MeshRenderer>().material = chosenTask.taskEyes;
                         patients[i].transform.Find("Eye 2").GetComponent<MeshRenderer>().material = chosenTask.taskEyes;
+                        CheckList.instance.AddTask(newTask);
                     }
                     CheckList.instance.AddTask(newTask);
                 }
@@ -179,6 +180,7 @@ public class PatientTaskManager : MonoBehaviour
                     newTask.isHourlyTask = false;
                     newTask.taskTarget = patients[i];
                     newTask.TaskStart();
+                    CheckList.instance.AddTask(newTask);
                 }
             }
         }
