@@ -78,9 +78,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Consume Item",
+                    "name": "See Tasks",
                     "type": "Button",
-                    "id": "cceb5768-551b-4ece-91f6-a05b6ef75e5a",
+                    "id": "597f540a-9fd0-406e-98db-75c0cad983bd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Open Pager",
+                    "type": "Button",
+                    "id": "2f1a7d36-3676-442a-9a85-604da6be4d3a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -398,23 +407,45 @@
                 },
                 {
                     "name": "",
-                    "id": "3ebe3f87-3e93-4557-9bea-b9940cc2e798",
-                    "path": "<Mouse>/rightButton",
+                    "id": "122be7ba-a49f-41ca-a7b7-b285d72b6d88",
+                    "path": "<Keyboard>/t",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Consume Item",
+                    "action": "See Tasks",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "787cdb07-b5ff-45f0-8733-2ee04dab5f5e",
-                    "path": "",
+                    "id": "76d9dee7-200d-42ea-9f31-1169dfd12beb",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Consume Item",
+                    "groups": "Gamepad",
+                    "action": "See Tasks",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e2f6defc-728f-4ed6-aca4-0f7f7acf9ca0",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Open Pager",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ee1fbeff-dca7-4c23-a029-012120f134b6",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Open Pager",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

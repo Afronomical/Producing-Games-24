@@ -100,9 +100,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Consume Item"",
+                    ""name"": ""See Tasks"",
                     ""type"": ""Button"",
-                    ""id"": ""cceb5768-551b-4ece-91f6-a05b6ef75e5a"",
+                    ""id"": ""597f540a-9fd0-406e-98db-75c0cad983bd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Open Pager"",
+                    ""type"": ""Button"",
+                    ""id"": ""2f1a7d36-3676-442a-9a85-604da6be4d3a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -420,23 +429,45 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""3ebe3f87-3e93-4557-9bea-b9940cc2e798"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""id"": ""122be7ba-a49f-41ca-a7b7-b285d72b6d88"",
+                    ""path"": ""<Keyboard>/t"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Consume Item"",
+                    ""action"": ""See Tasks"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""787cdb07-b5ff-45f0-8733-2ee04dab5f5e"",
-                    ""path"": """",
+                    ""id"": ""76d9dee7-200d-42ea-9f31-1169dfd12beb"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Consume Item"",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""See Tasks"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e2f6defc-728f-4ed6-aca4-0f7f7acf9ca0"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Open Pager"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ee1fbeff-dca7-4c23-a029-012120f134b6"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Open Pager"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -483,7 +514,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Flashlight = m_Player.FindAction("Flashlight", throwIfNotFound: true);
         m_Player_DropItem = m_Player.FindAction("Drop Item", throwIfNotFound: true);
         m_Player_PickUp = m_Player.FindAction("Pick Up", throwIfNotFound: true);
-        m_Player_ConsumeItem = m_Player.FindAction("Consume Item", throwIfNotFound: true);
+        m_Player_SeeTasks = m_Player.FindAction("See Tasks", throwIfNotFound: true);
+        m_Player_OpenPager = m_Player.FindAction("Open Pager", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -553,7 +585,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Flashlight;
     private readonly InputAction m_Player_DropItem;
     private readonly InputAction m_Player_PickUp;
-    private readonly InputAction m_Player_ConsumeItem;
+    private readonly InputAction m_Player_SeeTasks;
+    private readonly InputAction m_Player_OpenPager;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -566,7 +599,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Flashlight => m_Wrapper.m_Player_Flashlight;
         public InputAction @DropItem => m_Wrapper.m_Player_DropItem;
         public InputAction @PickUp => m_Wrapper.m_Player_PickUp;
-        public InputAction @ConsumeItem => m_Wrapper.m_Player_ConsumeItem;
+        public InputAction @SeeTasks => m_Wrapper.m_Player_SeeTasks;
+        public InputAction @OpenPager => m_Wrapper.m_Player_OpenPager;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -600,9 +634,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @PickUp.started += instance.OnPickUp;
             @PickUp.performed += instance.OnPickUp;
             @PickUp.canceled += instance.OnPickUp;
-            @ConsumeItem.started += instance.OnConsumeItem;
-            @ConsumeItem.performed += instance.OnConsumeItem;
-            @ConsumeItem.canceled += instance.OnConsumeItem;
+            @SeeTasks.started += instance.OnSeeTasks;
+            @SeeTasks.performed += instance.OnSeeTasks;
+            @SeeTasks.canceled += instance.OnSeeTasks;
+            @OpenPager.started += instance.OnOpenPager;
+            @OpenPager.performed += instance.OnOpenPager;
+            @OpenPager.canceled += instance.OnOpenPager;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -631,9 +668,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @PickUp.started -= instance.OnPickUp;
             @PickUp.performed -= instance.OnPickUp;
             @PickUp.canceled -= instance.OnPickUp;
-            @ConsumeItem.started -= instance.OnConsumeItem;
-            @ConsumeItem.performed -= instance.OnConsumeItem;
-            @ConsumeItem.canceled -= instance.OnConsumeItem;
+            @SeeTasks.started -= instance.OnSeeTasks;
+            @SeeTasks.performed -= instance.OnSeeTasks;
+            @SeeTasks.canceled -= instance.OnSeeTasks;
+            @OpenPager.started -= instance.OnOpenPager;
+            @OpenPager.performed -= instance.OnOpenPager;
+            @OpenPager.canceled -= instance.OnOpenPager;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -679,6 +719,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnFlashlight(InputAction.CallbackContext context);
         void OnDropItem(InputAction.CallbackContext context);
         void OnPickUp(InputAction.CallbackContext context);
-        void OnConsumeItem(InputAction.CallbackContext context);
+        void OnSeeTasks(InputAction.CallbackContext context);
+        void OnOpenPager(InputAction.CallbackContext context);
     }
 }

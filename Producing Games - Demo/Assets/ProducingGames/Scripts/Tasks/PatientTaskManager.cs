@@ -18,8 +18,10 @@ public class PatientTaskManager : MonoBehaviour
     public GameObject[] patients;
     public HourlyTask[] hourlyTasks;
     public HourlyTask[] genericTasks;
+
     public RandomTask[] randomTasks;
-    private List<Task> currentTasks = new List<Task>();
+
+    [HideInInspector] public List<Task> currentTasks = new List<Task>();
 
     public int tasksPerPatient = 1;
 
@@ -101,6 +103,8 @@ public class PatientTaskManager : MonoBehaviour
                         patients[i].transform.Find("Eye 2").GetComponent<MeshRenderer>().material = chosenTask.taskEyes;
                     }
                 }
+
+                CheckList.instance.AddTask(newTask);
             }
         }
     }
@@ -183,11 +187,15 @@ public class PatientTaskManager : MonoBehaviour
 
     public void CompleteTask(Task task)
     {
+        CheckList.instance.RemoveTask(task);
         if (!task.isHourlyTask)
         {
             currentTasks.Remove(task);
             Destroy(task);
         }
+
+
+
     }
 
 
@@ -197,10 +205,14 @@ public class PatientTaskManager : MonoBehaviour
         {
             if (currentTasks[i].isHourlyTask)
             {
+
                 if (!currentTasks[i].taskCompleted)
                     currentTasks[i].FailTask();
-            }
 
+
+
+            }
+            CheckList.instance.RemoveTask(currentTasks[i]);
             Destroy(currentTasks[i]);
             currentTasks.RemoveAt(i);
         }
