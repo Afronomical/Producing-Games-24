@@ -1,0 +1,283 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3677882020956813164
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8609694180144790868}
+  - component: {fileID: 3055623866171921616}
+  m_Layer: 0
+  m_Name: Blessed Oil
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8609694180144790868
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3677882020956813164}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4574122132979151513}
+  - {fileID: 5158571906976594559}
+  - {fileID: 312197183633809707}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!205 &3055623866171921616
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3677882020956813164}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: -0.000000074505806, y: 0.18168125, z: -0.00038078427}
+  m_Size: 0.36440623
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.2697071
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 49971405914008097}
+    - renderer: {fileID: 6321050889140824830}
+  - screenRelativeHeight: 0.050500523
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 147906928696028100}
+    - renderer: {fileID: 4070627749470934819}
+  - screenRelativeHeight: 0.0016688089
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1705535383231333500}
+    - renderer: {fileID: 5271291800643417693}
+  m_Enabled: 1
+--- !u!1001 &279114128900196032
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8609694180144790868}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 7b4a281999ce92c4f85b4efbb23f3350, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7b4a281999ce92c4f85b4efbb23f3350, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7b4a281999ce92c4f85b4efbb23f3350, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7b4a281999ce92c4f85b4efbb23f3350, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7b4a281999ce92c4f85b4efbb23f3350, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7b4a281999ce92c4f85b4efbb23f3350, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7b4a281999ce92c4f85b4efbb23f3350, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7b4a281999ce92c4f85b4efbb23f3350, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7b4a281999ce92c4f85b4efbb23f3350, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7b4a281999ce92c4f85b4efbb23f3350, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7b4a281999ce92c4f85b4efbb23f3350, type: 3}
+      propertyPath: m_Name
+      value: SM_BlessedOil_mesh_lod2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7b4a281999ce92c4f85b4efbb23f3350, type: 3}
+--- !u!4 &312197183633809707 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7b4a281999ce92c4f85b4efbb23f3350, type: 3}
+  m_PrefabInstance: {fileID: 279114128900196032}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1705535383231333500 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7749327478602169668, guid: 7b4a281999ce92c4f85b4efbb23f3350, type: 3}
+  m_PrefabInstance: {fileID: 279114128900196032}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5271291800643417693 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5402348285734432925, guid: 7b4a281999ce92c4f85b4efbb23f3350, type: 3}
+  m_PrefabInstance: {fileID: 279114128900196032}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4102834945352013170
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8609694180144790868}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: c2ac9de15bdf12743b307047f9bda3d5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c2ac9de15bdf12743b307047f9bda3d5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c2ac9de15bdf12743b307047f9bda3d5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c2ac9de15bdf12743b307047f9bda3d5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c2ac9de15bdf12743b307047f9bda3d5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c2ac9de15bdf12743b307047f9bda3d5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c2ac9de15bdf12743b307047f9bda3d5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c2ac9de15bdf12743b307047f9bda3d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c2ac9de15bdf12743b307047f9bda3d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c2ac9de15bdf12743b307047f9bda3d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c2ac9de15bdf12743b307047f9bda3d5, type: 3}
+      propertyPath: m_Name
+      value: SM_BlessedOil_mesh_lod0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c2ac9de15bdf12743b307047f9bda3d5, type: 3}
+--- !u!23 &49971405914008097 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4053725785065422675, guid: c2ac9de15bdf12743b307047f9bda3d5, type: 3}
+  m_PrefabInstance: {fileID: 4102834945352013170}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4574122132979151513 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c2ac9de15bdf12743b307047f9bda3d5, type: 3}
+  m_PrefabInstance: {fileID: 4102834945352013170}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6321050889140824830 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8018888858087456652, guid: c2ac9de15bdf12743b307047f9bda3d5, type: 3}
+  m_PrefabInstance: {fileID: 4102834945352013170}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4619660415773400468
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8609694180144790868}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 4c1333cf6bf19fb4d96c44df91681ba3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4c1333cf6bf19fb4d96c44df91681ba3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4c1333cf6bf19fb4d96c44df91681ba3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4c1333cf6bf19fb4d96c44df91681ba3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4c1333cf6bf19fb4d96c44df91681ba3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4c1333cf6bf19fb4d96c44df91681ba3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4c1333cf6bf19fb4d96c44df91681ba3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4c1333cf6bf19fb4d96c44df91681ba3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4c1333cf6bf19fb4d96c44df91681ba3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4c1333cf6bf19fb4d96c44df91681ba3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4c1333cf6bf19fb4d96c44df91681ba3, type: 3}
+      propertyPath: m_Name
+      value: SM_BlessedOil_mesh_lod1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4c1333cf6bf19fb4d96c44df91681ba3, type: 3}
+--- !u!23 &147906928696028100 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -4462737113201920432, guid: 4c1333cf6bf19fb4d96c44df91681ba3, type: 3}
+  m_PrefabInstance: {fileID: 4619660415773400468}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &4070627749470934819 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8674375929348967095, guid: 4c1333cf6bf19fb4d96c44df91681ba3, type: 3}
+  m_PrefabInstance: {fileID: 4619660415773400468}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5158571906976594559 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4c1333cf6bf19fb4d96c44df91681ba3, type: 3}
+  m_PrefabInstance: {fileID: 4619660415773400468}
+  m_PrefabAsset: {fileID: 0}
