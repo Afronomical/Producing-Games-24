@@ -59,7 +59,7 @@ public class DoorInteractable : InteractableTemplate
             if (doorHingeTransform.rotation == targetRotation)
             {
                 rotateDoor = false;
-                Debug.Log("Finished rotating");
+                //Debug.Log("Finished rotating");
             }
         }
 
@@ -104,6 +104,12 @@ public class DoorInteractable : InteractableTemplate
 
     private void ChangeDoorState()
     {
+        if(isLocked)
+        {
+            targetRotation = initialDoorRotation;
+            return; 
+        }
+        
         if (isOpen)
         {
             isOpen = false;

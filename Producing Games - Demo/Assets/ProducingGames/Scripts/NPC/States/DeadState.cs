@@ -12,12 +12,16 @@ public class DeadState : StateBaseClass
 {
     private void Awake()
     {
-        Debug.Log("NPC DEAD");
-        character.rb.velocity = Vector3.zero;
+       // Debug.Log("NPC DEAD");
+       
         character.agent.velocity = Vector3.zero;
         character.agent.ResetPath(); 
         transform.Rotate(0, 0, -90.0f); //placeholder function to display death
        
+    }
+    private void Start()
+    {
+        character.rb.velocity = Vector3.zero;
     }
 
     public override void UpdateLogic()

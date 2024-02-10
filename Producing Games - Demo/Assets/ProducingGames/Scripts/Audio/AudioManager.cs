@@ -50,12 +50,12 @@ public class AudioManager : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J))  // Used for testing spacial audio, will play a sound effect at a random location
-        {
-            GameObject obj = Instantiate(sourcePrefab);
-            obj.transform.position = new Vector3(Random.Range(0, 50), Random.Range(0, 50), Random.Range(0, 50));
-            PlaySound(testSound, obj.transform);
-        }
+        //if (Input.GetKeyDown(KeyCode.J))  // Used for testing spacial audio, will play a sound effect at a random location
+        //{
+        //    GameObject obj = Instantiate(sourcePrefab);
+        //    obj.transform.position = new Vector3(Random.Range(0, 50), Random.Range(0, 50), Random.Range(0, 50));
+        //    PlaySound(testSound, obj.transform);
+        //}
     }
 
 
