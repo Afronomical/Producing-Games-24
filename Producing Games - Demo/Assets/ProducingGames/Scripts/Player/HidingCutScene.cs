@@ -19,6 +19,8 @@ public class HidingCutScene : InteractableTemplate
     private bool goToPoint1 = false;
     private bool goToPoint0 = true;
 
+    HidingScare hidingScare;
+
     private void Start()
     {
         cam = Camera.main;
@@ -30,6 +32,7 @@ public class HidingCutScene : InteractableTemplate
         camPos = cam.transform.position;
         camRot = cam.transform.rotation;
         */
+        hidingScare = Object.FindFirstObjectByType<HidingScare>();
     }
 
     private void Update()
@@ -131,7 +134,7 @@ public class HidingCutScene : InteractableTemplate
                 //=======================================================================
             }
         }
-
+        hidingScare.SetPlayerIsHiding(isInside);
     }
 
     public override void Interact()
