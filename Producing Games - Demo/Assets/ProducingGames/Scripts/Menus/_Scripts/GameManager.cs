@@ -23,7 +23,7 @@ public class GameManager: MonoBehaviour
 
     [Header("Sanity")]
     [Range(0, 100)] public int startingSanity = 100;
-    [Range(0, 100)] public int currentSanity;
+    private int currentSanity;
     
 
     private void Awake()
@@ -112,5 +112,22 @@ public class GameManager: MonoBehaviour
     {
         shiftEndActive = true;
         // Rage mode activate
+    }
+
+
+
+    public int GetSanity()
+    {
+        return currentSanity;
+    }
+
+    public void AddSanity(int add)
+    {
+        currentSanity = Mathf.Clamp(currentSanity + add, 0, startingSanity);
+    }
+
+    public void RemoveSanity(int remove)
+    {
+        currentSanity = Mathf.Clamp(currentSanity - remove, 0, startingSanity);
     }
 }

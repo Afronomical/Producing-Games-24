@@ -28,7 +28,7 @@ public class HInjectionTask : Task
     {
         
    
-            GameManager.Instance.currentSanity -= 4;
+            GameManager.Instance.RemoveSanity(4);
 
            
 
