@@ -35,15 +35,15 @@ public class CheckCameras : InteractableTemplate
         currentMaterial = cameraScreens[index];
         monitor.GetComponent<MeshRenderer>().material = currentMaterial;
 
+        //exit the screen and re-enable interactions
         if (Input.GetKeyDown(KeyCode.C) && looking)
         {
             looking = false;
             playerCanMove = true;
             stopLooking = true;
 
-            //GameObject.Find("Player").GetComponent<PlayerMovement>().enabled = true;
             this.gameObject.GetComponent<BoxCollider>().enabled = true;
-            //GetComponent<CameraLook>().enabled = true;
+
 
         }
         else if(Input.GetKeyDown(KeyCode.RightArrow) && looking)
@@ -64,7 +64,7 @@ public class CheckCameras : InteractableTemplate
             }
             index--;
         }
-
+        //move camera to screen position
         if (looking)
         {
             mainCam.transform.position = Vector3.MoveTowards(mainCam.transform.position, camPosition, 2.5f * Time.deltaTime);
@@ -96,6 +96,8 @@ public class CheckCameras : InteractableTemplate
         }
 
     }
+
+    //disable interactions
     public override void Interact()
     {
         Debug.Log("*** Interacting with monitor ***");

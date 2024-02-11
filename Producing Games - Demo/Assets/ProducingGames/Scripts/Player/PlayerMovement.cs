@@ -5,17 +5,46 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.UIElements;
 using static Unity.VisualScripting.Member;
-
+using Image = UnityEngine.UI.Image;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
     private CharacterController controller;
+    
+
+    [HideInInspector]
+    public float defaultWalkSpeed;
+    [HideInInspector]
+    public float defaultSprintSpeed;
+    [Header("Consumable Values")]
+    public bool boostedEffect = false;
+    public bool slowedEffect = false;
+    public bool stoppedEffect = false;
+    public bool dimmedEffect = false;
+    public float boostedEffectDuration;
+    public float slowedEffectDuration;
+    public float stoppedEffectDuration;
+    public float dimmedEffectDuration;
+
+    //effect timer values
+    private float currentSlowedTime;
+    private float currentStoppedTime;
+    private float currentBoostedTime;
+    private float currentDimmedTime;
+    [HideInInspector]
+    public Image panel;
+
 
     [Header("Ground Movement")]
     [Range(1, 15)] public float walkSpeed = 5;
     [Range(1, 15)] public float sprintSpeed = 8;
     [Range(1, 15)] public float crouchSpeed = 3;
+    private float maxStamina;
+    [Range(1, 100)]public float stamina = 50;
+    [Range(1, 100)] public float staminaDrainSpeed = 25;
+    [Range(1, 100)] public float staminaRegenSpeed = 25;
+    [Range(1, 100)] public float staminaRequiredToSprint = 25;//The amount of stamina the player needs to Sprint again
 
     [Header("Air Movement")]
     [Range(0.05f, 1.5f)] public float jumpHeight = 0.5f;
@@ -52,12 +81,30 @@ public class PlayerMovement : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         groundCheck = transform.Find("Ground Check");
+
+        maxStamina = stamina;
+
+
+
+        currentBoostedTime = boostedEffectDuration;
+        currentDimmedTime = dimmedEffectDuration;
+        currentSlowedTime = slowedEffectDuration;
+        currentStoppedTime = stoppedEffectDuration;
+        panel = GameObject.Find("CameraDimOverlay").GetComponent<Image>();
+        defaultWalkSpeed = walkSpeed;
+        defaultSprintSpeed = sprintSpeed;
+
     }
 
 
 
     private void Update()
     {
+
+
+        CheckEffect();
+
+
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckDistance, groundLayer);  // Check for ground beneath player
        
         Vector3 move = Movement();
@@ -75,8 +122,14 @@ public class PlayerMovement : MonoBehaviour
 
         FootstepSounds();
         if (Input.GetKeyDown(KeyCode.O))
-        {
             StartCoroutine(cameraShake.CamShake(0.15f, .2f));
+        
+        if (!isSprinting && stamina <= maxStamina)
+            stamina += staminaRegenSpeed * Time.deltaTime;
+
+        if(stamina <= 1)
+        {
+            isSprinting = false;
         }
     }
 
@@ -88,7 +141,12 @@ public class PlayerMovement : MonoBehaviour
         Vector3.Normalize(move);
 
         if (isCrouching) move *= crouchSpeed;  // Crouch movement
-        else if (isSprinting) move *= sprintSpeed;  // Sprint movement
+
+        else if (isSprinting)// Sprint movement
+        {
+            move *= sprintSpeed;
+            stamina -= staminaDrainSpeed * Time.deltaTime;
+        }
         else move *= walkSpeed;  // Basic movement
 
         return move;
@@ -162,10 +220,16 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnSprintInput(InputAction.CallbackContext context)
     {
-        if (!isSprinting && !isCrouching && context.performed)
+        if (!isSprinting && !isCrouching && context.performed && stamina >= staminaRequiredToSprint)
             isSprinting = true;
-        else if (isSprinting && context.canceled)
+            
+       
+            
+        else if (isSprinting && context.canceled || stamina <= 1)
             isSprinting = false;
+            
+        
+            
     }
 
     public void OnCrouchInput(InputAction.CallbackContext context)
@@ -178,6 +242,68 @@ public class PlayerMovement : MonoBehaviour
         else if (isCrouching && context.canceled)
             isCrouching = false;
     }
+
+
+    public void CheckEffect()
+    {
+        if(boostedEffect)
+        {
+            if (currentBoostedTime <= 0)
+            {
+                boostedEffect = false;
+                walkSpeed = defaultWalkSpeed;
+                sprintSpeed = defaultSprintSpeed;
+                currentBoostedTime = boostedEffectDuration;
+            }
+            else
+            {
+                currentBoostedTime -= Time.deltaTime;
+            }
+
+        }
+        if(slowedEffect)
+        {
+            if (currentSlowedTime <= 0)
+            {
+                slowedEffect = false;
+                walkSpeed = defaultWalkSpeed;
+                sprintSpeed = defaultSprintSpeed;
+                currentSlowedTime = slowedEffectDuration;
+            }
+            else
+            {
+                currentSlowedTime -= Time.deltaTime;
+            }
+        }
+        if(stoppedEffect)
+        {
+            if(currentStoppedTime <= 0)
+            {
+                stoppedEffect = false;
+                walkSpeed = defaultWalkSpeed;
+                sprintSpeed = defaultSprintSpeed;
+                currentStoppedTime = stoppedEffectDuration;
+            }
+            else 
+            {
+                currentStoppedTime -= Time.deltaTime;
+            }
+        }
+        if(dimmedEffect)
+        {
+            if(currentDimmedTime <= 0)
+            {
+                dimmedEffect = false;
+                panel.enabled = false;
+                currentDimmedTime = dimmedEffectDuration;
+            }
+            else
+            {
+                currentDimmedTime -= Time.deltaTime;
+            }
+        }
+    }
+
 }
 
 

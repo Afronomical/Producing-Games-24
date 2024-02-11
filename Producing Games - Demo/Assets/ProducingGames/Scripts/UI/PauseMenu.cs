@@ -1,16 +1,20 @@
 using UnityEngine;
 
-public class PauseMenuManager : MonoBehaviour
+public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu;
     public GameObject settingsPanel;
     public bool isPaused = false;
 
+    private CameraLook cameraLookScript;
 
     private void Start()
     {
-        settingsPanel.SetActive(false);
+        
+        // Find the CameraLook script attached to the camera
+        cameraLookScript = Camera.main.GetComponent<CameraLook>();
     }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -31,6 +35,10 @@ public class PauseMenuManager : MonoBehaviour
         // Show and lock the cursor
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        // Enable the CameraLook script when resuming
+        if (cameraLookScript != null)
+            cameraLookScript.enabled = true;
     }
 
     void PauseGame()
@@ -42,24 +50,25 @@ public class PauseMenuManager : MonoBehaviour
         // Show and unlock the cursor
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+
+        // Disable the CameraLook script when pausing
+        if (cameraLookScript != null)
+            cameraLookScript.enabled = false;
     }
 
     public void OpenSettings()
     {
-        //LevelManager.LoadScene(LevelManager.Scenes.Settings);//
-       settingsPanel.SetActive(true);
+        settingsPanel.SetActive(true);
+        pauseMenu.SetActive(false);
     }
 
     public void CloseSettings()
     {
-        //LevelManager.LoadScene(LevelManager.Scenes.Settings);//
         settingsPanel.SetActive(false);
     }
 
-
     public void QuitToMainMenu()
     {
-        
         Time.timeScale = 1f; // Unpause time
         LevelManager.LoadScene(LevelManager.Scenes.Menu);
     }

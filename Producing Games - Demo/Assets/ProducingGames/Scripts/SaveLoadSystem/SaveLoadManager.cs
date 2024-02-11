@@ -52,14 +52,17 @@ public class SaveLoadManager : MonoBehaviour
     {
         // INFO: Given that another instance of the class is found the newer
         // SaveLoadManager (gameObject) is destroy to ensure there is only one
-        if (Instance != null)
+        if (Instance != null && Instance != this)
         {
             Debug.LogWarning("More than one SaveLoadManager found in the scene! Destroying the newest one!");
             Destroy(gameObject);
             return;
         }
+        else
+        {
+            Instance = this;
+        }
 
-        Instance = this;
 
         // INFO: SaveLoadManager needs to persist through scenes so that the
         // ability to save/load data isn't lost at any point in the game

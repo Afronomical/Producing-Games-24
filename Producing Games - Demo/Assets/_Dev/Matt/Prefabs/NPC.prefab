@@ -220,7 +220,7 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.33, z: 0}
 --- !u!114 &67187343728515407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,25 +233,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 547fc8f9d88a51a49834e5e1339aecd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
   characterType: 0
   startingHealth: 100
-  health: 0
+  currentHealth: 100
+  startingSanity: 100
+  currentSanity: 0
   walkSpeed: 0
   runSpeed: 0
   crawlSpeed: 0
-  turnSpeed: 0
-  turnDistance: 0
-  DetectionRadius: 0
-  step: 0
-  EscortSpeed: 0
-  CurrentSanity: 0
+  detectionRadius: 5
+  isPossessed: 0
   currentState: 0
-  stateScript: {fileID: 0}
-  player: {fileID: 0}
   isMoving: 0
   knowsAboutPlayer: 0
+  stateScript: {fileID: 0}
+  player: {fileID: 0}
+  rb: {fileID: 0}
   agent: {fileID: 0}
+  Demon: {fileID: 0}
 --- !u!114 &902802005068218051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,10 +264,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionRange: 10
-  UnwalkableLayer:
+  unwalkableLayer:
     serializedVersion: 2
-    m_Bits: 64
-  PlayerDistance: 0
+    m_Bits: 0
+  playerDistance: 0
 --- !u!195 &1951865595268928550
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -330,7 +329,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!1 &1680634679337138589
 GameObject:
