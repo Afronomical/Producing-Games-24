@@ -20,8 +20,8 @@ public class DoorInteractable : InteractableTemplate
     [SerializeField] private float interactionInterval = 2.0f;
 
     private bool isOpen = false;
-    private float timeSinceInteraction = 0.0f;
-    private float t = 0.0f;
+    private float timeSinceInteraction = 0.0f; // INFO: Prevents multiple interactions at once
+    private float t = 0.0f; // INFO: How much the door lerps
     private bool interactedWithDoor = false;
     private bool rotateDoor = false;
     private Quaternion initialDoorRotation;
@@ -51,8 +51,10 @@ public class DoorInteractable : InteractableTemplate
 
     private void Update()
     {
+        // INFO: If the door is currently rotating:
         if (rotateDoor)
         {
+            // INFO: Calculate the speed at which the door will rotate
             t = Mathf.Clamp01(t + doorRotationSpeed * Time.deltaTime);
             doorHingeTransform.rotation = Quaternion.Lerp(doorHingeTransform.rotation, targetRotation, doorRotationSpeed * Time.deltaTime);
 
@@ -82,6 +84,7 @@ public class DoorInteractable : InteractableTemplate
         {
             interactedWithDoor = true;
 
+            // INFO: Given that the player is holding an item and that item has a key interactable component on it then:
             if (InventoryHotbar.instance.currentItem != null && InventoryHotbar.instance.currentItem.prefab.TryGetComponent<KeyInteractable>(out _))
             {
                 if (isLocked)
@@ -90,6 +93,7 @@ public class DoorInteractable : InteractableTemplate
                 {
                     isLocked = true;
 
+                    // INFO: Closes the door automatically if it's open when the player locks it
                     ChangeDoorState();
                 }
 
@@ -124,6 +128,7 @@ public class DoorInteractable : InteractableTemplate
 
             Vector3 currentRotation = doorHingeTransform.rotation.eulerAngles;
 
+            // INFO: Opens the door outwards based on which way the player is facing it
             if (dot >= 0.0f)
             {
                 currentRotation.y += doorRotationOffset;
@@ -132,8 +137,6 @@ public class DoorInteractable : InteractableTemplate
             {
                 currentRotation.y -= doorRotationOffset;
             }
-
-
             targetRotation = Quaternion.Euler(currentRotation);
         }
 
