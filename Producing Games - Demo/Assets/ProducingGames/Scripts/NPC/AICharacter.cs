@@ -165,7 +165,7 @@ public class AICharacter : MonoBehaviour
             ////add initialisation here 
             Debug.Log(Demon.DemonName + " stats initialised");
             
-           
+           GameManager.Instance.DecrementRemainingPatients();
         }
     }
     

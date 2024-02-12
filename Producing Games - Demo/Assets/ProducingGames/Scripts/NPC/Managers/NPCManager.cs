@@ -26,6 +26,7 @@ public class NPCManager : MonoBehaviour
 
     public DemonItemsSO ChosenDemon { get; private set; }
 
+    public int GetPatientCount() => NPCS.Count;
 
     /// <summary>
     /// Randomises a demon for the game instance and a selected NPC to possess. 
@@ -39,8 +40,6 @@ public class NPCManager : MonoBehaviour
         ChosenDemon = DemonTypes[DemonChoice];
 
         ChosenNPC.GetComponent<AICharacter>().isPossessed = true;
-        
-        
 
         Debug.Log(ChosenNPC.name + "Has been possessed by: " + ChosenDemon.DemonName);
 

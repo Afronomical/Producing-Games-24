@@ -14,14 +14,15 @@ public class DeadState : StateBaseClass
     {
        // Debug.Log("NPC DEAD");
        
-        character.agent.velocity = Vector3.zero;
-        character.agent.ResetPath(); 
         transform.Rotate(0, 0, -90.0f); //placeholder function to display death
        
     }
     private void Start()
     {
+        character.agent.velocity = Vector3.zero;
+        character.agent.ResetPath(); 
         character.rb.velocity = Vector3.zero;
+        GameManager.Instance.DecrementRemainingPatients();
     }
 
     public override void UpdateLogic()

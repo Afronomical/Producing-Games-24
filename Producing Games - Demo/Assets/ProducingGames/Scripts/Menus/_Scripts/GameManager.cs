@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class GameManager: MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
@@ -24,11 +24,13 @@ public class GameManager: MonoBehaviour
     [Header("Sanity")]
     [Range(0, 100)] public int startingSanity = 100;
     private int currentSanity;
-    
+
+    private int patientCount;
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
+        patientCount = NPCManager.Instance.GetPatientCount();
     }
 
 
@@ -54,6 +56,7 @@ public class GameManager: MonoBehaviour
 
     public void EndGame()
     {
+        Debug.Log("Game has ENDED");
         ////if playerstate == win 
         ///win game 
         ///levelmanager.endgame or roll credits 
@@ -129,5 +132,19 @@ public class GameManager: MonoBehaviour
     public void RemoveSanity(int remove)
     {
         currentSanity = Mathf.Clamp(currentSanity - remove, 0, startingSanity);
+    }
+
+    public void DecrementRemainingPatients() 
+    { 
+        patientCount--; 
+        CheckRemainingPatients();
+    }
+
+    private void CheckRemainingPatients()
+    {
+        if (patientCount <= 0)
+        {
+            EndGame();
+        }
     }
 }
