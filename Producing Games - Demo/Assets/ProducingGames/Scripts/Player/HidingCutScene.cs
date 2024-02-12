@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -38,11 +38,11 @@ public class HidingCutScene : InteractableTemplate
         playerRef = GameObject.Find("Player").transform;
         animDoorRight = GameObject.Find("CupboardDoorRight").GetComponent<Animator>();
         animDoorLeft = GameObject.Find("CupboardDoorLeft").GetComponent<Animator>();
-        /*
+        *//*
         Had issues while tidying code, will be fixing shortly...
         camPos = cam.transform.position;
         camRot = cam.transform.rotation;
-        */
+        *//*
         hidingScare = Object.FindFirstObjectByType<HidingScare>();
     }
 
@@ -199,3 +199,4 @@ public class HidingCutScene : InteractableTemplate
         
     }
 }
+*/

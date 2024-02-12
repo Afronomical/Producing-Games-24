@@ -43,7 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3352445925046015675}
   - component: {fileID: 1878872061810658723}
-  - component: {fileID: 7099306401670854763}
+  - component: {fileID: 1794887065687806697}
   m_Layer: 0
   m_Name: TestDeframedCrossTrigger
   m_TagString: Untagged
@@ -87,7 +87,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7099306401670854763
+--- !u!114 &1794887065687806697
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,13 +96,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6424674286481498334}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a71d770d910ffa248b9427276c7c0c2f, type: 3}
+  m_Script: {fileID: 11500000, guid: 386e568a42dfbc54eaba880dc9bf67df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Cross: {fileID: 3759612960887908678}
   rb: {fileID: 4228654325727832722}
-  rotationSpeed: 0.5
-  throwingForce: 2
+  rotationSpeed: 4
+  throwingForce: 4
 --- !u!1001 &6807404208298158349
 PrefabInstance:
   m_ObjectHideFlags: 0

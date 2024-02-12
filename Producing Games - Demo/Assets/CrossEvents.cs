@@ -1,9 +1,8 @@
-using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
-
-public class ReligiousCrossEvents : MonoBehaviour
+public class CrossEvents : MonoBehaviour
 {
     public GameObject Cross;
     public Rigidbody rb;
@@ -26,15 +25,15 @@ public class ReligiousCrossEvents : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(isTriggered == false)
+        if (isTriggered == false)
         {
-            int eventType = UnityEngine.Random.Range(0,2);
-            if (eventType == 0) 
+            int eventType = UnityEngine.Random.Range(0, 2);
+            if (eventType == 0)
             {
                 isRotating = true;
                 isTriggered = true;
             }
-            else if (eventType == 1) 
+            else if (eventType == 1)
             {
                 FallingCross();
                 isTriggered = true;
@@ -45,7 +44,7 @@ public class ReligiousCrossEvents : MonoBehaviour
                 isTriggered = true;
             }
         }
-        
+
     }
 
 
@@ -64,5 +63,4 @@ public class ReligiousCrossEvents : MonoBehaviour
             Cross.transform.localEulerAngles = new Vector3(0, 0, Mathf.Lerp(0, 180, rotTime));
         }
     }
-
 }
