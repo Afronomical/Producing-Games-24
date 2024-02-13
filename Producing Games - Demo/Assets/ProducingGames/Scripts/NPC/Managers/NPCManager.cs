@@ -116,11 +116,7 @@ public class NPCManager : MonoBehaviour
     /// Chooses a random location from the destinations list for the NPC to go to, to pray
     /// </summary>
     /// <returns></returns>
-    public Vector3 RandomPrayingDestination()
-    {
-        return prayingLocations[Random.Range(0, prayingLocations.Count)].position;  
-    }
-
+    
     /// <summary>
     /// Sets the specified value (bool) of the passed in key (Vector3) to false, signifying
     /// that it can be accessed again by other NPCs
