@@ -94,7 +94,7 @@ public class RandomPill : InteractableTemplate, IConsumable
         Slow,
         Speed,
         Stop,
-        Dimm,
+        Dim,
     }
     
     public static void SetPlayerEffect(Effects effects)
@@ -107,7 +107,7 @@ public class RandomPill : InteractableTemplate, IConsumable
                 break;
             case Effects.Stop:
                 break;
-            case Effects.Dimm:
+            case Effects.Dim:
                 break;
             default:
                 break;
