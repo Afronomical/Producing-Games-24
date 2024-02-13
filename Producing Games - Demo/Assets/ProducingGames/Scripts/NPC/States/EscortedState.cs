@@ -83,7 +83,7 @@ public class EscortedState : StateBaseClass
         Collider[] colliders = Physics.OverlapSphere(character.transform.position, character.detectionRadius);
         foreach (Collider collider in colliders)
         {
-            if (collider.gameObject.name == "Bed") ///just for testing 
+            if (collider.gameObject == character.bed) ///just for testing 
             {
                 Vector3 bedPos = new Vector3(collider.gameObject.transform.position.x, collider.gameObject.transform.position.y + 1.0f, collider.gameObject.transform.position.z);
                 

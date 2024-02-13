@@ -55,7 +55,7 @@ public class AICharacter : MonoBehaviour
     public Rigidbody rb;
     public NavMeshAgent agent;
    [SerializeField] private DemonItemsSO Demon;
-   [ShowOnly] public GameObject bed; 
+    public GameObject bed;   
 
    
 

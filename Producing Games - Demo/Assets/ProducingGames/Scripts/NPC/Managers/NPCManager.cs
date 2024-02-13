@@ -44,8 +44,16 @@ public class NPCManager : MonoBehaviour
         {
             npcList.Add(character.gameObject);
         }
-
         AssignRandomDemonType();
+
+
+        GameObject[] beds = GameObject.FindGameObjectsWithTag("Bed");
+        foreach (var item in beds)
+        {
+            npcBeds.Add(item);
+            Debug.Log("added beds");
+        }
+        
 
         // INFO: Add all wandering vector3 positions to the dictionary and initialise
         // their value as false (which states that the location hasn't been taken yet)
@@ -59,6 +67,11 @@ public class NPCManager : MonoBehaviour
         {
             hidingLib.Add(transform.position, false);
         }
+    }
+
+    private void Start()
+    {
+        AssignBeds();
     }
 
     /// <summary>
@@ -181,4 +194,28 @@ public class NPCManager : MonoBehaviour
         return chosenLocation;
     }
 
+
+    /// <summary>
+    /// Returns a random position for the NPC to go to pray at. 
+    /// </summary>
+    /// <returns></returns>
+    public Vector3 RandomPrayingDestination()
+    {
+        return prayingLocations[Random.Range(0, prayingLocations.Count)].position;  
+    }
+
+
+    public void AssignBeds()
+    {
+        foreach(GameObject npc in npcList)
+        {
+            int bedChoice = Random.Range(0, npcBeds.Count);
+            GameObject chosenBed = npcBeds[bedChoice].gameObject;
+            npc.GetComponent<AICharacter>().bed = chosenBed;
+            Debug.Log("Set " + npc.gameObject.name + "to bed number: " + chosenBed);
+            npcBeds.Remove(chosenBed);
+        }
+
+
+    }
 }
