@@ -14,20 +14,23 @@ public class HidingState : StateBaseClass
 
     private void Awake()
     {
-        GetComponent<AICharacter>().isMoving = true;
+        GetComponent<AICharacter>().isMoving = false;
     }
 
     private void Start()
     {
         ChooseLocation();
 
-        character.agent.speed = character.walkSpeed;
+        character.agent.speed = 0.0f;
         character.agent.ResetPath();
+
+        character.agent.transform.position = hidingLocation;
+        character.agent.Warp(hidingLocation);
     }
 
     public override void UpdateLogic()
     {
-        character.agent.SetDestination(hidingLocation);
+
     }
 
     /// <summary>

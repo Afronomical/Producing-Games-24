@@ -42,7 +42,7 @@ public class AICharacter : MonoBehaviour
     public float runSpeed = 3.0f;
     public float crawlSpeed = 0.5f;
     public float detectionRadius = 5.0f;
-    public bool isPossessed = false; 
+    public bool isPossessed = false;
 
     [Header("States")]
     public States currentState;
@@ -54,10 +54,10 @@ public class AICharacter : MonoBehaviour
     public GameObject player;
     public Rigidbody rb;
     public NavMeshAgent agent;
-   [SerializeField] private DemonItemsSO Demon;
-    public GameObject bed;   
+    [SerializeField] private DemonItemsSO Demon;
+    public GameObject bed;
 
-   
+
 
     private void Start()
     {
@@ -69,18 +69,18 @@ public class AICharacter : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
 
         //ChangeState(States.Abandoned); //INFO: Starting State
-        ChangeState(States.Wandering);
+        ChangeState(States.Hiding); // TESTING CODE
 
-        if(isPossessed)
+        if (isPossessed)
         {
             /// add demon state 
             Demon = NPCManager.Instance.ChosenDemon;
             ChangeCharacterType(CharacterTypes.Demon);
-            
+
             InitialiseDemonStats();
         }
-        
-       
+
+
     }
 
 
@@ -160,18 +160,18 @@ public class AICharacter : MonoBehaviour
     }
     public void ChangeCharacterType(CharacterTypes type)
     {
-        characterType = type; 
+        characterType = type;
     }
 
     private void InitialiseDemonStats()
     {
-        if(isPossessed)
+        if (isPossessed)
         {
             ////add initialisation here 
             Debug.Log(Demon.DemonName + " stats initialised");
-            
-           
+
+
         }
     }
-    
+
 }
