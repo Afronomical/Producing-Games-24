@@ -22,8 +22,8 @@ public class PrayerState : StateBaseClass
 
     private void Start()
     {
-        prayingDestination = NPCManager.Instance.RandomPrayingDestination();
         character.agent.ResetPath();
+        prayingDestination = NPCManager.Instance.RandomPrayingDestination();
         character.agent.speed = character.runSpeed;
         //maybe some sound effects to signify the praying? panic sounds or speech 
     }
@@ -49,6 +49,7 @@ public class PrayerState : StateBaseClass
     public void ExecutePrayer()
     {
         ///singing/gospel, increasing sanity? 
+        Debug.Log(character.name + "is Praying"); 
        
     }
 
@@ -69,6 +70,10 @@ public class PrayerState : StateBaseClass
         }
     }
 
+    /// <summary>
+    /// checks whether the patient is praying in their own room, which determines how to end the prayer state 
+    /// </summary>
+    /// <returns></returns>
     public bool IsLocationPatientRoom()
     {
         if(Vector3.Distance(prayingDestination,character.bed.transform.position)<distanceFromPrayerPoint)

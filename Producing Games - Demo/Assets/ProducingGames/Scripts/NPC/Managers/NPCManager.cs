@@ -21,6 +21,7 @@ public class NPCManager : MonoBehaviour
     [SerializeField] private List<DemonItemsSO> demonTypes = new();
     [SerializeField] private List<Transform> prayingLocations = new();
     [SerializeField] private List<GameObject> npcBeds = new();
+    [SerializeField] private List<Transform> kitchenLocations = new();
 
     // INFO: The key represents the location that the NPC should move to
     // the value represents whether the location has been taken by an NPC
@@ -198,6 +199,11 @@ public class NPCManager : MonoBehaviour
     public Vector3 RandomPrayingDestination()
     {
         return prayingLocations[Random.Range(0, prayingLocations.Count)].position;  
+    }
+
+    public Vector3 RandomKitchenPosition()
+    {
+        return kitchenLocations[Random.Range(0, kitchenLocations.Count)].position;
     }
 
 
