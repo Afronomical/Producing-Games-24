@@ -26,7 +26,7 @@ public class WanderingState : StateBaseClass
 
     private void Start()
     {
-        wanderDestination = NPCManager.Instance.RandomDestination();
+        ChooseDestination();
 
         character.agent.speed = character.walkSpeed;  
         character.agent.ResetPath();
@@ -46,26 +46,25 @@ public class WanderingState : StateBaseClass
             if (currentIdleTime > maxIdleTime)
             {
                 currentIdleTime = 0.0f;
-                ChooseNewDestination();
+                ChooseDestination();
             }
         }
     }
 
-    private void ChooseNewDestination()
+    private void ChooseDestination()
     {
-        // INFO: Sets the new destination to the current destination
-        Vector3 newWanderDestination = wanderDestination;
-
-        // INFO: Whilst the new chosen destination is equal to the current destination
-        // the new destination will continue to be randomized to find a different
-        // destination
-        while (newWanderDestination == wanderDestination)
+        // INFO: If there are no wandering destinations in the list then end
+        if (NPCManager.Instance.GetWanderingDestinationsCount() == 0)
         {
-            // INFO: Prevents infinite while loop if list contains 1 or less locations
-            if (NPCManager.Instance.GetDestinationLocationsCount() <= 1) break;
-
-            newWanderDestination = NPCManager.Instance.RandomDestination();
+            Debug.LogWarning("There are no wandering destinations setup in the wandering destinations list.");
+            return;
         }
-        wanderDestination = newWanderDestination;
+
+        // INFO: Sets the wandering destination that it has arrived at as free,
+        // so that other NPCs can walk to it
+        NPCManager.Instance.SetWanderingDestinationFree(wanderDestination);
+
+        // INFO: Chooses a new destination to wander to
+        wanderDestination = NPCManager.Instance.RandomWanderingDestination();
     }
 }

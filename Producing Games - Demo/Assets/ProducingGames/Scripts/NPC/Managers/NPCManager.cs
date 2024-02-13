@@ -1,15 +1,12 @@
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
 /// Written By: Matej Cincibus
 /// <para>Moderated By: Matt Brake</para>
 /// 
-/// Holds a container of positions that each NPC will choose from to move towards
-/// during the wandering state, it's a singleton design as we only want one instance
-/// of the NPC Wandering Manager.
+/// Manages and keeps track of the NPCs in the scene. Provides the NPCs with set
+/// locations to walk towards.
 /// 
 /// <para> **Revised Version by MB. Added functionality of Possessive Demons.** </para>
 /// </summary>
@@ -18,41 +15,17 @@ public class NPCManager : MonoBehaviour
 {
     public static NPCManager Instance;
 
-    [SerializeField] private List<Transform> destinationLocations = new();
+    [SerializeField] private List<Transform> wanderingDestinations = new();
+    [SerializeField] private List<Transform> hidingLocations = new();
+    [SerializeField] private List<GameObject> npcList = new();
+    [SerializeField] private List<DemonItemsSO> demonTypes = new();
 
-    [SerializeField] private List<GameObject> NPCS = new();
-
-    [SerializeField] private List<DemonItemsSO> DemonTypes = new();
+    private Dictionary<Vector3, bool> wanderingLib = new();
+    private Dictionary<Vector3, bool> hidingLib = new();
 
     public DemonItemsSO ChosenDemon { get; private set; }
-
-
-    /// <summary>
-    /// Randomises a demon for the game instance and a selected NPC to possess. 
-    /// </summary>
-    public void AssignRandomDemonType()
-    {
-        int DemonChoice = UnityEngine.Random.Range(0, DemonTypes.Count);
-        int NPCChoice = UnityEngine.Random.Range(0, NPCS.Count);
-
-        GameObject ChosenNPC = NPCS[NPCChoice];
-        ChosenDemon = DemonTypes[DemonChoice];
-
-        ChosenNPC.GetComponent<AICharacter>().isPossessed = true;
-        
-        
-
-        Debug.Log(ChosenNPC.name + "Has been possessed by: " + ChosenDemon.DemonName);
-
-        
-
-    }
-
-
-
-
-
-    public int GetDestinationLocationsCount() => destinationLocations.Count;
+    public int GetWanderingDestinationsCount() => wanderingDestinations.Count;
+    public int GetHidingLocationsCount() => hidingLocations.Count;
 
     private void Awake()
     {
@@ -65,19 +38,108 @@ public class NPCManager : MonoBehaviour
         AICharacter[] aICharacters = FindObjectsByType<AICharacter>(FindObjectsSortMode.None);
         foreach (AICharacter character in aICharacters)
         {
-            NPCS.Add(character.gameObject);
+            npcList.Add(character.gameObject);
         }
 
         AssignRandomDemonType();
 
+        // INFO: Add all wandering vector3 positions to the dictionary and initialise
+        // their value as false (which states that the location hasn't been taken yet)
+        foreach (Transform transform in wanderingDestinations)
+        {
+            wanderingLib.Add(transform.position, false);
+        }
+
+        // INFO: Do the same for hiding locations
+        foreach (Transform transform in hidingLocations)
+        {
+            hidingLib.Add(transform.position, false);
+        }
+    }
+
+    /// <summary>
+    /// Randomises a demon for the game instance and a selected NPC to possess. 
+    /// </summary>
+    public void AssignRandomDemonType()
+    {
+        int demonChoice = Random.Range(0, demonTypes.Count);
+        int npcChoice = Random.Range(0, npcList.Count);
+
+        GameObject chosenNPC = npcList[npcChoice];
+        ChosenDemon = demonTypes[demonChoice];
+
+        chosenNPC.GetComponent<AICharacter>().isPossessed = true;
+
+        Debug.Log(chosenNPC.name + "Has been possessed by: " + ChosenDemon.DemonName);
     }
 
     /// <summary>
     /// Chooses a random location from the destinations list for the NPC to wander towards
     /// </summary>
     /// <returns></returns>
-    public Vector3 RandomDestination()
+    public Vector3 RandomWanderingDestination()
     {
-        return destinationLocations[Random.Range(0, destinationLocations.Count)].position;
+        Vector3 wanderingDestination = FindSuitableLocation(wanderingDestinations, AvailableLocations(wanderingLib), wanderingLib);
+
+        return wanderingDestination;
+    }
+
+    /// <summary>
+    /// Chooses a random location from the destinations list for the NPC to wander towards
+    /// </summary>
+    /// <returns></returns>
+    public Vector3 RandomHidingLocation()
+    {
+        Vector3 hidingLocation = FindSuitableLocation(hidingLocations, AvailableLocations(hidingLib), hidingLib);
+
+        return hidingLocation;
+    }
+
+    public void SetWanderingDestinationFree(Vector3 wanderingDestination)
+    {
+        if (wanderingLib.ContainsKey(wanderingDestination))
+            wanderingLib[wanderingDestination] = false;
+    }
+
+    public void SetHidingLocationFree(Vector3 hidingLocation)
+    {
+        if (hidingLib.ContainsKey(hidingLocation))
+            hidingLib[hidingLocation] = false;
+    }
+
+    private int AvailableLocations(Dictionary<Vector3, bool> locationLib)
+    {
+        int availableLocations = 0;
+
+        foreach (bool key in locationLib.Values)
+        {
+            if (!key)
+                availableLocations++;
+        }
+
+        return availableLocations;
+    }
+
+    private Vector3 FindSuitableLocation(List<Transform> locationsList, int availableLocations, Dictionary<Vector3, bool> locationLib)
+    {
+        Vector3 chosenLocation;
+
+        // INFO: Continues to find a different hiding location that hasn't been taken yet
+        do
+        {
+            chosenLocation = locationsList[Random.Range(0, locationsList.Count)].position;
+
+            if (availableLocations == 0)
+            {
+                Debug.LogWarning("There are " + availableLocations + " free locations for patients to go to.\nChoosing an already taken location.");
+                break;
+            }
+
+        } while (locationLib[chosenLocation]);
+
+        // INFO: Changes the state of the location as taken
+        locationLib[chosenLocation] = true;
+
+        return chosenLocation;
     }
 }

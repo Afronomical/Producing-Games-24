@@ -67,7 +67,9 @@ public class AICharacter : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
 
-        ChangeState(States.Abandoned); //INFO: Starting State
+        //ChangeState(States.Abandoned); //INFO: Starting State
+        ChangeState(States.Wandering);
+
         if(isPossessed)
         {
             /// add demon state 
@@ -136,10 +138,12 @@ public class AICharacter : MonoBehaviour
                 case States.Praying:
                     break;
                 case States.Hiding:
+                    stateScript = transform.AddComponent<HidingState>();
                     break;
                 case States.Hungry:
                     break;
                 case States.ReqMeds:
+                    stateScript = transform.AddComponent<RequestMedicationState>();
                     break;
                 case States.None:
                     stateScript = null;
