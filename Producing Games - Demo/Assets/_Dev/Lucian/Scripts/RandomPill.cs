@@ -89,4 +89,28 @@ public class RandomPill : InteractableTemplate, IConsumable
         player.GetComponent<PlayerMovement>().dimmedEffect = true;
     }
 
+    public enum Effects
+    {
+        Slow,
+        Speed,
+        Stop,
+        Dimm,
+    }
+    
+    public static void SetPlayerEffect(Effects effects)
+    {
+        switch (effects)
+        {
+            case Effects.Slow:
+                break;
+            case Effects.Speed:
+                break;
+            case Effects.Stop:
+                break;
+            case Effects.Dimm:
+                break;
+            default:
+                break;
+        }
+    }
 }

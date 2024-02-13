@@ -41,14 +41,15 @@ public static class LevelManager
 
     private static Dictionary<Scenes, string> sceneLibrary = new();
 
-  
     private static void Start()
     {
+        CommandConsole.Instance.Restart += RestartLevel;
         for (int i = 0; i < sceneNames.Count; i++)
         {
             sceneLibrary.Add(sceneTypes[i], sceneNames[i]);
         }
-       
+
+        LoadScene(currentScene);
     }
 
     /// <summary>
