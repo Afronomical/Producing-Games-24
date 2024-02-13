@@ -19,6 +19,7 @@ public class NPCManager : MonoBehaviour
     [SerializeField] private List<Transform> hidingLocations = new();
     [SerializeField] private List<GameObject> npcList = new();
     [SerializeField] private List<DemonItemsSO> demonTypes = new();
+    [SerializeField] private List<Transform> prayingLocations = new(); 
 
     private Dictionary<Vector3, bool> wanderingLib = new();
     private Dictionary<Vector3, bool> hidingLib = new();
@@ -141,5 +142,10 @@ public class NPCManager : MonoBehaviour
         locationLib[chosenLocation] = true;
 
         return chosenLocation;
+    }
+
+    public Vector3 RandomPrayingDestination()
+    {
+        return prayingLocations[Random.Range(0, prayingLocations.Count)].position;  
     }
 }
