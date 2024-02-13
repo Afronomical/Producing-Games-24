@@ -19,18 +19,8 @@ public class ThrownItems : MonoBehaviour
         if (!isTriggered) 
         {
             int randIndex = Random.Range(0, Items.Length);
-            int chance = UnityEngine.Random.Range(0, 2);
-            if (chance == 0 ) 
-            {
-                Items[randIndex].AddForce(Vector3.up * verticalForce, ForceMode.Impulse);
-                isTriggered = true;
-            }
-            if (chance == 1 ) 
-            {
-                Items[randIndex].AddForce(Vector3.forward * horizontalForce, ForceMode.Impulse);
-                isTriggered = true;
-            }
-
+            Items[randIndex].AddRelativeForce((Vector3.up * verticalForce) + (Vector3.forward * horizontalForce), ForceMode.Impulse);
+            isTriggered = true;        
         }
     }
 
