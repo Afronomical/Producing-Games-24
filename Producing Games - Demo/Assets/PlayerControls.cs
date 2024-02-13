@@ -125,6 +125,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Throw Item"",
+                    ""type"": ""Button"",
+                    ""id"": ""f10cfc75-a926-4e17-b650-94f2a0b65635"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -501,6 +510,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Consume Item"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6e003210-8196-475d-b160-d2edaec36a2d"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Throw Item"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -548,6 +568,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_SeeTasks = m_Player.FindAction("See Tasks", throwIfNotFound: true);
         m_Player_OpenPager = m_Player.FindAction("Open Pager", throwIfNotFound: true);
         m_Player_ConsumeItem = m_Player.FindAction("Consume Item", throwIfNotFound: true);
+        m_Player_ThrowItem = m_Player.FindAction("Throw Item", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -620,6 +641,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SeeTasks;
     private readonly InputAction m_Player_OpenPager;
     private readonly InputAction m_Player_ConsumeItem;
+    private readonly InputAction m_Player_ThrowItem;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -635,6 +657,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @SeeTasks => m_Wrapper.m_Player_SeeTasks;
         public InputAction @OpenPager => m_Wrapper.m_Player_OpenPager;
         public InputAction @ConsumeItem => m_Wrapper.m_Player_ConsumeItem;
+        public InputAction @ThrowItem => m_Wrapper.m_Player_ThrowItem;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -677,6 +700,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ConsumeItem.started += instance.OnConsumeItem;
             @ConsumeItem.performed += instance.OnConsumeItem;
             @ConsumeItem.canceled += instance.OnConsumeItem;
+            @ThrowItem.started += instance.OnThrowItem;
+            @ThrowItem.performed += instance.OnThrowItem;
+            @ThrowItem.canceled += instance.OnThrowItem;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -714,6 +740,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ConsumeItem.started -= instance.OnConsumeItem;
             @ConsumeItem.performed -= instance.OnConsumeItem;
             @ConsumeItem.canceled -= instance.OnConsumeItem;
+            @ThrowItem.started -= instance.OnThrowItem;
+            @ThrowItem.performed -= instance.OnThrowItem;
+            @ThrowItem.canceled -= instance.OnThrowItem;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -762,5 +791,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSeeTasks(InputAction.CallbackContext context);
         void OnOpenPager(InputAction.CallbackContext context);
         void OnConsumeItem(InputAction.CallbackContext context);
+        void OnThrowItem(InputAction.CallbackContext context);
     }
 }
