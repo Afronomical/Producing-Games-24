@@ -51,6 +51,9 @@ public class WanderingState : StateBaseClass
         }
     }
 
+    /// <summary>
+    /// Chooses a destination from an available list of destination locations held in the NPC manager 
+    /// </summary>
     private void ChooseDestination()
     {
         // INFO: If there are no wandering destinations in the list then end

@@ -1,6 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/// <summary>
+/// Written By: Matej Cincibus
+/// Moderated By: ...
+/// 
+/// Script in-charge of the request medication state of patients
+/// </summary>
 
 public class RequestMedicationState : StateBaseClass
 {

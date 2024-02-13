@@ -22,6 +22,8 @@ public class NPCManager : MonoBehaviour
     [SerializeField] private List<Transform> prayingLocations = new();
     [SerializeField] private List<GameObject> npcBeds = new();
 
+    // INFO: The key represents the location that the NPC should move to
+    // the value represents whether the location has been taken by an NPC
     private Dictionary<Vector3, bool> wanderingLib = new();
     private Dictionary<Vector3, bool> hidingLib = new();
 
@@ -97,22 +99,48 @@ public class NPCManager : MonoBehaviour
         return hidingLocation;
     }
 
+    /// <summary>
+    /// Chooses a random location from the destinations list for the NPC to go to, to pray
+    /// </summary>
+    /// <returns></returns>
+    public Vector3 RandomPrayingDestination()
+    {
+        return prayingLocations[Random.Range(0, prayingLocations.Count)].position;  
+    }
+
+    /// <summary>
+    /// Sets the specified value (bool) of the passed in key (Vector3) to false, signifying
+    /// that it can be accessed again by other NPCs
+    /// </summary>
+    /// <param name="wanderingDestination"></param>
     public void SetWanderingDestinationFree(Vector3 wanderingDestination)
     {
         if (wanderingLib.ContainsKey(wanderingDestination))
             wanderingLib[wanderingDestination] = false;
     }
 
+    /// <summary>
+    /// Sets the specified value (bool) of the passed in key (Vector3) to false, signifying
+    /// that it can be accessed again by other NPCs
+    /// </summary>
+    /// <param name="hidingLocation"></param>
     public void SetHidingLocationFree(Vector3 hidingLocation)
     {
         if (hidingLib.ContainsKey(hidingLocation))
             hidingLib[hidingLocation] = false;
     }
 
+    /// <summary>
+    /// Checks the number of available locations that have not yet been taken by an NPC
+    /// </summary>
+    /// <param name="locationLib"></param>
+    /// <returns></returns>
     private int AvailableLocations(Dictionary<Vector3, bool> locationLib)
     {
         int availableLocations = 0;
 
+        // INFO: Given that the value (bool) is false (not taken) we increment 
+        // the number of available locations
         foreach (bool key in locationLib.Values)
         {
             if (!key)
@@ -122,6 +150,14 @@ public class NPCManager : MonoBehaviour
         return availableLocations;
     }
 
+    /// <summary>
+    /// Finds a suitable location that has not been claimed by an NPC yet. If it's unable to find
+    /// a suitable location it will choose an already taken location.
+    /// </summary>
+    /// <param name="locationsList"></param>
+    /// <param name="availableLocations">The number of locations that are still available</param>
+    /// <param name="locationLib"></param>
+    /// <returns></returns>
     private Vector3 FindSuitableLocation(List<Transform> locationsList, int availableLocations, Dictionary<Vector3, bool> locationLib)
     {
         Vector3 chosenLocation;
@@ -145,8 +181,4 @@ public class NPCManager : MonoBehaviour
         return chosenLocation;
     }
 
-    public Vector3 RandomPrayingDestination()
-    {
-        return prayingLocations[Random.Range(0, prayingLocations.Count)].position;  
-    }
 }
