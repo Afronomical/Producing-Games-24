@@ -13,6 +13,7 @@ public class PrayerState : StateBaseClass
     private Vector3 prayingDestination;
     private float distanceFromPrayerPoint = 3.0f; 
     private bool atLocation; 
+    //need references to character individual beds 
 
     private void Awake()
     {
@@ -24,7 +25,7 @@ public class PrayerState : StateBaseClass
         prayingDestination = NPCManager.Instance.RandomPrayingDestination();
         character.agent.ResetPath();
         character.agent.speed = character.runSpeed;
-        //maybe some sound effects to signify the praying? panic sounds or latin speech 
+        //maybe some sound effects to signify the praying? panic sounds or speech 
     }
 
 
@@ -47,7 +48,8 @@ public class PrayerState : StateBaseClass
     /// </summary>
     public void ExecutePrayer()
     {
-
+        ///singing/gospel, increasing sanity? 
+       
     }
 
 
@@ -65,5 +67,16 @@ public class PrayerState : StateBaseClass
         {
             return false;
         }
+    }
+
+    public bool IsLocationPatientRoom()
+    {
+        if(Vector3.Distance(prayingDestination,character.bed.transform.position)<distanceFromPrayerPoint)
+        {
+            return true;
+        }
+        else
+        return false;
+        
     }
 }

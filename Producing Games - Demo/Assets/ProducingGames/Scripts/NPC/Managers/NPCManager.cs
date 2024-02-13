@@ -6,7 +6,7 @@ using UnityEngine;
 /// <para>Moderated By: Matt Brake</para>
 /// 
 /// Manages and keeps track of the NPCs in the scene. Provides the NPCs with set
-/// locations to walk towards.
+/// locations to walk towards. Holds containers for all positions needed, taken or free. 
 /// 
 /// <para> **Revised Version by MB. Added functionality of Possessive Demons.** </para>
 /// </summary>
@@ -19,7 +19,8 @@ public class NPCManager : MonoBehaviour
     [SerializeField] private List<Transform> hidingLocations = new();
     [SerializeField] private List<GameObject> npcList = new();
     [SerializeField] private List<DemonItemsSO> demonTypes = new();
-    [SerializeField] private List<Transform> prayingLocations = new(); 
+    [SerializeField] private List<Transform> prayingLocations = new();
+    [SerializeField] private List<GameObject> npcBeds = new();
 
     private Dictionary<Vector3, bool> wanderingLib = new();
     private Dictionary<Vector3, bool> hidingLib = new();

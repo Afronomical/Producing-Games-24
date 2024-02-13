@@ -39,7 +39,7 @@ public class AICharacter : MonoBehaviour
     public float startingSanity = 100;
     public float currentSanity;
     public float walkSpeed = 1.0f;
-    public float runSpeed = 2.0f;
+    public float runSpeed = 3.0f;
     public float crawlSpeed = 0.5f;
     public float detectionRadius = 5.0f;
     public bool isPossessed = false; 
@@ -55,6 +55,7 @@ public class AICharacter : MonoBehaviour
     public Rigidbody rb;
     public NavMeshAgent agent;
    [SerializeField] private DemonItemsSO Demon;
+   [ShowOnly] public GameObject bed; 
 
    
 
