@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class SettingsManager : MonoBehaviour
 {
@@ -33,6 +34,21 @@ public class SettingsManager : MonoBehaviour
     public FPSCounter FpsCounter;
     public Button vsyncButton;
     public TextMeshProUGUI vsyncButtonText;
+    public Slider brightnessSlider;
+    public RawImage overlayImage;
+    public Color overlayColor = Color.black; 
+    public Slider globalVolumeSlider;
+    public Slider soundEffectVolumeSlider;
+    public Slider musicVolumeSlider;
+    public AudioManager audioManager;
+    public Slider scaleSlider;
+    public RectTransform panel; 
+    private Vector3 originalSize;
+    private float originalAspect;
+
+
+
+    private bool overlayVisible = false;
 
     private void Awake()
     {
@@ -44,11 +60,26 @@ public class SettingsManager : MonoBehaviour
 
         instance = this;
         DontDestroyOnLoad(this.gameObject);
+
+        originalAspect = panel.localScale.x / panel.localScale.y;
+        scaleSlider.onValueChanged.AddListener(SetPanelScale);
     }
 
     void Start()
     {
+        overlayImage.gameObject.SetActive(false);
+        brightnessSlider.onValueChanged.AddListener(OnBrightnessChanged);
+        globalVolumeSlider.onValueChanged.AddListener(OnGlobalVolumeChanged);
+        soundEffectVolumeSlider.onValueChanged.AddListener(OnSoundEffectVolumeChanged);
+        musicVolumeSlider.onValueChanged.AddListener(OnMusicVolumeChanged);
+        
+        
+        originalSize = panel.localScale;
+       
         LoadSettings();
+        
+
+        
 
         if (vsyncButton == null || vsyncButtonText == null)
         {
@@ -62,6 +93,69 @@ public class SettingsManager : MonoBehaviour
     void Update()
     {
         // Your other code here
+    }
+
+    private void SetPanelScaleRecursive(Transform parent, float scaleValue)
+    {
+        float newValx = scaleValue * originalAspect;
+        float newValy = scaleValue;
+
+        // Apply scaling to the current RectTransform
+        RectTransform rectTransform = parent.GetComponent<RectTransform>();
+        if (rectTransform != null)
+        {
+            rectTransform.localScale = new Vector3(newValx, newValy, 1f);
+        }
+
+        // Recursively apply scaling to all child objects
+        foreach (Transform child in parent)
+        {
+            SetPanelScaleRecursive(child, scaleValue);
+        }
+
+        // Update the originalSize to the scale of the panel
+        originalSize = panel.localScale;
+    }
+
+ // Call this method from SetPanelScale
+    private void SetPanelScale(float scaleValue)
+    {
+        SetPanelScaleRecursive(panel, scaleValue);
+    }
+
+    private void OnBrightnessChanged(float value)
+    {
+        
+        if (!overlayVisible)
+        {
+            overlayImage.gameObject.SetActive(true);
+            overlayVisible = true;
+        }
+
+       
+        float brightnessValue = Mathf.Lerp(0f, 0.01f, value);
+
+      
+        Color adjustedColor = new Color(overlayColor.r, overlayColor.g, overlayColor.b, brightnessValue);
+        overlayImage.color = adjustedColor;
+    }
+
+    private void OnGlobalVolumeChanged(float value)
+    {
+        audioManager.globalVolume = value;
+    
+    }
+
+    private void OnSoundEffectVolumeChanged(float value)
+    {
+        audioManager.soundEffectVolume = value;
+      
+    }
+
+    private void OnMusicVolumeChanged(float value)
+    {
+        audioManager.musicVolume = value;
+        
     }
 
     public void OnToggleFPSButtonClicked()
