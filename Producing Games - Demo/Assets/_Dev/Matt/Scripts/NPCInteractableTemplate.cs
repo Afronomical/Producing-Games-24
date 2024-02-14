@@ -6,12 +6,12 @@ using UnityEngine.Events;
 public class NPCInteractableTemplate : MonoBehaviour, INPCInteractable
 {
     //need reference to AI character 
-    public AICharacter character;
+    public PatientCharacter character;
     public string ToolTipText = " NPC ";
+
     private void Start()
     {
-        character = GetComponent<AICharacter>();
-        
+        character = GetComponent<PatientCharacter>(); 
     }
 
     public string Name => throw new System.NotImplementedException();
@@ -40,6 +40,4 @@ public class NPCInteractableTemplate : MonoBehaviour, INPCInteractable
     {
        
     }
-
-    
 }

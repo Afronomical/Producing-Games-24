@@ -8,7 +8,7 @@ public class EscortNPCTest : NPCInteractableTemplate
 
     public override void Escort()
     {
-        character.ChangeState(AICharacter.States.Escorted);
+        character.ChangePatientState(PatientCharacter.PatientStates.Escorted);
         Debug.Log("changed into escort stage");
     }
 }

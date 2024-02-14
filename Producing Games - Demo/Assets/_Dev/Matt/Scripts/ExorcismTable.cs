@@ -110,7 +110,7 @@ public class ExorcismTable : MonoBehaviour
 
     void AcquireDemonObjects()
     {
-        foreach(var item in NPCManager.Instance.ChosenDemon.ItemsForExorcism)
+        foreach(var item in NPCManager.Instance.ChosenDemon.itemsForExorcism)
         {
             requiredObjects.Add(item.gameObject);
             Debug.Log(item.gameObject + "has been added to required list ");

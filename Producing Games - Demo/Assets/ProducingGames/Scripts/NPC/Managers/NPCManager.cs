@@ -15,13 +15,19 @@ public class NPCManager : MonoBehaviour
 {
     public static NPCManager Instance;
 
+    [Header("Patient Locations:")]
     [SerializeField] private List<Transform> wanderingDestinations = new();
     [SerializeField] private List<Transform> hidingLocations = new();
-    [SerializeField] private List<GameObject> npcList = new();
-    [SerializeField] private List<DemonItemsSO> demonTypes = new();
     [SerializeField] private List<Transform> prayingLocations = new();
-    [SerializeField] private List<GameObject> npcBeds = new();
     [SerializeField] private List<Transform> kitchenLocations = new();
+
+    [Header("Demon Locations:")]
+    [SerializeField] private List<Transform> patrolDestinations = new();
+
+    [Header("Miscellaneous:")]
+    [SerializeField] private List<GameObject> patientList = new();
+    [SerializeField] private List<DemonItemsSO> demonTypes = new();
+    [SerializeField] private List<GameObject> patientBeds = new();
 
     // INFO: The key represents the location that the NPC should move to
     // the value represents whether the location has been taken by an NPC
@@ -31,6 +37,7 @@ public class NPCManager : MonoBehaviour
     public DemonItemsSO ChosenDemon { get; private set; }
     public int GetWanderingDestinationsCount() => wanderingDestinations.Count;
     public int GetHidingLocationsCount() => hidingLocations.Count;
+    public int GetPatrolDestinationsCount() => patrolDestinations.Count;
 
     private void Awake()
     {
@@ -40,10 +47,10 @@ public class NPCManager : MonoBehaviour
             Instance = this;
 
 
-        AICharacter[] aICharacters = FindObjectsByType<AICharacter>(FindObjectsSortMode.None);
-        foreach (AICharacter character in aICharacters)
+        PatientCharacter[] aICharacters = FindObjectsByType<PatientCharacter>(FindObjectsSortMode.None);
+        foreach (PatientCharacter character in aICharacters)
         {
-            npcList.Add(character.gameObject);
+            patientList.Add(character.gameObject);
         }
         AssignRandomDemonType();
 
@@ -51,7 +58,7 @@ public class NPCManager : MonoBehaviour
         GameObject[] beds = GameObject.FindGameObjectsWithTag("Bed");
         foreach (var item in beds)
         {
-            npcBeds.Add(item);
+            patientBeds.Add(item);
             Debug.Log("added beds");
         }
         
@@ -81,14 +88,14 @@ public class NPCManager : MonoBehaviour
     public void AssignRandomDemonType()
     {
         int demonChoice = Random.Range(0, demonTypes.Count);
-        int npcChoice = Random.Range(0, npcList.Count);
+        int npcChoice = Random.Range(0, patientList.Count);
 
-        GameObject chosenNPC = npcList[npcChoice];
+        GameObject chosenNPC = patientList[npcChoice];
         ChosenDemon = demonTypes[demonChoice];
 
-        chosenNPC.GetComponent<AICharacter>().isPossessed = true;
+        chosenNPC.GetComponent<PatientCharacter>().isPossessed = true;
 
-        Debug.Log(chosenNPC.name + "Has been possessed by: " + ChosenDemon.DemonName);
+        Debug.Log(chosenNPC.name + "Has been possessed by: " + ChosenDemon.demonName);
     }
 
     /// <summary>
@@ -114,9 +121,31 @@ public class NPCManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Chooses a random location from the destinations list for the NPC to go to, to pray
+    /// Returns a random position for the patient to go to pray at. 
     /// </summary>
     /// <returns></returns>
+    public Vector3 RandomPrayingDestination()
+    {
+        return prayingLocations[Random.Range(0, prayingLocations.Count)].position;  
+    }
+
+    /// <summary>
+    /// Returns a random position for the patient to go to eat at. 
+    /// </summary>
+    /// <returns></returns>
+    public Vector3 RandomKitchenPosition()
+    {
+        return kitchenLocations[Random.Range(0, kitchenLocations.Count)].position;
+    }
+
+    /// <summary>
+    /// Returns a random position for the demon to go to
+    /// </summary>
+    /// <returns></returns>
+    public Vector3 RandomPatrolDestination()
+    {
+        return patrolDestinations[Random.Range(0, patrolDestinations.Count)].position;
+    }
     
     /// <summary>
     /// Sets the specified value (bool) of the passed in key (Vector3) to false, signifying
@@ -191,33 +220,15 @@ public class NPCManager : MonoBehaviour
         return chosenLocation;
     }
 
-
-    /// <summary>
-    /// Returns a random position for the NPC to go to pray at. 
-    /// </summary>
-    /// <returns></returns>
-    public Vector3 RandomPrayingDestination()
-    {
-        return prayingLocations[Random.Range(0, prayingLocations.Count)].position;  
-    }
-
-    public Vector3 RandomKitchenPosition()
-    {
-        return kitchenLocations[Random.Range(0, kitchenLocations.Count)].position;
-    }
-
-
     public void AssignBeds()
     {
-        foreach(GameObject npc in npcList)
+        foreach(GameObject npc in patientList)
         {
-            int bedChoice = Random.Range(0, npcBeds.Count);
-            GameObject chosenBed = npcBeds[bedChoice].gameObject;
-            npc.GetComponent<AICharacter>().bed = chosenBed;
-            Debug.Log("Set " + npc.gameObject.name + "to bed number: " + chosenBed);
-            npcBeds.Remove(chosenBed);
+            int bedChoice = Random.Range(0, patientBeds.Count);
+            GameObject chosenBed = patientBeds[bedChoice];
+            npc.GetComponent<PatientCharacter>().bed = chosenBed;
+            Debug.Log("Set " + npc.name + "to bed number: " + chosenBed);
+            patientBeds.Remove(chosenBed);
         }
-
-
     }
 }
