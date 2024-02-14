@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class CheckCameras : InteractableTemplate
+public class CheckCameras : InspectableObject
 {
-    private Camera mainCam;
+    /*private Camera mainCam;
     public Vector3 camRotation;// = new Vector3(0,0,0);
     public Vector3 camPosition;// = new Vector3(-1.54999995f, 0.310000002f, 7.25f);
     private Quaternion oldCamRotation;
@@ -13,7 +13,7 @@ public class CheckCameras : InteractableTemplate
 
     bool looking = false;
     bool playerCanMove = true;
-    bool stopLooking = false;
+    bool stopLooking = false;*/
 
     [Header("Camera Values")]
     public GameObject monitor;
@@ -22,20 +22,21 @@ public class CheckCameras : InteractableTemplate
     private Material currentMaterial;
     private int index = 0;
 
-    private void Start()
+    
+    /*protected override void Start()
     {
         mainCam = Camera.main;
         if(cameraScreens != null )
             currentMaterial = cameraScreens[index];
-    }
+    }*/
 
-    private void Update()
+    protected override void Update()
     {
-
+        base.Update();
         currentMaterial = cameraScreens[index];
         monitor.GetComponent<MeshRenderer>().material = currentMaterial;
 
-        //exit the screen and re-enable interactions
+        /*//exit the screen and re-enable interactions
         if (Input.GetKeyDown(KeyCode.C) && looking)
         {
             looking = false;
@@ -45,8 +46,8 @@ public class CheckCameras : InteractableTemplate
             this.gameObject.GetComponent<BoxCollider>().enabled = true;
 
 
-        }
-        else if(Input.GetKeyDown(KeyCode.RightArrow) && looking)
+        }*/
+        /*else*/ if(Input.GetKeyDown(KeyCode.RightArrow) && looking)
         {
             if(index == cameraScreens.Length - 1)
             {
@@ -64,7 +65,7 @@ public class CheckCameras : InteractableTemplate
             }
             index--;
         }
-        //move camera to screen position
+        /*//move camera to screen position
         if (looking)
         {
             mainCam.transform.position = Vector3.MoveTowards(mainCam.transform.position, camPosition, 2.5f * Time.deltaTime);
@@ -84,21 +85,21 @@ public class CheckCameras : InteractableTemplate
                 GameObject.Find("Player").GetComponent<PlayerMovement>().enabled = true;
                 mainCam.GetComponent<CameraLook>().canHeadBob = true;
             }
-        }
+        }*/
 
-
+/*
         //we would need the state manager at this point to be able to freeze player movement and interaction
         if (!playerCanMove)
         {
             GameObject.Find("Player").GetComponent<PlayerMovement>().enabled = false;
             this.gameObject.GetComponent<BoxCollider>().enabled = false;
             //GetComponent<CameraLook>().enabled = false;
-        }
+        }*/
 
     }
 
     //disable interactions
-    public override void Interact()
+    /*public override void Interact()
     {
         Debug.Log("*** Interacting with monitor ***");
 
@@ -110,7 +111,7 @@ public class CheckCameras : InteractableTemplate
         looking = true;
         playerCanMove = false;
         mainCam.GetComponent<CameraLook>().canHeadBob = false;
-    }
+    }*/
 
     private void ScrollMaterial()
     {
