@@ -176,7 +176,7 @@ public class AICharacter : MonoBehaviour
         {
             Destroy(collision.gameObject);
             deterred = true;
-            InventoryHotbar.instance.RemoveFromInventory(InventoryHotbar.instance.currentItem);
+            
 
             //steam achievement for banishing demon
             //if(SteamManager.Initialized)
