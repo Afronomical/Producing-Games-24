@@ -16,4 +16,4 @@ MonoBehaviour:
   obj: {fileID: 0}
   prefab: {fileID: 0}
   objectImage: {fileID: 0}
-  tooltipText: Start Shift
+  tooltipText: End Hour
