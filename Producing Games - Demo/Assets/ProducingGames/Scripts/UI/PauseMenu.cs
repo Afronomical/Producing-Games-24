@@ -4,6 +4,7 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu;
     public GameObject settingsPanel;
+    public GameObject inventoryBar;
     public bool isPaused = false;
 
     private CameraLook cameraLookScript;
@@ -29,6 +30,7 @@ public class PauseMenu : MonoBehaviour
     public void ResumeGame()
     {
         pauseMenu.SetActive(false);
+        inventoryBar.SetActive(true);
         Time.timeScale = 1f; // Unpause time
         isPaused = false;
 
@@ -44,6 +46,7 @@ public class PauseMenu : MonoBehaviour
     void PauseGame()
     {
         pauseMenu.SetActive(true);
+        inventoryBar.SetActive(false);
         Time.timeScale = 0f; // Pause time
         isPaused = true;
 
