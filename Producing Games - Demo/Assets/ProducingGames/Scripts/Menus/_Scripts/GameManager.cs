@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
     [Header("Sanity")]
     [Range(0, 100)] public int startingSanity = 100;
     private int currentSanity;
+    public SanityEventTracker.SanityLevels sanityLevel;
+    [HideInInspector] public SanityEventTracker sanityEvents;
 
     private int patientCount;
 
@@ -35,6 +37,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        sanityEvents = GetComponent<SanityEventTracker>();
         patientCount = NPCManager.Instance.GetPatientCount();
         StartGame();
     }
@@ -50,7 +53,7 @@ public class GameManager : MonoBehaviour
     {
         currentSanity = startingSanity;
         currentHour = startingHour;
-        StartHour();
+        StartCoroutine(StartHour());
     }
 
 
@@ -66,14 +69,29 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private void StartHour()
+    private IEnumerator StartHour()
     {
-        // Fade?
-        Debug.Log("TP");
+        // Fade out
+
+        Time.timeScale = 0;
+        yield return new WaitForSeconds(0);
+        Time.timeScale = 1;
+
+        // Fade in
+
+        player.GetComponent<CharacterController>().enabled = false;
         player.transform.position = playerStartPosition.position;
         player.transform.rotation = playerStartPosition.rotation;
+        player.GetComponent<CharacterController>().enabled = true;
 
-        // Put Patients in bed
+        foreach (GameObject AI in NPCManager.Instance.NPCS)  // Put all NPCs in bed
+        {
+            AI.GetComponent<AICharacter>().ChangeState(AICharacter.States.Bed);
+
+            //if (AI.GetComponent<AICharacter>().isPossessed)  <------ Leave Rage mode
+            //    AI.GetComponent<AICharacter>().
+
+        }
 
         currentTime = 0;
         inStudy = true;
@@ -106,11 +124,12 @@ public class GameManager : MonoBehaviour
     public void EndHour()
     {
         currentHour++;
+        sanityEvents.EndHour();
         PatientTaskManager.instance.ClearTasks();
 
         if (currentHour <= finalHour)
         {
-            StartHour();
+            StartCoroutine(StartHour());
         }
         else 
         {
@@ -128,7 +147,15 @@ public class GameManager : MonoBehaviour
     private void StartShiftEnd()
     {
         shiftEndActive = true;
-        // Rage mode activate
+        
+        /*
+        foreach(GameObject AI in NPCManager.Instance.NPCS)
+        {
+            if (AI.GetComponent<AICharacter>().isPossessed) <---- ENTER RAGE MODE HERE
+                AI.GetComponent<AICharacter>().
+        }*/
+
+        // Lock patient doors
     }
 
 
@@ -141,11 +168,7 @@ public class GameManager : MonoBehaviour
     public void AddSanity(int add)
     {
         currentSanity = Mathf.Clamp(currentSanity + add, 0, startingSanity);
-    }
-
-    public void RemoveSanity(int remove)
-    {
-        currentSanity = Mathf.Clamp(currentSanity - remove, 0, startingSanity);
+        sanityEvents.ChangeSanity(currentSanity);
     }
 
     public void DecrementRemainingPatients() 

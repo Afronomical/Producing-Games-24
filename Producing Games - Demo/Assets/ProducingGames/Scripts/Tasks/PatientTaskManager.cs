@@ -190,14 +190,16 @@ public class PatientTaskManager : MonoBehaviour
     public void CompleteTask(Task task)
     {
         CheckList.instance.RemoveTask(task);
-        if (!task.isHourlyTask)
+
+        if (!task.isHourlyTask)  // Is not hourly task
         {
             currentTasks.Remove(task);
             Destroy(task);
         }
-
-
-
+        else  // Is hourly task
+        {
+            GameManager.Instance.sanityEvents.CompleteHourlyTask();
+        }
     }
 
 

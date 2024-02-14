@@ -20,7 +20,7 @@ public class NPCManager : MonoBehaviour
 
     [SerializeField] private List<Transform> destinationLocations = new();
 
-    [SerializeField] private List<GameObject> NPCS = new();
+    public List<GameObject> NPCS = new();
 
     [SerializeField] private List<DemonItemsSO> DemonTypes = new();
 
