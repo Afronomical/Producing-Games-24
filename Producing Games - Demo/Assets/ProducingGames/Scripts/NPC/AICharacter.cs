@@ -177,6 +177,18 @@ public class AICharacter : MonoBehaviour
             Destroy(collision.gameObject);
             deterred = true;
             InventoryHotbar.instance.RemoveFromInventory(InventoryHotbar.instance.currentItem);
+
+            //steam achievement for banishing demon
+            //if(SteamManager.Initialized)
+            //{
+            //    Steamworks.SteamUserStats.GetAchievement("BanishDemon", out bool completed);
+
+            //    if(!completed)
+            //    {
+            //        SteamUserStats.SetAchievement("BanishDemon");
+            //        SteamUserStats.StoreStats();
+            //    }
+            //}
         }
     }
 

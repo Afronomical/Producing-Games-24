@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Steamworks;
 
 public class RandomPill : InteractableTemplate, IConsumable
 {
@@ -45,8 +45,6 @@ public class RandomPill : InteractableTemplate, IConsumable
 
             StopPlayer();
         }
-
-
 
         Destroy(gameObject);
     }
