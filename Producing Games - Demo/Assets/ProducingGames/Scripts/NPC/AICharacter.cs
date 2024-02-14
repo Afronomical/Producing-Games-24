@@ -54,9 +54,9 @@ public class AICharacter : MonoBehaviour
     public GameObject player;
     public Rigidbody rb;
     public NavMeshAgent agent;
-   [SerializeField] private DemonItemsSO Demon;
+    [SerializeField] private DemonItemsSO Demon;
 
-   
+    [HideInInspector] public bool deterred = false;
 
     private void Start()
     {
@@ -168,5 +168,16 @@ public class AICharacter : MonoBehaviour
            
         }
     }
-    
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("HolyWater"))
+        {
+            Destroy(collision.gameObject);
+            deterred = true;
+            InventoryHotbar.instance.RemoveFromInventory(InventoryHotbar.instance.currentItem);
+        }
+    }
+
 }
