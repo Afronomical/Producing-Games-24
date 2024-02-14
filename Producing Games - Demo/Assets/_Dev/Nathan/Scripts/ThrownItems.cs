@@ -5,9 +5,17 @@ using UnityEngine;
 public class ThrownItems : MonoBehaviour
 {
     bool isTriggered;
+
+    [Header("Item List")]
     public Rigidbody[] Items;
-    public float verticalForce;
-    public float horizontalForce;
+    
+
+    [Header("Random Forces")]
+    public float minHorizontal;
+    public float maxHorizontal;
+    [Space]
+    public float minVertical;
+    public float maxVertical;
     
     void Start()
     {
@@ -16,10 +24,14 @@ public class ThrownItems : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        float vertForce = Random.Range(minVertical, maxVertical);
+        float horizForce = Random.Range(minHorizontal, maxHorizontal);
+
         if (!isTriggered) 
         {
             int randIndex = Random.Range(0, Items.Length);
-            Items[randIndex].AddRelativeForce((Vector3.up * verticalForce) + (Vector3.forward * horizontalForce), ForceMode.Impulse);
+            Items[randIndex].AddRelativeForce((Vector3.up * vertForce) + (Vector3.forward * horizForce), ForceMode.Impulse);
+            Items[randIndex].AddRelativeTorque(Vector3.right, ForceMode.Impulse);
             isTriggered = true;        
         }
     }
