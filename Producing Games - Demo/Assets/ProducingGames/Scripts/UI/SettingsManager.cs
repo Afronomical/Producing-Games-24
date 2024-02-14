@@ -100,20 +100,27 @@ public class SettingsManager : MonoBehaviour
         float newValx = scaleValue * originalAspect;
         float newValy = scaleValue;
 
-        // Apply scaling to the current RectTransform
         RectTransform rectTransform = parent.GetComponent<RectTransform>();
         if (rectTransform != null)
         {
-            rectTransform.localScale = new Vector3(newValx, newValy, 1f);
+            // Check if the current object is a Button or Slider before applying scaling
+            if (parent.GetComponent<Button>())
+            {
+                rectTransform.localScale = new Vector3(newValx, newValy, 1f);
+            }
+            else if (parent.GetComponent<Slider>())
+            {
+                // Set slider to default size straight away
+                rectTransform.localScale = new Vector3(newValx, newValy, 1f);
+            }
         }
 
-        // Recursively apply scaling to all child objects
+        // Recursively apply scaling to child objects
         foreach (Transform child in parent)
         {
             SetPanelScaleRecursive(child, scaleValue);
         }
 
-        // Update the originalSize to the scale of the panel
         originalSize = panel.localScale;
     }
 
