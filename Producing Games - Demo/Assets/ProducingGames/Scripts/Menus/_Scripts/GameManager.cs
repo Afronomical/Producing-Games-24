@@ -9,17 +9,17 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public GameObject player;
-    //// AI references. 
 
     [Header("Hour System")]
-    [Range(1, 60)] public float hourLength = 10;
+    [Range(1, 60)] public float hourLength = 60;
+    [Range(1, 60)] public float shiftLength = 10;
     public int startingHour = 1;
     public int finalHour = 8;
     public Transform playerStartPosition;
 
     public int currentHour;
     public float currentTime;
-    public bool shiftEndActive = false;
+    public bool inStudy, shiftEndActive;
 
     [Header("Sanity")]
     [Range(0, 100)] public int startingSanity = 100;
@@ -30,12 +30,12 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         if (Instance == null) Instance = this;
-        patientCount = NPCManager.Instance.GetPatientCount();
     }
 
 
     private void Start()
     {
+        patientCount = NPCManager.Instance.GetPatientCount();
         StartGame();
     }
 
@@ -69,13 +69,14 @@ public class GameManager : MonoBehaviour
     private void StartHour()
     {
         // Fade?
-
+        Debug.Log("TP");
         player.transform.position = playerStartPosition.position;
         player.transform.rotation = playerStartPosition.rotation;
 
         // Put Patients in bed
 
         currentTime = 0;
+        inStudy = true;
         shiftEndActive = false;
 
         PatientTaskManager.instance.SetHourlyTasks();
@@ -85,12 +86,19 @@ public class GameManager : MonoBehaviour
 
     private void UpdateTime()
     {
-        currentTime += Time.deltaTime * (1 / hourLength);
-
-        if (currentTime >= 60)
+        if (!inStudy)
         {
-            //StartShiftEnd();
-            EndHour();
+            currentTime += Time.deltaTime * (1 / hourLength);
+
+            if (!shiftEndActive && currentTime >= shiftLength)  // When the shift ends
+            {
+                StartShiftEnd();  // Start shift end phase
+            }
+
+            if (currentTime >= 60)
+            {
+                EndHour();
+            }
         }
     }
 
@@ -108,6 +116,12 @@ public class GameManager : MonoBehaviour
         {
             EndGame();
         }
+    }
+
+
+    public void StartShift()
+    {
+        inStudy = false;
     }
 
 
