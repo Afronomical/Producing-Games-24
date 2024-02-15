@@ -25,6 +25,18 @@ public class SettingsManager : MonoBehaviour
     [SerializeField] private FPSCounter fpsCounter;
     [SerializeField] private int defaultMaxFPS = 60; // defult Max FPS
 
+    [Header("Inventory Elements")]
+    public RectTransform inventoryPanel; 
+    public float increaseInvEffectSpeed = 3f;  
+    public float decreaseInvEffectSpeed = 3f;  
+    public float invEffectWaitDuration = 1.5f;
+    public Slider inventoryScaleSlider;
+    [HideInInspector]public Vector3 originalInventorySize;
+    [HideInInspector]public bool isInventoryIncreasing = false;
+    [HideInInspector]public CanvasGroup inventoryPanelCanvasGroup;
+    [HideInInspector]public float originalInventoryAspect;
+    
+
     private List<int> availableMaxFPSOptions = new List<int> { 30, 60, 120, 144, 240 }; // Max FPS options // Customize as needed
 
     private int selectedMaxFPS;
@@ -33,6 +45,8 @@ public class SettingsManager : MonoBehaviour
 
     private float originalAspect;
     private float tempBrightnessValue;
+    private float tempScaleValue;
+    private float tempInventoryScaleValue;
     
     private bool tempFPSDisplayValue;
     private bool overlayVisible = false;
@@ -62,6 +76,7 @@ public class SettingsManager : MonoBehaviour
 
     private void Awake()
     {
+
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
@@ -70,9 +85,19 @@ public class SettingsManager : MonoBehaviour
 
         _instance = this;
         DontDestroyOnLoad(this.gameObject);
+        LoadSettings();
 
-        originalAspect = panel.localScale.x / panel.localScale.y;
-        // scaleSlider.onValueChanged.AddListener(SetPanelScale);
+        overlayImage.gameObject.SetActive(false);
+
+        originalAspect = panel.localScale.x / panel.localScale.y; // Calculate original aspect ratio
+        scaleSlider.onValueChanged.AddListener(OnScaleValueChanged);
+        inventoryScaleSlider.onValueChanged.AddListener(OninventoryPanelScaleChanged);
+
+        // Call the new method to scale buttons and sliders
+        ScaleUIElements();
+
+
+     
     }
 
     #endregion
@@ -101,7 +126,7 @@ public class SettingsManager : MonoBehaviour
         UpdateVSyncButtonText();
         ToggleFPSDisplay();
 
-        overlayImage.gameObject.SetActive(false);
+        
         brightnessSlider.onValueChanged.AddListener(OnBrightnessChanged);
         globalVolumeSlider.onValueChanged.AddListener(OnGlobalVolumeChanged);
         soundEffectVolumeSlider.onValueChanged.AddListener(OnSoundEffectVolumeChanged);
@@ -109,6 +134,8 @@ public class SettingsManager : MonoBehaviour
 
         // Set the dropdown to show the current resolution
         SetDropdownToCurrentResolution();
+
+        
 
     }
 
@@ -126,6 +153,21 @@ public class SettingsManager : MonoBehaviour
     #endregion
 
     #region UI Interaction Methods
+
+    public void OninventoryPanelScaleChanged(float value)
+    {
+        tempInventoryScaleValue = value;
+
+    }
+
+    public void OnScaleValueChanged(float value)
+    {
+        // Call the ScaleUIElements method when the scaleSlider value changes
+        ScaleUIElements();
+        Debug.Log("UI Elements Scaled: " + value);
+
+        tempScaleValue = value;
+    }
 
     public void OnToggleFPSButtonClicked()
     {
@@ -227,6 +269,18 @@ public class SettingsManager : MonoBehaviour
             PlayerPrefs.Save();
             Debug.Log("Brightness Setting Reverted: " + tempBrightnessValue);
 
+            //icon size revert
+            scaleSlider.value = tempScaleValue;
+            PlayerPrefs.SetFloat("IconSize", tempScaleValue);
+            PlayerPrefs.Save();
+            Debug.Log("IconSize Setting Reverted: " + tempScaleValue);
+
+            //inventory scale revert
+            inventoryScaleSlider.value = tempInventoryScaleValue;
+            PlayerPrefs.SetFloat("InventorySize", tempInventoryScaleValue);
+            PlayerPrefs.Save();
+            Debug.Log("Inventory scale Setting Reverted: " + tempInventoryScaleValue);
+
             // Revert the max FPS value to the original value
             selectedMaxFPS = originalMaxFPS;
 
@@ -273,6 +327,77 @@ public class SettingsManager : MonoBehaviour
     #region Settings Manipulation Methods
 
 
+    private void ScaleUIElements(Transform parent)
+    {
+        foreach (Transform child in parent)
+        {
+            // Check if the child has a Button or Slider component
+            Button button = child.GetComponent<Button>();
+            Slider slider = child.GetComponent<Slider>();
+
+            // Scale the UI elements based on the scaleSlider value
+            if (button != null)
+            {
+                ScaleButton(button);
+            }
+
+            if (slider != null)
+            {
+                ScaleSlider(slider);
+            }
+
+            // Recursively scale UI elements for child objects
+            ScaleUIElements(child);
+        }
+    }
+
+    private void ScaleUIElements()
+    {
+        // Check if a panel is assigned
+        if (panel != null)
+        {
+            // Start the recursive scaling process from the panel
+            ScaleUIElements(panel);
+        }
+        else
+        {
+            Debug.LogError("Panel is not assigned. Cannot scale UI elements.");
+        }
+    }
+
+    private void ScaleButton(Button button)
+    {
+        // Check if the button has a RectTransform
+        RectTransform rectTransform = button.GetComponent<RectTransform>();
+        if (rectTransform != null)
+        {
+            // Scale the button based on the scaleSlider value
+            float scaleValue = scaleSlider.value;
+            rectTransform.localScale = new Vector3(scaleValue, scaleValue, 1f);
+        }
+        else
+        {
+            Debug.LogError("Button does not have a RectTransform. Cannot scale.");
+        }
+    }
+
+    private void ScaleSlider(Slider slider)
+    {
+        // Check if the slider has a RectTransform
+        RectTransform rectTransform = slider.GetComponent<RectTransform>();
+        if (rectTransform != null)
+        {
+            // Scale the slider based on the scaleSlider value
+            float scaleValue = scaleSlider.value;
+            rectTransform.localScale = new Vector3(scaleValue, scaleValue, 1f);
+        }
+        else
+        {
+            Debug.LogError("Slider does not have a RectTransform. Cannot scale.");
+        }
+    }
+
+
     // RESOLUTION
     private void PopulateResolutions()
     {
@@ -297,7 +422,7 @@ public class SettingsManager : MonoBehaviour
     private void SetResolution(string resolution)
     {
         // Define possible separators
-        char[] separators = { 'x', '×', 'X' };
+        char[] separators = { 'x', 'ï¿½', 'X' };
 
         // Split the resolution using the possible separators
         string[] resolutionValues = resolution.Split(separators);
@@ -425,33 +550,6 @@ public class SettingsManager : MonoBehaviour
     #region Helper Methods
 
 
-    // Recursive method to set the scale of the panel and its children
-    // private void SetPanelScaleRecursive(Transform parent, float scaleValue)
-    // {
-    //     float newValx = scaleValue * originalAspect;
-    //     float newValy = scaleValue;
-    //
-    //     RectTransform rectTransform = parent.GetComponent<RectTransform>();
-    //     if (rectTransform != null)
-    //     {
-    //         rectTransform.localScale = new Vector3(newValx, newValy, 1f);
-    //     }
-    //
-    // Recursively apply scaling to child objects
-    //    foreach (Transform child in parent)
-    //    {
-    //        SetPanelScaleRecursive(child, scaleValue);
-    //    }
-    //
-    //   originalSize = panel.localScale;
-    // }
-
-    // Call this method from SetPanelScale
-    // private void SetPanelScale(float scaleValue)
-    // {
-    //      SetPanelScaleRecursive(panel, scaleValue);
-    //}
-
 
     private void SaveSettings()
     {
@@ -462,7 +560,9 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetFloat("SoundEffectVolume", audioManager.soundEffectVolume);
         PlayerPrefs.SetFloat("MusicVolume", audioManager.musicVolume);
         PlayerPrefs.SetFloat("Brightness", brightnessSlider.value);
-        PlayerPrefs.SetFloat("PanelScale", scaleSlider.value);
+        PlayerPrefs.SetFloat("IconSize", scaleSlider.value);
+        PlayerPrefs.SetFloat("InventorySize", inventoryScaleSlider.value);
+
         // Add more settings if needed
         PlayerPrefs.Save();
     }
@@ -510,6 +610,23 @@ public class SettingsManager : MonoBehaviour
         {
             float brightnessValue = PlayerPrefs.GetFloat("Brightness");
             OnBrightnessChanged(brightnessValue); // Apply brightness
+        }
+
+        //load icon size and apply
+
+        if (PlayerPrefs.HasKey("IconSize"))
+        {
+            float IconSizeValue = PlayerPrefs.GetFloat("IconSize");
+            OnScaleValueChanged(IconSizeValue);
+
+        }
+
+        // load inventory scale size 
+        if (PlayerPrefs.HasKey("InventorySize"))
+        {
+            float InventorySizeValue = PlayerPrefs.GetFloat("InventorySize");
+            OninventoryPanelScaleChanged(InventorySizeValue);
+
         }
 
         // Load the resolution setting and update the UI
