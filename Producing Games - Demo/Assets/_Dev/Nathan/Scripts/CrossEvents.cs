@@ -51,8 +51,8 @@ public class CrossEvents : MonoBehaviour
     void FallingCross()
     {
         rb.useGravity = true;
-        rb.AddForce(Vector3.back * throwingForce, ForceMode.Impulse);
-        //rb.isKinematic = true;
+        rb.AddRelativeForce(Vector3.back * throwingForce, ForceMode.Impulse);
+        
     }
 
     void invertedCross()

@@ -30,7 +30,7 @@ public class ThrownItems : MonoBehaviour
         if (!isTriggered) 
         {
             int randIndex = Random.Range(0, Items.Length);
-            Items[randIndex].AddRelativeForce((Vector3.up * vertForce) + (Vector3.forward * horizForce), ForceMode.Impulse);
+            Items[randIndex].AddRelativeForce((Vector3.up * vertForce) + (Vector3.forward * horizForce), ForceMode.Impulse);           
             Items[randIndex].AddRelativeTorque(Vector3.right, ForceMode.Impulse);
             isTriggered = true;        
         }
