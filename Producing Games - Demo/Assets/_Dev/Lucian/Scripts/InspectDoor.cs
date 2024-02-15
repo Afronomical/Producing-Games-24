@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InspectDoor : InteractableTemplate
+public class InspectDoor : InspectableObject
 {
-    private Camera mainCam;
+    /*private Camera mainCam;
     private CameraLook camLookScript;
     public Vector3 camRotation;// = new Vector3(0,0,0);
     public Transform camMoveTransform;
@@ -15,16 +15,16 @@ public class InspectDoor : InteractableTemplate
 
     bool looking = false;
     bool playerCanMove = true;
-    bool stopLooking = false;
-    private void Start()
+    bool stopLooking = false;*/
+    /*protected virtual void Start()
     {
         mainCam = Camera.main;
         camLookScript = Camera.main.GetComponent<CameraLook>();
         camPosition = camMoveTransform.position;
         camRotation = camMoveTransform.rotation.eulerAngles;
-    }
+    }*/
 
-    private void Update()
+    /*private void Update()
     {
 
         if (Input.GetKeyDown(KeyCode.C) && looking)
@@ -72,9 +72,9 @@ public class InspectDoor : InteractableTemplate
             
         }
 
-    }
+    }*/
     //disable interaction functionalities for player and object
-    public override void Interact()
+   /* public override void Interact()
     {
         Debug.Log("*** Interacting with door ***");
 
@@ -87,5 +87,5 @@ public class InspectDoor : InteractableTemplate
         playerCanMove = false;
 
         mainCam.GetComponent<CameraLook>().canHeadBob = false;
-    }
+    }*/
 }
