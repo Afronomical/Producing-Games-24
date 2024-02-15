@@ -790,7 +790,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1032824438}
   m_Layer: 5
-  m_Name: SprintStaminaBar
+  m_Name: Sprint Stamina Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
