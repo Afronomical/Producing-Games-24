@@ -913,22 +913,31 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'New Text
 
-    New Text
 
     New Text
 
-    New Text
 
     New Text
+
+
+    New Text
+
+
+    New Text
+
 
     New
     Text
 
-    New Text
 
     New Text
 
+
     New Text
+
+
+    New Text
+
 
     New Text'
   m_isRightToLeft: 0
@@ -1110,7 +1119,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25342c5d53c0211409e5b20bd6dcbf0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialDelay: 3
   scrollSpeed: -30
+  stopDelay: 5
+  stopKey: 32
 --- !u!1 &1973075871
 GameObject:
   m_ObjectHideFlags: 0

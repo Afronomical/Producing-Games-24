@@ -8,6 +8,7 @@ public class SettingsManager : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject checkBox;
     [SerializeField] private Button vsyncButton;
     [SerializeField] private TextMeshProUGUI fpsText;
     [SerializeField] private TextMeshProUGUI vsyncButtonText;
@@ -248,7 +249,10 @@ public class SettingsManager : MonoBehaviour
         applyButtonClicked = false; // Reset the flag after processing
     }
     
-
+    public void OnBackCheck()
+    {
+        checkBox.SetActive(true);
+    }
 
 
     private void SetDropdownToCurrentResolution()
