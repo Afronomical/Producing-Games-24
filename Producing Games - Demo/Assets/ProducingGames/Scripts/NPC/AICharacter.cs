@@ -19,6 +19,7 @@ public class AICharacter : MonoBehaviour
     public float runSpeed = 3.0f;
     public float crawlSpeed = 0.5f;
     public float detectionRadius = 5.0f;
+    
 
     [Header("States")]
     [HideInInspector] public bool isMoving;
@@ -35,6 +36,8 @@ public class AICharacter : MonoBehaviour
 
     public virtual void Start()
     {
+        
+        
         // INFO: If no specific color has been chosen, then default
         // values are provided
         if (detectionRadiusColor == Color.white)

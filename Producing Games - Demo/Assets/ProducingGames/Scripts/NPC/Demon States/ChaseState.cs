@@ -14,6 +14,8 @@ public class ChaseState : DemonStateBaseClass
     private float timeAlone = 0;
     private readonly float maxTimeAlone = 20f;
 
+    
+
     private void Awake()
     {
         GetComponent<AICharacter>().isMoving = true;
@@ -23,6 +25,7 @@ public class ChaseState : DemonStateBaseClass
     {
         character.agent.ResetPath();
         character.agent.speed = character.runSpeed;
+        
     }
 
     public override void UpdateLogic()
@@ -44,7 +47,17 @@ public class ChaseState : DemonStateBaseClass
             lastTargetPos = character.player.transform.position;
 
             MoveTowardsPlayer();
+            Collider[] colliders = Physics.OverlapSphere(character.transform.position, character.attackRadius);
+            foreach (Collider collider in colliders)
+            {
+                if (collider.gameObject == character.player)
+                {
+                    Debug.Log("Changing To attack state");
+                    character.ChangeDemonState(DemonCharacter.DemonStates.Attack);
+                }
+            }
         }
+       
         else
         {
             character.agent.SetDestination(lastTargetPos);

@@ -53,8 +53,9 @@ public class PatientCharacter : AICharacter
         if (isPossessed)                                
         {                                               
             // INFO: Add demon state                         
-            demon = NPCManager.Instance.ChosenDemon;    
-            InitialiseDemonStats();                     
+            demon = NPCManager.Instance.ChosenDemon;
+            InitialiseDemonStats();
+            ChangePatientState(PatientStates.Possessed);
         }
     }
 

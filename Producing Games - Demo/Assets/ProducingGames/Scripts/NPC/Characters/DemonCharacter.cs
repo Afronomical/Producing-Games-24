@@ -22,13 +22,15 @@ public class DemonCharacter : AICharacter
     public DemonStateBaseClass demonStateScript;
 
     [Header("Demon Settings")]
-    public float attackRadius = 1.0f;
+    public float attackRadius = 2.0f;
+    
 
     public override void Start()
     {
         base.Start();
 
         characterType = CharacterTypes.Demon;
+       
 
         ChangeDemonState(DemonStates.Patrol); //INFO: Starting State
     }
@@ -38,7 +40,7 @@ public class DemonCharacter : AICharacter
         if (demonStateScript != null)
             demonStateScript.UpdateLogic();  // Calls the virtual function for whatever state scripts
 
-        if (raycastToPlayer.PlayerDetected())
+        if (raycastToPlayer.PlayerDetected() && currentState != DemonStates.Attack)
         {
             ChangeDemonState(DemonStates.Chase);
         }
