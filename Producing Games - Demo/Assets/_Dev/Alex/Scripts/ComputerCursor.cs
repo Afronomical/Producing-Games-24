@@ -10,4 +10,10 @@ public class ComputerCursor : InspectableObject
 
         Cursor.lockState = CursorLockMode.None;
     }
+
+    protected override void Update()
+    {
+        base.Update();
+        if(stopLooking) Cursor.lockState = CursorLockMode.Locked;
+    }
 }

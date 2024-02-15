@@ -16,11 +16,16 @@ public class PagerTime : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        DisplayTime();
+    }
+
+    private void DisplayTime()
+    {
         string time = "0";
         time += GameManager.Instance.currentHour.ToString();
 
         time += ":";
-        if(GameManager.Instance.currentTime < 10)
+        if (GameManager.Instance.currentTime < 10)
         {
             time += "0";
         }

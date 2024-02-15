@@ -39,6 +39,12 @@ public class ComputerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        DisplayTime();
+    }
+
+
+    private void DisplayTime()
+    {
         string time = "0";
         time += GameManager.Instance.currentHour.ToString();
 

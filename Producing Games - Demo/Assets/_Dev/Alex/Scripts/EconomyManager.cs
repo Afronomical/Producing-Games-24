@@ -15,11 +15,6 @@ public class EconomyManager : MonoBehaviour
         if(instance == null)
             instance = this;
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         money.text = "£ " + budget;
     }
 
