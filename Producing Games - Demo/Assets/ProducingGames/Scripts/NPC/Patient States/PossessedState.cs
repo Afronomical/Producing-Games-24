@@ -16,9 +16,8 @@ public class PossessedState : PatientStateBaseClass
         if (character.isPossessed)
         {
             // INFO: Character.bed will need to be changed once we assign rooms to patients
-           GameObject go = Instantiate(character.demon.demonPrefab, character.bed.transform.position, Quaternion.identity);
-            GameManager.Instance.demon = go;
-            
+            GameObject GO = Instantiate(character.demon.demonPrefab, character.bed.transform.position, Quaternion.identity);
+            GameManager.Instance.demon = GO;     
         }
     }
 

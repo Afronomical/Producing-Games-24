@@ -5,6 +5,7 @@ using UnityEngine;
 /// Written by: Matej Cincibus
 /// Moderated by: ...
 /// 
+/// Handles all the functionality specific to demon NPCs
 /// </summary>
 
 public class DemonCharacter : AICharacter
@@ -41,6 +42,8 @@ public class DemonCharacter : AICharacter
         if (demonStateScript != null)
             demonStateScript.UpdateLogic();  // Calls the virtual function for whatever state scripts
 
+        // INFO: Will go into the chase state whenever it sees the player, so long as its not already
+        // attacking the player
         if (raycastToPlayer.PlayerDetected() && currentState != DemonStates.Attack)
         {
             ChangeDemonState(DemonStates.Chase);

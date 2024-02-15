@@ -5,6 +5,7 @@ using UnityEngine;
 /// Written by: Matej Cincibus
 /// Moderated by: ...
 /// 
+/// Handles all the functionality specific to patient NPCs
 /// </summary>
 
 [RequireComponent(typeof(EscortNPCTest))]
@@ -55,7 +56,7 @@ public class PatientCharacter : AICharacter
             // INFO: Add demon state                         
             demon = NPCManager.Instance.ChosenDemon;
             InitialiseDemonStats();
-            ChangePatientState(PatientStates.Possessed);
+            // INFO: Possessed state will need to be changed elsewhere
         }
     }
 

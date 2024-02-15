@@ -4,6 +4,7 @@ using UnityEngine;
 /// Written By: Matej Cincibus
 /// Moderated By: ...
 /// 
+/// The demon walks to a specific location it chooses from a list of available locations
 /// </summary>
 
 public class PatrolState : DemonStateBaseClass

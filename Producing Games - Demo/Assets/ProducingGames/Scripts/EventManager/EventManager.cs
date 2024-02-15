@@ -1,6 +1,13 @@
 using UnityEngine;
 using System;
 
+/// <summary>
+/// Written by: Matej Cincibus
+/// Moderated by: ...
+/// 
+/// Handles all the events that happen in the game
+/// </summary>
+
 public class EventManager : MonoBehaviour
 {
     public static EventManager Instance;
@@ -22,10 +29,11 @@ public class EventManager : MonoBehaviour
         /*
          * if (RageMode is active)
          * {
-         * 
+         *      FlickeringLightsEvent?.Invoke();
          * }
          */
 
+        // TEMP CODE FOR NOW
         FlickeringLightsEvent?.Invoke();
     }
 }

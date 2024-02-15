@@ -6,6 +6,7 @@ using UnityEngine;
 /// Written By: Matej Cincibus
 /// Moderated By: ...
 /// 
+/// When the rage mode isn't happening and the demon has been instantiated
 /// </summary>
 
 public class InactiveState : DemonStateBaseClass

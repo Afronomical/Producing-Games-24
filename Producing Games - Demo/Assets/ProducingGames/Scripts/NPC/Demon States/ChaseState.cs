@@ -4,6 +4,10 @@ using UnityEngine;
 /// Written By: Matej Cincibus
 /// Moderated By: ...
 /// 
+/// The demon will chase the player so long as the player remains in its
+/// radius, if it leaves its radius, the demon will go to the players last
+/// known position and after some time go back to patrolling. If it gets
+/// close enough to the player it will enter the attack state
 /// </summary>
 
 public class ChaseState : DemonStateBaseClass
@@ -12,9 +16,7 @@ public class ChaseState : DemonStateBaseClass
     private Vector3 lastTargetPos;
 
     private float timeAlone = 0;
-    private readonly float maxTimeAlone = 20f;
-
-    
+    private readonly float maxTimeAlone = 20f;   
 
     private void Awake()
     {
@@ -24,8 +26,7 @@ public class ChaseState : DemonStateBaseClass
     private void Start()
     {
         character.agent.ResetPath();
-        character.agent.speed = character.runSpeed;
-        
+        character.agent.speed = character.runSpeed;      
     }
 
     public override void UpdateLogic()
@@ -47,6 +48,7 @@ public class ChaseState : DemonStateBaseClass
             lastTargetPos = character.player.transform.position;
 
             MoveTowardsPlayer();
+
             Collider[] colliders = Physics.OverlapSphere(character.transform.position, character.attackRadius);
             foreach (Collider collider in colliders)
             {
@@ -56,8 +58,7 @@ public class ChaseState : DemonStateBaseClass
                     character.ChangeDemonState(DemonCharacter.DemonStates.Attack);
                 }
             }
-        }
-       
+        }     
         else
         {
             character.agent.SetDestination(lastTargetPos);
