@@ -1,6 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/// <summary>
+/// Written By: Matej Cincibus
+/// Moderated By: ...
+/// 
+/// </summary>
 
 public class ChaseState : DemonStateBaseClass
 {
@@ -24,6 +28,13 @@ public class ChaseState : DemonStateBaseClass
     public override void UpdateLogic()
     {
         targetPos = character.player.transform.position;
+
+        /*
+         * if (character.player.GetComponent<PlayerController>().GetIsHiding())
+         * {
+         *      character.ChangeDemonState(DemonCharacter.DemonStates.Patrol);
+         * }
+         */
 
         if (character.raycastToPlayer.PlayerDetected()) //player is detected. following player function is called. 
         {

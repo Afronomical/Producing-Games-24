@@ -46,14 +46,13 @@ public class NPCManager : MonoBehaviour
         else
             Instance = this;
 
-
         PatientCharacter[] aICharacters = FindObjectsByType<PatientCharacter>(FindObjectsSortMode.None);
         foreach (PatientCharacter character in aICharacters)
         {
             patientList.Add(character.gameObject);
         }
-        AssignRandomDemonType();
 
+        AssignRandomDemonType();
 
         GameObject[] beds = GameObject.FindGameObjectsWithTag("Bed");
         foreach (var item in beds)
@@ -61,7 +60,6 @@ public class NPCManager : MonoBehaviour
             patientBeds.Add(item);
             Debug.Log("added beds");
         }
-        
 
         // INFO: Add all wandering vector3 positions to the dictionary and initialise
         // their value as false (which states that the location hasn't been taken yet)

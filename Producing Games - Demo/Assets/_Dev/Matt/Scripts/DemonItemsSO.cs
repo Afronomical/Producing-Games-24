@@ -12,8 +12,8 @@ public class DemonItemsSO : ScriptableObject
     public List<DemonStateBaseClass> likelyStates = new(); // Likely won't work
 
     public SoundEffect battleCryAudio;
-    public SoundEffect defeatCryAudio; 
+    public SoundEffect defeatCryAudio;
 
-
+    public GameObject demonPrefab;
 
 }

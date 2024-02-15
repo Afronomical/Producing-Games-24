@@ -36,7 +36,7 @@ public class PatientCharacter : AICharacter
     public float currentSanity;
     public bool isPossessed = false;
 
-    [SerializeField] private DemonItemsSO demon;
+    public DemonItemsSO demon;
     public GameObject bed;
 
     public override void Start()
@@ -54,7 +54,6 @@ public class PatientCharacter : AICharacter
         {                                               
             // INFO: Add demon state                         
             demon = NPCManager.Instance.ChosenDemon;    
-            ChangeCharacterType(CharacterTypes.Demon);  
             InitialiseDemonStats();                     
         }
     }
@@ -130,7 +129,7 @@ public class PatientCharacter : AICharacter
     {                                                           
         if (isPossessed)                                        
         {                                                       
-            ////add initialisation here                         
+            // add initialisation here                         
             Debug.Log(demon.demonName + " stats initialised");  
         }                                                       
     }

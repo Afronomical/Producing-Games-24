@@ -4,8 +4,6 @@ using UnityEngine;
 /// Written By: Matej Cincibus
 /// Moderated By: ...
 /// 
-/// The wandering state allows the NPC to wander around the map by choosing a destination
-/// location from a list of potential locations that the NPC can travel to
 /// </summary>
 
 public class PatrolState : DemonStateBaseClass
