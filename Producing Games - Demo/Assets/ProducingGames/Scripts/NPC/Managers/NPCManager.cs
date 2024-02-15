@@ -25,7 +25,7 @@ public class NPCManager : MonoBehaviour
     [SerializeField] private List<Transform> patrolDestinations = new();
 
     [Header("Miscellaneous:")]
-    [SerializeField] private List<GameObject> patientList = new();
+    public List<GameObject> patientList = new();
     [SerializeField] private List<DemonItemsSO> demonTypes = new();
     [SerializeField] private List<GameObject> patientBeds = new();
 

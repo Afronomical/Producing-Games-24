@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         sanityEvents = GetComponent<SanityEventTracker>();
-        patientCount = NPCManager.Instance.GetPatientCount();
+        patientCount = NPCManager.Instance.patientList.Count;
         StartGame();
     }
 
@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
         player.transform.rotation = playerStartPosition.rotation;
         player.GetComponent<CharacterController>().enabled = true;
 
-        foreach (GameObject AI in NPCManager.Instance.NPCS)  // Put all NPCs in bed
+        foreach (GameObject AI in NPCManager.Instance.patientList)  // Put all NPCs in bed
         {
             //AI.GetComponent<AICharacter>().ChangeState(AICharacter.States.Bed);
 
@@ -89,6 +89,8 @@ public class GameManager : MonoBehaviour
             //    AI.GetComponent<AICharacter>().
 
         }
+
+        // demon. <-- Do the same for demon
 
         currentTime = 0;
         inStudy = true;

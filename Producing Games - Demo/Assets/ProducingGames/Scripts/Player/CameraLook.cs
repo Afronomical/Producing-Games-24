@@ -8,6 +8,8 @@ public class CameraLook : MonoBehaviour
     [Header("Camera Properties")]
     [Range(0, 1)] public float mouseSensitivity = 0.5f;
     private Vector2 currentInput;
+    [Range(-80, 0)] public float downClampAngle = -50;
+    [Range(0, 80)] public float upClampAngle = 50;
 
     public Transform playerBody;
     private PlayerMovement playerMovement;
@@ -42,7 +44,7 @@ public class CameraLook : MonoBehaviour
         float mouseY = currentInput.y / 5 * mouseSensitivity;
 
         xRot -= mouseY;
-        xRot = Mathf.Clamp(xRot, -60f, 60f);
+        xRot = Mathf.Clamp(xRot, downClampAngle, upClampAngle);
 
         transform.localRotation = Quaternion.Euler(xRot, 0f, 0f);  // Rotate the camera
         playerBody.Rotate(Vector3.up * mouseX);  // Rotate the player left and right
