@@ -125,6 +125,8 @@ public class SettingsManager : MonoBehaviour
 
         UpdateVSyncButtonText();
         ToggleFPSDisplay();
+        overlayVisible = false;
+        
 
         
         brightnessSlider.onValueChanged.AddListener(OnBrightnessChanged);
