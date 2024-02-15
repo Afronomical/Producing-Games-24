@@ -104,11 +104,13 @@ public class PatientCharacter : AICharacter
                     patientStateScript = transform.AddComponent<DeadState>();
                     break;
                 case PatientStates.Praying:
+                    patientStateScript = transform.AddComponent<PrayerState>();
                     break;
                 case PatientStates.Hiding:
                     patientStateScript = transform.AddComponent<HidingState>();
                     break;
                 case PatientStates.Hungry:
+                    patientStateScript = transform.AddComponent<HungryState>();
                     break;
                 case PatientStates.ReqMeds:
                     patientStateScript = transform.AddComponent<RequestMedicationState>();

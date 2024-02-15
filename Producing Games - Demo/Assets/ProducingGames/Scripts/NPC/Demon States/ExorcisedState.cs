@@ -14,7 +14,7 @@ public class ExorcisedState :DemonStateBaseClass
     private void Start()
     {
         GetComponent<AICharacter>().isMoving = false; 
-        gameObject.SetActive(false);
+        gameObject.SetActive(false); //de activates the Demon 
         ///maybe scream sound effect of some kind 
     }
     public override void UpdateLogic()

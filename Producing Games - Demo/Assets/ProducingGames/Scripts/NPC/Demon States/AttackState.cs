@@ -25,12 +25,12 @@ public class AttackState : DemonStateBaseClass
 
     public override void UpdateLogic()
     {
-        if(!hasMoved)
+        if(!hasMoved) //to prevent continuous snapping 
         MoveToStartPos();
     }
 
 
-    private void MoveToStartPos()
+    private void MoveToStartPos() //temporary function to snap player back to start position 
     {
         //this is where animation will go before moving player back to start pos 
         character.player.transform.position = GameManager.Instance.playerStartPosition.position;
