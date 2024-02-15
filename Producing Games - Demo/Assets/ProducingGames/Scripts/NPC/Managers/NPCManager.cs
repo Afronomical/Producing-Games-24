@@ -33,11 +33,15 @@ public class NPCManager : MonoBehaviour
     // the value represents whether the location has been taken by an NPC
     private Dictionary<Vector3, bool> wanderingLib = new();
     private Dictionary<Vector3, bool> hidingLib = new();
+    private Dictionary<Vector3, bool> prayingLib = new();
+    private Dictionary<Vector3, bool> hungryLib = new();
 
     public DemonItemsSO ChosenDemon { get; private set; }
     public int GetWanderingDestinationsCount() => wanderingDestinations.Count;
     public int GetHidingLocationsCount() => hidingLocations.Count;
     public int GetPatrolDestinationsCount() => patrolDestinations.Count;
+    public int GetKitchenLocationsCount() => kitchenLocations.Count;
+    public int GetPrayerLocationsCount() => prayingLocations.Count;
 
     private void Awake()
     {
@@ -61,7 +65,7 @@ public class NPCManager : MonoBehaviour
             Debug.Log("added beds");
         }
 
-        // INFO: Add all wandering vector3 positions to the dictionary and initialise
+        // INFO: Add all vector3 positions to the dictionary and initialise
         // their value as false (which states that the location hasn't been taken yet)
         foreach (Transform transform in wanderingDestinations)
         {
@@ -72,6 +76,16 @@ public class NPCManager : MonoBehaviour
         foreach (Transform transform in hidingLocations)
         {
             hidingLib.Add(transform.position, false);
+        }
+
+        foreach(Transform transform in prayingLocations)
+        {
+            prayingLib.Add(transform.position, false);
+        }
+
+        foreach(Transform transform in kitchenLocations)
+        {
+            hungryLib.Add(transform.position, false);
         }
     }
 
@@ -124,7 +138,9 @@ public class NPCManager : MonoBehaviour
     /// <returns></returns>
     public Vector3 RandomPrayingDestination()
     {
-        return prayingLocations[Random.Range(0, prayingLocations.Count)].position;  
+        Vector3 prayerDestination = FindSuitableLocation(prayingLocations,AvailableLocations(prayingLib), prayingLib);
+
+        return prayerDestination;
     }
 
     /// <summary>
@@ -133,7 +149,9 @@ public class NPCManager : MonoBehaviour
     /// <returns></returns>
     public Vector3 RandomKitchenPosition()
     {
-        return kitchenLocations[Random.Range(0, kitchenLocations.Count)].position;
+        Vector3 kitchenPos = FindSuitableLocation(kitchenLocations, AvailableLocations(hungryLib), hungryLib);
+
+        return kitchenPos;
     }
 
     /// <summary>
@@ -154,6 +172,30 @@ public class NPCManager : MonoBehaviour
     {
         if (wanderingLib.ContainsKey(wanderingDestination))
             wanderingLib[wanderingDestination] = false;
+    }
+
+
+    /// <summary>
+    /// Sets the specified value (bool) of the passed in key (Vector3) to false, signifying
+    /// that it can be accessed again by other NPCs
+    /// </summary>
+    /// <param name="kitchenDestination"></param>
+    public void SetKitchenDestinationFree(Vector3 kitchenDestination)
+    {
+        if (hungryLib.ContainsKey(kitchenDestination))
+            hungryLib[kitchenDestination] = false;
+    }
+
+
+    /// <summary>
+    /// Sets the specified value (bool) of the passed in key (Vector3) to false, signifying
+    /// that it can be accessed again by other NPCs
+    /// </summary>
+    /// <param name="prayingDestination"></param>
+    public void SetPrayingDestinationFree(Vector3 prayingDestination)
+    {
+        if(prayingLib.ContainsKey(prayingDestination))
+            prayingLib[prayingDestination] = false;
     }
 
     /// <summary>
