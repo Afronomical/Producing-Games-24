@@ -6,24 +6,26 @@ using UnityEngine;
 public class EconomyManager : MonoBehaviour
 {
     public static EconomyManager instance;
-    private int budget = 0;
+    private int budget = 100;
+    public TMP_Text money;
 
     // Start is called before the first frame update
     void Start()
     {
         if(instance == null)
             instance = this;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        money.text = "£ " + budget;
     }
 
-    public void DisplayBudget(TMP_Text moneyText)
+    public void DisplayBudget()
     {
-        moneyText.text = "£ " + budget;
+        money.text = "£ " + budget;
     }
 
     public void AddIncome(int amount) { budget += amount; }
