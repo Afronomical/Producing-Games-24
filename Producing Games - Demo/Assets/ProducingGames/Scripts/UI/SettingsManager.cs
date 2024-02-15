@@ -23,8 +23,6 @@ public class SettingsManager : MonoBehaviour
     [SerializeField] private RectTransform panel;
     [SerializeField] private FPSCounter fpsCounter;
     [SerializeField] private int defaultMaxFPS = 60; // defult Max FPS
-    
-
 
     private List<int> availableMaxFPSOptions = new List<int> { 30, 60, 120, 144, 240 }; // Max FPS options // Customize as needed
 
