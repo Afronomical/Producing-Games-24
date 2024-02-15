@@ -8,6 +8,7 @@ public class SettingsManager : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject checkBox;
     [SerializeField] private Button vsyncButton;
     [SerializeField] private TextMeshProUGUI fpsText;
     [SerializeField] private TextMeshProUGUI vsyncButtonText;
@@ -23,8 +24,6 @@ public class SettingsManager : MonoBehaviour
     [SerializeField] private RectTransform panel;
     [SerializeField] private FPSCounter fpsCounter;
     [SerializeField] private int defaultMaxFPS = 60; // defult Max FPS
-    
-
 
     private List<int> availableMaxFPSOptions = new List<int> { 30, 60, 120, 144, 240 }; // Max FPS options // Customize as needed
 
@@ -250,7 +249,10 @@ public class SettingsManager : MonoBehaviour
         applyButtonClicked = false; // Reset the flag after processing
     }
     
-
+    public void OnBackCheck()
+    {
+        checkBox.SetActive(true);
+    }
 
 
     private void SetDropdownToCurrentResolution()
