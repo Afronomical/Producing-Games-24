@@ -72,6 +72,7 @@ public class Floating_Items : MonoBehaviour
                     startRotation -= Mathf.Abs(horizForce * shakeSpeed);
                     break;
             }
+            yield return null;
         }
         yield return new WaitForSeconds(shakeTime);
         Items[randIndex].useGravity = true;
