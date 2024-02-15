@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6857143631395918348}
   - component: {fileID: 784765376829506307}
   - component: {fileID: 5622805466106079655}
-  - component: {fileID: 3234213524639165696}
+  - component: {fileID: 724727192541703227}
   m_Layer: 0
   m_Name: DemonPill
   m_TagString: Untagged
@@ -136,7 +136,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3234213524639165696
+--- !u!114 &724727192541703227
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,8 +145,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6279819465787853623}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8eb94a4666ecc924d857772c61dace54, type: 3}
+  m_Script: {fileID: 11500000, guid: 13164634e52f3df4cb2bbfff4fc7d8c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectIcon: {fileID: 0}
+  objectIcon: {fileID: 21300000, guid: 5c6c1de5c4682fb49a10bdd17188f488, type: 3}
   collectible: {fileID: 11400000, guid: bae48322c31ea0e4faf31ee7c54d86d8, type: 2}
+  munchSoundEffect: {fileID: 11400000, guid: 2c6aaee9e38ab02429951390ef06a4af, type: 2}

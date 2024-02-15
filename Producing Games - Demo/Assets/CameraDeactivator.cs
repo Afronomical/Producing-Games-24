@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraDeactivator : MonoBehaviour
 {
-    public Camera cam;
+     Camera cam;
     void Start()
     {
         cam = GetComponent<Camera>();

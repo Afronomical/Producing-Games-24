@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Bed
+  - HolyWater
   layers:
   - Default
   - TransparentFX
