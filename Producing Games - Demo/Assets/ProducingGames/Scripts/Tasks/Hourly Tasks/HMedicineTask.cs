@@ -26,7 +26,7 @@ public class HMedicineTask : Task
 
     public override void FailTask()
     {
-        if (taskTarget.TryGetComponent(out AICharacter character))
+        if (taskTarget.TryGetComponent(out PatientCharacter character))
         {
             character.currentHealth -= 2;
             Debug.Log("Patient lost 2 health due to failed medicine task");

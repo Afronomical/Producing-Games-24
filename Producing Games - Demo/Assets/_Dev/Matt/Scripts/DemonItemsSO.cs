@@ -5,15 +5,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Demon Stats", menuName = "New Demon Stats",order = 1)]
 public class DemonItemsSO : ScriptableObject
 {
-    public string DemonName;
+    public string demonName;
 
-    public List<GameObject> ItemsForExorcism  = new();
+    public List<GameObject> itemsForExorcism  = new();
 
-    public List<StateBaseClass> LikelyStates = new(); 
+    public List<DemonStateBaseClass> likelyStates = new(); // Likely won't work
 
-    public SoundEffect BattleCryAudio;
-    public SoundEffect DefeatCryAudio; 
+    public SoundEffect battleCryAudio;
+    public SoundEffect defeatCryAudio;
 
-
+    public GameObject demonPrefab;
 
 }

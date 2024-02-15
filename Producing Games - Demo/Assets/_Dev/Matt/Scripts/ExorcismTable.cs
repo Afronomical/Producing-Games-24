@@ -79,13 +79,16 @@ public class ExorcismTable : MonoBehaviour
     public void FailExorcism()
     {
         Debug.Log("Failed Exorcism");
-        //enable rage mode here 
+        //enable rage mode here. or game end 
+
     }
 
     public void CompleteExorcism()
     {
         Debug.Log("Exorcism Completed!");
-        //set task as complete here
+        //set task as complete here. win screen or demon scream etc 
+        GameManager.Instance.demon.GetComponent<DemonCharacter>().ChangeDemonState(DemonCharacter.DemonStates.Exorcised);
+
     }
 
     /// <summary>
@@ -110,7 +113,7 @@ public class ExorcismTable : MonoBehaviour
 
     void AcquireDemonObjects()
     {
-        foreach(var item in NPCManager.Instance.ChosenDemon.ItemsForExorcism)
+        foreach(var item in NPCManager.Instance.ChosenDemon.itemsForExorcism)
         {
             requiredObjects.Add(item.gameObject);
             Debug.Log(item.gameObject + "has been added to required list ");

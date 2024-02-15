@@ -27,7 +27,10 @@ public class GameManager : MonoBehaviour
     public SanityEventTracker.SanityLevels sanityLevel;
     [HideInInspector] public SanityEventTracker sanityEvents;
 
+    [Header("Patients")]
+    public GameObject demon; 
     private int patientCount;
+
 
     private void Awake()
     {
@@ -80,7 +83,7 @@ public class GameManager : MonoBehaviour
 
         foreach (GameObject AI in NPCManager.Instance.NPCS)  // Put all NPCs in bed
         {
-            AI.GetComponent<AICharacter>().ChangeState(AICharacter.States.Bed);
+            //AI.GetComponent<AICharacter>().ChangeState(AICharacter.States.Bed);
 
             //if (AI.GetComponent<AICharacter>().isPossessed)  <------ Leave Rage mode
             //    AI.GetComponent<AICharacter>().

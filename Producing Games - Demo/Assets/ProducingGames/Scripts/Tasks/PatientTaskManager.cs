@@ -50,7 +50,7 @@ public class PatientTaskManager : MonoBehaviour
     {
         for (int i = 0; i < patients.Length; i++)
         {
-            if (patients[i].GetComponent<AICharacter>().currentHealth > 0)
+            if (patients[i].GetComponent<PatientCharacter>().currentHealth > 0)
             {
                 for (int j = 0; j < tasksPerPatient; j++)
                 {
@@ -116,7 +116,7 @@ public class PatientTaskManager : MonoBehaviour
     {
         for (int i = 0; i < patients.Length; i++)
         {
-            if (patients[i].GetComponent<AICharacter>().currentHealth > 0)
+            if (patients[i].GetComponent<PatientCharacter>().currentHealth > 0)
             {
                 List<RandomTask> choiceOfTasks = new List<RandomTask>();
                 int totalChance = 0;
@@ -130,7 +130,7 @@ public class PatientTaskManager : MonoBehaviour
 
                     if (t.taskName == "Heart Attack")  // Heart attack chance increase
                     {
-                        AICharacter patient = patients[i].GetComponent<AICharacter>();
+                        PatientCharacter patient = patients[i].GetComponent<PatientCharacter>();
                         int heartAttackChance = patient.startingHealth - patient.currentHealth;
                         for (int j = 0; j < heartAttackChance; j++)
                         {
