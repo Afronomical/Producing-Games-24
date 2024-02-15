@@ -16,8 +16,8 @@ public class Floating_Items : MonoBehaviour
     public float maxHeight;
     public float ascendSpeed;
     [Space]
-    [Header ("Shake Forces")]
-    public float shakeSpeed;
+    [Header ("Shake Settings")]
+    public float maxRotAngle = 45f;
     public float shakeTime;   
 
     void Start()
@@ -31,7 +31,9 @@ public class Floating_Items : MonoBehaviour
         if (!isTriggered)
         {
             StartCoroutine(ShakingItem());
+            isTriggered = true;
         }
+
     }
 
     IEnumerator ShakingItem()
@@ -39,13 +41,17 @@ public class Floating_Items : MonoBehaviour
         float vertForce = Random.Range(minHeight, maxHeight);
         float horizForce = Random.Range(-5f, 5f);
         float ascendTime = 0f;
-        
+        float startRotation = 0f; 
+        float delta = 0f;
+
         ascendSpeed += (Time.deltaTime * ascendSpeed);
 
+        //chose a random item in list
         int randIndex = Random.Range(0, Items.Length);
 
         Items[randIndex].useGravity = false;       
 
+        // Ascend item, define possible heights and speeds in inspector
         while (ascendTime < 1f)
         {
             ascendTime += Time.deltaTime * ascendSpeed;
@@ -53,47 +59,27 @@ public class Floating_Items : MonoBehaviour
             new Vector3(Items[randIndex].position.x, (Mathf.Lerp(Items[randIndex].position.y, vertForce, ascendTime)), Items[randIndex].position.z);
             yield return null;
         }
-
-
-        float startRotation = 0f;
-        float targetRotation = 15f;
-
-
-        while (startRotation != targetRotation)
+         
+        // Shake the item using max rotation angle and define time with shakeTime variable
+        while (delta <= shakeTime)
         {
-            switch (startRotation < targetRotation)
+            switch (startRotation < maxRotAngle)
             {
                 case true:
-                    Items[randIndex].AddRelativeTorque(Vector3.right * horizForce * shakeSpeed, ForceMode.Impulse);
-                    startRotation += Mathf.Abs(horizForce * shakeSpeed);
+                    Items[randIndex].AddRelativeTorque(Vector3.right * horizForce, ForceMode.Impulse);
+                    startRotation += Mathf.Abs(horizForce);
                     break;
                 case false:
-                    Items[randIndex].AddRelativeTorque(Vector3.left * horizForce * shakeSpeed, ForceMode.Impulse);
-                    startRotation -= Mathf.Abs(horizForce * shakeSpeed);
+                    Items[randIndex].AddRelativeTorque(Vector3.left * horizForce, ForceMode.Impulse);
+                    startRotation -= Mathf.Abs(horizForce);
                     break;
             }
+            delta += Time.deltaTime;
             yield return null;
         }
-        yield return new WaitForSeconds(shakeTime);
+
+        yield return new WaitForSeconds(1);
         Items[randIndex].useGravity = true;
-        isTriggered = true;
-        /*// Rotate to the target angle
-        if (startRotation < targetRotation)
-        {
-            Items[randIndex].AddRelativeTorque(Vector3.right * horizForce * shakeSpeed, ForceMode.Impulse);
-            startRotation += Mathf.Abs(horizForce * shakeSpeed);
-            yield return null;
-        }
-
-        // Reverse rotation
-        if (startRotation >= targetRotation)
-        {
-            Items[randIndex].AddRelativeTorque(Vector3.left * horizForce * shakeSpeed, ForceMode.Impulse); 
-            startRotation -= Mathf.Abs(horizForce * shakeSpeed);
-            yield return null;
-        }*/
-
-        //Items[randIndex].AddRelativeTorque((Vector3.right * horizForce * shakeSpeed), ForceMode.Impulse);
-        //yield return new WaitForSeconds(shakeTime);
+        
     }
 }

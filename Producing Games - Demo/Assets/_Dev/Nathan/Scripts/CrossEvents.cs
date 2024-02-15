@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// Script is subject to change as the cross will have to be an interactable item so that it can be put back on wall and turned right way up
 public class CrossEvents : MonoBehaviour
 {
+    [Header("Cross Item Components")]
     public GameObject Cross;
     public Rigidbody rb;
+    [Space]
+    [Header("Cross Variables")]
     public float rotationSpeed;
     private float rotTime;
     public float throwingForce;
@@ -47,7 +52,7 @@ public class CrossEvents : MonoBehaviour
 
     }
 
-
+    
     void FallingCross()
     {
         rb.useGravity = true;
@@ -55,6 +60,7 @@ public class CrossEvents : MonoBehaviour
         
     }
 
+    
     void invertedCross()
     {
         if (isRotating)

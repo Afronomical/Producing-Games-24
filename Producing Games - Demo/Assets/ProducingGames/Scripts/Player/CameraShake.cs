@@ -7,7 +7,7 @@ using UnityEngine.Rendering;
 // To use this script, attach this script to the main camera
 // The camera also needs to then be dragged into the 'camera shake' option in the inspector for the player movement script
 // To call the camera shake in other scripts, make a reference of this script e.g "CameraShake camShake"
-// Then call  StartCoroutine(cameraShake.CamShake(.15f, .2f)); NOTE first variable is duration, second is shake intensity
+// Then call  StartCoroutine(camShake.CamShake(.15f, .2f)); NOTE first variable is duration, second is shake intensity
 
 public class CameraShake : MonoBehaviour
 {
