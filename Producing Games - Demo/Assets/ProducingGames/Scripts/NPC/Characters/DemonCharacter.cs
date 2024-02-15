@@ -15,7 +15,8 @@ public class DemonCharacter : AICharacter
 
         Patrol,
         Chase,
-        Attack
+        Attack,
+        Exorcised
     }
 
     public DemonStates currentState;
@@ -70,6 +71,9 @@ public class DemonCharacter : AICharacter
                     break;
                 case DemonStates.Attack:
                     demonStateScript = transform.AddComponent<AttackState>();
+                    break;
+                case DemonStates.Exorcised:
+                    //demonStateScript = transform.AddComponent<ExorcisedState>();
                     break;
                 case DemonStates.None:
                     demonStateScript = null;

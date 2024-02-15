@@ -24,6 +24,9 @@ public class GameManager: MonoBehaviour
     [Header("Sanity")]
     [Range(0, 100)] public int startingSanity = 100;
     private int currentSanity;
+
+    [Header("The Demon")]
+    public GameObject demon; 
     
 
     private void Awake()
