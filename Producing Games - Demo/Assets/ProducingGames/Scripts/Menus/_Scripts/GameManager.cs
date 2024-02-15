@@ -57,27 +57,21 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void EndGame()
+    public void EndGame(bool win)
     {
         Debug.Log("Game has ENDED");
-        ////if playerstate == win 
-        ///win game 
-        ///levelmanager.endgame or roll credits 
-        ///
-        ///if playerstate == lose 
-        ///lose game. main menu or restart level 
+        // <--- if win, show win screen
+        // <--- else show lose screen
     }
 
 
     private IEnumerator StartHour()
     {
-        // Fade out
-
-        Time.timeScale = 0;
-        yield return new WaitForSeconds(0);
-        Time.timeScale = 1;
-
-        // Fade in
+        // <--- Fade out
+        // <--- Freeze player
+        yield return new WaitForSeconds(50);
+        // <--- Unfreeze player
+        // <--- Fade in
 
         player.GetComponent<CharacterController>().enabled = false;
         player.transform.position = playerStartPosition.position;
@@ -99,21 +93,23 @@ public class GameManager : MonoBehaviour
 
         PatientTaskManager.instance.SetHourlyTasks();
         PatientTaskManager.instance.SetRandomTasks();
+
+        yield return new WaitForSeconds(0);
     }
 
 
     private void UpdateTime()
     {
-        if (!inStudy)
+        if (!inStudy)  // If the player is not in the study
         {
-            currentTime += Time.deltaTime * (1 / hourLength);
+            currentTime += Time.deltaTime * (1 / hourLength);  // Increment the minutes timer
 
             if (!shiftEndActive && currentTime >= shiftLength)  // When the shift ends
             {
                 StartShiftEnd();  // Start shift end phase
             }
 
-            if (currentTime >= 60)
+            if (currentTime >= 60)  // If the player has been out for the whole hour
             {
                 EndHour();
             }
@@ -129,33 +125,33 @@ public class GameManager : MonoBehaviour
 
         if (currentHour <= finalHour)
         {
-            StartCoroutine(StartHour());
+            StartCoroutine(StartHour());  // Move to the next hour
         }
-        else 
+        else  // If the final hour just ended
         {
-            EndGame();
+            EndGame(false);  // Lose the game
         }
     }
 
 
-    public void StartShift()
+    public void StartShift()  // Called when the player leaves the study
     {
-        inStudy = false;
+        inStudy = false;  // Starts the timer
     }
 
 
-    private void StartShiftEnd()
+    private void StartShiftEnd()  // When the player has been out for too long
     {
         shiftEndActive = true;
         
         /*
         foreach(GameObject AI in NPCManager.Instance.NPCS)
         {
-            if (AI.GetComponent<AICharacter>().isPossessed) <---- ENTER RAGE MODE HERE
+            if (AI.GetComponent<AICharacter>().isPossessed) <--- ENTER RAGE MODE HERE
                 AI.GetComponent<AICharacter>().
         }*/
 
-        // Lock patient doors
+        // <--- Lock patient doors
     }
 
 
@@ -179,9 +175,9 @@ public class GameManager : MonoBehaviour
 
     private void CheckRemainingPatients()
     {
-        if (patientCount <= 0)
+        if (patientCount <= 0)  // If all patients are dead
         {
-            EndGame();
+            EndGame(false);  // Lose the game
         }
     }
 }
