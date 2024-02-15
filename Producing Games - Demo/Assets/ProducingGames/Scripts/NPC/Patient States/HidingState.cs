@@ -48,4 +48,13 @@ public class HidingState : PatientStateBaseClass
         // INFO: Chooses a location to hide at
         hidingLocation = NPCManager.Instance.RandomHidingLocation();
     }
+
+    /// <summary>
+    /// When the script is destroyed (changes state) it will free up the hiding
+    /// spot location ready for when the next hiding task is set for a patient
+    /// </summary>
+    private void OnDestroy()
+    {
+        NPCManager.Instance.SetHidingLocationFree(hidingLocation);
+    }
 }
