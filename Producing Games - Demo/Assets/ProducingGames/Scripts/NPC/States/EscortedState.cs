@@ -41,6 +41,12 @@ public class EscortedState : StateBaseClass
     {
         targetPos = character.player.transform.position;
 
+        if(character.deterred)
+        {
+            character.ChangeState(AICharacter.States.Abandoned);
+            character.deterred = false;
+        }
+
         if (raycastToPlayer.PlayerDetected()) //player is detected. following player function is called. 
         {
             if (timeAlone != 0)

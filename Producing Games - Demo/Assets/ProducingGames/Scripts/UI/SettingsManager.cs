@@ -8,24 +8,34 @@ public class SettingsManager : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject pauseMenu;
-    [SerializeField] private FPSCounter fpsCounter;
     [SerializeField] private Button vsyncButton;
+    [SerializeField] private TextMeshProUGUI fpsText;
     [SerializeField] private TextMeshProUGUI vsyncButtonText;
     [SerializeField] private TMP_Dropdown resolutionDropdown;
-    [SerializeField] private TextMeshProUGUI fpsText;
-    [SerializeField] private Slider brightnessSlider;
+    [SerializeField] private TMP_Dropdown maxFPSDropdown;
     [SerializeField] private RawImage overlayImage;
     [SerializeField] private Slider globalVolumeSlider;
     [SerializeField] private Slider soundEffectVolumeSlider;
+    [SerializeField] private Slider scaleSlider;
+    [SerializeField] private Slider brightnessSlider;
     [SerializeField] private Slider musicVolumeSlider;
     [SerializeField] private AudioManager audioManager;
-    [SerializeField] private Slider scaleSlider;
     [SerializeField] private RectTransform panel;
+    [SerializeField] private FPSCounter fpsCounter;
+    [SerializeField] private int defaultMaxFPS = 60; // defult Max FPS
+    
 
-    private float originalAspect;  
+
+    private List<int> availableMaxFPSOptions = new List<int> { 30, 60, 120, 144, 240 }; // Max FPS options // Customize as needed
+
+    private int selectedMaxFPS;
+    private int currentMaxFPS;
+    private int originalMaxFPS;
+
+    private float originalAspect;
     private float tempBrightnessValue;
+    
     private bool tempFPSDisplayValue;
-
     private bool overlayVisible = false;
     private bool vsyncEnabled = true;
     private bool fpsDisplayEnabled = true;
@@ -74,6 +84,9 @@ public class SettingsManager : MonoBehaviour
     {
         LoadSettings();
 
+        // Set the default max FPS
+        Application.targetFrameRate = defaultMaxFPS;
+
         if (vsyncButton == null || vsyncButtonText == null || resolutionDropdown == null)
         {
             Debug.LogError("UI references are not assigned in the Unity Editor.");
@@ -81,8 +94,10 @@ public class SettingsManager : MonoBehaviour
         }
 
         PopulateResolutions();
+        PopulateMaxFPSDropdown();
 
         resolutionDropdown.onValueChanged.AddListener(OnResolutionChanged);
+        maxFPSDropdown.onValueChanged.AddListener(OnMaxFPSChanged);
 
         UpdateVSyncButtonText();
         ToggleFPSDisplay();
@@ -92,6 +107,10 @@ public class SettingsManager : MonoBehaviour
         globalVolumeSlider.onValueChanged.AddListener(OnGlobalVolumeChanged);
         soundEffectVolumeSlider.onValueChanged.AddListener(OnSoundEffectVolumeChanged);
         musicVolumeSlider.onValueChanged.AddListener(OnMusicVolumeChanged);
+
+        // Set the dropdown to show the current resolution
+        SetDropdownToCurrentResolution();
+
     }
 
     void Update()
@@ -102,6 +121,8 @@ public class SettingsManager : MonoBehaviour
             fpsText.text = "FPS: " + fps;
         }
     }
+    
+    
 
     #endregion
 
@@ -159,8 +180,13 @@ public class SettingsManager : MonoBehaviour
             Debug.LogError("Resolution dropdown has no options.");
         }
 
+        if (applyButtonClicked)
+        {
+            ApplyMaxFPSSetting();
+        }
+
         // Save the brightness value to PlayerPrefs
-        
+
         PlayerPrefs.SetFloat("Brightness", brightnessSlider.value);
         PlayerPrefs.Save();
         Debug.Log("Brightness Setting Changed: " + brightnessSlider.value);
@@ -177,7 +203,20 @@ public class SettingsManager : MonoBehaviour
             settingsPanel.SetActive(false);
             pauseMenu.SetActive(true);
             selectedResolution = null;
-            tempSelectedResolution = null;
+
+            // Revert the resolution value to the one stored in PlayerPrefs
+            tempSelectedResolution = PlayerPrefs.GetString("Resolution", selectedResolution);
+
+            // Update the dropdown to show the current resolution
+            SetDropdownToCurrentResolution();
+
+            // Update the dropdown to show the reverted resolution
+            int index = resolutionDropdown.options.FindIndex(option => option.text == tempSelectedResolution);
+            if (index != -1)
+            {
+                resolutionDropdown.value = index;
+                resolutionDropdown.RefreshShownValue();
+            }
 
             // Revert FPS display value to the temporary value
             fpsDisplayEnabled = tempFPSDisplayValue;
@@ -189,6 +228,16 @@ public class SettingsManager : MonoBehaviour
             PlayerPrefs.Save();
             Debug.Log("Brightness Setting Reverted: " + tempBrightnessValue);
 
+            // Revert the max FPS value to the original value
+            selectedMaxFPS = originalMaxFPS;
+
+            // Update the dropdown to show the current max FPS
+            SetDropdownToCurrentMaxFPS();
+
+            ApplyMaxFPSSetting();  // Apply the reverted max FPS setting
+
+            // Update other settings as needed...
+
             Debug.Log("Original Settings Reverted");
         }
         else
@@ -197,34 +246,42 @@ public class SettingsManager : MonoBehaviour
             settingsPanel.SetActive(false);
             pauseMenu.SetActive(true);
             selectedResolution = null;
-            tempSelectedResolution = null;
         }
         applyButtonClicked = false; // Reset the flag after processing
     }
+    
 
 
+
+    private void SetDropdownToCurrentResolution()
+    {
+        Resolution currentResolution = Screen.currentResolution;
+        string currentResolutionString = $"{currentResolution.width}x{currentResolution.height}";
+
+        int index = resolutionDropdown.options.FindIndex(option => option.text == currentResolutionString);
+        if (index != -1)
+        {
+            resolutionDropdown.value = index;
+            resolutionDropdown.RefreshShownValue();
+        }
+    }
 
     #endregion
 
     #region Settings Manipulation Methods
 
+
+    // RESOLUTION
     private void PopulateResolutions()
     {
         resolutionDropdown.ClearOptions();
 
-        List<string> resolutions = new List<string>
+        List<string> resolutions = new List<string>();
+
+        foreach (var resolution in Screen.resolutions)
         {
-            "3840x2160", // 4k
-            "2560x1440", // QHD
-            "1920x1080", // Full HD
-            "1366x768",
-            "1280x1024",
-            "1440x900",
-            "1600x900",
-            "1680x1050",
-            "1280x800",
-            "1024x768"
-        };
+            resolutions.Add($"{resolution.width}x{resolution.height}");
+        }
 
         resolutionDropdown.AddOptions(resolutions);
     }
@@ -265,6 +322,46 @@ public class SettingsManager : MonoBehaviour
         }
     }
 
+
+    // MAX FPS
+    private void PopulateMaxFPSDropdown()
+    {
+        maxFPSDropdown.ClearOptions();
+        List<string> maxFPSOptions = new List<string>();
+
+        foreach (int option in availableMaxFPSOptions)
+        {
+            maxFPSOptions.Add(option.ToString());
+        }
+
+        maxFPSDropdown.AddOptions(maxFPSOptions);
+    }
+
+    private void OnMaxFPSChanged(int index)
+    {
+        selectedMaxFPS = availableMaxFPSOptions[index];
+    }
+
+    private void ApplyMaxFPSSetting()
+    {
+        // Apply the selected max FPS setting
+        Application.targetFrameRate = selectedMaxFPS;
+        Debug.Log("Max FPS set to: " + selectedMaxFPS);
+    }
+
+    private void SetDropdownToCurrentMaxFPS()
+    {
+        int index = availableMaxFPSOptions.IndexOf(selectedMaxFPS);
+
+        if (index != -1)
+        {
+            maxFPSDropdown.value = index;
+            maxFPSDropdown.RefreshShownValue();
+        }
+    }
+
+
+    // Brightness slider
     private void OnBrightnessChanged(float value)
     {
         if (!overlayVisible)
@@ -371,22 +468,26 @@ public class SettingsManager : MonoBehaviour
     private void LoadSettings(bool toggleFPSCounter = true)
     {
         // Load all settings from PlayerPrefs
+
+        // Load VSync setting
         if (PlayerPrefs.HasKey("VSync"))
         {
             vsyncEnabled = PlayerPrefs.GetInt("VSync") == 1;
         }
 
+        // Load FPS Display setting
         if (PlayerPrefs.HasKey("FPSDisplay"))
         {
             fpsDisplayEnabled = PlayerPrefs.GetInt("FPSDisplay") == 1;
 
+            // Toggle FPS Display if needed
             if (toggleFPSCounter)
             {
                 ToggleFPSDisplay();
             }
         }
 
-        // Load other settings
+        // Load other audio settings
         if (PlayerPrefs.HasKey("GlobalVolume"))
         {
             audioManager.globalVolume = PlayerPrefs.GetFloat("GlobalVolume");
@@ -402,21 +503,58 @@ public class SettingsManager : MonoBehaviour
             audioManager.musicVolume = PlayerPrefs.GetFloat("MusicVolume");
         }
 
-        // Load brightness and panel scale
+        // Load brightness and apply it
         if (PlayerPrefs.HasKey("Brightness"))
         {
             float brightnessValue = PlayerPrefs.GetFloat("Brightness");
             OnBrightnessChanged(brightnessValue); // Apply brightness
         }
 
-        // if (PlayerPrefs.HasKey("PanelScale"))
-        // {
-        //     float scaleValue = PlayerPrefs.GetFloat("PanelScale");
-        //     SetPanelScale(scaleValue); // Apply panel scale
-        // }
+        // Load the resolution setting and update the UI
+        if (PlayerPrefs.HasKey("Resolution"))
+        {
+            tempSelectedResolution = PlayerPrefs.GetString("Resolution");
+            int index = resolutionDropdown.options.FindIndex(option => option.text == tempSelectedResolution);
+
+            if (index != -1)
+            {
+                resolutionDropdown.value = index;
+                resolutionDropdown.RefreshShownValue();
+            }
+        }
+
+        // Load the max FPS setting and update the UI
+        if (PlayerPrefs.HasKey("MaxFPS"))
+        {
+            int loadedMaxFPS = PlayerPrefs.GetInt("MaxFPS", defaultMaxFPS);
+
+            // Ensure that the loaded max FPS is within the available options
+            if (availableMaxFPSOptions.Contains(loadedMaxFPS))
+            {
+                selectedMaxFPS = loadedMaxFPS;
+                currentMaxFPS = loadedMaxFPS;  // Store the currently selected max FPS
+                originalMaxFPS = loadedMaxFPS; // Store the original max FPS
+            }
+            else
+            {
+                // If the loaded value is not in the available options, use the default
+                selectedMaxFPS = defaultMaxFPS;
+                currentMaxFPS = defaultMaxFPS;
+                originalMaxFPS = defaultMaxFPS;
+            }
+
+            // Update the dropdown to show the current max FPS
+            SetDropdownToCurrentMaxFPS();
+        }
+        else
+        {
+            // If the max FPS setting is not found in PlayerPrefs, use the default
+            selectedMaxFPS = defaultMaxFPS;
+            currentMaxFPS = defaultMaxFPS;
+            originalMaxFPS = defaultMaxFPS;
+        }
 
         // Load more settings if needed
     }
-
     #endregion
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -13,17 +11,22 @@ using UnityEngine;
 
 public class DoorInteractable : InteractableTemplate
 {
+    [Header("References:")]
     [SerializeField] private Transform doorHingeTransform;
-    [SerializeField] private float doorRotationOffset = 45.0f;
+
+    [Header("Customizables:")]
+    [Tooltip("How much the door rotates by in degrees")][SerializeField] private float doorRotationOffset = 45.0f;
+    [Tooltip("The delay between interactions in seconds")][SerializeField] private float interactionInterval = 2.0f;
     [SerializeField] private float doorRotationSpeed = 1.75f;
     [SerializeField] private bool isLocked = false;
-    [SerializeField] private float interactionInterval = 2.0f;
 
     private bool isOpen = false;
-    private float timeSinceInteraction = 0.0f;
-    private float t = 0.0f;
-    private bool interactedWithDoor = false;
-    private bool rotateDoor = false;
+    private bool hasInteractedWithDoor = false;
+    private bool isDoorRotating = false;
+
+    private float timeSinceInteraction = 0.0f; // INFO: Prevents multiple interactions at once
+    private float t = 0.0f; // INFO: How much the door lerps
+
     private Quaternion initialDoorRotation;
     private Quaternion targetRotation;
     private Transform playerPosition;
@@ -51,69 +54,62 @@ public class DoorInteractable : InteractableTemplate
 
     private void Update()
     {
-        if (rotateDoor)
+        // INFO: If the door is currently rotating:
+        if (isDoorRotating)
         {
+            // INFO: Calculate the speed at which the door will rotate
             t = Mathf.Clamp01(t + doorRotationSpeed * Time.deltaTime);
-            doorHingeTransform.rotation = Quaternion.Lerp(doorHingeTransform.rotation, targetRotation, doorRotationSpeed * Time.deltaTime);
+            doorHingeTransform.rotation = Quaternion.Slerp(doorHingeTransform.rotation, targetRotation, doorRotationSpeed * Time.deltaTime);
 
             if (doorHingeTransform.rotation == targetRotation)
-            {
-                rotateDoor = false;
-                //Debug.Log("Finished rotating");
-            }
+                isDoorRotating = false;
         }
 
         // INFO: Prevents multiple interactions
-        if (interactedWithDoor)
+        if (hasInteractedWithDoor)
         {
             timeSinceInteraction += Time.deltaTime;
 
             if (timeSinceInteraction > interactionInterval)
             {
                 timeSinceInteraction = 0.0f;
-                interactedWithDoor = false;
+                hasInteractedWithDoor = false;
             }
         }
     }
 
     public override void Interact()
     {
-        if (!interactedWithDoor)
+        // INFO: Given that the player tries to interact with the door when the interaction is
+        // still on cooldown, the function won't do anything
+        if (hasInteractedWithDoor)
+            return;
+
+        hasInteractedWithDoor = true;
+
+        // INFO: Given that the player is holding an item and that item has a key interactable component on it then:
+        if (InventoryHotbar.instance.currentItem != null && InventoryHotbar.instance.currentItem.prefab.TryGetComponent<KeyInteractable>(out _))
         {
-            interactedWithDoor = true;
-
-            if (InventoryHotbar.instance.currentItem != null && InventoryHotbar.instance.currentItem.prefab.TryGetComponent<KeyInteractable>(out _))
+            if (isLocked)
+                isLocked = false;
+            else
             {
-                if (isLocked)
-                    isLocked = false;
-                else
-                {
-                    isLocked = true;
+                isLocked = true;
 
-                    ChangeDoorState();
-                }
-
-                ChangeDoorMaterial();
-            }
-            else if (!isLocked)
-            {
+                // INFO: Closes the door automatically if it's open when the player locks it
                 ChangeDoorState();
             }
+            ChangeDoorMaterial();
         }
+        else if (!isLocked)
+            ChangeDoorState();
     }
 
     private void ChangeDoorState()
     {
-        if(isLocked)
-        {
-            targetRotation = initialDoorRotation;
-            return; 
-        }
-        
-        if (isOpen)
+        if (isOpen || isLocked)
         {
             isOpen = false;
-
             targetRotation = initialDoorRotation;
         }
         else if (!isOpen)
@@ -124,20 +120,15 @@ public class DoorInteractable : InteractableTemplate
 
             Vector3 currentRotation = doorHingeTransform.rotation.eulerAngles;
 
+            // INFO: Opens the door outwards based on which way the player is facing it
             if (dot >= 0.0f)
-            {
                 currentRotation.y += doorRotationOffset;
-            }
             else
-            {
                 currentRotation.y -= doorRotationOffset;
-            }
-
 
             targetRotation = Quaternion.Euler(currentRotation);
         }
-
-        rotateDoor = true;
+        isDoorRotating = true;
     }
 
     // INFO: Temp function for locked/unlocked door visualisation
