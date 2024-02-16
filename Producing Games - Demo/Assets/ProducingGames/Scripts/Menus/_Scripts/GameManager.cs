@@ -152,16 +152,20 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator StartShift(Transform startShiftPosition)  // Called when the player leaves the study
     {
-        Debug.Log("Start Shift");
+        Debug.Log("Start Shift/Stage 1");
         inStudy = false;  // Starts the timer
         player.GetComponent<PlayerInput>().enabled = false;
         FadeOut();
         yield return new WaitForSeconds(3);
+        Debug.Log("stage 2");
         FadeIn();
         //studyDoor.collectible = studyDoor.endHourSO;
         player.GetComponent<PlayerInput>().enabled = true;
+        player.GetComponent<CharacterController>().enabled = false;
         GameManager.Instance.player.transform.position = startShiftPosition.position;
         GameManager.Instance.player.transform.rotation = startShiftPosition.rotation;
+        player.GetComponent<CharacterController>().enabled = true;
+        Debug.Log("Stage 3"); 
     }
 
 
