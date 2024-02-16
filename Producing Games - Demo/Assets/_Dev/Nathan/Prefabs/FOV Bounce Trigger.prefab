@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6574565185515122263}
   - component: {fileID: 4043414934304799265}
   m_Layer: 0
-  m_Name: FOV Bounce
+  m_Name: FOV Bounce Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,6 +67,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
-  maxFOV: 80
+  maxFOV: 70
   changeSpeed: 2
   bounceTime: 10

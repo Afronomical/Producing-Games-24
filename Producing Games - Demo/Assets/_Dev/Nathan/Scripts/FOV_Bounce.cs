@@ -58,9 +58,9 @@ public class FOV_Bounce : MonoBehaviour
             delta += Time.deltaTime;
             yield return null;
         }
-
-        yield return new WaitForSeconds(1);
         cam.fieldOfView = initialFOV;
+        yield return new WaitForSeconds(1);
+        
 
     }
 }
