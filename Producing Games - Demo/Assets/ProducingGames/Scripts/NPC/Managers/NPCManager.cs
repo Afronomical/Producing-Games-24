@@ -58,12 +58,12 @@ public class NPCManager : MonoBehaviour
 
         AssignRandomDemonType();
 
-        //GameObject[] beds = GameObject.FindGameObjectsWithTag("Bed");
-        //foreach (var item in beds)
-        //{
-        //    patientBeds.Add(item);
-        //    Debug.Log("added beds");
-        //}
+        GameObject[] beds = GameObject.FindGameObjectsWithTag("Bed");
+        foreach (var item in beds)
+        {
+            patientBeds.Add(item);
+            Debug.Log("added beds");
+        }
 
         // INFO: Add all vector3 positions to the dictionary and initialise
         // their value as false (which states that the location hasn't been taken yet)
@@ -264,11 +264,11 @@ public class NPCManager : MonoBehaviour
     {
         foreach(GameObject npc in patientList)
         {
-            //int bedChoice = Random.Range(0, patientBeds.Count);
-            //GameObject chosenBed = patientBeds[bedChoice];
-            //npc.GetComponent<PatientCharacter>().bed = chosenBed;
-            //Debug.Log("Set " + npc.name + "to bed number: " + chosenBed);
-            //patientBeds.Remove(chosenBed);
+            int bedChoice = Random.Range(0, patientBeds.Count);
+            GameObject chosenBed = patientBeds[bedChoice];
+            npc.GetComponent<PatientCharacter>().bed = chosenBed;
+            Debug.Log("Set " + npc.name + "to bed number: " + chosenBed);
+            patientBeds.Remove(chosenBed);
         }
     }
 }
