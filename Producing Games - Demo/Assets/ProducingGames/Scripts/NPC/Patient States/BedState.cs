@@ -31,9 +31,4 @@ public class BedState : PatientStateBaseClass
         //Debug.Log("Player in Bed State"); 
         ////fix character transform to bed pos. 
     }
-
-    private void OnDestroy()
-    {
-        character.agent.enabled = true;
-    }
 }

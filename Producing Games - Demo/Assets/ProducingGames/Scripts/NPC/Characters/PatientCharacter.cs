@@ -80,6 +80,8 @@ public class PatientCharacter : AICharacter
 
         if (currentState != newState || patientStateScript == null)
         {
+            if (currentState == PatientStates.Bed || currentState == PatientStates.ReqMeds) agent.enabled = true;
+
             if (patientStateScript != null)
             {
                 //destroy current script attached to AI character
