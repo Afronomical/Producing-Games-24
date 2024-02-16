@@ -22,6 +22,7 @@ public class PrayerState : PatientStateBaseClass
 
     private void Start()
     {
+        character.agent.enabled = true;
         character.agent.ResetPath();
         prayingDestination = NPCManager.Instance.RandomPrayingDestination();
         character.agent.speed = 0.0f;

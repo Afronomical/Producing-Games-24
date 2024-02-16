@@ -56,6 +56,8 @@ public class DemonCharacter : AICharacter
 
         if (currentState != newState || demonStateScript == null)
         {
+            if (currentState == DemonStates.Inactive) gameObject.SetActive(true);
+
             if (demonStateScript != null)
             {
                 //destroy current script attached to AI character

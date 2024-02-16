@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour
     public void EndGame(bool win)
     {
         Debug.Log("Game has ENDED");
+        Cursor.lockState = CursorLockMode.Confined;
         if (win)
             LevelManager.LoadScene(LevelManager.Scenes.WinScreen);
         else
