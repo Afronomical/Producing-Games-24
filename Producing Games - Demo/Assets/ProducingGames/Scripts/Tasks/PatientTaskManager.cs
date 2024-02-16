@@ -121,6 +121,11 @@ public class PatientTaskManager : MonoBehaviour
                         case HourlyTasks.Injection:
                             newTask = transform.AddComponent<HInjectionTask>();
                             break;
+                        case HourlyTasks.Food:
+                            newTask = transform.AddComponent<HFoodTask>();
+                            break;
+                        default:
+                            break;
                     }
 
 
@@ -129,8 +134,6 @@ public class PatientTaskManager : MonoBehaviour
                         currentTasks.Add(newTask);
                         newTask.hTask = chosenTask;
                         newTask.taskTarget = patients[i];
-                        patients[i].transform.Find("Eye 1").GetComponent<MeshRenderer>().material = chosenTask.taskEyes;
-                        patients[i].transform.Find("Eye 2").GetComponent<MeshRenderer>().material = chosenTask.taskEyes;
                         CheckList.instance.AddTask(newTask);
                     }
                 }
@@ -196,6 +199,18 @@ public class PatientTaskManager : MonoBehaviour
                         break;
                     case RandomTasks.HeartAttack:
                         newTask = transform.AddComponent<RHeartAttackTask>();
+                        break;
+                    case RandomTasks.Hiding:
+                        newTask = transform.AddComponent<RHidingTask>();
+                        break;
+                    case RandomTasks.Hungry:
+                        newTask = transform.AddComponent<RHungryTask>();
+                        break;
+                    case RandomTasks.Prayer:
+                        newTask = transform.AddComponent<RPrayingTask>();
+                        break;
+                    case RandomTasks.Medication:
+                        newTask = transform.AddComponent<RMedicationTask>();
                         break;
                     default:
                         break;

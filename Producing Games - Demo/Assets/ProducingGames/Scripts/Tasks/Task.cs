@@ -53,12 +53,6 @@ public class Task : MonoBehaviour
     {
         taskCompleted = true;
 
-        if (isHourlyTask)
-        {
-            taskTarget.transform.Find("Eye 1").GetComponent<MeshRenderer>().material = hTask.basicEyes;
-            taskTarget.transform.Find("Eye 2").GetComponent<MeshRenderer>().material = hTask.basicEyes;
-        }
-
 
         //steam achievement for completing first task
         //if(SteamManager.Initialized)
@@ -78,10 +72,6 @@ public class Task : MonoBehaviour
 
     public virtual void FailTask()
     {
-        if (isHourlyTask)
-        {
-            taskTarget.transform.Find("Eye 1").GetComponent<MeshRenderer>().material = hTask.basicEyes;
-            taskTarget.transform.Find("Eye 2").GetComponent<MeshRenderer>().material = hTask.basicEyes;
-        }
+
     }
 }

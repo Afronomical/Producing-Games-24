@@ -70,8 +70,10 @@ public class GameManager : MonoBehaviour
     public void EndGame(bool win)
     {
         Debug.Log("Game has ENDED");
-        // <--- if win, show win screen
-        // <--- else show lose screen
+        if (win)
+            LevelManager.LoadScene(LevelManager.Scenes.WinScreen);
+        else
+            LevelManager.LoadScene(LevelManager.Scenes.LoseScreen);
     }
 
 
@@ -79,7 +81,7 @@ public class GameManager : MonoBehaviour
     {
         // <--- Fade out
         // <--- Freeze player
-        yield return new WaitForSeconds(50);
+        yield return new WaitForSeconds(0);
         // <--- Unfreeze player
         // <--- Fade in
 
@@ -90,14 +92,10 @@ public class GameManager : MonoBehaviour
 
         foreach (GameObject AI in NPCManager.Instance.patientList)  // Put all NPCs in bed
         {
-            //AI.GetComponent<AICharacter>().ChangeState(AICharacter.States.Bed);
-
-            //if (AI.GetComponent<AICharacter>().isPossessed)  <------ Leave Rage mode
-            //    AI.GetComponent<AICharacter>().
-
+            AI.GetComponent<PatientCharacter>().ChangePatientState(PatientCharacter.PatientStates.Bed);
         }
 
-        // demon. <-- Do the same for demon
+        demon.GetComponent<DemonCharacter>().ChangeDemonState(DemonCharacter.DemonStates.Inactive);
 
         currentTime = 0;
         inStudy = true;
@@ -155,13 +153,8 @@ public class GameManager : MonoBehaviour
     private void StartShiftEnd()  // When the player has been out for too long
     {
         shiftEndActive = true;
-        
-        /*
-        foreach(GameObject AI in NPCManager.Instance.NPCS)
-        {
-            if (AI.GetComponent<AICharacter>().isPossessed) <--- ENTER RAGE MODE HERE
-                AI.GetComponent<AICharacter>().
-        }*/
+
+        demon.GetComponent<DemonCharacter>().ChangeDemonState(DemonCharacter.DemonStates.Patrol);
 
         // <--- Lock patient doors
     }
