@@ -15,6 +15,7 @@ public class CameraLook : MonoBehaviour
     private PlayerMovement playerMovement;
     private CharacterController playerController;
 
+
     [Header("Head Bobbing")]
     [SerializeField] public bool canHeadBob = true;
     [SerializeField] [Range(0.1f, 5f)] private float bobAmplitude = 0.5f;
@@ -23,9 +24,8 @@ public class CameraLook : MonoBehaviour
     private float bobOffSpeed = 3f;
     private Vector3 camStartPos;
 
-
+    private bool isLeaning;
     private float xRot = 0f;
-
 
 
     void Start()
@@ -49,6 +49,8 @@ public class CameraLook : MonoBehaviour
         transform.localRotation = Quaternion.Euler(xRot, 0f, 0f);  // Rotate the camera
         playerBody.Rotate(Vector3.up * mouseX);  // Rotate the player left and right
 
+        Leaning();
+
         // Head Bob
         if (canHeadBob)
         {
@@ -63,7 +65,27 @@ public class CameraLook : MonoBehaviour
         currentInput = context.ReadValue<Vector2>();
     }
 
-
+    private void Leaning()
+    {
+        if (Input.GetKey(KeyCode.Q))
+        {
+            isLeaning = true;
+            transform.localPosition = new Vector3(-0.45f, camStartPos.y, camStartPos.z);
+            transform.localRotation = Quaternion.Euler(xRot, 0f, 20f);
+        }
+        else if (Input.GetKey(KeyCode.E))
+        {
+            isLeaning = true;
+            transform.localPosition = new Vector3(0.45f, camStartPos.y, camStartPos.z);
+            transform.localRotation = Quaternion.Euler(xRot, 0f, -20f);
+        }
+        else
+        {
+            isLeaning = false;
+            transform.localPosition = camStartPos;
+            transform.localRotation = Quaternion.Euler(xRot, 0f, 0f);
+        }
+    }
 
     private void CheckMovement()
     {
@@ -87,7 +109,7 @@ public class CameraLook : MonoBehaviour
     
     private void BobReset()
     {
-        if (transform.localPosition != camStartPos)
+        if (transform.localPosition != camStartPos && isLeaning == false)
             transform.localPosition = Vector3.Lerp(transform.localPosition, camStartPos, Time.deltaTime * bobResetSpeed);
     }
 }
