@@ -12,6 +12,9 @@ public class CheckList : MonoBehaviour
     public GameObject[] pageArray;
     private int pageIndex;
 
+    public float turnPageDelay;
+    private float turnPageTimer;
+
     private GameObject taskParent;
 
     public GameObject taskPrefab;
@@ -36,6 +39,7 @@ public class CheckList : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        turnPageTimer += Time.deltaTime;
 
         //if(timer <= 0)
         //{
@@ -54,18 +58,22 @@ public class CheckList : MonoBehaviour
 
     public void OnFlipPage(InputAction.CallbackContext context)
     {
-        pageArray[pageIndex].SetActive(false);
-
-        if(context.ReadValue<Vector2>().y > 0 && pageIndex < pageArray.Length)
+        if (context.performed && turnPageTimer >= turnPageDelay)
         {
-            ++pageIndex;
-        }
-        else if (context.ReadValue<Vector2>().y < 0 && pageIndex > 0)
-        {
-            --pageIndex;
-        }
+            pageArray[pageIndex].SetActive(false);
 
-        pageArray[pageIndex].SetActive(true);
+            if (context.ReadValue<Vector2>().y > 0 && pageIndex < pageArray.Length - 1)
+            {
+                ++pageIndex;
+            }
+            else if (context.ReadValue<Vector2>().y < 0 && pageIndex > 0)
+            {
+                --pageIndex;
+            }
+
+            pageArray[pageIndex].SetActive(true);
+            turnPageTimer = 0;
+        }
     }
 
     public void AddTask(Task task)

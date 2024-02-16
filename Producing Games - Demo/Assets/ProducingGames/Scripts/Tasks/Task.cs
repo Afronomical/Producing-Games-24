@@ -44,8 +44,11 @@ public class Task : MonoBehaviour
 
     public virtual void DetectTask()
     {
-        taskNoticed = true;
-        CheckList.instance.AddTask(this);
+        if (!taskNoticed)
+        {
+            taskNoticed = true;
+            CheckList.instance.AddTask(this);
+        }
     }
 
 
