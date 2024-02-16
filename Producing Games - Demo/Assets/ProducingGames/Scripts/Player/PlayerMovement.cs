@@ -11,33 +11,15 @@ using Image = UnityEngine.UI.Image;
 public class PlayerMovement : MonoBehaviour
 {
     private CharacterController controller;
-    
-
-    [HideInInspector] public float defaultWalkSpeed;
-    [HideInInspector] public float defaultSprintSpeed;
-    [Header("Consumable Values")]
-    public bool boostedEffect = false;
-    public bool slowedEffect = false;
-    public bool stoppedEffect = false;
-    public bool dimmedEffect = false;
-    public float boostedEffectDuration;
-    public float slowedEffectDuration;
-    public float stoppedEffectDuration;
-    public float dimmedEffectDuration;
-
-    //effect timer values
-    private float currentSlowedTime;
-    private float currentStoppedTime;
-    private float currentBoostedTime;
-    private float currentDimmedTime;
-    [HideInInspector]
-    public Image panel;
-
 
     [Header("Ground Movement")]
     [Range(1, 15)] public float walkSpeed = 5;
     [Range(1, 15)] public float sprintSpeed = 8;
     [Range(1, 15)] public float crouchSpeed = 3;
+    public float crouchHeight = -1f;
+    public GameObject crouchObject;
+    [HideInInspector] public float defaultWalkSpeed;
+    [HideInInspector] public float defaultSprintSpeed;
     private float maxStamina;
     [Range(1, 100)]public float stamina = 50;
     [Range(1, 100)] public float staminaDrainSpeed = 25;
@@ -59,6 +41,23 @@ public class PlayerMovement : MonoBehaviour
     [Header("Inputs")]
     private bool jumpInput;
     private Vector2 currentInput;
+
+    [Header("Consumable Values")]
+    public bool boostedEffect = false;
+    public bool slowedEffect = false;
+    public bool stoppedEffect = false;
+    public bool dimmedEffect = false;
+    public float boostedEffectDuration;
+    public float slowedEffectDuration;
+    public float stoppedEffectDuration;
+    public float dimmedEffectDuration;
+
+    //effect timer values
+    private float currentSlowedTime;
+    private float currentStoppedTime;
+    private float currentBoostedTime;
+    private float currentDimmedTime;
+    [HideInInspector] public Image panel;
 
     [Header("Footstep Sounds")]
     // Walking
@@ -115,8 +114,10 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(new Vector3(move.x, yVelocity, move.z) * Time.deltaTime);  // Move the player
 
 
-        transform.localScale = new Vector3(transform.localScale.x, isCrouching ? 0.5f : 1f, transform.localScale.z);
-        //controller.height = isCrouching ? 1f : 2f;  // Make character shorter when crouching
+        //transform.localScale = new Vector3(transform.localScale.x, isCrouching ? 0.5f : 1f, transform.localScale.z);
+        if (isCrouching) crouchObject.transform.SetLocalPositionAndRotation(new Vector3(0, crouchHeight, 0), crouchObject.transform.localRotation);
+        else crouchObject.transform.SetLocalPositionAndRotation(new Vector3(0, 0, 0), crouchObject.transform.localRotation);
+
 
         FootstepSounds();
         if (Input.GetKeyDown(KeyCode.O))
