@@ -137,12 +137,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Scroll pages/inventory"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""661c3573-42b9-47d5-be84-ad77c1f4e921"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -533,8 +533,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""dd9c07de-8feb-468f-9a50-78e9791cc8a1"",
-                    ""path"": ""<Mouse>/middleButton"",
+                    ""id"": ""058494e8-f5b3-4d24-a6bf-dee548ffe6b2"",
+                    ""path"": ""<Mouse>/scroll"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",

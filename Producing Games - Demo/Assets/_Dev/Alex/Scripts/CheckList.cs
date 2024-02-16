@@ -9,9 +9,8 @@ public class CheckList : MonoBehaviour
 {
     private List<GameObject> taskList = new List<GameObject>();
     //public Image tick;
-    public GameObject pageOne;
-    public GameObject pageTwo;
-    public GameObject pageThree;
+    public GameObject[] pageArray;
+    private int pageIndex;
 
     private GameObject taskParent;
 
@@ -31,8 +30,7 @@ public class CheckList : MonoBehaviour
     void Start()
     {
         gameObject.SetActive(false); //Toggling the checklist
-        pageTwo.SetActive(false);
-        pageThree.SetActive(false);
+        pageArray[0].SetActive(true);
     }
 
     // Update is called once per frame
@@ -56,37 +54,42 @@ public class CheckList : MonoBehaviour
 
     public void OnFlipPage(InputAction.CallbackContext context)
     {
-        if(pageOne.activeSelf)
+        pageArray[pageIndex].SetActive(false);
+
+        if(context.ReadValue<Vector2>().y > 0 && pageIndex < pageArray.Length)
         {
-            pageOne.SetActive(false);
-            pageTwo.SetActive(true);
+            ++pageIndex;
         }
-        else if(pageTwo.activeSelf)
+        else if (context.ReadValue<Vector2>().y < 0 && pageIndex > 0)
         {
-            pageTwo.SetActive(false);
-            pageThree.SetActive(true);
+            --pageIndex;
         }
-        else if(pageThree.activeSelf)
-        {
-            pageThree.SetActive(false);
-            pageOne.SetActive(true);
-        }
+
+        pageArray[pageIndex].SetActive(true);
     }
 
     public void AddTask(Task task)
     {
         //Adding it on list
-        if(taskList.Count <= 3)
-        {
-            taskParent = pageOne;
-        }
-        else if(taskList.Count <= 6)
-        {
-            taskParent = pageTwo;
-        }
-        else { taskParent = pageThree;}
+        //if (task.taskTarget == NPCManager.Instance.patientList[0])
+        //{
+        //    taskParent = pageArray[0];
+        //}
+        //else if (task.taskTarget == NPCManager.Instance.patientList[1])
+        //{
+        //    taskParent = pageArray[1];
+        //}
+        //else if (task.taskTarget == NPCManager.Instance.patientList[2])
+        //{
+        //    taskParent = pageArray[2];
+        //}
+        //else if (task.taskTarget == NPCManager.Instance.patientList[3])
+        //{
+        //    taskParent = pageArray[3];
+        //}
+        //else taskParent = pageArray[4];
 
-        GameObject newTask = GameObject.Instantiate(taskPrefab, taskParent.transform.position, taskParent.transform.rotation);
+            GameObject newTask = GameObject.Instantiate(taskPrefab, taskParent.transform.position, taskParent.transform.rotation);
         newTask.transform.SetParent(taskParent.transform);
         newTask.GetComponent<RectTransform>().localScale = Vector3.one;
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class GameManager: MonoBehaviour
@@ -24,7 +25,6 @@ public class GameManager: MonoBehaviour
     [Header("Sanity")]
     [Range(0, 100)] public int startingSanity = 100;
     private int currentSanity;
-    
 
     private void Awake()
     {
