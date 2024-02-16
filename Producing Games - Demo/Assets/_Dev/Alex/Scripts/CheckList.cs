@@ -9,7 +9,10 @@ public class CheckList : MonoBehaviour
 {
     private List<GameObject> taskList = new List<GameObject>();
     //public Image tick;
-    public GameObject taskParent;
+    public GameObject[] pageArray;
+    private int pageIndex;
+
+    private GameObject taskParent;
 
     public GameObject taskPrefab;
 
@@ -27,6 +30,7 @@ public class CheckList : MonoBehaviour
     void Start()
     {
         gameObject.SetActive(false); //Toggling the checklist
+        pageArray[0].SetActive(true);
     }
 
     // Update is called once per frame
@@ -48,11 +52,44 @@ public class CheckList : MonoBehaviour
         gameObject.SetActive(!gameObject.activeSelf);
     }
 
+    public void OnFlipPage(InputAction.CallbackContext context)
+    {
+        pageArray[pageIndex].SetActive(false);
+
+        if(context.ReadValue<Vector2>().y > 0 && pageIndex < pageArray.Length)
+        {
+            ++pageIndex;
+        }
+        else if (context.ReadValue<Vector2>().y < 0 && pageIndex > 0)
+        {
+            --pageIndex;
+        }
+
+        pageArray[pageIndex].SetActive(true);
+    }
+
     public void AddTask(Task task)
     {
         //Adding it on list
-        
-        GameObject newTask = GameObject.Instantiate(taskPrefab, taskParent.transform.position, taskParent.transform.rotation);
+        //if (task.taskTarget == NPCManager.Instance.patientList[0])
+        //{
+        //    taskParent = pageArray[0];
+        //}
+        //else if (task.taskTarget == NPCManager.Instance.patientList[1])
+        //{
+        //    taskParent = pageArray[1];
+        //}
+        //else if (task.taskTarget == NPCManager.Instance.patientList[2])
+        //{
+        //    taskParent = pageArray[2];
+        //}
+        //else if (task.taskTarget == NPCManager.Instance.patientList[3])
+        //{
+        //    taskParent = pageArray[3];
+        //}
+        //else taskParent = pageArray[4];
+
+            GameObject newTask = GameObject.Instantiate(taskPrefab, taskParent.transform.position, taskParent.transform.rotation);
         newTask.transform.SetParent(taskParent.transform);
         newTask.GetComponent<RectTransform>().localScale = Vector3.one;
 
@@ -70,6 +107,7 @@ public class CheckList : MonoBehaviour
         newText.fontStyle = FontStyles.Normal;
 
         task.checkList = newTask;
+
 
         taskList.Add(newTask);
     }
