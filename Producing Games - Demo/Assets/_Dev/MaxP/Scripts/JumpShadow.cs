@@ -59,10 +59,12 @@ public class JumpShadow : MonoBehaviour
     {
         if (characterController.velocity.magnitude > 0)
         {
-            Vector3 followPosition = playerObj.transform.position - playerObj.transform.forward * followDistance;
-            followPosition.y -= heightOffset;
-            shadowManObj.transform.LookAt(playerObj.transform, Vector3.up);
-            shadowManObj.transform.position = followPosition;//Vector3.Lerp(shadowManObj.transform.position, followPosition, Time.deltaTime);
+            //Vector3 followPosition = playerObj.transform.position - playerObj.transform.forward * followDistance;
+            //followPosition.y -= heightOffset;
+            //shadowManObj.transform.LookAt(playerObj.transform, Vector3.up);
+            //shadowManObj.transform.position = followPosition;//Vector3.Lerp(shadowManObj.transform.position, followPosition, Time.deltaTime);
+
+            //shadowManObj.transform.localEulerAngles = new Vector3(0, Mathf.Lerp(0, 180, rotTime), 0);
         }
     }
 }
