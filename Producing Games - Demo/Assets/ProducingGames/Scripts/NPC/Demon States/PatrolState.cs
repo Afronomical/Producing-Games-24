@@ -28,10 +28,20 @@ public class PatrolState : DemonStateBaseClass
 
         character.agent.speed = character.walkSpeed;
         character.agent.ResetPath();
+        GetComponent<Animator>().SetBool("isMoving", true);
     }
 
     public override void UpdateLogic()
     {
+        if (character.agent.velocity.magnitude > 0)
+        {
+            GetComponent<Animator>().SetBool("isMoving", true);
+        }
+        else
+        {
+            GetComponent<Animator>().SetBool("isMoving", false);
+        }
+
         character.agent.SetDestination(patrolDestination);
 
         // INFO: Given that the NPC is near to the destination location a timer is started
@@ -53,14 +63,6 @@ public class PatrolState : DemonStateBaseClass
             character.isMoving = true;
         }
 
-        if (character.agent.velocity.magnitude > 0)
-        {
-            GetComponent<Animator>().SetBool("isMoving", true);
-        }
-        else
-        {
-            GetComponent<Animator>().SetBool("isMoving", false);
-        }
     }
 
     /// <summary>

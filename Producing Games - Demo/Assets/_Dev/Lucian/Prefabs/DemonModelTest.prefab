@@ -598,7 +598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e0eeff3e10c9946a0f8d90e6f4895a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterType: 0
+  characterType: 1
   walkSpeed: 1
   runSpeed: 3
   crawlSpeed: 0.5
@@ -704,7 +704,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zombie Attack(1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5866666021909216657, guid: 25b610d132c93984b9a9f96591b5a4ec, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: e8a0184fc758348499ebce4c7dd47ae9, type: 2}
+    m_RemovedComponents:
+    - {fileID: 5866666021909216657, guid: 25b610d132c93984b9a9f96591b5a4ec, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

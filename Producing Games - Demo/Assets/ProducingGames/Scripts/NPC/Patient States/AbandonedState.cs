@@ -34,10 +34,11 @@ public class AbandonedState : PatientStateBaseClass
 
         if (timeAbandoned > maxTimeAbandoned)
         {
+            GetComponent<Animator>().SetBool("isAbandoned", false);
             character.ChangePatientState(PatientCharacter.PatientStates.Wandering); // once the max time for abandonment is reached, NPC goes wandering. 
             isAbandoned = false;
         }
 
-        GetComponent<Animator>().SetBool("isAbandoned", isAbandoned);
+        //GetComponent<Animator>().SetBool("isAbandoned", isAbandoned);
     }
 }
