@@ -11,10 +11,12 @@ public class JumpShadow : MonoBehaviour
     public GameObject shadowManObj;
     public float followDistance = 5;
     public float heightOffset;
+    public float lerpSpeed = 1f;
     private bool canPlay = true;
     private GameObject playerObj;
     private CharacterController characterController;
     private bool playEvent;
+    private float rotAngle;
     
 
 
@@ -32,6 +34,8 @@ public class JumpShadow : MonoBehaviour
         {
             Event();
         }
+        Debug.Log(playerObj.transform.localEulerAngles.y);
+        //Debug.Log(playerObj.transform.rotation.y);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -63,8 +67,21 @@ public class JumpShadow : MonoBehaviour
             //followPosition.y -= heightOffset;
             //shadowManObj.transform.LookAt(playerObj.transform, Vector3.up);
             //shadowManObj.transform.position = followPosition;//Vector3.Lerp(shadowManObj.transform.position, followPosition, Time.deltaTime);
-
-            //shadowManObj.transform.localEulerAngles = new Vector3(0, Mathf.Lerp(0, 180, rotTime), 0);
+            if (playerObj.transform.rotation.y > 0)
+            {
+                rotAngle = (Mathf.Abs(playerObj.transform.rotation.y)) * 180;
+                
+                rotAngle += 180;
+                
+            }
+            else
+            {
+                
+            }
+            //rotAngle = (Mathf.Abs(playerObj.transform.rotation.y)) * 360;
+            shadowManObj.transform.position = playerObj.transform.position;
+            //shadowManObj.transform.localEulerAngles = new Vector3(0, (Mathf.Lerp(shadowManObj.transform.rotation.y, playerObj.transform.rotation.y, Time.deltaTime * lerpSpeed)), 0);
+            shadowManObj.transform.rotation = Quaternion.Lerp(shadowManObj.transform.rotation, playerObj.transform.rotation, Time.deltaTime * lerpSpeed);
         }
     }
 }
