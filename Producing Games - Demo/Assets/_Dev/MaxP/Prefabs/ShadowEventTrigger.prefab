@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2275727930915126803}
   - component: {fileID: 3827290590105328190}
   - component: {fileID: 4385731840622239665}
-  - component: {fileID: 508609219442435606}
   m_Layer: 0
   m_Name: ShadowEye (1)
   m_TagString: Untagged
@@ -84,27 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &508609219442435606
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 408677088539021145}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1678930250550765881
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,7 +220,7 @@ Transform:
   m_GameObject: {fileID: 3821916577556882941}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.775, y: -1.763, z: 2.887}
+  m_LocalPosition: {x: -19.3, y: -1.763, z: 3.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -290,7 +268,6 @@ GameObject:
   - component: {fileID: 685220757237134079}
   - component: {fileID: 4649031851116199277}
   - component: {fileID: 6484091562835861286}
-  - component: {fileID: 8142413927923944372}
   m_Layer: 0
   m_Name: ShadowEye
   m_TagString: Untagged
@@ -363,27 +340,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &8142413927923944372
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7992677067327219365}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &8843729541319746574
 PrefabInstance:
   m_ObjectHideFlags: 0

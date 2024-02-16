@@ -62,7 +62,7 @@ public class JumpShadow : MonoBehaviour
             Vector3 followPosition = playerObj.transform.position - playerObj.transform.forward * followDistance;
             followPosition.y -= heightOffset;
             shadowManObj.transform.LookAt(playerObj.transform, Vector3.up);
-            shadowManObj.transform.position = followPosition;
+            shadowManObj.transform.position = followPosition;//Vector3.Lerp(shadowManObj.transform.position, followPosition, Time.deltaTime);
         }
     }
 }
