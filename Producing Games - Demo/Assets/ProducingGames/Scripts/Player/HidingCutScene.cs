@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -30,11 +30,20 @@ public class HidingCutScene : InteractableTemplate
     }
     private PlayerHidingStates playerHidingStates;
 
+    HidingScare hidingScare;
+
     private void Start()
     {
         cam = Camera.main;
-        Quaternion camRot = cam.transform.rotation;
-        playerRef = GameObject.FindGameObjectWithTag("Player").transform;
+        playerRef = GameObject.Find("Player").transform;
+        animDoorRight = GameObject.Find("CupboardDoorRight").GetComponent<Animator>();
+        animDoorLeft = GameObject.Find("CupboardDoorLeft").GetComponent<Animator>();
+        *//*
+        Had issues while tidying code, will be fixing shortly...
+        camPos = cam.transform.position;
+        camRot = cam.transform.rotation;
+        *//*
+        hidingScare = Object.FindFirstObjectByType<HidingScare>();
     }
 
     private void Update()
@@ -65,6 +74,40 @@ public class HidingCutScene : InteractableTemplate
                 Outside();
                 break;
         }
+
+        //Go out of Hiding Spot
+        if (goOut)
+        {
+            animDoorLeft.SetBool("EnterCupboard", true);
+            animDoorRight.SetBool("EnterCupboard", true);
+
+            //Moves the Camera to the Entrance of the hiding spot
+            playerRef.position = Vector3.MoveTowards(playerRef.position, points[0].position, 2.5f * Time.deltaTime);
+
+            //if (playerRef.rotation != points[0].rotation)
+            if (Quaternion.Angle(playerRef.rotation, points[0].rotation) > 0.1)
+            {
+                playerRef.rotation = Quaternion.Lerp(playerRef.rotation, points[0].rotation, 3f * Time.deltaTime);
+            }
+
+            if (playerRef.position == points[0].position && Quaternion.Angle(playerRef.rotation, points[0].rotation) < 0.1)
+            {
+                animDoorLeft.SetBool("EnterCupboard", false);
+                animDoorRight.SetBool("EnterCupboard", false);
+                goOut = false;
+                isInside = false;
+
+                //Enables player's movement and body
+                //=======================================================================
+                playerRef.GetComponent<PlayerMovement>().enabled = true;
+                playerRef.GetComponent<CharacterController>().enabled = true;
+                playerRef.GetComponent<MeshRenderer>().enabled = true;
+                gameObject.GetComponent<BoxCollider>().enabled = true;
+                cam.GetComponent<CameraLook>().enabled = true;
+                //=======================================================================
+            }
+        }
+        hidingScare.SetPlayerIsHiding(isInside);
     }
 
 
@@ -156,3 +199,4 @@ public class HidingCutScene : InteractableTemplate
         
     }
 }
+*/
