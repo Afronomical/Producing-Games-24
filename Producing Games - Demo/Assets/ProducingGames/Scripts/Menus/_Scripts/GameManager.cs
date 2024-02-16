@@ -1,7 +1,13 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+
+/// <summary>
+/// Written By: Aaron Moreland
+/// 
+/// Manages the main game loop and can be used to get important references such as the player and sanity level
+/// </summary>
 
 
 public class GameManager : MonoBehaviour
@@ -34,7 +40,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
+        if (Instance != null && Instance != this) Destroy(gameObject);
+        else Instance = this;
     }
 
 

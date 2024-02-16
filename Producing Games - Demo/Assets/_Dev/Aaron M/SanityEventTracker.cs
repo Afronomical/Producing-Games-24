@@ -2,6 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Written By: Aaron Moreland
+/// 
+/// Contains the events that can alter the sanity 
+/// </summary>
+
+
 public class SanityEventTracker : MonoBehaviour
 {
     public enum SanityLevels { Sane, Delirious, Derranged, Hysterical, Madness};

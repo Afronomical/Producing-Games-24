@@ -2,6 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Written By: Aaron Moreland
+/// 
+/// Controls and animates the arms on the Player
+/// </summary>
+
+
 public class PlayerArms : MonoBehaviour
 {
     private enum leftArmStates { Idle, Pager};
