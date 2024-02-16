@@ -46,6 +46,19 @@ public class PatientTaskManager : MonoBehaviour
     }
 
 
+    public void DetectTasks(GameObject interactedObject)
+    {
+        if (!GameManager.Instance.shiftEndActive)
+        {
+            for (int i = currentTasks.Count - 1; i >= 0; i--)
+            {
+                if (!currentTasks[i].isHourlyTask && !currentTasks[i].taskCompleted && !currentTasks[i].taskNoticed)
+                    currentTasks[i].CheckDetectTask(interactedObject);
+            }
+        }
+    }
+
+
     public void SetHourlyTasks()
     {
         for (int i = 0; i < patients.Length; i++)
@@ -179,7 +192,6 @@ public class PatientTaskManager : MonoBehaviour
                     newTask.isHourlyTask = false;
                     newTask.taskTarget = patients[i];
                     newTask.TaskStart();
-                    CheckList.instance.AddTask(newTask);
                 }
             }
         }

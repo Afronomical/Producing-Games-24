@@ -6,6 +6,7 @@ using UnityEngine;
 public class Task : MonoBehaviour
 {
     public GameObject taskTarget;  // Patient that the task is for or object such as altar (The thing the player must interact with)
+    protected List<GameObject> detectingObjects;  // Used for detecting random tasks
 
     public bool isHourlyTask = true;
     public bool taskCompleted = false;
@@ -16,13 +17,35 @@ public class Task : MonoBehaviour
 
     public virtual void TaskStart()
     {
-
+        if (!isHourlyTask)
+        {
+            taskNoticed = false;
+        }
     }
 
 
     public virtual void CheckTaskConditions(GameObject interactedObject)
     {
 
+    }
+
+
+    public void CheckDetectTask(GameObject interactedObject)
+    {
+        foreach (GameObject obj in detectingObjects)
+        {
+            if (interactedObject == taskTarget)  // Check for the correct object being looked at
+            {
+                DetectTask();
+            }
+        }
+    }
+
+
+    public virtual void DetectTask()
+    {
+        taskNoticed = true;
+        CheckList.instance.AddTask(this);
     }
 
 

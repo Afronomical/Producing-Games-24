@@ -39,9 +39,12 @@ public class PickUpItem : MonoBehaviour
                 {
                     //shows tooltip on mouse hover
                     TooltipManager.Instance.ShowTooltip(interactableTemplate.collectible.tooltipText);
+                    PatientTaskManager.instance.DetectTasks(interactableTemplate.gameObject);
 
                     if (c.performed && canPickUp)
                     {
+                        PatientTaskManager.instance.CheckTaskConditions(interactableTemplate.gameObject);
+
                         if (PlayerInteractor.instance.currentObject != null)
                         {
                             StartCoroutine(arms.GrabObject());
@@ -54,6 +57,8 @@ public class PickUpItem : MonoBehaviour
                 PlayerInteractor.instance.currentNPC = NPCInteractable;
                 if (NPCInteractable is NPCInteractableTemplate NPCTemplate)
                 {
+                    PatientTaskManager.instance.DetectTasks(NPCTemplate.character.gameObject);
+
                     if (c.performed)
                         PatientTaskManager.instance.CheckTaskConditions(NPCTemplate.character.gameObject);
 

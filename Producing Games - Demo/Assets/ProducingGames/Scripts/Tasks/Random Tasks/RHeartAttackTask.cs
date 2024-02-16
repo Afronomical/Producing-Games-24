@@ -11,7 +11,7 @@ public class RHeartAttackTask : Task
     public override void TaskStart()
     {
         // Alert pager
-        taskNoticed = true;
+        DetectTask();
 
         timeRemaining = timeTillHeartAttack;
         base.TaskStart();
