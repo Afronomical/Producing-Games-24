@@ -167,7 +167,9 @@ public class GameManager : MonoBehaviour
             if (character.GetComponent<PatientCharacter>().isPossessed)
                 character.GetComponent<PatientCharacter>().ChangePatientState(PatientCharacter.PatientStates.Possessed);
         }
-        demon.GetComponent<DemonCharacter>().ChangeDemonState(DemonCharacter.DemonStates.Patrol);
+
+        if (demon != null)
+            demon.GetComponent<DemonCharacter>().ChangeDemonState(DemonCharacter.DemonStates.Patrol);
 
         // <--- Lock patient doors
     }
