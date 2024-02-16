@@ -38,7 +38,15 @@ public class EscortedState : PatientStateBaseClass
 
         targetPos = character.player.transform.position;
 
-        if (character.raycastToPlayer.PlayerDetected()) //player is detected. following player function is called. 
+        /*
+        if(character.deterred)
+        {
+            character.ChangeState(AICharacter.States.Abandoned);
+            character.deterred = false;
+        }
+        */
+
+        if (raycastToPlayer.PlayerDetected()) //player is detected. following player function is called. 
         {
             if (timeAlone != 0)
                 timeAlone = 0.0f;

@@ -85,6 +85,19 @@ public class ExorcismTable : MonoBehaviour
 
     public void CompleteExorcism()
     {
+
+        //steam achievement for completing exorcism
+        //if(SteamManager.Initialized)
+        //{
+        //    Steamworks.SteamUserStats.GetAchievement("CompleteExorcism", out bool completed);
+
+        //    if(!completed)
+        //    {
+        //        SteamUserStats.SetAchievement("CompleteExorcism");
+        //        SteamUserStats.StoreStats();
+        //    }
+        //}
+
         Debug.Log("Exorcism Completed!");
         //set task as complete here. win screen or demon scream etc 
         GameManager.Instance.demon.GetComponent<DemonCharacter>().ChangeDemonState(DemonCharacter.DemonStates.Exorcised);

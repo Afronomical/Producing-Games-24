@@ -2,41 +2,81 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 public class DropItem : MonoBehaviour
 {
+    
     public Transform interactorSource;
     public float interactionRange = 4f;
     private Camera cam;
+
+    [Header("Throw Force Values")]
+    public float throwForceHoriz;
+    public float throwForceVert;
+    public Transform throwOrigin;
 
     void Start()
     {
         cam = Camera.main;
     }
 
-    //event for 'R' key to drop items
+    //event for 'R' key
     public void OnDropInput(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            if (InventoryHotbar.instance.inventory.Count == 0)
-                InventoryHotbar.instance.currentItem = null;
-            if (InventoryHotbar.instance.currentItem != null)
+            //if button is being held throw item
+           if(context.interaction is HoldInteraction)
+           {
+                Throw();
+           }
+           else if(context.interaction is PressInteraction)   //if button is being pressed drop item
+           {
+                Drop();
+           }
+        }
+    }
+
+    //dropping code
+    private void Drop()
+    {
+        if (InventoryHotbar.instance.inventory.Count == 0)
+            InventoryHotbar.instance.currentItem = null;
+        if (InventoryHotbar.instance.currentItem != null)
+        {
+            GameObject go = null;
+            //check if player is looking at ground
+            Ray r = new Ray(interactorSource.position, interactorSource.forward);
+
+            //if player looking at ground place item on floor
+            if (Physics.Raycast(r, out RaycastHit hit, interactionRange) && hit.collider != null)
             {
-                GameObject go = null;
-                //check if player is looking at ground
-                Ray r = new Ray(interactorSource.position, interactorSource.forward);
+                go = GameObject.Instantiate(InventoryHotbar.instance.currentItem.prefab, hit.point, Quaternion.Euler(90, 0, 0));
+            }//if player is not looking at the ground spawn it in front of him
+            else
+                go = GameObject.Instantiate(InventoryHotbar.instance.currentItem.prefab, cam.transform.position + cam.transform.forward * 1.2f, Quaternion.Euler(90, 0, 0));
 
-                //if player looking at ground place item on floor
-                if (Physics.Raycast(r, out RaycastHit hit, interactionRange) && hit.collider != null)
-                {
-                    go = GameObject.Instantiate(InventoryHotbar.instance.currentItem.prefab, hit.point, Quaternion.Euler(90, 0, 0));
-                }//if player is not looking at the ground spawn it in front of him
-                else
-                    go = GameObject.Instantiate(InventoryHotbar.instance.currentItem.prefab, cam.transform.position + cam.transform.forward * 1.2f, Quaternion.Euler(90, 0, 0));
+            InventoryHotbar.instance.RemoveFromInventory(InventoryHotbar.instance.currentItem);
+        }
+    }
 
-                InventoryHotbar.instance.RemoveFromInventory(InventoryHotbar.instance.currentItem);
-            }
+    //throwing code
+    private void Throw()
+    {
+        if (InventoryHotbar.instance.inventory.Count == 0)//checks if current item exists in hand
+            InventoryHotbar.instance.currentItem = null;
+        if (InventoryHotbar.instance.currentItem != null)
+        {
+            GameObject go = null;
+            //creates the item from holding position
+            go = GameObject.Instantiate(InventoryHotbar.instance.currentItem.prefab, throwOrigin.position, Quaternion.identity);
+            //throwing force added to object
+            Vector3 throwForceToAdd = throwOrigin.forward * throwForceHoriz + throwOrigin.up * throwForceVert;
+
+            go.GetComponent<Rigidbody>().AddForce(throwForceToAdd, ForceMode.Impulse);
+            //removing the item from inventory
+            InventoryHotbar.instance.RemoveFromInventory(InventoryHotbar.instance.currentItem);
         }
     }
 }

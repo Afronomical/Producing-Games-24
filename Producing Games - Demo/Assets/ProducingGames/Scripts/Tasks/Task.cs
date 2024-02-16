@@ -59,6 +59,19 @@ public class Task : MonoBehaviour
             taskTarget.transform.Find("Eye 2").GetComponent<MeshRenderer>().material = hTask.basicEyes;
         }
 
+
+        //steam achievement for completing first task
+        //if(SteamManager.Initialized)
+        //{
+        //    Steamworks.SteamUserStats.GetAchievement("CompleteTask", out bool completed);
+
+        //    if(!completed)
+        //    {
+        //        SteamUserStats.SetAchievement("CompleteTask");
+        //        SteamUserStats.StoreStats();
+        //    }
+        //}
+
         PatientTaskManager.instance.CompleteTask(this);
     }
 
