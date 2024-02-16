@@ -4,9 +4,24 @@ using UnityEngine;
 
 public class PlayerArms : MonoBehaviour
 {
+    private enum leftArmStates { Idle, Pager};
+    private enum rightArmStates { Idle, Object, Clipboard };
+
     public Transform playerBody;
     private PlayerMovement playerMovement;
     private CharacterController playerController;
+    private PickUpItem pickUpItem;
+    public Animator leftAnimator, rightAnimator;
+    public GameObject heldItem;
+
+    private leftArmStates leftArmState;
+    private rightArmStates rightArmState;
+
+    [Range(0.01f, 1f)] public float grabItemTime = 0.4f;
+
+    private bool holdingClipboard;
+    private bool holdingObject;
+    private bool holdingPager;
 
     [Header("Arm Bobbing")]
     [SerializeField][Range(0.1f, 5f)] private float bobAmplitude = 0.5f;
@@ -21,13 +36,60 @@ public class PlayerArms : MonoBehaviour
         startPos = transform.localPosition;
         playerMovement = playerBody.GetComponent<PlayerMovement>();
         playerController = playerBody.GetComponent<CharacterController>();
+        pickUpItem = playerBody.GetComponent<PickUpItem>();
     }
 
 
     void Update()
     {
+        if (holdingClipboard)
+            rightArmState = rightArmStates.Clipboard;
+
+        else if (holdingObject)
+            rightArmState = rightArmStates.Object;
+
+        else
+            rightArmState = rightArmStates.Idle;
+
+
+        if (holdingPager)
+            leftArmState = leftArmStates.Pager;
+
+        else
+            leftArmState = leftArmStates.Idle;
+
+
         ArmBobbing();
     }
+
+
+
+
+    public IEnumerator GrabObject()
+    {
+        rightAnimator.SetTrigger("Grab");
+        heldItem.SetActive(false);
+        pickUpItem.canPickUp = false;
+
+        yield return new WaitForSeconds(grabItemTime);
+
+        heldItem.SetActive(true);
+        PlayerInteractor.instance.currentObject.Interact();
+        pickUpItem.canPickUp = true;
+    }
+
+
+    public void HoldPager()
+    {
+        leftAnimator.SetBool("Pager", true);
+    }
+
+    public void DropPager()
+    {
+        leftAnimator.SetBool("Pager", false);
+    }
+
+
 
 
     private void ArmBobbing()
