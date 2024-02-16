@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63dd2e1ba1987fa46a5faf76c010eebb, type: 3}
   m_Name: RHungry
   m_EditorClassIdentifier: 
-  taskType: 1
+  taskType: 6
   chanceToHappen: 5
-  taskName: Wandering
+  taskName: Hungry
   taskDescription: Escort the patient back to their bed
   location: 0
   itemToGive: {fileID: 0}
