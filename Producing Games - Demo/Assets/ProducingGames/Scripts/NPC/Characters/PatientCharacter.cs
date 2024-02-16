@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 /// <summary>
 /// Written by: Matej Cincibus
@@ -53,10 +54,14 @@ public class PatientCharacter : AICharacter
 
         if (isPossessed)                                
         {                                               
+            // INFO: Possessed state will need to be changed elsewhere
             // INFO: Add demon state                         
             demon = NPCManager.Instance.ChosenDemon;
             InitialiseDemonStats();
-            // INFO: Possessed state will need to be changed elsewhere
+
+            GameObject GO = Instantiate(demon.demonPrefab, bed.transform.position, Quaternion.identity);
+            GameManager.Instance.demon = GO;
+            GO.GetComponent<DemonCharacter>().ChangeDemonState(DemonCharacter.DemonStates.Inactive);
         }
     }
 

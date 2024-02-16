@@ -101,7 +101,7 @@ public class ExorcismTable : MonoBehaviour
         Debug.Log("Exorcism Completed!");
         //set task as complete here. win screen or demon scream etc 
         GameManager.Instance.demon.GetComponent<DemonCharacter>().ChangeDemonState(DemonCharacter.DemonStates.Exorcised);
-
+        LevelManager.LoadScene(LevelManager.Scenes.WinScreen);
     }
 
     /// <summary>
