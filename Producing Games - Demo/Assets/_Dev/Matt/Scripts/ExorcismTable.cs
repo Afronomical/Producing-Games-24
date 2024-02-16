@@ -79,6 +79,7 @@ public class ExorcismTable : MonoBehaviour
     public void FailExorcism()
     {
         Debug.Log("Failed Exorcism");
+        LevelManager.LoadScene(LevelManager.Scenes.LoseScreen);
         //enable rage mode here. or game end 
 
     }
