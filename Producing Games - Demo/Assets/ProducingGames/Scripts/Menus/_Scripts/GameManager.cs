@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
     {
         // <--- Fade out
         // <--- Freeze player
-        yield return new WaitForSeconds(50);
+        yield return new WaitForSeconds(0);
         // <--- Unfreeze player
         // <--- Fade in
 
