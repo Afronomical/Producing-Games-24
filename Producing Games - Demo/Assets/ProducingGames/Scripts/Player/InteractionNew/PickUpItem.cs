@@ -8,6 +8,8 @@ public class PickUpItem : MonoBehaviour
 {
 
     InputAction.CallbackContext c;
+    public PlayerArms arms;
+    [HideInInspector] public bool canPickUp = true;
 
     public void OnPickUp(InputAction.CallbackContext context)
     {
@@ -38,12 +40,11 @@ public class PickUpItem : MonoBehaviour
                     //shows tooltip on mouse hover
                     TooltipManager.Instance.ShowTooltip(interactableTemplate.collectible.tooltipText);
 
-                    if (c.performed)
+                    if (c.performed && canPickUp)
                     {
                         if (PlayerInteractor.instance.currentObject != null)
                         {
-                            PlayerInteractor.instance.currentObject.Interact();
-
+                            StartCoroutine(arms.GrabObject());
                         }
                     }
                 }

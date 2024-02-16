@@ -5,8 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PagerController : MonoBehaviour
 {
-
     public GameObject pagerInterface;
+    public PlayerArms arms;
 
 
     private void Start()
@@ -24,6 +24,8 @@ public class PagerController : MonoBehaviour
         if (pagerInterface != null)
         {
             pagerInterface.SetActive(!pagerInterface.activeSelf);
+            if (pagerInterface.activeSelf) arms.HoldPager();
+            else arms.DropPager();
         }
     }
 }
