@@ -9,8 +9,15 @@ public class Flashlight : MonoBehaviour
     public Light light;
 
     public float[] intensities;
+    
+    
+    [Header("Battery Settings")]
+    [Range(1, 200)] public float batteryCharge;
+    [Range(1, 10)] public float batteryDrainRate;
+    private float maxBatteryCharge;
     private int intensityIndex = 0;
 
+    [Header("Flashlight Flickering Settings")]
     public int randFlickerChance = 500;
     public int avgFlickerCount = 20;
     [HideInInspector] public bool shouldReset = true;
@@ -19,7 +26,8 @@ public class Flashlight : MonoBehaviour
     private bool isFlickering;
     private float oldIntensity;
 
-
+    private void Start() => maxBatteryCharge = batteryCharge; //This will be used to make sure when you pickup a battery, your flashlight isn't Max Charge
+    
     void Update()
     {
         //Debug.Log(light.intensity);
@@ -28,13 +36,33 @@ public class Flashlight : MonoBehaviour
         {
             StartCoroutine(Flickering());
         }
+        
         FlashFlicker();
+
+        //Higher the intensity of the flashlight, the faster the battery will drain
+        if(intensityIndex <= intensities.Length)
+        {
+            switch(intensityIndex)
+            {
+                case 1:
+                    batteryCharge -= batteryDrainRate * Time.deltaTime;
+                    break;
+
+                case 2:
+                    batteryCharge -= batteryDrainRate * Time.deltaTime * 1.25f;
+                    break;
+
+                case 3:
+                    batteryCharge -= batteryDrainRate * Time.deltaTime * 1.5f;
+                    break;
+
+                default: 
+                    break;
+
+            }
+        }
     }
 
-    private void Start()
-    {
-        
-    }
 
     public void OnFlashlightInput(InputAction.CallbackContext context)
     {
