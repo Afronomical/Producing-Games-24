@@ -39,11 +39,13 @@ public class PickUpItem : MonoBehaviour
                 {
                     //shows tooltip on mouse hover
                     TooltipManager.Instance.ShowTooltip(interactableTemplate.collectible.tooltipText);
-                    PatientTaskManager.instance.DetectTasks(interactableTemplate.gameObject);
+                    if (interactableTemplate.gameObject != null)
+                        PatientTaskManager.instance.DetectTasks(interactableTemplate.gameObject);
 
                     if (c.performed && canPickUp)
                     {
-                        PatientTaskManager.instance.CheckTaskConditions(interactableTemplate.gameObject);
+                        if (interactableTemplate.gameObject != null)
+                            PatientTaskManager.instance.CheckTaskConditions(interactableTemplate.gameObject);
 
                         if (PlayerInteractor.instance.currentObject != null)
                         {

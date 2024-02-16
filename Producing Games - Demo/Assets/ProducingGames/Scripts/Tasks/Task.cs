@@ -32,11 +32,14 @@ public class Task : MonoBehaviour
 
     public void CheckDetectTask(GameObject interactedObject)
     {
-        foreach (GameObject obj in detectingObjects)
+        if (detectingObjects != null)
         {
-            if (interactedObject == taskTarget)  // Check for the correct object being looked at
+            foreach (var obj in detectingObjects)
             {
-                DetectTask();
+                if (interactedObject == taskTarget)  // Check for the correct object being looked at
+                {
+                    DetectTask();
+                }
             }
         }
     }

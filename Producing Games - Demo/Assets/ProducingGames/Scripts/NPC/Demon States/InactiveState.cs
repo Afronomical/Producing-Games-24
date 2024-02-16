@@ -30,9 +30,4 @@ public class InactiveState : DemonStateBaseClass
          * }
          */
     }
-
-    private void OnDestroy()
-    {
-        gameObject.SetActive(true);
-    }
 }
