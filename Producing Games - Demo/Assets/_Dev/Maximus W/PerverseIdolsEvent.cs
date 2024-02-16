@@ -3,78 +3,79 @@ using System.Collections;
 
 public class PerverseIdolEvent : MonoBehaviour
 {
-    public GameObject idolObject; // Reference to the idol object
-    public float maxDistance = 30f; // Maximum distance for hearing the distant screams
-    public float minInterval = 60f; // Minimum interval between distant screams
+    public AudioClip[] musicTracks;
+    public float maxDistance = 30f; // Maximum distance for hearing the music
+    public float minInterval = 60f; // Minimum interval between music tracks
 
-    public AudioClip[] screamSounds;
-    public AudioSource audioSource; // Expose AudioSource field for manual assignment in the editor
+    public AudioSource musicSource; // Expose AudioSource field for manual assignment in the editor
+    public GameObject idolObject; // Reference to the perverse idol GameObject
 
-    private float lastScreamTime;
-    private GameObject player;
-
-    private void Start()
-    {
-        lastScreamTime = Time.time - minInterval; // Initialize lastScreamTime to ensure immediate playback
-
-        // Set the 'player' reference to the actual player GameObject
-        player = GameObject.FindGameObjectWithTag("Player");
-
-        if (player == null)
-        {
-            Debug.LogError("Player not found in the scene.");
-            return;
-        }
-
-        if (audioSource == null)
-        {
-            Debug.LogError("Audio source not assigned. Please assign an audio source in the editor.");
-            return;
-        }
-
-        TriggerDistantScreams();
-    }
-
-    public void TriggerDistantScreams()
-    {
-        StartCoroutine(DistantScreamsCoroutine());
-    }
-
-    private IEnumerator DistantScreamsCoroutine()
-    {
-        while (true)
-        {
-            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-            float dotProduct = Vector3.Dot(player.transform.forward, (transform.position - player.transform.position).normalized);
-
-            if (distanceToPlayer <= maxDistance && Time.time - lastScreamTime >= minInterval && dotProduct > 0)
-            {
-                lastScreamTime = Time.time;
-
-                // Choose a random scream sound
-                AudioClip screamSound = screamSounds[Random.Range(0, screamSounds.Length)];
-
-                // Play the scream sound through the assigned audio source
-                audioSource.PlayOneShot(screamSound);
-            }
-
-            yield return null;
-        }
-    }
+    private bool isPlayerInside = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == player)
+        if (other.CompareTag("Player"))
         {
-            idolObject.SetActive(false); // Deactivate the idol object when player enters
+            isPlayerInside = true;
+            PlayMusic();
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject == player)
+        if (other.CompareTag("Player"))
         {
-            idolObject.SetActive(true); // Reactivate the idol object when player exits
+            isPlayerInside = false;
+            HideIdol();
+            StopMusic(); // Stop the music when the player exits the trigger
+        }
+    }
+
+    private void Update()
+    {
+        if (isPlayerInside && !IsPlayerLookingAtIdol())
+        {
+            HideIdol();
+            StopMusic(); // Stop the music when the player is inside the trigger but not looking at the idol
+        }
+    }
+
+    private bool IsPlayerLookingAtIdol()
+    {
+        if (idolObject == null)
+            return false;
+
+        Vector3 directionToIdol = idolObject.transform.position - Camera.main.transform.position;
+        float angle = Vector3.Angle(Camera.main.transform.forward, directionToIdol);
+
+        // Check if the angle between the player's forward direction and the direction to the idol is within a certain threshold
+        return angle < 55f; // Adjust the threshold as needed
+    }
+
+    private void PlayMusic()
+    {
+        if (musicSource == null || musicTracks.Length == 0)
+            return;
+
+        if (!musicSource.isPlaying)
+        {
+            AudioClip musicTrack = musicTracks[Random.Range(0, musicTracks.Length)];
+            musicSource.clip = musicTrack;
+            musicSource.Play();
+        }
+    }
+
+    private void HideIdol()
+    {
+        if (idolObject != null)
+            idolObject.SetActive(false);
+    }
+
+    private void StopMusic()
+    {
+        if (musicSource.isPlaying)
+        {
+            musicSource.Stop();
         }
     }
 }
