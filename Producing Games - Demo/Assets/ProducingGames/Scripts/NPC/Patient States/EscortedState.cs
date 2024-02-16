@@ -33,6 +33,9 @@ public class EscortedState : PatientStateBaseClass
 
     public override void UpdateLogic()
     {
+
+        GetComponent<Animator>().SetBool("isMoving", true);
+
         targetPos = character.player.transform.position;
 
         if (character.raycastToPlayer.PlayerDetected()) //player is detected. following player function is called. 
@@ -53,6 +56,7 @@ public class EscortedState : PatientStateBaseClass
 
             if (timeAlone >= maxTimeAlone) //gives player 3 seconds to recollect NPC before they enter wandering state again 
             {
+                //GetComponent<Animator>().SetBool("isAbandoned", true);
                 character.ChangePatientState(PatientCharacter.PatientStates.Abandoned); //changes state to abandoned
                 timeAlone = 0.0f;
             }
