@@ -1,83 +1,81 @@
 using UnityEngine;
 using System.Collections;
 
-public class PerverseIdolsEvent : MonoBehaviour
+public class PerverseIdolEvent : MonoBehaviour
 {
-    public GameObject perverseIdolsObject;
-    public float duration = 20f; // Duration of the perverse idols event
-    public AudioClip idolMusic; // Audio clip for the idol music
-    public float musicVolume = 0.5f; // Volume level for the music
-    public float playerDistanceThreshold = 5f; // Distance threshold for playing music
+    public GameObject idolObject; // Reference to the idol object
+    public float maxDistance = 30f; // Maximum distance for hearing the distant screams
+    public float minInterval = 60f; // Minimum interval between distant screams
 
-    private AudioSource audioSource;
-    private bool isPlayerNearby = false;
-    private Transform playerTransform;
+    public AudioClip[] screamSounds;
+    public AudioSource audioSource; // Expose AudioSource field for manual assignment in the editor
+
+    private float lastScreamTime;
+    private GameObject player;
 
     private void Start()
     {
-        audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = idolMusic;
-        audioSource.volume = musicVolume;
-        audioSource.loop = true; // Loop the music
+        lastScreamTime = Time.time - minInterval; // Initialize lastScreamTime to ensure immediate playback
 
-        // Find the player's transform
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        // Set the 'player' reference to the actual player GameObject
+        player = GameObject.FindGameObjectWithTag("Player");
 
-        // Trigger the event coroutine
-        TriggerPerverseIdols();
+        if (player == null)
+        {
+            Debug.LogError("Player not found in the scene.");
+            return;
+        }
+
+        if (audioSource == null)
+        {
+            Debug.LogError("Audio source not assigned. Please assign an audio source in the editor.");
+            return;
+        }
+
+        TriggerDistantScreams();
     }
 
-    private void Update()
+    public void TriggerDistantScreams()
     {
-        // Check if the player is nearby and within the distance threshold, then play music accordingly
-        float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
-        if (isPlayerNearby && distanceToPlayer <= playerDistanceThreshold)
+        StartCoroutine(DistantScreamsCoroutine());
+    }
+
+    private IEnumerator DistantScreamsCoroutine()
+    {
+        while (true)
         {
-            if (!audioSource.isPlaying)
+            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+            float dotProduct = Vector3.Dot(player.transform.forward, (transform.position - player.transform.position).normalized);
+
+            if (distanceToPlayer <= maxDistance && Time.time - lastScreamTime >= minInterval && dotProduct > 0)
             {
-                audioSource.Play();
+                lastScreamTime = Time.time;
+
+                // Choose a random scream sound
+                AudioClip screamSound = screamSounds[Random.Range(0, screamSounds.Length)];
+
+                // Play the scream sound through the assigned audio source
+                audioSource.PlayOneShot(screamSound);
             }
-        }
-        else
-        {
-            if (audioSource.isPlaying)
-            {
-                audioSource.Stop();
-            }
+
+            yield return null;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Check if the colliding object is the player
-        if (other.CompareTag("Player"))
+        if (other.gameObject == player)
         {
-            isPlayerNearby = true;
+            idolObject.SetActive(false); // Deactivate the idol object when player enters
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        // Check if the colliding object is the player
-        if (other.CompareTag("Player"))
+        if (other.gameObject == player)
         {
-            isPlayerNearby = false;
+            idolObject.SetActive(true); // Reactivate the idol object when player exits
         }
     }
-
-    private void TriggerPerverseIdols()
-    {
-        StartCoroutine(PerverseIdolsCoroutine());
-    }
-
-    private IEnumerator PerverseIdolsCoroutine()
-    {
-        perverseIdolsObject.SetActive(true);
-        // Add any additional logic or animation for the perverse idols event
-
-        yield return new WaitForSeconds(duration);
-
-        perverseIdolsObject.SetActive(false);
-        // Additional logic to reset or clean up after the perverse idols event
-    }
 }
+
