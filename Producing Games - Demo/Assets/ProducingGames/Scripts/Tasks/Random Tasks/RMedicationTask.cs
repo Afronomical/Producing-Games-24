@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RWanderingTask : Task
+public class RMedicationTask : Task
 {
     public override void TaskStart()
     {
@@ -10,30 +10,29 @@ public class RWanderingTask : Task
         detectingObjects.Add(taskTarget);  // Patient can be detected
         detectingObjects.Add(taskTarget.GetComponent<PatientCharacter>().bed);  // Empty bed can be detected
 
-        taskTarget.transform.position = NPCManager.Instance.RandomWanderingDestination();
+        
 
         if (taskTarget && taskTarget.TryGetComponent(out PatientCharacter character))
-            character.ChangePatientState(PatientCharacter.PatientStates.Wandering);
+            character.ChangePatientState(PatientCharacter.PatientStates.ReqMeds);
 
         base.TaskStart();
     }
 
-
-    void Update()
+    public override void CheckTaskConditions(GameObject interactedObject)
     {
-        // Check if the patient is in their bed
-        if (taskTarget && taskTarget.TryGetComponent(out PatientCharacter character))
+        if (interactedObject == taskTarget)  // Check for the correct patient being interacted with
         {
-            if (character.currentState == PatientCharacter.PatientStates.Bed)
+            if (InventoryHotbar.instance.currentItem == hTask.itemToGive)  // Check for the correct item being held
+            {
+                InventoryHotbar.instance.RemoveFromInventory(InventoryHotbar.instance.currentItem);
                 CompleteTask();
+            }
         }
     }
 
-
-
     public override void CompleteTask()
     {
-        Debug.Log("Completed wandering task");
+        Debug.Log("Completed medication task");
         base.CompleteTask();
     }
 }

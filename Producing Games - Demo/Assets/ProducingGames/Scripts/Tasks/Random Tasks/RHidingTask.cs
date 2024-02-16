@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RWanderingTask : Task
+public class RHidingTask : Task
 {
     public override void TaskStart()
     {
@@ -10,10 +10,10 @@ public class RWanderingTask : Task
         detectingObjects.Add(taskTarget);  // Patient can be detected
         detectingObjects.Add(taskTarget.GetComponent<PatientCharacter>().bed);  // Empty bed can be detected
 
-        taskTarget.transform.position = NPCManager.Instance.RandomWanderingDestination();
+        taskTarget.transform.position = NPCManager.Instance.RandomHidingLocation();
 
         if (taskTarget && taskTarget.TryGetComponent(out PatientCharacter character))
-            character.ChangePatientState(PatientCharacter.PatientStates.Wandering);
+            character.ChangePatientState(PatientCharacter.PatientStates.Hiding);
 
         base.TaskStart();
     }
@@ -33,7 +33,7 @@ public class RWanderingTask : Task
 
     public override void CompleteTask()
     {
-        Debug.Log("Completed wandering task");
+        Debug.Log("Completed Hiding task");
         base.CompleteTask();
     }
 }

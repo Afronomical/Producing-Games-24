@@ -7,8 +7,8 @@ using UnityEngine;
 
 public class PatientTaskManager : MonoBehaviour
 {
-    public enum HourlyTasks { Medicine, Injection };
-    public enum RandomTasks { NoTask, Wandering, HeartAttack };
+    public enum HourlyTasks { Medicine, Injection, Cardiogram, Food, Board, Comfort, Pray };
+    public enum RandomTasks { NoTask, Wandering, HeartAttack, Hiding, Cardiogram, Prayer, Hungry, Medication };
     public enum TaskLocation { Bed, Bedside, Board, Altar };
 
 
@@ -39,8 +39,25 @@ public class PatientTaskManager : MonoBehaviour
         {
             for (int i = currentTasks.Count - 1; i >= 0; i--)
             {
-                if (!currentTasks[i].taskCompleted)
+                //If it is an hourly task
+                if (currentTasks[i].isHourlyTask && !currentTasks[i].taskCompleted)
+                {
+                    //Get the task target
+                    if (currentTasks[i].taskTarget && currentTasks[i].taskTarget.TryGetComponent(out PatientCharacter character))
+                    {
+                        //If they are in bed
+                        if (character.currentState == PatientCharacter.PatientStates.Bed)
+                            currentTasks[i].CheckTaskConditions(interactedObject);
+
+                    }
+                    //If it isn't a patient task
+                    else
+                        currentTasks[i].CheckTaskConditions(interactedObject);
+                }
+                //If it is a random task
+                else if (!currentTasks[i].isHourlyTask)
                     currentTasks[i].CheckTaskConditions(interactedObject);
+                
             }
         }
     }
