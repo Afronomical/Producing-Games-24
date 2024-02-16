@@ -18,9 +18,9 @@ public class BedState : PatientStateBaseClass
 
     private void Start()
     {
+        character.agent.enabled = false;
         Transform pos = character.bed.transform.Find("PatientPosition");
-        Vector3 bedPos = new Vector3(pos.position.x, pos.position.y + 1f, pos.position.z);
-        transform.position = bedPos;
+        transform.position = pos.position;
         character.rb.velocity = Vector3.zero;
         //character.agent.isStopped = true;
         //character.agent.ResetPath();
@@ -30,5 +30,10 @@ public class BedState : PatientStateBaseClass
     {
         //Debug.Log("Player in Bed State"); 
         ////fix character transform to bed pos. 
+    }
+
+    private void OnDestroy()
+    {
+        character.agent.enabled = true;
     }
 }

@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
             player.GetComponent<PlayerInput>().enabled = false;
             FadeOut();
             yield return new WaitForSeconds(3);
-            studyDoor.collectible = studyDoor.startShiftSO;
+            //studyDoor.collectible = studyDoor.startShiftSO;
             StartCoroutine(StartHour());  // Move to the next hour
         }
         else  // If the final hour just ended
@@ -157,7 +157,7 @@ public class GameManager : MonoBehaviour
         FadeOut();
         yield return new WaitForSeconds(3);
         FadeIn();
-        studyDoor.collectible = studyDoor.endHourSO;
+        //studyDoor.collectible = studyDoor.endHourSO;
         player.GetComponent<PlayerInput>().enabled = true;
         GameManager.Instance.player.transform.position = startShiftPosition.position;
         GameManager.Instance.player.transform.rotation = startShiftPosition.rotation;

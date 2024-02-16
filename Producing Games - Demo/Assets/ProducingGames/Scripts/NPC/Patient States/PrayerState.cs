@@ -49,7 +49,7 @@ public class PrayerState : PatientStateBaseClass
     public void ExecutePrayer()
     {
         ///singing/gospel, increasing sanity? 
-        Debug.Log(character.name + "is Praying"); 
+        //Debug.Log(character.name + "is Praying"); 
        
     }
 
