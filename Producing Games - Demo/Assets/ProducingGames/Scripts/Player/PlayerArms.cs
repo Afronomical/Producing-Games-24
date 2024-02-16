@@ -42,21 +42,17 @@ public class PlayerArms : MonoBehaviour
 
     void Update()
     {
-        if (holdingClipboard)
-            rightArmState = rightArmStates.Clipboard;
+        if (holdingClipboard) rightArmState = rightArmStates.Clipboard;
 
-        else if (holdingObject)
-            rightArmState = rightArmStates.Object;
+        else if (holdingObject) rightArmState = rightArmStates.Object;
 
-        else
-            rightArmState = rightArmStates.Idle;
+        else rightArmState = rightArmStates.Idle;
 
 
-        if (holdingPager)
-            leftArmState = leftArmStates.Pager;
 
-        else
-            leftArmState = leftArmStates.Idle;
+        if (holdingPager) leftArmState = leftArmStates.Pager;
+
+        else leftArmState = leftArmStates.Idle;
 
 
         ArmBobbing();
@@ -67,24 +63,24 @@ public class PlayerArms : MonoBehaviour
 
     public IEnumerator GrabObject()
     {
-        rightAnimator.SetTrigger("Grab");
-        heldItem.SetActive(false);
-        pickUpItem.canPickUp = false;
+        rightAnimator.SetTrigger("Grab");  // Play the animation
+        heldItem.SetActive(false);  // Hide the item in your hand
+        pickUpItem.canPickUp = false;  // Stop PickUpItem from calling the enum again
 
-        yield return new WaitForSeconds(grabItemTime);
+        yield return new WaitForSeconds(grabItemTime);  // Wait until the hand reaches the object
 
-        heldItem.SetActive(true);
-        PlayerInteractor.instance.currentObject.Interact();
+        heldItem.SetActive(true);  // Show the item in your hand
+        PlayerInteractor.instance.currentObject.Interact();  // Pick up the object in front of you
         pickUpItem.canPickUp = true;
     }
 
 
-    public void HoldPager()
+    public void HoldPager()  // Pick up the pager
     {
         leftAnimator.SetBool("Pager", true);
     }
 
-    public void DropPager()
+    public void DropPager()  // Put down the pager
     {
         leftAnimator.SetBool("Pager", false);
     }
@@ -92,7 +88,7 @@ public class PlayerArms : MonoBehaviour
 
 
 
-    private void ArmBobbing()
+    private void ArmBobbing()  // A more subtle version of the head bobbing to make the arms move more naturally
     {
         float speed = new Vector3(playerController.velocity.x, 0, playerController.velocity.z).magnitude; //* 100f;
         if (speed < bobOffSpeed || !playerMovement.isGrounded) BobReset();

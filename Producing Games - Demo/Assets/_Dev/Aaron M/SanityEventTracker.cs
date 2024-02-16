@@ -31,13 +31,8 @@ public class SanityEventTracker : MonoBehaviour
         tm = PatientTaskManager.instance;
     }
 
-    void Update()
-    {
-        
-    }
 
-
-    public void ChangeSanity(int sanity)
+    public void ChangeSanity(int sanity)  // Called when the gamemanager changes the sanity, this will set the sanity level enum
     {
         if (sanity >= 80)
             gm.sanityLevel = SanityLevels.Sane;
