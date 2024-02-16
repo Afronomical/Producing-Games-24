@@ -18,6 +18,9 @@ public class BedState : PatientStateBaseClass
 
     private void Start()
     {
+        Transform pos = character.bed.transform.Find("PatientPosition");
+        Vector3 bedPos = new Vector3(pos.position.x, pos.position.y + 1f, pos.position.z);
+        transform.position = bedPos;
         character.rb.velocity = Vector3.zero;
         //character.agent.isStopped = true;
         //character.agent.ResetPath();

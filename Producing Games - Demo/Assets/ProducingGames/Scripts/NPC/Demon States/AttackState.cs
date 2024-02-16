@@ -38,8 +38,9 @@ public class AttackState : DemonStateBaseClass
         //GetComponent<Animator>().SetBool("isChasing", false);
 
         //character.player.transform.position = GameManager.Instance.playerStartPosition.position;
-        GameManager.Instance.currentTime = 100;  // End the hour
+        //GameManager.Instance.currentTime = 60;  // End the hour
+        StartCoroutine(GameManager.Instance.EndHour());
         hasMoved = true;
-
+        //character.ChangeDemonState(DemonCharacter.DemonStates.Inactive);
     }
 }   

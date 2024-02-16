@@ -1,4 +1,4 @@
-/*using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class HidingCutScene : InteractableTemplate
 {
-    private Camera cam;
+    /*private Camera cam;
     private int pointIndex;
 
     [Header("Player Reference/Object Animation")]
@@ -198,5 +198,5 @@ public class HidingCutScene : InteractableTemplate
             playerHidingStates = PlayerHidingStates.goIn;
         
     }
-}
 */
+}

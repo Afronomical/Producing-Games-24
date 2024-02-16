@@ -91,9 +91,6 @@ public class EscortedState : PatientStateBaseClass
         {
             if (collider.gameObject == character.bed) ///just for testing 
             {
-                Vector3 bedPos = new Vector3(collider.gameObject.transform.position.x, collider.gameObject.transform.position.y + 1.0f, collider.gameObject.transform.position.z);
-                
-                transform.position = bedPos;
                 return true;
             }
             else

@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public int startingHour = 1;
     public int finalHour = 8;
     public Transform playerStartPosition;
+    public StudyDoorInteractable studyDoor;
 
     public int currentHour;
     public float currentTime;
@@ -128,6 +129,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator EndHour()
     {
+        Debug.Log("End Shift");
         currentHour++;
         sanityEvents.EndHour();
         PatientTaskManager.instance.ClearTasks();
@@ -137,6 +139,7 @@ public class GameManager : MonoBehaviour
             player.GetComponent<PlayerInput>().enabled = false;
             FadeOut();
             yield return new WaitForSeconds(3);
+            studyDoor.collectible = studyDoor.startShiftSO;
             StartCoroutine(StartHour());  // Move to the next hour
         }
         else  // If the final hour just ended
@@ -148,11 +151,13 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator StartShift(Transform startShiftPosition)  // Called when the player leaves the study
     {
+        Debug.Log("Start Shift");
         inStudy = false;  // Starts the timer
         player.GetComponent<PlayerInput>().enabled = false;
         FadeOut();
         yield return new WaitForSeconds(3);
         FadeIn();
+        studyDoor.collectible = studyDoor.endHourSO;
         player.GetComponent<PlayerInput>().enabled = true;
         GameManager.Instance.player.transform.position = startShiftPosition.position;
         GameManager.Instance.player.transform.rotation = startShiftPosition.rotation;

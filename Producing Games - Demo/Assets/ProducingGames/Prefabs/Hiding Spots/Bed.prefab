@@ -212,6 +212,37 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!1 &1253033158225117917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5359876441075390945}
+  m_Layer: 0
+  m_Name: PatientPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5359876441075390945
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253033158225117917}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.024, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8341545069647784979}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1539295836603155144
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,7 +283,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8341545069647784979}
-  - component: {fileID: 5370005454920904433}
+  - component: {fileID: 3641418199748369729}
   - component: {fileID: 2951411950113038144}
   m_Layer: 0
   m_Name: Bed
@@ -278,9 +309,10 @@ Transform:
   - {fileID: 5527852218973253725}
   - {fileID: 652796394291984440}
   - {fileID: 4999478581257714660}
+  - {fileID: 5359876441075390945}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5370005454920904433
+--- !u!114 &3641418199748369729
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -294,14 +326,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectIcon: {fileID: 0}
   collectible: {fileID: 11400000, guid: df8e0dbefad8be143b1e5d104add63df, type: 2}
-  playerRef: {fileID: 0}
-  playAnimation: {fileID: 0}
-  points:
-  - {fileID: 5527852218973253725}
-  - {fileID: 652796394291984440}
-  - {fileID: 4999478581257714660}
-  enterTransitionSpeed: 4
-  exitTransitionSpeed: 5
 --- !u!65 &2951411950113038144
 BoxCollider:
   m_ObjectHideFlags: 0

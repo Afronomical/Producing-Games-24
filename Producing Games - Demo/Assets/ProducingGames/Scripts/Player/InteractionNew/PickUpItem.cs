@@ -28,7 +28,7 @@ public class PickUpItem : MonoBehaviour
     {
         Ray r = new Ray(PlayerInteractor.instance.interactorSource.position, PlayerInteractor.instance.interactorSource.forward);
 
-        if (Physics.Raycast(r, out RaycastHit hit, PlayerInteractor.instance.interactionRange))
+        if (Physics.Raycast(r, out RaycastHit hit, PlayerInteractor.instance.interactionRange) && GetComponent<PlayerInput>().enabled)
         {
             if (hit.collider.gameObject.TryGetComponent(out IInteractable interactable))
             {
@@ -47,6 +47,7 @@ public class PickUpItem : MonoBehaviour
 
                         if (PlayerInteractor.instance.currentObject != null)
                         {
+                            Debug.Log("Interact");
                             StartCoroutine(arms.GrabObject());
                         }
                     }
@@ -89,7 +90,6 @@ public class PickUpItem : MonoBehaviour
         else
         {
             TooltipManager.Instance.HideTooltip();
-            
         }
     }
 }
