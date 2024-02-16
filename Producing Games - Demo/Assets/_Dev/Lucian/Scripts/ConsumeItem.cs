@@ -11,16 +11,16 @@ public class ConsumeItem : MonoBehaviour
         if(context.performed)
         {
             //steam achievement for consuming first pill
-            if (SteamManager.Initialized)
-            {
-                Steamworks.SteamUserStats.GetAchievement("ACH_WIN_ONE_GAME", out bool completed);
+            //if (SteamManager.Initialized)
+            //{
+            //    Steamworks.SteamUserStats.GetAchievement("ACH_WIN_ONE_GAME", out bool completed);
 
-                if (!completed)
-                {
-                    SteamUserStats.SetAchievement("ACH_WIN_ONE_GAME");
-                    SteamUserStats.StoreStats();
-                }
-            }
+            //    if (!completed)
+            //    {
+            //        SteamUserStats.SetAchievement("ACH_WIN_ONE_GAME");
+            //        SteamUserStats.StoreStats();
+            //    }
+            //}
 
             if (PlayerInteractor.instance.consumable != null)
             {

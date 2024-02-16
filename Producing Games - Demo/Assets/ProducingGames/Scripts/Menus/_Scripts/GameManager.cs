@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
             AI.GetComponent<PatientCharacter>().ChangePatientState(PatientCharacter.PatientStates.Bed);
         }
 
-        demon.GetComponent<DemonCharacter>().ChangeDemonState(DemonCharacter.DemonStates.Inactive);
+        if (demon) demon.GetComponent<DemonCharacter>().ChangeDemonState(DemonCharacter.DemonStates.Inactive);
 
         currentTime = 0;
         inStudy = true;
@@ -153,7 +153,11 @@ public class GameManager : MonoBehaviour
     private void StartShiftEnd()  // When the player has been out for too long
     {
         shiftEndActive = true;
-
+        foreach(GameObject character in NPCManager.Instance.patientList)
+        {
+            if (character.GetComponent<PatientCharacter>().isPossessed)
+                character.GetComponent<PatientCharacter>().ChangePatientState(PatientCharacter.PatientStates.Possessed);
+        }
         demon.GetComponent<DemonCharacter>().ChangeDemonState(DemonCharacter.DemonStates.Patrol);
 
         // <--- Lock patient doors

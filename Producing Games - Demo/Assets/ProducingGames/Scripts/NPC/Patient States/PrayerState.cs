@@ -17,7 +17,7 @@ public class PrayerState : PatientStateBaseClass
 
     private void Awake()
     {
-        character.isMoving = true;
+        //character.isMoving = true;
     }
 
     private void Start()
