@@ -29,7 +29,7 @@ public class PlayerArms : MonoBehaviour
 
     private bool holdingClipboard;
     private bool holdingObject;
-    private bool holdingPager;
+    [HideInInspector] public bool holdingPager;
 
     [Header("Arm Bobbing")]
     [SerializeField][Range(0.1f, 5f)] private float bobAmplitude = 0.5f;
@@ -86,11 +86,13 @@ public class PlayerArms : MonoBehaviour
     public void HoldPager()  // Pick up the pager
     {
         leftAnimator.SetBool("Pager", true);
+        holdingPager = true;
     }
 
     public void DropPager()  // Put down the pager
     {
         leftAnimator.SetBool("Pager", false);
+        holdingPager = false;
     }
 
 

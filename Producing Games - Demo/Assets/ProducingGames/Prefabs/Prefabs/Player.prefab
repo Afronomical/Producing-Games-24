@@ -5972,6 +5972,7 @@ MonoBehaviour:
   rightAnimator: {fileID: 7385205961216807932}
   heldItem: {fileID: 1686071197657309528}
   grabItemTime: 0.4
+  holdingPager: 0
   bobAmplitude: 0.5
   bobFrequency: 10
   bobResetSpeed: 22.5
@@ -6269,18 +6270,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5708886413181022302}
-  m_LocalRotation: {x: 0.11027652, y: -0.9662263, z: -0.14490181, w: -0.182344}
-  m_LocalPosition: {x: 0, y: 0, z: 0.000278}
-  m_LocalScale: {x: 0.0008312507, y: 0.00045114767, z: 0.0020545}
+  m_LocalRotation: {x: -0.0038520736, y: -0.79319715, z: 0.026143622, w: 0.60839134}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00012068536}
+  m_LocalScale: {x: 0.0007101225, y: 0.0003854075, z: 0.0017551223}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4745561825923279587}
   - {fileID: 6913416584014672097}
-  m_Father: {fileID: 5346626886065318599}
+  m_Father: {fileID: 4398402272666321470}
   m_LocalEulerAnglesHint: {x: -18.677, y: -199.769, z: -9.74}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.000072, y: -0.003392}
+  m_AnchoredPosition: {x: 0.00009376808, y: 0.00027054804}
   m_SizeDelta: {x: 1, y: 0.4197525}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8397640887440953515
@@ -12503,7 +12504,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -4819471284269699180, guid: d820bb1db66ebbc4eae65b43185ba108, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8329594560224302792}
-    - targetCorrespondingSourceObject: {fileID: -4819471284269699180, guid: d820bb1db66ebbc4eae65b43185ba108, type: 3}
+    - targetCorrespondingSourceObject: {fileID: -3880828382746949779, guid: d820bb1db66ebbc4eae65b43185ba108, type: 3}
       insertIndex: -1
       addedObject: {fileID: 966313483872274675}
     m_AddedComponents:
@@ -12520,6 +12521,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3532665705818639538}
   m_SourcePrefab: {fileID: 100100000, guid: d820bb1db66ebbc4eae65b43185ba108, type: 3}
+--- !u!4 &4398402272666321470 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3880828382746949779, guid: d820bb1db66ebbc4eae65b43185ba108, type: 3}
+  m_PrefabInstance: {fileID: 8588017823485347155}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5346626886065318599 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4819471284269699180, guid: d820bb1db66ebbc4eae65b43185ba108, type: 3}
