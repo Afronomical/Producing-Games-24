@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 /// <summary>
@@ -80,12 +81,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartHour()
     {
-        // <--- Fade out
-        FadeOut();
-        // <--- Freeze player
-        yield return new WaitForSeconds(0);
-        // <--- Unfreeze player
-        // <--- Fade in
+        player.GetComponent<PlayerInput>().enabled = true;
         FadeIn();
 
         player.GetComponent<CharacterController>().enabled = false;
@@ -124,13 +120,13 @@ public class GameManager : MonoBehaviour
 
             if (currentTime >= 60)  // If the player has been out for the whole hour
             {
-                EndHour();
+                StartCoroutine(EndHour());
             }
         }
     }
 
 
-    public void EndHour()
+    public IEnumerator EndHour()
     {
         currentHour++;
         sanityEvents.EndHour();
@@ -138,6 +134,9 @@ public class GameManager : MonoBehaviour
 
         if (currentHour <= finalHour)
         {
+            player.GetComponent<PlayerInput>().enabled = false;
+            FadeOut();
+            yield return new WaitForSeconds(3);
             StartCoroutine(StartHour());  // Move to the next hour
         }
         else  // If the final hour just ended
@@ -147,9 +146,16 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void StartShift()  // Called when the player leaves the study
+    public IEnumerator StartShift(Transform startShiftPosition)  // Called when the player leaves the study
     {
         inStudy = false;  // Starts the timer
+        player.GetComponent<PlayerInput>().enabled = false;
+        FadeOut();
+        yield return new WaitForSeconds(3);
+        FadeIn();
+        player.GetComponent<PlayerInput>().enabled = true;
+        GameManager.Instance.player.transform.position = startShiftPosition.position;
+        GameManager.Instance.player.transform.rotation = startShiftPosition.rotation;
     }
 
 

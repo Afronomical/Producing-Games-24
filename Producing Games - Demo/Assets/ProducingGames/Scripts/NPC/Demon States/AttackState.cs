@@ -37,7 +37,8 @@ public class AttackState : DemonStateBaseClass
         //GetComponent<Animator>().SetBool("isAttacking", false);
         //GetComponent<Animator>().SetBool("isChasing", false);
 
-        character.player.transform.position = GameManager.Instance.playerStartPosition.position;
+        //character.player.transform.position = GameManager.Instance.playerStartPosition.position;
+        GameManager.Instance.currentTime = 100;  // End the hour
         hasMoved = true;
 
     }

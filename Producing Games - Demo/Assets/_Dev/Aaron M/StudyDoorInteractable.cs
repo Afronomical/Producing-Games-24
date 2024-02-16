@@ -15,14 +15,12 @@ public class StudyDoorInteractable : InteractableTemplate
         if (GameManager.Instance.inStudy)
         {
             collectible = endHourSO;
-            GameManager.Instance.player.transform.position = startShiftPosition.position;
-            GameManager.Instance.player.transform.rotation = startShiftPosition.rotation;
-            GameManager.Instance.StartShift();
+            StartCoroutine(GameManager.Instance.StartShift(startShiftPosition));
         }
         else
         {
             collectible = startShiftSO;
-            GameManager.Instance.EndHour();
+            StartCoroutine(GameManager.Instance.EndHour());
         }
     }
 }
