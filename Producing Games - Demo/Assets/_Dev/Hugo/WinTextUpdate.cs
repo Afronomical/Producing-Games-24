@@ -11,7 +11,7 @@ public class WinTextUpdate : MonoBehaviour
     {
        
 
-        string winText = NPCManager.Instance.ChosenDemon.DemonName;
+        string winText = NPCManager.Instance.ChosenDemon.demonName;
 
       //update the text
         if (textMeshProText != null)

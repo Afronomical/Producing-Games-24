@@ -12,7 +12,7 @@ public class LoseTextUpdate : MonoBehaviour
        
 
        
-        string demonName = NPCManager.Instance.ChosenDemon.DemonName;
+        string demonName = NPCManager.Instance.ChosenDemon.demonName;
 
       
 

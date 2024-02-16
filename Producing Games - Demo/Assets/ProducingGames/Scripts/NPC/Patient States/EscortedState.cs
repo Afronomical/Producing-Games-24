@@ -45,8 +45,8 @@ public class EscortedState : PatientStateBaseClass
             character.deterred = false;
         }
         */
-
-        if (raycastToPlayer.PlayerDetected()) //player is detected. following player function is called. 
+        
+        if (character.raycastToPlayer.PlayerDetected()) //player is detected. following player function is called. 
         {
             if (timeAlone != 0)
                 timeAlone = 0.0f;
