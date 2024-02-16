@@ -29,7 +29,9 @@ public static class LevelManager
         Settings,
         Main,
         Credits,
-        Menu
+        Menu,
+        WinScreen,
+        LoseScreen
     }
 
     private static Action onLoaderCallBack;
