@@ -71,25 +71,25 @@ public class CheckList : MonoBehaviour
     public void AddTask(Task task)
     {
         //Adding it on list
-        //if (task.taskTarget == NPCManager.Instance.patientList[0])
-        //{
-        //    taskParent = pageArray[0];
-        //}
-        //else if (task.taskTarget == NPCManager.Instance.patientList[1])
-        //{
-        //    taskParent = pageArray[1];
-        //}
-        //else if (task.taskTarget == NPCManager.Instance.patientList[2])
-        //{
-        //    taskParent = pageArray[2];
-        //}
-        //else if (task.taskTarget == NPCManager.Instance.patientList[3])
-        //{
-        //    taskParent = pageArray[3];
-        //}
-        //else taskParent = pageArray[4];
+        if (task.taskTarget == NPCManager.Instance.patientList[0])
+        {
+            taskParent = pageArray[0];
+        }
+        else if (task.taskTarget == NPCManager.Instance.patientList[1])
+        {
+            taskParent = pageArray[1];
+        }
+        else if (task.taskTarget == NPCManager.Instance.patientList[2])
+        {
+            taskParent = pageArray[2];
+        }
+        else if (task.taskTarget == NPCManager.Instance.patientList[3])
+        {
+            taskParent = pageArray[3];
+        }
+        else taskParent = pageArray[4];
 
-            GameObject newTask = GameObject.Instantiate(taskPrefab, taskParent.transform.position, taskParent.transform.rotation);
+        GameObject newTask = GameObject.Instantiate(taskPrefab, taskParent.transform.position, taskParent.transform.rotation);
         newTask.transform.SetParent(taskParent.transform);
         newTask.GetComponent<RectTransform>().localScale = Vector3.one;
 

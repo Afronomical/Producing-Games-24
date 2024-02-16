@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public GameObject player;
+    public Animation fadeAnim;
 
     [Header("Hour System")]
     [Range(1, 60)] public float hourLength = 60;
@@ -80,10 +81,12 @@ public class GameManager : MonoBehaviour
     private IEnumerator StartHour()
     {
         // <--- Fade out
+        FadeOut();
         // <--- Freeze player
         yield return new WaitForSeconds(0);
         // <--- Unfreeze player
         // <--- Fade in
+        FadeIn();
 
         player.GetComponent<CharacterController>().enabled = false;
         player.transform.position = playerStartPosition.position;
@@ -188,5 +191,15 @@ public class GameManager : MonoBehaviour
         {
             EndGame(false);  // Lose the game
         }
+    }
+
+    public void FadeOut()
+    {
+        fadeAnim.Play("FadeIn");
+    }
+
+    public void FadeIn()
+    {
+        fadeAnim.Play("FadeOut");
     }
 }
