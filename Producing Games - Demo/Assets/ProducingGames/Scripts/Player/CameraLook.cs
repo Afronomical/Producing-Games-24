@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.GraphicsBuffer;
+using static UnityEngine.UI.Image;
 
 public class CameraLook : MonoBehaviour
 {
+    private Camera m_Camera;
+
     [Header("Camera Properties")]
     [Range(0, 1)] public float mouseSensitivity = 0.5f;
     private Vector2 currentInput;
@@ -30,6 +34,7 @@ public class CameraLook : MonoBehaviour
 
     void Start()
     {
+        m_Camera = GetComponent<Camera>();
         Cursor.lockState = CursorLockMode.Locked;
         camStartPos = transform.localPosition;
         playerMovement = playerBody.GetComponent<PlayerMovement>();
@@ -48,8 +53,20 @@ public class CameraLook : MonoBehaviour
 
         transform.localRotation = Quaternion.Euler(xRot, 0f, 0f);  // Rotate the camera
         playerBody.Rotate(Vector3.up * mouseX);  // Rotate the player left and right
-
         Leaning();
+
+
+        GameObject[] allNPCs = GameObject.FindGameObjectsWithTag("NPC");
+        foreach (GameObject npc in allNPCs)
+        {
+            Plane[] fov = GeometryUtility.CalculateFrustumPlanes(m_Camera);
+
+            if (GeometryUtility.TestPlanesAABB(fov, npc.GetComponent<Collider>().bounds))
+                Debug.Log(npc.name + " is in view");
+            
+            else
+                Debug.Log(npc.name + " is not in view");
+        }
 
         // Head Bob
         if (canHeadBob)
@@ -67,6 +84,7 @@ public class CameraLook : MonoBehaviour
 
     private void Leaning()
     {
+       /* To not be included in the build 17/02/24
         if (Input.GetKey(KeyCode.Q))
         {
             isLeaning = true;
@@ -84,7 +102,7 @@ public class CameraLook : MonoBehaviour
             isLeaning = false;
             transform.localPosition = camStartPos;
             transform.localRotation = Quaternion.Euler(xRot, 0f, 0f);
-        }
+        }*/
     }
 
     private void CheckMovement()
