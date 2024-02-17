@@ -1,21 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class JumpShadow : MonoBehaviour
 {
+    [Header("Event Time Vars")]
     public int eventChance = 15;
     public float successResetSecTime = 100;
     public float failResetSecTime = 40;
-    public GameObject shadowManObj;
-    public float followDistance = 5;
-    public float heightOffset;
+    [Header("Refs")]
+    public GameObject shadowBaseObj;
+    public GameObject shadowBodyObj;
+    [Header("Shadow Settings")]
+    public float shadowRotSpeed = 1f;
+    [Range(-30f, 30f)] public float fovLeniency = 0;
+    public float headTurnSpeed = 1;
+    public float jumpScareFOV = 50;
+    public float jumpScareFOVSpeed = 1;
+    public SoundEffect jumpScareSound;
     private bool canPlay = true;
     private GameObject playerObj;
     private CharacterController characterController;
+    private Camera playerCam;
     private bool playEvent;
-    
+    private float origFOV;
+    private float fovTime;
+    private bool jumpScareOnce = true;
+    private bool reverseFOV;
 
 
 
@@ -23,6 +37,8 @@ public class JumpShadow : MonoBehaviour
     {
         playerObj = GameObject.FindGameObjectWithTag("Player");
         characterController = playerObj.GetComponent<CharacterController>();
+        playerCam = Camera.main; //playerObj.GetComponent<Camera>();
+        origFOV = playerCam.fieldOfView;
     }
 
     
@@ -36,18 +52,24 @@ public class JumpShadow : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if ((Random.Range(1, eventChance) == 1) && canPlay)
+        if (other.CompareTag("Player"))
         {
-            playEvent = true;
-            shadowManObj.SetActive(true);
-            canPlay = false;
-            StartCoroutine(EventResetTimer(successResetSecTime));
+            if ((Random.Range(1, eventChance) == 1) && canPlay)
+            {
+                playEvent = true;
+                shadowBaseObj.SetActive(true);
+                shadowBaseObj.transform.rotation = playerObj.transform.rotation;
+                canPlay = false;
+                reverseFOV = false;
+                StartCoroutine(EventResetTimer(successResetSecTime));
+            }
+            else
+            {
+                canPlay = false;
+                StartCoroutine(EventResetTimer(failResetSecTime));
+            }
         }
-        else
-        {
-            canPlay = false;
-            StartCoroutine(EventResetTimer(failResetSecTime));
-        }
+        
     }
     private IEnumerator EventResetTimer(float delay)
     {
@@ -59,12 +81,56 @@ public class JumpShadow : MonoBehaviour
     {
         if (characterController.velocity.magnitude > 0)
         {
-            //Vector3 followPosition = playerObj.transform.position - playerObj.transform.forward * followDistance;
-            //followPosition.y -= heightOffset;
-            //shadowManObj.transform.LookAt(playerObj.transform, Vector3.up);
-            //shadowManObj.transform.position = followPosition;//Vector3.Lerp(shadowManObj.transform.position, followPosition, Time.deltaTime);
+            
+            
+            shadowBaseObj.transform.position = playerObj.transform.position;
 
-            //shadowManObj.transform.localEulerAngles = new Vector3(0, Mathf.Lerp(0, 180, rotTime), 0);
+            shadowBaseObj.transform.rotation = Quaternion.Lerp(shadowBaseObj.transform.rotation, playerObj.transform.rotation, Time.deltaTime * shadowRotSpeed);
+
+            
         }
+        Vector3 camRelY = shadowBodyObj.transform.position;
+        camRelY.y = playerCam.transform.position.y;
+        Vector3 camRelLoc = (camRelY - playerCam.transform.position).normalized;
+        
+        if (Vector3.Angle(playerCam.transform.forward, camRelLoc) < (origFOV + fovLeniency))
+        {
+            Vector3 direction = camRelY - playerObj.transform.position;
+            direction.y = 0;
+            Quaternion toRotation = Quaternion.LookRotation(direction);
+            playerObj.transform.rotation = Quaternion.Lerp(playerObj.transform.rotation, toRotation, headTurnSpeed * Time.deltaTime);
+            fovTime += Time.deltaTime * jumpScareFOVSpeed;
+            
+            if (reverseFOV)
+            {
+                playerCam.fieldOfView = Mathf.Lerp(jumpScareFOV, origFOV, fovTime > 1 ? 1 : fovTime);
+            }
+            else
+            {
+                
+                playerCam.fieldOfView = Mathf.Lerp(origFOV, jumpScareFOV, fovTime > 1 ? 1 : fovTime);
+            }
+            
+            
+            if (jumpScareOnce)
+            {
+                jumpScareOnce = false;
+                AudioManager.instance.PlaySound(jumpScareSound, playerObj.transform);
+                StartCoroutine(AfterEvent());
+            }
+        }
+    }
+
+    private IEnumerator AfterEvent()
+    {
+        yield return new WaitForSeconds(1f);
+        fovTime = 0;
+        reverseFOV = true;
+        yield return new WaitForSeconds(0.6f);
+        playerCam.fieldOfView = origFOV;
+        shadowBaseObj.transform.localPosition = Vector3.zero;
+        shadowBaseObj.SetActive(false);
+        playEvent = false;
+        jumpScareOnce = true;
     }
 }
