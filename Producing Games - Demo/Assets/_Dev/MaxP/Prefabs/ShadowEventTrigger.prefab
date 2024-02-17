@@ -187,10 +187,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventChance: 1
-  successResetSecTime: 10
+  successResetSecTime: 100
   failResetSecTime: 40
   moveAwaySpeed: 100
-  moveAwayDistance: 15
+  moveAwayDistance: 10
   shadowSpawnLocations:
   - {fileID: 4263817880994679302}
   - {fileID: 3821916577556882941}
@@ -220,7 +220,7 @@ Transform:
   m_GameObject: {fileID: 3821916577556882941}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.3, y: -1.763, z: 3.27}
+  m_LocalPosition: {x: -19.58, y: -1.763, z: 3.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

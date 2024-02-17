@@ -59,17 +59,21 @@ public class DistantShadowEvent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if ((Random.Range(1, eventChance) == 1) && canPlay)
+        if (other.CompareTag("Player"))
         {
-            ShadowSpawnEvent();
-            canPlay = false;
-            StartCoroutine(EventResetTimer(successResetSecTime));
+            if ((Random.Range(1, eventChance) == 1) && canPlay)
+            {
+                ShadowSpawnEvent();
+                canPlay = false;
+                StartCoroutine(EventResetTimer(successResetSecTime));
+            }
+            else
+            {
+                canPlay = false;
+                StartCoroutine(EventResetTimer(failResetSecTime));
+            }
         }
-        else
-        {
-            canPlay = false;
-            StartCoroutine(EventResetTimer(failResetSecTime));
-        }
+        
     }
 
     private void ShadowSpawnEvent()
