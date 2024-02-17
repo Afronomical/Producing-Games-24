@@ -5,6 +5,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
+
+/// <summary>
+/// Code for the shadow figure jumpscare. Event hase a chance to play after trigger is hit, plays a timer until the next event can happen
+/// shadow will attach to the back of the player and stay behind them during movement. Once shadow is on the edge of your screen the cam will look at the shadow and play specific fx
+/// </summary>
 public class JumpShadow : MonoBehaviour
 {
     [Header("Event Time Vars")]
@@ -54,7 +59,7 @@ public class JumpShadow : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if ((Random.Range(1, eventChance) == 1) && canPlay)
+            if ((Random.Range(1, eventChance) == 1) && canPlay) //play event if chance hits, else event starts after delay
             {
                 playEvent = true;
                 shadowBaseObj.SetActive(true);
@@ -65,21 +70,21 @@ public class JumpShadow : MonoBehaviour
             }
             else
             {
-                canPlay = false;
+                canPlay = false; //event fail
                 StartCoroutine(EventResetTimer(failResetSecTime));
             }
         }
         
     }
-    private IEnumerator EventResetTimer(float delay)
+    private IEnumerator EventResetTimer(float delay) //timer for event reset
     {
         yield return new WaitForSeconds(delay);
         canPlay = true;
     }
     
-    private void Event()
+    private void Event()  //main event 
     {
-        if (characterController.velocity.magnitude > 0)
+        if (characterController.velocity.magnitude > 0)  //slowly lerps the shadow behind the player if they are moving
         {
             
             
@@ -93,7 +98,7 @@ public class JumpShadow : MonoBehaviour
         camRelY.y = playerCam.transform.position.y;
         Vector3 camRelLoc = (camRelY - playerCam.transform.position).normalized;
         
-        if (Vector3.Angle(playerCam.transform.forward, camRelLoc) < (origFOV + fovLeniency))
+        if (Vector3.Angle(playerCam.transform.forward, camRelLoc) < (origFOV + fovLeniency)) //detects if shadow is within visible fov, then rotates player to look and plays jumpscare events
         {
             Vector3 direction = camRelY - playerObj.transform.position;
             direction.y = 0;
@@ -121,7 +126,7 @@ public class JumpShadow : MonoBehaviour
         }
     }
 
-    private IEnumerator AfterEvent()
+    private IEnumerator AfterEvent() //resetting shit after jumpscare
     {
         yield return new WaitForSeconds(1f);
         fovTime = 0;

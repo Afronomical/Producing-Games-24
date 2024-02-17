@@ -5,6 +5,10 @@ using UnityEngine;
 using UnityEngine.LowLevel;
 using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
+/// <summary>
+/// basically is a copy of proxflicker script but does it to each light in the trigger box
+/// </summary>
+
 public class DemonLightFlicker : MonoBehaviour
 {
     private List<Collider> colliders;
@@ -28,7 +32,7 @@ public class DemonLightFlicker : MonoBehaviour
     {
         if (colliders != null)
         {
-            foreach (Collider collider in colliders)
+            foreach (Collider collider in colliders) //for each light apply flicker
             {
                 GameObject otherObj = collider.gameObject;
                 lightScript = otherObj.GetComponent<InteriorLampFlicker>();
@@ -68,7 +72,7 @@ public class DemonLightFlicker : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other) //adds anything with "Light" tag to the list
     {
         if (other.CompareTag("Light"))
         {
@@ -76,7 +80,7 @@ public class DemonLightFlicker : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other) //removes anything with "Light" tag from the list
     {
         if (other.CompareTag("Light"))
         {
