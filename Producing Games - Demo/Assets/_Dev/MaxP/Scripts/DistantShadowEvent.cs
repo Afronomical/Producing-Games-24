@@ -4,6 +4,12 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.LowLevel;
 
+/// <summary>
+/// spawns a shadow man at a point randomly selected out of the array.
+/// shadow man will then move away if player gets too close.
+/// Then will disable shadow man and event will evently be able to be retriggered 
+/// </summary>
+
 public class DistantShadowEvent : MonoBehaviour
 {
     public int eventChance = 15;
@@ -36,7 +42,7 @@ public class DistantShadowEvent : MonoBehaviour
         {
             
             float distance = Vector3.Distance(shadowManObj.transform.position, playerObj.transform.position);
-            if (distance < moveAwayDistance)
+            if (distance < moveAwayDistance) //moves shadow man if player is within specified distance
             {
                 startMove = true;
             }
@@ -57,7 +63,7 @@ public class DistantShadowEvent : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other) //play event if chance hits, else event starts after delay
     {
         if (other.CompareTag("Player"))
         {
@@ -76,7 +82,7 @@ public class DistantShadowEvent : MonoBehaviour
         
     }
 
-    private void ShadowSpawnEvent()
+    private void ShadowSpawnEvent() //spawns shadow in place slelected at random out of locations stored in an array
     {
         standLoc = shadowSpawnLocations[Random.Range(0, shadowSpawnLocations.Length)].transform.position;
         shadowManObj.SetActive(true);
