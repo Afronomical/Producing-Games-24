@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     public float currentTime;
     public bool inStudy, shiftEndActive;
 
+    public bool exorcismFailed = false;
+
     [Header("Sanity")]
     [Range(0, 100)] public int startingSanity = 100;
     private int currentSanity;

@@ -79,6 +79,7 @@ public class ExorcismTable : MonoBehaviour
     public void FailExorcism()
     {
         Debug.Log("Failed Exorcism");
+        GameManager.Instance.exorcismFailed = true;
         GameManager.Instance.EndGame(false);
         //enable rage mode here. or game end 
 

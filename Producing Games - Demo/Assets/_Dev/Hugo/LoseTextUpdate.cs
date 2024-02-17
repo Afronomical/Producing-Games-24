@@ -16,12 +16,19 @@ public class LoseTextUpdate : MonoBehaviour
 
       
 
-        if (GameManager.Instance.currentHour >= 8)
+        if (GameManager.Instance.currentHour > 8)
         {
 
             textMeshProText.text = "Ran out of time!";
 
         }
+
+        else if(GameManager.Instance.exorcismFailed == true)
+        {
+            textMeshProText.text = "Exorcism Failed!";
+
+        }
+        
 
         else
         {
