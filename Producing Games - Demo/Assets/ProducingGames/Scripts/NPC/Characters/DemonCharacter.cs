@@ -44,8 +44,8 @@ public class DemonCharacter : AICharacter
             demonStateScript.UpdateLogic();  // Calls the virtual function for whatever state scripts
 
         // INFO: Will go into the chase state whenever it sees the player, so long as its not already
-        // attacking the player
-        if (raycastToPlayer.PlayerDetected() && currentState != DemonStates.Attack)
+        // attacking the player or is not exorcised
+        if (raycastToPlayer.PlayerDetected() && currentState != DemonStates.Attack && currentState != DemonStates.Exorcised)
         {
             ChangeDemonState(DemonStates.Chase);
         }
@@ -96,4 +96,28 @@ public class DemonCharacter : AICharacter
                 demonStateScript.character = this;  // Set the reference that state scripts will use
         }
     }
+
+    
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("HolyWater"))
+        {
+            Destroy(collision.gameObject);
+            ChangeDemonState(DemonStates.Exorcised);
+            
+
+            //steam achievement for banishing demon
+            //if(SteamManager.Initialized)
+            //{
+            //    Steamworks.SteamUserStats.GetAchievement("BanishDemon", out bool completed);
+
+            //    if(!completed)
+            //    {
+            //        SteamUserStats.SetAchievement("BanishDemon");
+            //        SteamUserStats.StoreStats();
+            //    }
+            //}
+        }
+    }
+    
 }

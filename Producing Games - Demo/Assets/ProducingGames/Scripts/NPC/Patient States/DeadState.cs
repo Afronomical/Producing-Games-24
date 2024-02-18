@@ -23,6 +23,7 @@ public class DeadState : PatientStateBaseClass
         character.agent.ResetPath(); 
         character.rb.velocity = Vector3.zero;
         GameManager.Instance.DecrementRemainingPatients();
+        GetComponent<Animator>().SetBool("isDead", true);
     }
 
     public override void UpdateLogic()

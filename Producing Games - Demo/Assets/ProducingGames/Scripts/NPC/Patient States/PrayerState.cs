@@ -29,6 +29,8 @@ public class PrayerState : PatientStateBaseClass
         //maybe some sound effects to signify the praying? panic sounds or speech 
         character.agent.transform.position = prayingDestination;
         character.agent.Warp(prayingDestination);
+
+        GetComponent<Animator>().SetBool("isPraying", true);
     }
 
 

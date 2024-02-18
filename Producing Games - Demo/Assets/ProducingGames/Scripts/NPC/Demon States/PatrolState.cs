@@ -29,6 +29,7 @@ public class PatrolState : DemonStateBaseClass
         character.agent.speed = character.walkSpeed;
         character.agent.ResetPath();
         GetComponent<Animator>().SetBool("isMoving", true);
+        GetComponent<Animator>().SetBool("isChasing", false);
     }
 
     public override void UpdateLogic()

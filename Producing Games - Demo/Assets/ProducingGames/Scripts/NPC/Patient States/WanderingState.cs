@@ -29,6 +29,9 @@ public class WanderingState : PatientStateBaseClass
 
         character.agent.speed = character.walkSpeed;  
         character.agent.ResetPath();
+
+        GetComponent<Animator>().SetBool("inBed", false);
+        GetComponent<Animator>().SetBool("isPraying", false);
     }
 
     public override void UpdateLogic()

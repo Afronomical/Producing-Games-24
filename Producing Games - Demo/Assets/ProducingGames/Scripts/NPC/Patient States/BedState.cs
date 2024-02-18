@@ -22,6 +22,7 @@ public class BedState : PatientStateBaseClass
         Transform pos = character.bed.transform.Find("PatientPosition");
         transform.position = pos.position;
         character.rb.velocity = Vector3.zero;
+        GetComponent<Animator>().SetBool("inBed", true);
         //character.agent.isStopped = true;
         //character.agent.ResetPath();
     }

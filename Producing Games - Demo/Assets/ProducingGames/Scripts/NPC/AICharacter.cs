@@ -33,7 +33,6 @@ public class AICharacter : MonoBehaviour
 
     [Header("Debugging Tools")]
     public Color detectionRadiusColor = Color.white;
-    //[HideInInspector] public bool deterred = false;
 
     public virtual void Start()
     {
@@ -73,28 +72,6 @@ public class AICharacter : MonoBehaviour
     {
         characterType = type;
     }
-/*
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.CompareTag("HolyWater"))
-        {
-            Destroy(collision.gameObject);
-            deterred = true;
-            
 
-            //steam achievement for banishing demon
-            //if(SteamManager.Initialized)
-            //{
-            //    Steamworks.SteamUserStats.GetAchievement("BanishDemon", out bool completed);
-
-            //    if(!completed)
-            //    {
-            //        SteamUserStats.SetAchievement("BanishDemon");
-            //        SteamUserStats.StoreStats();
-            //    }
-            //}
-        }
-    }
-    */
 
 }
