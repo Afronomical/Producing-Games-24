@@ -82,6 +82,8 @@ public class PatientTaskManager : MonoBehaviour
         {
             if (patients[i].GetComponent<PatientCharacter>().currentHealth > 0)
             {
+                List <HourlyTask> tasksSetForThisPatient = new List <HourlyTask>();
+
                 for (int j = 0; j < tasksPerPatient; j++)
                 {
                     List<HourlyTask> choiceOfTasks = new List<HourlyTask>();
@@ -89,8 +91,12 @@ public class PatientTaskManager : MonoBehaviour
                     foreach (HourlyTask t in hourlyTasks)  // Check for invalid tasks and calculate total chance
                     {
                         // Check for blocking tasks here
-                        totalChance += t.chanceToHappen;
-                        choiceOfTasks.Add(t);
+
+                        if (!tasksSetForThisPatient.Contains(t))  // If this patient doesn't have that task
+                        {
+                            totalChance += t.chanceToHappen;
+                            choiceOfTasks.Add(t);  // Add it to the list of tasks to pick from
+                        }
                     }
 
                     int rand = Random.Range(0, totalChance);
@@ -135,6 +141,7 @@ public class PatientTaskManager : MonoBehaviour
                         newTask.hTask = chosenTask;
                         newTask.taskTarget = patients[i];
                         CheckList.instance.AddTask(newTask);
+                        tasksSetForThisPatient.Add(chosenTask);
                     }
                 }
 

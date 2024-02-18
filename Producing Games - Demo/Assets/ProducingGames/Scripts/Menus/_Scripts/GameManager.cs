@@ -132,7 +132,6 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator EndHour()
     {
-        Debug.Log("End Shift");
         currentHour++;
         sanityEvents.EndHour();
         PatientTaskManager.instance.ClearTasks();
@@ -142,7 +141,6 @@ public class GameManager : MonoBehaviour
             player.GetComponent<PlayerInput>().enabled = false;
             FadeOut();
             yield return new WaitForSeconds(3);
-            //studyDoor.collectible = studyDoor.startShiftSO;
             StartCoroutine(StartHour());  // Move to the next hour
         }
         else  // If the final hour just ended
@@ -154,20 +152,18 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator StartShift(Transform startShiftPosition)  // Called when the player leaves the study
     {
-        Debug.Log("Start Shift/Stage 1");
         inStudy = false;  // Starts the timer
         player.GetComponent<PlayerInput>().enabled = false;
         FadeOut();
+
         yield return new WaitForSeconds(3);
-        Debug.Log("stage 2");
+
         FadeIn();
-        //studyDoor.collectible = studyDoor.endHourSO;
         player.GetComponent<PlayerInput>().enabled = true;
         player.GetComponent<CharacterController>().enabled = false;
         GameManager.Instance.player.transform.position = startShiftPosition.position;
         GameManager.Instance.player.transform.rotation = startShiftPosition.rotation;
         player.GetComponent<CharacterController>().enabled = true;
-        Debug.Log("Stage 3"); 
     }
 
 

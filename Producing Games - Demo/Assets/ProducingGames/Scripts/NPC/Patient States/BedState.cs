@@ -8,9 +8,6 @@ using UnityEngine;
 
 public class BedState : PatientStateBaseClass
 {
-    private int wanderingChance;
-    private int heartAttackChance;
-
     private void Awake()
     {
         GetComponent<AICharacter>().isMoving = false;
@@ -21,15 +18,16 @@ public class BedState : PatientStateBaseClass
         character.agent.enabled = false;
         Transform pos = character.bed.transform.Find("PatientPosition");
         transform.position = pos.position;
+        transform.rotation = pos.rotation;
         character.rb.velocity = Vector3.zero;
+        character.rb.useGravity = false;
         GetComponent<Animator>().SetBool("inBed", true);
         //character.agent.isStopped = true;
         //character.agent.ResetPath();
     }
 
-    public override void UpdateLogic()
+    private void OnDestroy()
     {
-        //Debug.Log("Player in Bed State"); 
-        ////fix character transform to bed pos. 
+        character.rb.useGravity = true;
     }
 }
