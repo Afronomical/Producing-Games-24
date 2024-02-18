@@ -74,7 +74,6 @@ public class GameManager : MonoBehaviour
 
     public void EndGame(bool win)
     {
-        Debug.Log("Game has ENDED");
         Cursor.lockState = CursorLockMode.Confined;
         if (win)
             LevelManager.LoadScene(LevelManager.Scenes.WinScreen);
@@ -133,6 +132,7 @@ public class GameManager : MonoBehaviour
     public IEnumerator EndHour()
     {
         currentHour++;
+        studyDoor.collectible = studyDoor.startShiftSO;
         sanityEvents.EndHour();
         PatientTaskManager.instance.ClearTasks();
 
@@ -153,6 +153,7 @@ public class GameManager : MonoBehaviour
     public IEnumerator StartShift(Transform startShiftPosition)  // Called when the player leaves the study
     {
         inStudy = false;  // Starts the timer
+        studyDoor.collectible = studyDoor.endHourSO;
         player.GetComponent<PlayerInput>().enabled = false;
         FadeOut();
 

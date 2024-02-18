@@ -17,12 +17,10 @@ public class StudyDoorInteractable : InteractableTemplate
         {
             if (GameManager.Instance.inStudy)
             {
-                collectible = endHourSO;
                 StartCoroutine(GameManager.Instance.StartShift(startShiftPosition));
             }
             else
             {
-                collectible = startShiftSO;
                 StartCoroutine(GameManager.Instance.EndHour());
             }
         }

@@ -35,30 +35,27 @@ public class PatientTaskManager : MonoBehaviour
 
     public void CheckTaskConditions(GameObject interactedObject)
     {
-        if (!GameManager.Instance.shiftEndActive)
+        for (int i = currentTasks.Count - 1; i >= 0; i--)
         {
-            for (int i = currentTasks.Count - 1; i >= 0; i--)
+            //If it is an hourly task
+            if (currentTasks[i].isHourlyTask && !currentTasks[i].taskCompleted)
             {
-                //If it is an hourly task
-                if (currentTasks[i].isHourlyTask && !currentTasks[i].taskCompleted)
+                //Get the task target
+                if (currentTasks[i].taskTarget && currentTasks[i].taskTarget.TryGetComponent(out PatientCharacter character))
                 {
-                    //Get the task target
-                    if (currentTasks[i].taskTarget && currentTasks[i].taskTarget.TryGetComponent(out PatientCharacter character))
-                    {
-                        //If they are in bed
-                        if (character.currentState == PatientCharacter.PatientStates.Bed)
-                            currentTasks[i].CheckTaskConditions(interactedObject);
-
-                    }
-                    //If it isn't a patient task
-                    else
+                    //If they are in bed
+                    if (character.currentState == PatientCharacter.PatientStates.Bed)
                         currentTasks[i].CheckTaskConditions(interactedObject);
+
                 }
-                //If it is a random task
-                else if (!currentTasks[i].isHourlyTask)
+                //If it isn't a patient task
+                else
                     currentTasks[i].CheckTaskConditions(interactedObject);
-                
             }
+            //If it is a random task
+            else if (!currentTasks[i].isHourlyTask)
+                currentTasks[i].CheckTaskConditions(interactedObject);
+                
         }
     }
 
