@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - Bed
+  - NPC
+  - HolyWater
   layers:
   - Default
   - TransparentFX
