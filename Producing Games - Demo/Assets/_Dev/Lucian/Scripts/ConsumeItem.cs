@@ -26,7 +26,8 @@ public class ConsumeItem : MonoBehaviour
             {
 
                 PlayerInteractor.instance.consumable.Consume();
-
+                PlayerInteractor.instance.consumable = null;
+                InventoryHotbar.instance.ScrollInventory(1);
             }
 
         }

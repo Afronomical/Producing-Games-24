@@ -23,7 +23,7 @@ public class InventoryHotbar : MonoBehaviour
 
 
     public Transform spawnPos;
-    public GameObject go;
+    public GameObject go = null;
     bool holding = false;
 
     private void Awake()
@@ -71,7 +71,7 @@ public class InventoryHotbar : MonoBehaviour
     }
 
 
-    void ScrollInventory(int dir)
+    public void ScrollInventory(int dir)
     {
         OnItemSelected?.Invoke();
         currentIndex += dir;
@@ -99,14 +99,14 @@ public class InventoryHotbar : MonoBehaviour
                 go.transform.GetComponent<Collider>().enabled = false;
                 go.layer = 9;
                 holding = true;
-                if (go.gameObject.TryGetComponent(out IConsumable cons))
-                {
-                    PlayerInteractor.instance.consumable = cons;
-                }
-                else
-                {
-                    PlayerInteractor.instance.consumable = null;
-                }
+                //if (go.gameObject.TryGetComponent(out IConsumable cons))
+                //{
+                //    PlayerInteractor.instance.consumable = cons;
+                //}
+                //else
+                //{
+                //    PlayerInteractor.instance.consumable = null;
+                //}
             }
             else
             {
@@ -116,6 +116,17 @@ public class InventoryHotbar : MonoBehaviour
                 go.transform.GetComponent<Rigidbody>().useGravity = false;
                 go.transform.GetComponent<Collider>().enabled = false;
                 go.layer = 9;
+                //if (go.gameObject.TryGetComponent(out IConsumable cons))
+                //{
+                //    PlayerInteractor.instance.consumable = cons;
+                //}
+                //else
+                //{
+                //    PlayerInteractor.instance.consumable = null;
+                //}
+            }
+            if(go != null)
+            {
                 if (go.gameObject.TryGetComponent(out IConsumable cons))
                 {
                     PlayerInteractor.instance.consumable = cons;
@@ -124,6 +135,7 @@ public class InventoryHotbar : MonoBehaviour
                 {
                     PlayerInteractor.instance.consumable = null;
                 }
+
             }
             
         }
