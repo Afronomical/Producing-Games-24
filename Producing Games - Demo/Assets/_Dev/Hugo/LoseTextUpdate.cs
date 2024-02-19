@@ -12,16 +12,23 @@ public class LoseTextUpdate : MonoBehaviour
        
 
        
-        string demonName = NPCManager.Instance.ChosenDemon.DemonName;
+        string demonName = NPCManager.Instance.ChosenDemon.demonName;
 
       
 
-        if (GameManager.Instance.currentHour >= 8)
+        if (GameManager.Instance.currentHour > 8)
         {
 
             textMeshProText.text = "Ran out of time!";
 
         }
+
+        else if(GameManager.Instance.exorcismFailed == true)
+        {
+            textMeshProText.text = "Exorcism Failed!";
+
+        }
+        
 
         else
         {

@@ -127,18 +127,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Throw Item"",
-                    ""type"": ""Button"",
-                    ""id"": ""f10cfc75-a926-4e17-b650-94f2a0b65635"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Scroll pages/inventory"",
+                    ""name"": ""Scroll"",
                     ""type"": ""Value"",
-                    ""id"": ""661c3573-42b9-47d5-be84-ad77c1f4e921"",
+                    ""id"": ""7b728faa-3bcb-4cc6-92ec-c7f5971566b5"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -414,7 +405,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""f353c76f-3f8b-453e-b56c-f36af46ef9f5"",
                     ""path"": ""<Keyboard>/r"",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold(duration=1),Press"",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Drop Item"",
@@ -522,23 +513,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""6e003210-8196-475d-b160-d2edaec36a2d"",
-                    ""path"": ""<Keyboard>/v"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Throw Item"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""058494e8-f5b3-4d24-a6bf-dee548ffe6b2"",
+                    ""id"": ""9068ebd6-5e12-4583-a0cf-f42382b4f4a5"",
                     ""path"": ""<Mouse>/scroll"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Scroll pages/inventory"",
+                    ""action"": ""Scroll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -588,8 +568,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_SeeTasks = m_Player.FindAction("See Tasks", throwIfNotFound: true);
         m_Player_OpenPager = m_Player.FindAction("Open Pager", throwIfNotFound: true);
         m_Player_ConsumeItem = m_Player.FindAction("Consume Item", throwIfNotFound: true);
-        m_Player_ThrowItem = m_Player.FindAction("Throw Item", throwIfNotFound: true);
-        m_Player_Scrollpagesinventory = m_Player.FindAction("Scroll pages/inventory", throwIfNotFound: true);
+        m_Player_Scroll = m_Player.FindAction("Scroll", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -662,8 +641,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SeeTasks;
     private readonly InputAction m_Player_OpenPager;
     private readonly InputAction m_Player_ConsumeItem;
-    private readonly InputAction m_Player_ThrowItem;
-    private readonly InputAction m_Player_Scrollpagesinventory;
+    private readonly InputAction m_Player_Scroll;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -679,8 +657,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @SeeTasks => m_Wrapper.m_Player_SeeTasks;
         public InputAction @OpenPager => m_Wrapper.m_Player_OpenPager;
         public InputAction @ConsumeItem => m_Wrapper.m_Player_ConsumeItem;
-        public InputAction @ThrowItem => m_Wrapper.m_Player_ThrowItem;
-        public InputAction @Scrollpagesinventory => m_Wrapper.m_Player_Scrollpagesinventory;
+        public InputAction @Scroll => m_Wrapper.m_Player_Scroll;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -723,12 +700,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ConsumeItem.started += instance.OnConsumeItem;
             @ConsumeItem.performed += instance.OnConsumeItem;
             @ConsumeItem.canceled += instance.OnConsumeItem;
-            @ThrowItem.started += instance.OnThrowItem;
-            @ThrowItem.performed += instance.OnThrowItem;
-            @ThrowItem.canceled += instance.OnThrowItem;
-            @Scrollpagesinventory.started += instance.OnScrollpagesinventory;
-            @Scrollpagesinventory.performed += instance.OnScrollpagesinventory;
-            @Scrollpagesinventory.canceled += instance.OnScrollpagesinventory;
+            @Scroll.started += instance.OnScroll;
+            @Scroll.performed += instance.OnScroll;
+            @Scroll.canceled += instance.OnScroll;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -766,12 +740,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ConsumeItem.started -= instance.OnConsumeItem;
             @ConsumeItem.performed -= instance.OnConsumeItem;
             @ConsumeItem.canceled -= instance.OnConsumeItem;
-            @ThrowItem.started -= instance.OnThrowItem;
-            @ThrowItem.performed -= instance.OnThrowItem;
-            @ThrowItem.canceled -= instance.OnThrowItem;
-            @Scrollpagesinventory.started -= instance.OnScrollpagesinventory;
-            @Scrollpagesinventory.performed -= instance.OnScrollpagesinventory;
-            @Scrollpagesinventory.canceled -= instance.OnScrollpagesinventory;
+            @Scroll.started -= instance.OnScroll;
+            @Scroll.performed -= instance.OnScroll;
+            @Scroll.canceled -= instance.OnScroll;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -820,7 +791,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSeeTasks(InputAction.CallbackContext context);
         void OnOpenPager(InputAction.CallbackContext context);
         void OnConsumeItem(InputAction.CallbackContext context);
-        void OnThrowItem(InputAction.CallbackContext context);
-        void OnScrollpagesinventory(InputAction.CallbackContext context);
+        void OnScroll(InputAction.CallbackContext context);
     }
 }

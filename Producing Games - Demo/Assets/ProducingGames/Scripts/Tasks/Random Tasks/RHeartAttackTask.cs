@@ -5,13 +5,13 @@ using UnityEngine.TextCore.Text;
 
 public class RHeartAttackTask : Task
 {
-    public float timeTillHeartAttack = 30;
+    public float timeTillHeartAttack = 60;
     public float timeRemaining = 10;
 
     public override void TaskStart()
     {
         // Alert pager
-        taskNoticed = true;
+        DetectTask();
 
         timeRemaining = timeTillHeartAttack;
         base.TaskStart();
@@ -40,7 +40,7 @@ public class RHeartAttackTask : Task
 
     public override void CompleteTask()
     {
-        if (taskTarget.TryGetComponent(out AICharacter character)) character.currentHealth += 1;
+        if (taskTarget.TryGetComponent(out PatientCharacter character)) character.currentHealth += 1;
         Debug.Log("Completed heart attack task");
         base.CompleteTask();
     }
@@ -48,7 +48,7 @@ public class RHeartAttackTask : Task
 
     public override void FailTask()
     {
-        if (taskTarget.TryGetComponent(out AICharacter character))
+        if (taskTarget.TryGetComponent(out PatientCharacter character))
         {
             character.currentHealth = 0;
             PagerMessages.instance.DisplayMessage("Patient was killed by a heart attack", 10);

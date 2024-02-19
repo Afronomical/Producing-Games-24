@@ -47,7 +47,7 @@ public class LightFlickProx : MonoBehaviour
         else if (distance < minDist)
         {
             StartCoroutine(flashScript.Flickering());
-            Debug.Log("mghbsaddjkhfbaibaigbakladgjhbgk,");
+            //Debug.Log("mghbsaddjkhfbaibaigbakladgjhbgk,");
         }
         else if (resetFlicker)
         {
