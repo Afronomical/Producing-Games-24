@@ -17,30 +17,36 @@ public class PrayerState : PatientStateBaseClass
 
     private void Awake()
     {
-        character.isMoving = true;
+        //character.isMoving = true;
     }
 
     private void Start()
     {
+        character.agent.enabled = true;
         character.agent.ResetPath();
         prayingDestination = NPCManager.Instance.RandomPrayingDestination();
-        character.agent.speed = character.runSpeed;
+        character.agent.speed = 0.0f;
         //maybe some sound effects to signify the praying? panic sounds or speech 
+        character.agent.transform.position = prayingDestination;
+        character.agent.Warp(prayingDestination);
+
+        GetComponent<Animator>().SetBool("isPraying", true);
     }
 
 
     public override void UpdateLogic()
     {
-        character.agent.SetDestination(prayingDestination);
-        if(CheckDistanceToLocation())
-        {
-            atLocation = true;
-        }
-        if(atLocation)
-        {
-            character.agent.ResetPath(); 
-            ExecutePrayer();
-        }
+        //character.agent.SetDestination(prayingDestination);
+
+        //if(CheckDistanceToLocation())
+        //{
+        //    atLocation = true;
+        //}
+        //if(atLocation)
+        //{
+        //    character.agent.ResetPath(); 
+        //    ExecutePrayer();
+        //}
     }
 
     /// <summary>
@@ -49,7 +55,7 @@ public class PrayerState : PatientStateBaseClass
     public void ExecutePrayer()
     {
         ///singing/gospel, increasing sanity? 
-        Debug.Log(character.name + "is Praying"); 
+        //Debug.Log(character.name + "is Praying"); 
        
     }
 
@@ -58,17 +64,17 @@ public class PrayerState : PatientStateBaseClass
     /// checks the distance between NPC and Prayer Point to determine whether can enter praying logic. 
     /// </summary>
     /// <returns></returns>
-    public bool CheckDistanceToLocation()
-    {
-        if (Vector3.Distance(character.transform.position, prayingDestination) < distanceFromPrayerPoint)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+    //public bool CheckDistanceToLocation()
+    //{
+    //    if (Vector3.Distance(character.transform.position, prayingDestination) < distanceFromPrayerPoint)
+    //    {
+    //        return true;
+    //    }
+    //    else
+    //    {
+    //        return false;
+    //    }
+    //}
 
     /// <summary>
     /// checks whether the patient is praying in their own room, which determines how to end the prayer state 

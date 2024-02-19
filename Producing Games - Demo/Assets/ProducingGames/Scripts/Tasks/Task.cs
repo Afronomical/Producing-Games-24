@@ -32,11 +32,14 @@ public class Task : MonoBehaviour
 
     public void CheckDetectTask(GameObject interactedObject)
     {
-        foreach (GameObject obj in detectingObjects)
+        if (detectingObjects != null)
         {
-            if (interactedObject == taskTarget)  // Check for the correct object being looked at
+            foreach (var obj in detectingObjects)
             {
-                DetectTask();
+                if (interactedObject == taskTarget)  // Check for the correct object being looked at
+                {
+                    DetectTask();
+                }
             }
         }
     }
@@ -44,8 +47,11 @@ public class Task : MonoBehaviour
 
     public virtual void DetectTask()
     {
-        taskNoticed = true;
-        CheckList.instance.AddTask(this);
+        if (!taskNoticed)
+        {
+            taskNoticed = true;
+            CheckList.instance.AddTask(this);
+        }
     }
 
 
@@ -53,11 +59,18 @@ public class Task : MonoBehaviour
     {
         taskCompleted = true;
 
-        if (isHourlyTask)
-        {
-            taskTarget.transform.Find("Eye 1").GetComponent<MeshRenderer>().material = hTask.basicEyes;
-            taskTarget.transform.Find("Eye 2").GetComponent<MeshRenderer>().material = hTask.basicEyes;
-        }
+
+        //steam achievement for completing first task
+        //if(SteamManager.Initialized)
+        //{
+        //    Steamworks.SteamUserStats.GetAchievement("CompleteTask", out bool completed);
+
+        //    if(!completed)
+        //    {
+        //        SteamUserStats.SetAchievement("CompleteTask");
+        //        SteamUserStats.StoreStats();
+        //    }
+        //}
 
         PatientTaskManager.instance.CompleteTask(this);
     }
@@ -65,10 +78,6 @@ public class Task : MonoBehaviour
 
     public virtual void FailTask()
     {
-        if (isHourlyTask)
-        {
-            taskTarget.transform.Find("Eye 1").GetComponent<MeshRenderer>().material = hTask.basicEyes;
-            taskTarget.transform.Find("Eye 2").GetComponent<MeshRenderer>().material = hTask.basicEyes;
-        }
+
     }
 }

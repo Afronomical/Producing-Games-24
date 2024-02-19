@@ -22,7 +22,7 @@ public class RMedicationTask : Task
     {
         if (interactedObject == taskTarget)  // Check for the correct patient being interacted with
         {
-            if (InventoryHotbar.instance.currentItem == hTask.itemToGive)  // Check for the correct item being held
+            if (InventoryHotbar.instance.currentItem == rTask.itemToGive)  // Check for the correct item being held
             {
                 InventoryHotbar.instance.RemoveFromInventory(InventoryHotbar.instance.currentItem);
                 CompleteTask();

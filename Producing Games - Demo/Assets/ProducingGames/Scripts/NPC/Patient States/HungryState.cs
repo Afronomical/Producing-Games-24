@@ -18,7 +18,7 @@ public class HungryState : PatientStateBaseClass
 
     private void Awake()
     {
-        character.isMoving = true; 
+        //character.isMoving = true;
     }
 
     private void Start()

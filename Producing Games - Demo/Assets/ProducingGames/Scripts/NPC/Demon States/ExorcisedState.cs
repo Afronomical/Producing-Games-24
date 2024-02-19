@@ -13,12 +13,24 @@ public class ExorcisedState :DemonStateBaseClass
    
     private void Start()
     {
-        GetComponent<AICharacter>().isMoving = false; 
-        gameObject.SetActive(false); //de activates the Demon 
-        ///maybe scream sound effect of some kind 
+        ///maybe scream sound effect of some kind
+
+        //bool to change animation to death
+        GetComponent<Animator>().SetBool("isExorcised", true);
+        GetComponent<Animator>().SetBool("isChasing", false);
+
+        //invoke the destruction of the character
     }
     public override void UpdateLogic()
     {
+        Invoke("Exorcise", 3);
         
+    }
+
+    void Exorcise()
+    {
+        GetComponent<AICharacter>().isMoving = false; 
+        gameObject.SetActive(false); //de activates the Demon 
+
     }
 }

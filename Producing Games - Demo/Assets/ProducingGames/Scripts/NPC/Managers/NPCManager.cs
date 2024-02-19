@@ -87,11 +87,13 @@ public class NPCManager : MonoBehaviour
         {
             hungryLib.Add(transform.position, false);
         }
+
+        AssignBeds();
     }
 
     private void Start()
     {
-        AssignBeds();
+        //AssignBeds();
     }
 
     /// <summary>

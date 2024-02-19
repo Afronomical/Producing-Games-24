@@ -29,6 +29,9 @@ public class WanderingState : PatientStateBaseClass
 
         character.agent.speed = character.walkSpeed;  
         character.agent.ResetPath();
+
+        GetComponent<Animator>().SetBool("inBed", false);
+        GetComponent<Animator>().SetBool("isPraying", false);
     }
 
     public override void UpdateLogic()
@@ -39,14 +42,28 @@ public class WanderingState : PatientStateBaseClass
         if (Vector3.Distance(character.transform.position, wanderDestination) < distanceFromDestination)
         {
             currentIdleTime += Time.deltaTime;
-
+            character.isMoving = false;
             // INFO: After the NPC has waited at its destination location for a specified
             // time it will then choose a different location to move towards
             if (currentIdleTime > maxIdleTime)
             {
                 currentIdleTime = 0.0f;
                 ChooseDestination();
+                //character.isMoving = true;
             }
+        }
+        else
+        {
+            character.isMoving = true;
+        }
+
+        if (character.agent.velocity.magnitude > 0)
+        {
+            GetComponent<Animator>().SetBool("isMoving", true);
+        }
+        else
+        {
+            GetComponent<Animator>().SetBool("isMoving", false);
         }
     }
 
@@ -68,5 +85,7 @@ public class WanderingState : PatientStateBaseClass
 
         // INFO: Chooses a new destination to wander to
         wanderDestination = NPCManager.Instance.RandomWanderingDestination();
+
+        //character.isMoving = true;
     }
 }

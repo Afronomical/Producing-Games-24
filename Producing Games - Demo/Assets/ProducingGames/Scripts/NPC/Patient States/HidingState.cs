@@ -22,6 +22,7 @@ public class HidingState : PatientStateBaseClass
         ChooseLocation();
 
         character.agent.speed = 0.0f;
+        character.agent.enabled = true;
         character.agent.ResetPath();
 
         character.agent.transform.position = hidingLocation;

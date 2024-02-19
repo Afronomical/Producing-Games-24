@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class StudyDoorInteractable : InteractableTemplate
 {
@@ -12,17 +13,16 @@ public class StudyDoorInteractable : InteractableTemplate
 
     public override void Interact()
     {
-        if (GameManager.Instance.inStudy)
+        if (GameManager.Instance.player.GetComponent<PlayerInput>().enabled)
         {
-            collectible = endHourSO;
-            GameManager.Instance.player.transform.position = startShiftPosition.position;
-            GameManager.Instance.player.transform.rotation = startShiftPosition.rotation;
-            GameManager.Instance.StartShift();
-        }
-        else
-        {
-            collectible = startShiftSO;
-            GameManager.Instance.EndHour();
+            if (GameManager.Instance.inStudy)
+            {
+                StartCoroutine(GameManager.Instance.StartShift(startShiftPosition));
+            }
+            else
+            {
+                StartCoroutine(GameManager.Instance.EndHour());
+            }
         }
     }
 }

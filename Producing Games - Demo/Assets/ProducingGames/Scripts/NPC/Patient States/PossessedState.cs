@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -16,8 +17,9 @@ public class PossessedState : PatientStateBaseClass
         if (character.isPossessed)
         {
             // INFO: Character.bed will need to be changed once we assign rooms to patients
-            GameObject GO = Instantiate(character.demon.demonPrefab, character.bed.transform.position, Quaternion.identity);
-            GameManager.Instance.demon = GO;     
+            //GameObject GO = Instantiate(character.demon.demonPrefab, character.bed.transform.position, Quaternion.identity);
+            //GameManager.Instance.demon = GO;
+            GameManager.Instance.demon.GetComponent<DemonCharacter>().ChangeDemonState(DemonCharacter.DemonStates.Patrol);
         }
     }
 

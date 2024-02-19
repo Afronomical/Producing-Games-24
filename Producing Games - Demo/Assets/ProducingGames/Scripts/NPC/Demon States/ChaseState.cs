@@ -16,8 +16,10 @@ public class ChaseState : DemonStateBaseClass
     private Vector3 lastTargetPos;
 
     private float timeAlone = 0;
-    private readonly float maxTimeAlone = 20f;   
+    private readonly float maxTimeAlone = 20f;
 
+    //bool to check if chasing
+    bool isChasing;
     private void Awake()
     {
         GetComponent<AICharacter>().isMoving = true;
@@ -26,7 +28,9 @@ public class ChaseState : DemonStateBaseClass
     private void Start()
     {
         character.agent.ResetPath();
-        character.agent.speed = character.runSpeed;      
+        character.agent.speed = character.runSpeed;
+
+        isChasing = false;
     }
 
     public override void UpdateLogic()
@@ -42,6 +46,8 @@ public class ChaseState : DemonStateBaseClass
 
         if (character.raycastToPlayer.PlayerDetected()) //player is detected. following player function is called. 
         {
+            isChasing = true;
+
             if (timeAlone != 0)
                 timeAlone = 0.0f;
 
@@ -64,12 +70,16 @@ public class ChaseState : DemonStateBaseClass
             character.agent.SetDestination(lastTargetPos);
             timeAlone += Time.deltaTime;
 
+            isChasing = false;
+
             if (timeAlone >= maxTimeAlone)
             {
                 timeAlone = 0.0f;
                 character.ChangeDemonState(DemonCharacter.DemonStates.Patrol); //changes state to patrol
             }
         }
+
+        GetComponent<Animator>().SetBool("isChasing", isChasing);
     }
 
     /// <summary>

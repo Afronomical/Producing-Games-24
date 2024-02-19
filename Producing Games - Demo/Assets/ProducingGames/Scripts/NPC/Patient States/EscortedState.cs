@@ -33,8 +33,19 @@ public class EscortedState : PatientStateBaseClass
 
     public override void UpdateLogic()
     {
+
+        GetComponent<Animator>().SetBool("isMoving", true);
+
         targetPos = character.player.transform.position;
 
+        /*
+        if(character.deterred)
+        {
+            character.ChangeState(AICharacter.States.Abandoned);
+            character.deterred = false;
+        }
+        */
+        
         if (character.raycastToPlayer.PlayerDetected()) //player is detected. following player function is called. 
         {
             if (timeAlone != 0)
@@ -53,6 +64,7 @@ public class EscortedState : PatientStateBaseClass
 
             if (timeAlone >= maxTimeAlone) //gives player 3 seconds to recollect NPC before they enter wandering state again 
             {
+                //GetComponent<Animator>().SetBool("isAbandoned", true);
                 character.ChangePatientState(PatientCharacter.PatientStates.Abandoned); //changes state to abandoned
                 timeAlone = 0.0f;
             }
@@ -79,9 +91,6 @@ public class EscortedState : PatientStateBaseClass
         {
             if (collider.gameObject == character.bed) ///just for testing 
             {
-                Vector3 bedPos = new Vector3(collider.gameObject.transform.position.x, collider.gameObject.transform.position.y + 1.0f, collider.gameObject.transform.position.z);
-                
-                transform.position = bedPos;
                 return true;
             }
             else
