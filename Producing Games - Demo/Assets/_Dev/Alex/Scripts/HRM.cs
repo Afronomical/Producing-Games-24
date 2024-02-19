@@ -16,7 +16,7 @@ public class HRM : MonoBehaviour
         if(instance == null)
             instance = this;
 
-        heartRate = GetComponent<AnimationCurve>();
+        //heartRate = GetComponent<AnimationCurve>();
 
         //Initialise HR Graph
         heartRate.AddKey(0, 0);
