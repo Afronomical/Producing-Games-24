@@ -5,7 +5,7 @@ using UnityEngine.TextCore.Text;
 
 public class RHeartAttackTask : Task
 {
-    public float timeTillHeartAttack = 30;
+    public float timeTillHeartAttack = 60;
     public float timeRemaining = 10;
 
     public override void TaskStart()

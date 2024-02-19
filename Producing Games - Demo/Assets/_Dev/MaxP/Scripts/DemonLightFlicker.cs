@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.LowLevel;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+//using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 /// <summary>
 /// basically is a copy of proxflicker script but does it to each light in the trigger box
