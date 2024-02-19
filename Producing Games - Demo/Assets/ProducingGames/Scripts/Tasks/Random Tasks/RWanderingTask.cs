@@ -6,7 +6,14 @@ public class RWanderingTask : Task
 {
     public override void TaskStart()
     {
-        // Teleport to a random location
+        detectingObjects = new List<GameObject>();
+        detectingObjects.Add(taskTarget);  // Patient can be detected
+        detectingObjects.Add(taskTarget.GetComponent<PatientCharacter>().bed);  // Empty bed can be detected
+
+        taskTarget.transform.position = NPCManager.Instance.RandomWanderingDestination();
+
+        if (taskTarget && taskTarget.TryGetComponent(out PatientCharacter character))
+            character.ChangePatientState(PatientCharacter.PatientStates.Wandering);
 
         base.TaskStart();
     }
@@ -14,17 +21,14 @@ public class RWanderingTask : Task
 
     void Update()
     {
-        // Check distance between patient and their bed
-        if (taskTarget && taskTarget.TryGetComponent(out AICharacter character))
+        // Check if the patient is in their bed
+        if (taskTarget && taskTarget.TryGetComponent(out PatientCharacter character))
         {
+            if (character.currentState == PatientCharacter.PatientStates.Bed)
+                CompleteTask();
         }
     }
 
-
-    public override void CheckTaskConditions(GameObject interactedObject)
-    {
-
-    }
 
 
     public override void CompleteTask()

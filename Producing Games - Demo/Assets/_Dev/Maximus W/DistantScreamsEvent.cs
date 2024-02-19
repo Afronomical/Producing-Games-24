@@ -7,6 +7,8 @@ public class DistantScreamsEvent : MonoBehaviour
     public float maxDistance = 30f; // Maximum distance for hearing the distant screams
     public float minInterval = 60f; // Minimum interval between distant screams
 
+    public AudioSource audioSource; // Expose AudioSource field for manual assignment in the editor
+
     private float lastScreamTime;
     private GameObject player;
 
@@ -20,6 +22,12 @@ public class DistantScreamsEvent : MonoBehaviour
         if (player == null)
         {
             Debug.LogError("Player not found in the scene.");
+            return;
+        }
+
+        if (audioSource == null)
+        {
+            Debug.LogError("Audio source not assigned. Please assign an audio source in the editor.");
             return;
         }
 
@@ -44,18 +52,12 @@ public class DistantScreamsEvent : MonoBehaviour
                 // Choose a random scream sound
                 AudioClip screamSound = screamSounds[Random.Range(0, screamSounds.Length)];
 
-                // Play the scream sound from a random direction around the player
-                AudioSource.PlayClipAtPoint(screamSound, GetRandomPositionAroundPlayer(), 1.0f);
+                // Play the scream sound through the assigned audio source
+                audioSource.PlayOneShot(screamSound);
             }
 
             yield return null;
         }
     }
-
-    private Vector3 GetRandomPositionAroundPlayer()
-    {
-        // Implement logic to get a random position around the player
-        // This can be achieved by adding a random offset to the player's position
-        return player.transform.position;
-    }
 }
+
