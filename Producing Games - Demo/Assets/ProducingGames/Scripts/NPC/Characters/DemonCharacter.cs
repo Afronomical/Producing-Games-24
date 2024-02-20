@@ -47,7 +47,7 @@ public class DemonCharacter : AICharacter, IHear
 
         characterType = CharacterTypes.Demon;
 
-        ChangeDemonState(DemonStates.Inactive); //INFO: Starting State
+        ChangeDemonState(DemonStates.Patrol); //INFO: Starting State
     }
 
     private void Update()
