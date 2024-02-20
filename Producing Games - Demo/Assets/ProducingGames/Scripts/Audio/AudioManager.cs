@@ -79,7 +79,7 @@ public class AudioManager : MonoBehaviour
     public void PlaySound(SoundEffect effect, Transform effectParent)
     {
         AudioSource source = musicSource;
-
+        effect.soundPos = effectParent;
 
         for (int i = 0; i < effectSources.Count; i++)
         {
@@ -134,6 +134,8 @@ public class AudioManager : MonoBehaviour
         {
             if (col[i].TryGetComponent(out AudioListenScript audioListener))
                 audioListener.canSoundBeHeard = true;
+            else if (col[i].TryGetComponent(out IHear character))
+                character.ReactToSound(effect);
         }
     }
 

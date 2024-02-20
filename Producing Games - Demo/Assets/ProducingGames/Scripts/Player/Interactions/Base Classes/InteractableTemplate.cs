@@ -11,6 +11,7 @@ public class InteractableTemplate : MonoBehaviour, IInteractable
     public Sprite objectIcon;
     //public Vector2 iconSize;
     [SerializeField] public InteractiveObject collectible;
+    [SerializeField] public bool isExorcismObject; 
 
     public string Name => throw new System.NotImplementedException();
 

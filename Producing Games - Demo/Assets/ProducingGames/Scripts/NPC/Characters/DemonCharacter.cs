@@ -8,8 +8,15 @@ using static PatientCharacter;
 /// 
 /// Handles all the functionality specific to demon NPCs
 /// </summary>
+/// 
 
-public class DemonCharacter : AICharacter
+
+public interface IHear
+{
+    void ReactToSound(SoundEffect effect);
+}
+
+public class DemonCharacter : AICharacter, IHear
 {
     public enum DemonStates
     {
@@ -19,15 +26,20 @@ public class DemonCharacter : AICharacter
         Chase,
         Attack,
         Exorcised,
-        Inactive
+        Inactive,
+        Distracted
     }
 
     [Header("Demon Settings")]
     public DemonStates currentState;
     public float attackRadius = 2.0f;
 
+
     [Header("Components")]
     public DemonStateBaseClass demonStateScript;
+
+    public Transform soundDestination;
+
 
     public override void Start()
     {
@@ -71,9 +83,11 @@ public class DemonCharacter : AICharacter
                 DemonStates.Attack => transform.AddComponent<AttackState>(),
                 DemonStates.Exorcised => transform.AddComponent<ExorcisedState>(),
                 DemonStates.Inactive => transform.AddComponent<InactiveState>(),
+                DemonStates.Distracted => transform.AddComponent<DistractedState>(),
                 DemonStates.None => null,
                 _ => null,
             };
+
 
             if (demonStateScript != null)
                 demonStateScript.character = this;  // Set the reference that state scripts will use
@@ -101,5 +115,11 @@ public class DemonCharacter : AICharacter
             //}
         }
     }
-    
+
+    public void ReactToSound(SoundEffect effect)
+    {
+
+        soundDestination = effect.soundPos;
+        ChangeDemonState(DemonStates.Distracted);
+    }
 }
