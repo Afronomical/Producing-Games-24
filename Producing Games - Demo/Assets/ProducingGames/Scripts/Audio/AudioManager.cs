@@ -134,6 +134,8 @@ public class AudioManager : MonoBehaviour
         {
             if (col[i].TryGetComponent(out AudioListenScript audioListener))
                 audioListener.canSoundBeHeard = true;
+            else if (col[i].TryGetComponent(out IHear character))
+                character.ReactToSound(effect);
         }
     }
 

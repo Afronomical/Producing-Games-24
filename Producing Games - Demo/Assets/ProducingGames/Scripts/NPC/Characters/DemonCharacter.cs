@@ -7,8 +7,15 @@ using UnityEngine;
 /// 
 /// Handles all the functionality specific to demon NPCs
 /// </summary>
+/// 
 
-public class DemonCharacter : AICharacter
+
+public interface IHear
+{
+    void ReactToSound(SoundEffect effect);
+}
+
+public class DemonCharacter : AICharacter, IHear
 {
     public enum DemonStates
     {
@@ -18,7 +25,8 @@ public class DemonCharacter : AICharacter
         Chase,
         Attack,
         Exorcised,
-        Inactive
+        Inactive,
+        Distracted
     }
 
     public DemonStates currentState;
@@ -26,7 +34,8 @@ public class DemonCharacter : AICharacter
 
     [Header("Demon Settings")]
     public float attackRadius = 2.0f;
-    
+
+    public Transform soundDestination;
 
     public override void Start()
     {
@@ -84,6 +93,9 @@ public class DemonCharacter : AICharacter
                 case DemonStates.Inactive:
                     demonStateScript = transform.AddComponent<InactiveState>();
                     break;
+                case DemonStates.Distracted:
+                    demonStateScript = transform.AddComponent<DistractedState>();
+                    break;
                 case DemonStates.None:
                     demonStateScript = null;
                     break;
@@ -119,5 +131,11 @@ public class DemonCharacter : AICharacter
             //}
         }
     }
-    
+
+    public void ReactToSound(SoundEffect effect)
+    {
+        
+        //this.transform.Translate(effect.GetComponentInParent<Transform>().position);
+        ChangeDemonState(DemonStates.Distracted);
+    }
 }
