@@ -134,8 +134,8 @@ public class DemonCharacter : AICharacter, IHear
 
     public void ReactToSound(SoundEffect effect)
     {
-        
-        //this.transform.Translate(effect.GetComponentInParent<Transform>().position);
+
+        soundDestination = effect.soundPos;
         ChangeDemonState(DemonStates.Distracted);
     }
 }

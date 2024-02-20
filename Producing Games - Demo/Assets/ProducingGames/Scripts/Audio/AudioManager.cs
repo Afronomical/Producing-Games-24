@@ -79,7 +79,7 @@ public class AudioManager : MonoBehaviour
     public void PlaySound(SoundEffect effect, Transform effectParent)
     {
         AudioSource source = musicSource;
-
+        effect.soundPos = effectParent;
 
         for (int i = 0; i < effectSources.Count; i++)
         {

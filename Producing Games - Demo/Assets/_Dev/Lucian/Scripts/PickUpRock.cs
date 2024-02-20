@@ -15,7 +15,7 @@ public class PickUpRock : InteractableTemplate
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision != null) //anything it hits it will play a sound(for now)
+        if (collision.gameObject.CompareTag("Ground"))// != null) //anything it hits it will play a sound(for now)
         {
             AudioManager.instance.PlaySound(dropNoise, this.transform);
         }
