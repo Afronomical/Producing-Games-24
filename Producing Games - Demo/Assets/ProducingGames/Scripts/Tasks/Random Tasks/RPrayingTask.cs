@@ -13,7 +13,7 @@ public class RPrayingTask : Task
         taskTarget.transform.position = NPCManager.Instance.RandomPrayingDestination();
 
         if (taskTarget && taskTarget.TryGetComponent(out PatientCharacter character))
-            character.ChangePatientState(PatientCharacter.PatientStates.Praying);
+            character.ChangePatientState(PatientCharacter.PatientStates.Prayer);
 
         base.TaskStart();
     }

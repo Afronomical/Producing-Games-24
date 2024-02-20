@@ -22,7 +22,7 @@ public class PatientCharacter : AICharacter
         Possessed,
         Dead,
         Bed,
-        Praying,
+        Prayer,
         Hiding,
         Hungry,
         ReqMeds
@@ -81,7 +81,11 @@ public class PatientCharacter : AICharacter
         {
             // INFO: If the previous state had the patient remain stationary, we will need to grant the patient
             // movement again for the new state that they're going to go into
-            if (currentState == PatientStates.Bed || currentState == PatientStates.ReqMeds) agent.enabled = true;
+            if (currentState == PatientStates.Bed || currentState == PatientStates.ReqMeds || currentState == PatientStates.Prayer)
+            {
+                rb.useGravity = true;
+                agent.enabled = true;
+            }
 
             if (patientStateScript != null)
                 Destroy(patientStateScript); // destroy current script attached to AI character
@@ -97,7 +101,7 @@ public class PatientCharacter : AICharacter
                 PatientStates.Bed => transform.AddComponent<BedState>(),
                 PatientStates.Wandering => transform.AddComponent<WanderingState>(),
                 PatientStates.Dead => transform.AddComponent<DeadState>(),
-                PatientStates.Praying => transform.AddComponent<PrayerState>(),
+                PatientStates.Prayer => transform.AddComponent<PrayerState>(),
                 PatientStates.Hiding => transform.AddComponent<HidingState>(),
                 PatientStates.Hungry => transform.AddComponent<HungryState>(),
                 PatientStates.ReqMeds => transform.AddComponent<RequestMedicationState>(),

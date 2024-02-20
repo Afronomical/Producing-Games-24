@@ -19,41 +19,39 @@ public class WanderingState : PatientStateBaseClass
 
     private void Start()
     {
-        ChooseDestination();
+        if (character.agent.hasPath)
+            character.agent.ResetPath();
 
         character.agent.speed = character.walkSpeed;  
-        character.agent.ResetPath();
 
-        GetComponent<Animator>().SetBool("inBed", false);
-        GetComponent<Animator>().SetBool("isPraying", false);
+        ChooseDestination();
+
+        character.animator.SetBool("inBed", false);
+        character.animator.SetBool("isPraying", false);
     }
 
     public override void UpdateLogic()
     {
         character.agent.SetDestination(wanderDestination);
 
-        // INFO: Given that the NPC is near to the destination location a timer is started
+        // INFO: Given that the patient is near to the destination location a timer is started
         if (Vector3.Distance(character.transform.position, wanderDestination) < distanceFromDestination)
         {
             currentIdleTime += Time.deltaTime;
-            // INFO: After the NPC has waited at its destination location for a specified
+
+            // INFO: After the patient has waited at its destination location for a specified
             // time it will then choose a different location to move towards
             if (currentIdleTime > maxIdleTime)
             {
                 currentIdleTime = 0.0f;
                 ChooseDestination();
-                //character.isMoving = true;
             }
         }
 
         if (character.agent.velocity.magnitude > 0)
-        {
-            GetComponent<Animator>().SetBool("isMoving", true);
-        }
+            character.animator.SetBool("isMoving", true);
         else
-        {
-            GetComponent<Animator>().SetBool("isMoving", false);
-        }
+            character.animator.SetBool("isMoving", false);
     }
 
     /// <summary>
@@ -74,7 +72,5 @@ public class WanderingState : PatientStateBaseClass
 
         // INFO: Chooses a new destination to wander to
         wanderDestination = NPCManager.Instance.RandomWanderingDestination();
-
-        //character.isMoving = true;
     }
 }

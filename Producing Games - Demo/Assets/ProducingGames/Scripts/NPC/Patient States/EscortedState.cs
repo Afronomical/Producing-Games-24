@@ -11,70 +11,65 @@ using UnityEngine;
 public class EscortedState : PatientStateBaseClass
 {
     private Vector3 targetPos;
+    private Vector3 lastPlayerPos;
+
     private bool shouldFollow = true;
-    private bool hasPickedUpNPC = false;
-    private bool bedInRange;
-    private float timeAlone = 0;
-    private readonly float maxTimeAlone = 5f;
+    private bool hasPickedUpPatient = false;
     private readonly float stoppingDistance = 3.0f;
 
-    private Vector3 lastPlayerPos;
+    private float timeAlone = 0;
+    private readonly float maxTimeAlone = 5f;
+
 
     private void Start()
     {
-        character.agent.ResetPath();
+        if (character.agent.hasPath)
+            character.agent.ResetPath();
+
         character.agent.speed = character.runSpeed;
     }
 
     public override void UpdateLogic()
     {
-
-        GetComponent<Animator>().SetBool("isMoving", true);
+        character.animator.SetBool("isMoving", true);
 
         targetPos = character.player.transform.position;
-
-        /*
-        if(character.deterred)
-        {
-            character.ChangeState(AICharacter.States.Abandoned);
-            character.deterred = false;
-        }
-        */
         
         if (character.raycastToPlayer.PlayerDetected()) //player is detected. following player function is called. 
         {
             if (timeAlone != 0)
                 timeAlone = 0.0f;
 
-            hasPickedUpNPC = true;
+            hasPickedUpPatient = true;
 
             lastPlayerPos = character.player.transform.position;
 
             MoveTowardsPlayer();
         }
-        else if (hasPickedUpNPC && !character.raycastToPlayer.PlayerDetected()) //if NPC previously picked up but currently not detecting player 
+        else if (hasPickedUpPatient && !character.raycastToPlayer.PlayerDetected()) //if patient previously picked up but currently not detecting player 
         {
-            character.agent.SetDestination(lastPlayerPos); //NPC moves to player last known position to check whether they are still in range 
-            timeAlone += Time.deltaTime;
+            character.agent.SetDestination(lastPlayerPos); //Patient moves to player last known position to check whether they are still in range 
 
-            if (timeAlone >= maxTimeAlone) //gives player 3 seconds to recollect NPC before they enter wandering state again 
+            // INFO: Given that the patient has arrived at their destination, start a countdown for the abandoned transition
+            if (Vector3.Distance(transform.position, lastPlayerPos) < stoppingDistance)
             {
-                //GetComponent<Animator>().SetBool("isAbandoned", true);
-                character.ChangePatientState(PatientCharacter.PatientStates.Abandoned); //changes state to abandoned
-                timeAlone = 0.0f;
+                timeAlone += Time.deltaTime;
+                character.animator.SetBool("isAbandoned", true);
+
+                if (timeAlone >= maxTimeAlone) //gives player 3 seconds to recollect patient before they enter wandering state again 
+                {
+                    timeAlone = 0.0f;
+                    character.ChangePatientState(PatientCharacter.PatientStates.Abandoned); //changes state to abandoned
+                }
             }
-            return;
         }
 
-        if (hasPickedUpNPC)
+        if (hasPickedUpPatient)
         {
             if (CheckBedInRange()) //checking whether bed is in range 
             {
-                bedInRange = true;
                 shouldFollow = false;
-                character.agent.enabled = false;
                 character.ChangePatientState(PatientCharacter.PatientStates.Bed);
-                //move to bed instead of player, and then enter bed state 
             }
         }
     }
@@ -84,16 +79,9 @@ public class EscortedState : PatientStateBaseClass
         Collider[] colliders = Physics.OverlapSphere(character.transform.position, character.detectionRadius);
         foreach (Collider collider in colliders)
         {
-            if (collider.gameObject == character.bed) ///just for testing 
-            {
+            if (collider.gameObject == character.bed)
                 return true;
-            }
-            else
-            {
-                //Debug.Log("BED NOT FOUND"); 
-            }
         }
-
         return false;
     }
 
@@ -103,26 +91,23 @@ public class EscortedState : PatientStateBaseClass
     /// </summary>
     void MoveTowardsPlayer()
     {
-        // INFO: Ensures the NPC only rotates on the y-axis
+        // INFO: Ensures the patient only rotates on the y-axis
         Vector3 playerPosition = new(character.player.transform.position.x, transform.position.y, character.player.transform.position.z);
         transform.LookAt(playerPosition);
 
-        if (character.rb != null && shouldFollow == true)
+        if (shouldFollow)
             character.agent.SetDestination(targetPos); // sets target position to player last pos 
 
-        if (character.raycastToPlayer.playerDistance < stoppingDistance)  //stops NPC moving any closer than 3 units 
+        if (character.raycastToPlayer.playerDistance < stoppingDistance)  //stops patient moving any closer than 3 units 
         {
             shouldFollow = false;
 
             character.rb.velocity = Vector3.zero;
-            character.agent.isStopped = true;
             character.agent.ResetPath();
+
+            character.animator.SetBool("isMoving", false);
         }
         else
-        {
             shouldFollow = true;
-
-            character.agent.isStopped = false;
-        }
     }
 }
