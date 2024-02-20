@@ -20,10 +20,23 @@ public class EconomyManager : MonoBehaviour
 
     public void DisplayBudget()
     {
+        if(budget < 0) budget = 0;
         money.text = "£ " + budget;
     }
 
     public void AddIncome(int amount) { budget += amount; }
 
-    public void RemoveIncome(int amount) { budget -= amount; }
+    public void RemoveIncome(int amount) 
+    {
+        if(budget <= 0) 
+        {
+            //Stop buying/spawning items if broke
+            //Display message to tell player they are broke
+        }
+        else
+        {
+            budget -= amount;
+            //Spawn item in storage
+        }
+    }
 }
