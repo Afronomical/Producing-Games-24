@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random=UnityEngine.Random;
 using UnityEngine.InputSystem;
 
 public class Flashlight : MonoBehaviour
@@ -12,9 +14,9 @@ public class Flashlight : MonoBehaviour
     
     
     [Header("Battery Settings")]
-    [Range(1, 200)] public float batteryCharge;
-    [Range(1, 10)] public float batteryDrainRate;
-    private float maxBatteryCharge;
+    [Range(0, 200)] public float batteryCharge;
+    [Range(0, 10)] public float batteryDrainRate;
+    [NonSerialized] public float maxBatteryCharge;
     private int intensityIndex = 0;
 
     [Header("Flashlight Flickering Settings")]
@@ -33,15 +35,16 @@ public class Flashlight : MonoBehaviour
         //Debug.Log(light.intensity);
 
         if (Input.GetKeyDown(KeyCode.T))
-        {
             StartCoroutine(Flickering());
-        }
         
-        FlashFlicker();
-
+        if(batteryCharge <= 0)
+            intensityIndex = 0;
 
         //Higher the intensity of the flashlight, the faster the battery will drain
-        batteryCharge -= batteryDrainRate * Time.deltaTime * intensities[intensityIndex];
+        batteryCharge -= batteryDrainRate * Time.deltaTime * intensityIndex;
+       
+        FlashFlicker();
+
     }
 
 
@@ -49,10 +52,15 @@ public class Flashlight : MonoBehaviour
     {
         if (context.performed)
         {
-            intensityIndex++;
-            if (intensityIndex >= intensities.Length)
-                intensityIndex = 0;
-            IntensityChange();
+            if(batteryCharge <= 0)
+                return;
+            else
+            {
+                intensityIndex++;
+                if (intensityIndex >= intensities.Length)
+                    intensityIndex = 0;
+                IntensityChange();
+            }
         }
     }
 
@@ -105,4 +113,5 @@ public class Flashlight : MonoBehaviour
         }
         
     }
+   
 }
