@@ -25,16 +25,17 @@ public class NPCManager : MonoBehaviour
     [SerializeField] private List<Transform> patrolDestinations = new();
 
     [Header("Miscellaneous:")]
-    public List<GameObject> patientList = new();
     [SerializeField] private List<DemonItemsSO> demonTypes = new();
-    [SerializeField] private List<GameObject> patientBeds = new();
+    [HideInInspector] public readonly List<GameObject> patientList = new();
+    [HideInInspector] public readonly List<GameObject> patientBeds = new();
+
 
     // INFO: The key represents the location that the NPC should move to
     // the value represents whether the location has been taken by an NPC
-    private Dictionary<Vector3, bool> wanderingLib = new();
-    private Dictionary<Vector3, bool> hidingLib = new();
-    private Dictionary<Vector3, bool> prayingLib = new();
-    private Dictionary<Vector3, bool> hungryLib = new();
+    private readonly Dictionary<Vector3, bool> wanderingLib = new();
+    private readonly Dictionary<Vector3, bool> hidingLib = new();
+    private readonly Dictionary<Vector3, bool> prayingLib = new();
+    private readonly Dictionary<Vector3, bool> hungryLib = new();
 
     public DemonItemsSO ChosenDemon { get; private set; }
     public int GetWanderingDestinationsCount() => wanderingDestinations.Count;
@@ -50,54 +51,51 @@ public class NPCManager : MonoBehaviour
         else
             Instance = this;
 
+        // INFO: Get all patients in the scene and store them in the patients list
         PatientCharacter[] aICharacters = FindObjectsByType<PatientCharacter>(FindObjectsSortMode.None);
         foreach (PatientCharacter character in aICharacters)
-        {
             patientList.Add(character.gameObject);
-        }
 
-        AssignRandomDemonType();
-
+        // INFO: Get all beds in the scene and store them in the beds list
         GameObject[] beds = GameObject.FindGameObjectsWithTag("Bed");
         foreach (var item in beds)
-        {
             patientBeds.Add(item);
-            Debug.Log("added beds");
-        }
 
         // INFO: Add all vector3 positions to the dictionary and initialise
         // their value as false (which states that the location hasn't been taken yet)
         foreach (Transform transform in wanderingDestinations)
-        {
             wanderingLib.Add(transform.position, false);
-        }
 
-        // INFO: Do the same for hiding locations
         foreach (Transform transform in hidingLocations)
-        {
             hidingLib.Add(transform.position, false);
-        }
 
-        foreach(Transform transform in prayingLocations)
-        {
+        foreach (Transform transform in prayingLocations)
             prayingLib.Add(transform.position, false);
-        }
 
-        foreach(Transform transform in kitchenLocations)
-        {
+        foreach (Transform transform in kitchenLocations)
             hungryLib.Add(transform.position, false);
-        }
 
         AssignBeds();
-    }
-
-    private void Start()
-    {
-        //AssignBeds();
+        AssignRandomDemonType();
     }
 
     /// <summary>
-    /// Randomises a demon for the game instance and a selected NPC to possess. 
+    /// Assigns the available beds randomly to each patient
+    /// </summary>
+    private void AssignBeds()
+    {
+        foreach (GameObject Patient in patientList)
+        {
+            int bedChoice = Random.Range(0, patientBeds.Count);
+            GameObject chosenBed = patientBeds[bedChoice];
+            Patient.GetComponent<PatientCharacter>().bed = chosenBed;
+            Debug.Log("Set " + Patient.name + " to bed number: " + chosenBed);
+            patientBeds.Remove(chosenBed);
+        }
+    }
+
+    /// <summary>
+    /// Randomises a demon for the game instance and a selected NPC to possess
     /// </summary>
     public void AssignRandomDemonType()
     {
@@ -109,7 +107,7 @@ public class NPCManager : MonoBehaviour
 
         chosenNPC.GetComponent<PatientCharacter>().isPossessed = true;
 
-        Debug.Log(chosenNPC.name + "Has been possessed by: " + ChosenDemon.demonName);
+        Debug.Log(chosenNPC.name + " has been possessed by: " + ChosenDemon.demonName);
     }
 
     /// <summary>
@@ -119,7 +117,6 @@ public class NPCManager : MonoBehaviour
     public Vector3 RandomWanderingDestination()
     {
         Vector3 wanderingDestination = FindSuitableLocation(wanderingDestinations, AvailableLocations(wanderingLib), wanderingLib);
-
         return wanderingDestination;
     }
 
@@ -130,7 +127,6 @@ public class NPCManager : MonoBehaviour
     public Vector3 RandomHidingLocation()
     {
         Vector3 hidingLocation = FindSuitableLocation(hidingLocations, AvailableLocations(hidingLib), hidingLib);
-
         return hidingLocation;
     }
 
@@ -140,8 +136,7 @@ public class NPCManager : MonoBehaviour
     /// <returns></returns>
     public Vector3 RandomPrayingDestination()
     {
-        Vector3 prayerDestination = FindSuitableLocation(prayingLocations,AvailableLocations(prayingLib), prayingLib);
-
+        Vector3 prayerDestination = FindSuitableLocation(prayingLocations, AvailableLocations(prayingLib), prayingLib);
         return prayerDestination;
     }
 
@@ -152,7 +147,6 @@ public class NPCManager : MonoBehaviour
     public Vector3 RandomKitchenPosition()
     {
         Vector3 kitchenPos = FindSuitableLocation(kitchenLocations, AvailableLocations(hungryLib), hungryLib);
-
         return kitchenPos;
     }
 
@@ -164,7 +158,7 @@ public class NPCManager : MonoBehaviour
     {
         return patrolDestinations[Random.Range(0, patrolDestinations.Count)].position;
     }
-    
+
     /// <summary>
     /// Sets the specified value (bool) of the passed in key (Vector3) to false, signifying
     /// that it can be accessed again by other NPCs
@@ -175,7 +169,6 @@ public class NPCManager : MonoBehaviour
         if (wanderingLib.ContainsKey(wanderingDestination))
             wanderingLib[wanderingDestination] = false;
     }
-
 
     /// <summary>
     /// Sets the specified value (bool) of the passed in key (Vector3) to false, signifying
@@ -188,7 +181,6 @@ public class NPCManager : MonoBehaviour
             hungryLib[kitchenDestination] = false;
     }
 
-
     /// <summary>
     /// Sets the specified value (bool) of the passed in key (Vector3) to false, signifying
     /// that it can be accessed again by other NPCs
@@ -196,7 +188,7 @@ public class NPCManager : MonoBehaviour
     /// <param name="prayingDestination"></param>
     public void SetPrayingDestinationFree(Vector3 prayingDestination)
     {
-        if(prayingLib.ContainsKey(prayingDestination))
+        if (prayingLib.ContainsKey(prayingDestination))
             prayingLib[prayingDestination] = false;
     }
 
@@ -227,7 +219,6 @@ public class NPCManager : MonoBehaviour
             if (!key)
                 availableLocations++;
         }
-
         return availableLocations;
     }
 
@@ -262,15 +253,4 @@ public class NPCManager : MonoBehaviour
         return chosenLocation;
     }
 
-    public void AssignBeds()
-    {
-        foreach(GameObject npc in patientList)
-        {
-            int bedChoice = Random.Range(0, patientBeds.Count);
-            GameObject chosenBed = patientBeds[bedChoice];
-            npc.GetComponent<PatientCharacter>().bed = chosenBed;
-            Debug.Log("Set " + npc.name + "to bed number: " + chosenBed);
-            patientBeds.Remove(chosenBed);
-        }
-    }
 }

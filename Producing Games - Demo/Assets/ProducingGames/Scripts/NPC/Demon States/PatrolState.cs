@@ -16,18 +16,15 @@ public class PatrolState : DemonStateBaseClass
     private float currentIdleTime = 0.0f;
     private readonly float maxIdleTime = 3.0f;
 
-    private void Awake()
-    {
-        // INFO: Enables the NPCs movement capabilities
-        GetComponent<AICharacter>().isMoving = true;
-    }
-
     private void Start()
     {
         ChooseDestination();
 
+        if (character.agent.hasPath)
+            character.agent.ResetPath();
+
         character.agent.speed = character.walkSpeed;
-        character.agent.ResetPath();
+
         GetComponent<Animator>().SetBool("isMoving", true);
         GetComponent<Animator>().SetBool("isChasing", false);
     }
@@ -35,13 +32,9 @@ public class PatrolState : DemonStateBaseClass
     public override void UpdateLogic()
     {
         if (character.agent.velocity.magnitude > 0)
-        {
             GetComponent<Animator>().SetBool("isMoving", true);
-        }
         else
-        {
             GetComponent<Animator>().SetBool("isMoving", false);
-        }
 
         character.agent.SetDestination(patrolDestination);
 
@@ -50,7 +43,6 @@ public class PatrolState : DemonStateBaseClass
         {
             currentIdleTime += Time.deltaTime;
 
-            character.isMoving = false;
             // INFO: After the NPC has waited at its destination location for a specified
             // time it will then choose a different location to move towards
             if (currentIdleTime > maxIdleTime)
@@ -59,11 +51,6 @@ public class PatrolState : DemonStateBaseClass
                 ChooseDestination();
             }
         }
-        else
-        {
-            character.isMoving = true;
-        }
-
     }
 
     /// <summary>

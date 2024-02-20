@@ -19,10 +19,8 @@ public class AICharacter : MonoBehaviour
     public float runSpeed = 3.0f;
     public float crawlSpeed = 0.5f;
     public float detectionRadius = 5.0f;
-    
 
     [Header("States")]
-    [HideInInspector] public bool isMoving;
     [HideInInspector] public bool knowsAboutPlayer;
 
     [Header("Components")]
@@ -30,36 +28,30 @@ public class AICharacter : MonoBehaviour
     public Rigidbody rb;
     public NavMeshAgent agent;
     public RaycastToPlayer raycastToPlayer;
+    public Animator animator;
 
     [Header("Debugging Tools")]
     public Color detectionRadiusColor = Color.white;
 
     public virtual void Start()
-    {
-        
-        
+    {   
         // INFO: If no specific color has been chosen, then default
         // values are provided
         if (detectionRadiusColor == Color.white)
         {
-            switch (characterType)
+            detectionRadiusColor = characterType switch
             {
-                case CharacterTypes.Patient:
-                    detectionRadiusColor = Color.green;
-                    break;
-                case CharacterTypes.Demon:
-                    detectionRadiusColor = Color.red;
-                    break;
-                default:
-                    detectionRadiusColor = Color.yellow;
-                    break;
-            }
+                CharacterTypes.Patient => Color.green,
+                CharacterTypes.Demon => Color.red,
+                _ => Color.yellow,
+            };
         }
 
         player = FindFirstObjectByType<PlayerMovement>().gameObject;
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         raycastToPlayer = GetComponent<RaycastToPlayer>();
+        animator = GetComponent<Animator>();
     }
 
     private void OnDrawGizmos()
@@ -72,6 +64,4 @@ public class AICharacter : MonoBehaviour
     {
         characterType = type;
     }
-
-
 }

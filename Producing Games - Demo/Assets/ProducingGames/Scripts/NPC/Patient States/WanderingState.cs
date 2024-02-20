@@ -17,12 +17,6 @@ public class WanderingState : PatientStateBaseClass
     private float currentIdleTime = 0.0f;
     private readonly float maxIdleTime = 3.0f;
 
-    private void Awake()
-    {
-        // INFO: Enables the NPCs movement capabilities
-        GetComponent<AICharacter>().isMoving = true;
-    }
-
     private void Start()
     {
         ChooseDestination();
@@ -42,7 +36,6 @@ public class WanderingState : PatientStateBaseClass
         if (Vector3.Distance(character.transform.position, wanderDestination) < distanceFromDestination)
         {
             currentIdleTime += Time.deltaTime;
-            character.isMoving = false;
             // INFO: After the NPC has waited at its destination location for a specified
             // time it will then choose a different location to move towards
             if (currentIdleTime > maxIdleTime)
@@ -51,10 +44,6 @@ public class WanderingState : PatientStateBaseClass
                 ChooseDestination();
                 //character.isMoving = true;
             }
-        }
-        else
-        {
-            character.isMoving = true;
         }
 
         if (character.agent.velocity.magnitude > 0)

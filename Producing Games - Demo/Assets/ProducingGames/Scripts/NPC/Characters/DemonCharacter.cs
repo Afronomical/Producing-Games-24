@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using static PatientCharacter;
 
 /// <summary>
 /// Written by: Matej Cincibus
@@ -21,21 +22,20 @@ public class DemonCharacter : AICharacter
         Inactive
     }
 
-    public DemonStates currentState;
-    public DemonStateBaseClass demonStateScript;
-
     [Header("Demon Settings")]
+    public DemonStates currentState;
     public float attackRadius = 2.0f;
-    
+
+    [Header("Components")]
+    public DemonStateBaseClass demonStateScript;
 
     public override void Start()
     {
         base.Start();
 
         characterType = CharacterTypes.Demon;
-       
 
-        ChangeDemonState(DemonStates.Patrol); //INFO: Starting State
+        ChangeDemonState(DemonStates.Inactive); //INFO: Starting State
     }
 
     private void Update()
@@ -46,9 +46,7 @@ public class DemonCharacter : AICharacter
         // INFO: Will go into the chase state whenever it sees the player, so long as its not already
         // attacking the player or is not exorcised
         if (raycastToPlayer.PlayerDetected() && currentState != DemonStates.Attack && currentState != DemonStates.Exorcised)
-        {
             ChangeDemonState(DemonStates.Chase);
-        }
     }
 
     public void ChangeDemonState(DemonStates newState)  // Will destroy the old state script and create a new one
@@ -56,41 +54,26 @@ public class DemonCharacter : AICharacter
 
         if (currentState != newState || demonStateScript == null)
         {
+            // INFO: If the demon was previously inactive, it will be activated again
+            // ready for its new state
             if (currentState == DemonStates.Inactive) gameObject.SetActive(true);
 
             if (demonStateScript != null)
-            {
-                //destroy current script attached to AI character
-                Destroy(demonStateScript);
-            }
+                Destroy(demonStateScript); // destroy current script attached to AI character
 
             //set the current state of AI character to the new state
             currentState = newState;
 
-            switch (newState)
+            demonStateScript = newState switch
             {
-                case DemonStates.Patrol:
-                    demonStateScript = transform.AddComponent<PatrolState>();
-                    break;
-                case DemonStates.Chase:
-                    demonStateScript = transform.AddComponent<ChaseState>();
-                    break;
-                case DemonStates.Attack:
-                    demonStateScript = transform.AddComponent<AttackState>();
-                    break;
-                case DemonStates.Exorcised:
-                    demonStateScript = transform.AddComponent<ExorcisedState>();
-                    break;
-                case DemonStates.Inactive:
-                    demonStateScript = transform.AddComponent<InactiveState>();
-                    break;
-                case DemonStates.None:
-                    demonStateScript = null;
-                    break;
-                default:
-                    demonStateScript = null;
-                    break;
-            }
+                DemonStates.Patrol => transform.AddComponent<PatrolState>(),
+                DemonStates.Chase => transform.AddComponent<ChaseState>(),
+                DemonStates.Attack => transform.AddComponent<AttackState>(),
+                DemonStates.Exorcised => transform.AddComponent<ExorcisedState>(),
+                DemonStates.Inactive => transform.AddComponent<InactiveState>(),
+                DemonStates.None => null,
+                _ => null,
+            };
 
             if (demonStateScript != null)
                 demonStateScript.character = this;  // Set the reference that state scripts will use
@@ -104,7 +87,6 @@ public class DemonCharacter : AICharacter
         {
             Destroy(collision.gameObject);
             ChangeDemonState(DemonStates.Exorcised);
-            
 
             //steam achievement for banishing demon
             //if(SteamManager.Initialized)

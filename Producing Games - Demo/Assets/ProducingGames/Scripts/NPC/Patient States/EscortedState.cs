@@ -20,11 +20,6 @@ public class EscortedState : PatientStateBaseClass
 
     private Vector3 lastPlayerPos;
 
-    private void Awake()
-    {
-        GetComponent<AICharacter>().isMoving = true;
-    }
-
     private void Start()
     {
         character.agent.ResetPath();

@@ -19,8 +19,6 @@ public class AbandonedState : PatientStateBaseClass
 
     private void Awake()
     {
-        GetComponent<AICharacter>().isMoving = false; //flags character as not moving
-
         if (raycastToPlayer == null)
             raycastToPlayer = GetComponent<RaycastToPlayer>();
 

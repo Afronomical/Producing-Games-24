@@ -8,11 +8,6 @@ using UnityEngine;
 
 public class BedState : PatientStateBaseClass
 {
-    private void Awake()
-    {
-        GetComponent<AICharacter>().isMoving = false;
-    }
-
     private void Start()
     {
         character.agent.enabled = false;

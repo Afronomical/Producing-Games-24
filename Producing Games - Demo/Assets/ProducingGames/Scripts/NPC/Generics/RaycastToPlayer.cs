@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -39,31 +37,21 @@ public class RaycastToPlayer : MonoBehaviour
             float distToPlayer = Vector3.Distance(character.transform.position, character.player.transform.position);
             if (hitInfo.distance < distToPlayer)
             {
-                //Debug.DrawLine(ray.origin, hitInfo.point, Color.red);
-                //Debug.Log("Obstacle Detected: " + hitInfo.collider.gameObject.name);
+                Debug.DrawLine(ray.origin, hitInfo.point, Color.red);
                 return false;
             }
             else
             {
+                // obstacle in range but behind player 
                 Debug.DrawLine(ray.origin, ray.origin + ray.direction * detectionRange, Color.green);
-                ///obstacle in range but behind player 
                 return true;
             }
         }
         else if (playerDistance <= detectionRange)
         {
-            Debug.DrawLine(ray.origin, ray.origin + ray.direction * detectionRange, Color.green);
-            //Debug.Log("Player Detected within range");
-
+            Debug.DrawLine(ray.origin, ray.origin + ray.direction * detectionRange, Color.red);
             return true;
-
-            //if (PlayerDistance <= detectionRange)
-            //{
-            //    Debug.Log("Player Detected within range");
-            //    return true;
-            //}
         }
-        //Debug.Log("returning as false");
         return false;
     }
 }
