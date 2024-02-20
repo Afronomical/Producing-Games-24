@@ -118,10 +118,14 @@ public class ExorcismTable : MonoBehaviour
             //check they are interactable objects e.g water, cross, before adding to the count 
             if (collider.gameObject.TryGetComponent(out IInteractable interactable))
             {
-                playerObjects.Add(collider.gameObject);
-                collider.gameObject.GetComponent<Collider>().enabled = false;
-                ++playerItemAmount;
-                Debug.Log("Adding:" + collider.gameObject);
+                if(collider.gameObject.GetComponent<InteractableTemplate>().isExorcismObject)
+                {
+                    playerObjects.Add(collider.gameObject);
+                    collider.gameObject.GetComponent<Collider>().enabled = false;
+                    ++playerItemAmount;
+                    Debug.Log("Adding:" + collider.gameObject);
+                }
+               
             }
         }
     }
