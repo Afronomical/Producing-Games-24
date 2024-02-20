@@ -137,3 +137,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectIcon: {fileID: 21300000, guid: ddf890230d4adc545ab5cf1002188f5b, type: 3}
   collectible: {fileID: 11400000, guid: 419fb5fdd86fba841a57c996f0c8021e, type: 2}
+  isExorcismObject: 0

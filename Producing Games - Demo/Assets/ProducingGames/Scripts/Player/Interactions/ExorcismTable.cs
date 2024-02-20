@@ -120,10 +120,16 @@ public class ExorcismTable : MonoBehaviour
             {
                 if(collider.gameObject.GetComponent<InteractableTemplate>().isExorcismObject)
                 {
-                    playerObjects.Add(collider.gameObject);
-                    collider.gameObject.GetComponent<Collider>().enabled = false;
-                    ++playerItemAmount;
-                    Debug.Log("Adding:" + collider.gameObject);
+                    TooltipManager.Instance.ShowTooltip("Press C to confirm drop");
+                    if(Input.GetKeyUp(KeyCode.C))
+                    {
+                        playerObjects.Add(collider.gameObject);
+                        collider.gameObject.GetComponent<Collider>().enabled = false;
+                        ++playerItemAmount;
+                        Debug.Log("Adding:" + collider.gameObject);
+                        TooltipManager.Instance.HideTooltip();
+                    }
+                   
                 }
                
             }
