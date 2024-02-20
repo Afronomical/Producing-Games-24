@@ -17,7 +17,7 @@ public class SettingsManager : MonoBehaviour
     [SerializeField] private RawImage overlayImage;
     [SerializeField] private Slider globalVolumeSlider;
     [SerializeField] private Slider soundEffectVolumeSlider;
-    [SerializeField] private Slider scaleSlider;
+    //[SerializeField] private Slider scaleSlider;
     [SerializeField] private Slider brightnessSlider;
     [SerializeField] private Slider musicVolumeSlider;
     [SerializeField] private AudioManager audioManager;
@@ -36,6 +36,10 @@ public class SettingsManager : MonoBehaviour
     [HideInInspector]public CanvasGroup inventoryPanelCanvasGroup;
     [HideInInspector]public float originalInventoryAspect;
     
+    [Header("FOV")]
+    public Slider fovSlider;
+    public Camera mainCamera;
+    public Button defaultFov;
 
     private List<int> availableMaxFPSOptions = new List<int> { 30, 60, 120, 144, 240 }; // Max FPS options // Customize as needed
 
@@ -45,7 +49,7 @@ public class SettingsManager : MonoBehaviour
 
     private float originalAspect;
     private float tempBrightnessValue;
-    private float tempScaleValue;
+    //private float tempScaleValue;
     private float tempInventoryScaleValue;
     
     private bool tempFPSDisplayValue;
@@ -90,11 +94,11 @@ public class SettingsManager : MonoBehaviour
         overlayImage.gameObject.SetActive(false);
 
         originalAspect = panel.localScale.x / panel.localScale.y; // Calculate original aspect ratio
-        scaleSlider.onValueChanged.AddListener(OnScaleValueChanged);
+        //scaleSlider.onValueChanged.AddListener(OnScaleValueChanged);
         inventoryScaleSlider.onValueChanged.AddListener(OninventoryPanelScaleChanged);
 
         // Call the new method to scale buttons and sliders
-        ScaleUIElements();
+        //ScaleUIElements();
 
 
      
@@ -162,14 +166,14 @@ public class SettingsManager : MonoBehaviour
 
     }
 
-    public void OnScaleValueChanged(float value)
-    {
+    //public void OnScaleValueChanged(float value)
+    //{
         // Call the ScaleUIElements method when the scaleSlider value changes
-        ScaleUIElements();
-        Debug.Log("UI Elements Scaled: " + value);
+     //   ScaleUIElements();
+    //    Debug.Log("UI Elements Scaled: " + value);
 
-        tempScaleValue = value;
-    }
+    //    tempScaleValue = value;
+    //}
 
     public void OnToggleFPSButtonClicked()
     {
@@ -271,11 +275,11 @@ public class SettingsManager : MonoBehaviour
             PlayerPrefs.Save();
             Debug.Log("Brightness Setting Reverted: " + tempBrightnessValue);
 
-            //icon size revert
-            scaleSlider.value = tempScaleValue;
-            PlayerPrefs.SetFloat("IconSize", tempScaleValue);
-            PlayerPrefs.Save();
-            Debug.Log("IconSize Setting Reverted: " + tempScaleValue);
+            ////icon size revert
+            //scaleSlider.value = tempScaleValue;
+            //PlayerPrefs.SetFloat("IconSize", tempScaleValue);
+            //PlayerPrefs.Save();
+            //Debug.Log("IconSize Setting Reverted: " + tempScaleValue);
 
             //inventory scale revert
             inventoryScaleSlider.value = tempInventoryScaleValue;
@@ -329,75 +333,75 @@ public class SettingsManager : MonoBehaviour
     #region Settings Manipulation Methods
 
 
-    private void ScaleUIElements(Transform parent)
-    {
-        foreach (Transform child in parent)
-        {
-            // Check if the child has a Button or Slider component
-            Button button = child.GetComponent<Button>();
-            Slider slider = child.GetComponent<Slider>();
+    //private void ScaleUIElements(Transform parent)
+    //{
+    //    foreach (Transform child in parent)
+    //    {
+    //        // Check if the child has a Button or Slider component
+    //        Button button = child.GetComponent<Button>();
+    //        Slider slider = child.GetComponent<Slider>();
 
-            // Scale the UI elements based on the scaleSlider value
-            if (button != null)
-            {
-                ScaleButton(button);
-            }
+    //        // Scale the UI elements based on the scaleSlider value
+    //        if (button != null)
+    //        {
+     //           ScaleButton(button);
+    //        }
 
-            if (slider != null)
-            {
-                ScaleSlider(slider);
-            }
+    //        if (slider != null)
+    //        {
+    //            ScaleSlider(slider);
+    //        }
 
-            // Recursively scale UI elements for child objects
-            ScaleUIElements(child);
-        }
-    }
+    //        // Recursively scale UI elements for child objects
+    //        ScaleUIElements(child);
+    //    }
+    //}
 
-    private void ScaleUIElements()
-    {
-        // Check if a panel is assigned
-        if (panel != null)
-        {
-            // Start the recursive scaling process from the panel
-            ScaleUIElements(panel);
-        }
-        else
-        {
-            Debug.LogError("Panel is not assigned. Cannot scale UI elements.");
-        }
-    }
+    //private void ScaleUIElements()
+    //{
+    //    // Check if a panel is assigned
+    //    if (panel != null)
+    //    {
+    //        // Start the recursive scaling process from the panel
+    //        ScaleUIElements(panel);
+    //    }
+    //    else
+    //    {
+    //        Debug.LogError("Panel is not assigned. Cannot scale UI elements.");
+    //    }
+    //}
 
-    private void ScaleButton(Button button)
-    {
+    //private void ScaleButton(Button button)
+    //{
         // Check if the button has a RectTransform
-        RectTransform rectTransform = button.GetComponent<RectTransform>();
-        if (rectTransform != null)
-        {
-            // Scale the button based on the scaleSlider value
-            float scaleValue = scaleSlider.value;
-            rectTransform.localScale = new Vector3(scaleValue, scaleValue, 1f);
-        }
-        else
-        {
-            Debug.LogError("Button does not have a RectTransform. Cannot scale.");
-        }
-    }
+    //    RectTransform rectTransform = button.GetComponent<RectTransform>();
+    //    if (rectTransform != null)
+    //    {
+    //        // Scale the button based on the scaleSlider value
+    //        float scaleValue = scaleSlider.value;
+    //        rectTransform.localScale = new Vector3(scaleValue, scaleValue, 1f);
+    //    }
+    //    else
+    //    {
+    //        Debug.LogError("Button does not have a RectTransform. Cannot scale.");
+    //    }
+    //}
 
-    private void ScaleSlider(Slider slider)
-    {
-        // Check if the slider has a RectTransform
-        RectTransform rectTransform = slider.GetComponent<RectTransform>();
-        if (rectTransform != null)
-        {
-            // Scale the slider based on the scaleSlider value
-            float scaleValue = scaleSlider.value;
-            rectTransform.localScale = new Vector3(scaleValue, scaleValue, 1f);
-        }
-        else
-        {
-            Debug.LogError("Slider does not have a RectTransform. Cannot scale.");
-        }
-    }
+    //private void ScaleSlider(Slider slider)
+    //{
+    //    // Check if the slider has a RectTransform
+    //    RectTransform rectTransform = slider.GetComponent<RectTransform>();
+    //    if (rectTransform != null)
+    //    {
+    //        // Scale the slider based on the scaleSlider value
+    //        float scaleValue = scaleSlider.value;
+    //        rectTransform.localScale = new Vector3(scaleValue, scaleValue, 1f);
+    //    }
+    //    else
+    //    {
+    //        Debug.LogError("Slider does not have a RectTransform. Cannot scale.");
+    //    }
+    //}
 
 
     // RESOLUTION
@@ -562,7 +566,7 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetFloat("SoundEffectVolume", audioManager.soundEffectVolume);
         PlayerPrefs.SetFloat("MusicVolume", audioManager.musicVolume);
         PlayerPrefs.SetFloat("Brightness", brightnessSlider.value);
-        PlayerPrefs.SetFloat("IconSize", scaleSlider.value);
+        //PlayerPrefs.SetFloat("IconSize", scaleSlider.value);
         PlayerPrefs.SetFloat("InventorySize", inventoryScaleSlider.value);
 
         // Add more settings if needed
@@ -616,12 +620,12 @@ public class SettingsManager : MonoBehaviour
 
         //load icon size and apply
 
-        if (PlayerPrefs.HasKey("IconSize"))
-        {
-            float IconSizeValue = PlayerPrefs.GetFloat("IconSize");
-            OnScaleValueChanged(IconSizeValue);
+        //if (PlayerPrefs.HasKey("IconSize"))
+        //{
+        //    float IconSizeValue = PlayerPrefs.GetFloat("IconSize");
+         //   OnScaleValueChanged(IconSizeValue);
 
-        }
+        //}
 
         // load inventory scale size 
         if (PlayerPrefs.HasKey("InventorySize"))
