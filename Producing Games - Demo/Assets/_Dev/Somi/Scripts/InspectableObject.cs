@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class InspectableObject : InteractableTemplate
 {
-    protected Camera mainCam;
+    protected GameObject mainCam;
     protected CameraLook camLookScript;
     public Vector3 camRotation;// = new Vector3(0,0,0);
     public Transform camMoveTransform;
@@ -21,7 +21,7 @@ public class InspectableObject : InteractableTemplate
 
     protected virtual void Start()
     {
-        mainCam = Camera.main;
+        mainCam = Camera.main.transform.parent.gameObject;
         camLookScript = Camera.main.GetComponent<CameraLook>();
         camPosition = camMoveTransform.position;
         camRotation = camMoveTransform.rotation.eulerAngles;
@@ -61,7 +61,7 @@ public class InspectableObject : InteractableTemplate
                 //re-enable player and door interaction when leaving the door
                 stopLooking = false;
                 GameObject.Find("Player").GetComponent<PlayerMovement>().enabled = true;
-                mainCam.GetComponent<CameraLook>().canHeadBob = true;
+                Camera.main.GetComponent<CameraLook>().canHeadBob = true;
                 camLookScript.enabled = true;
             }
         }
@@ -88,7 +88,7 @@ public class InspectableObject : InteractableTemplate
         looking = true;
         playerCanMove = false;
 
-        mainCam.GetComponent<CameraLook>().canHeadBob = false;
+        Camera.main.GetComponent<CameraLook>().canHeadBob = false;
     }
 
 
