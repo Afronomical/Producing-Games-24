@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 
 public class EventSystem : MonoBehaviour
 {
@@ -7,7 +7,7 @@ public class EventSystem : MonoBehaviour
     // Add references to other dynamic events
 
     public DemonicImageryEvent demonicImageryEvent;
-    public BloodWritingEvent bloodWritingEvent;
+    //public BloodWritingEvent bloodWritingEvent;
    // public PerverseIdolsEvent perverseIdolsEvent;
     // Add references to other idle events
 
@@ -30,7 +30,7 @@ public class EventSystem : MonoBehaviour
     {
         // Attach idle event scripts to their respective triggers
         demonicImageryEvent = GetComponent<DemonicImageryEvent>();
-        bloodWritingEvent = GetComponent<BloodWritingEvent>();
+        //bloodWritingEvent = GetComponent<BloodWritingEvent>();
         //perverseIdolsEvent = GetComponent<PerverseIdolsEvent>();
         // Attach references to other idle events
     }
@@ -72,4 +72,4 @@ public class EventSystem : MonoBehaviour
                 break;
         }
     }
-}
+}*/
