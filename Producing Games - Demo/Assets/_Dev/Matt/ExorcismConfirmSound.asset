@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db92280e6d78bce46b3708c9af45f26d, type: 3}
   m_Name: ExorcismConfirmSound
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: dc02a807fec057e4198966b21ded6879, type: 3}
+  audioClip: {fileID: 8300000, guid: 657b156d893a5824c89b450fcc7674d3, type: 3}
   volume: 1
   pitch: 1
   priority: 128
