@@ -129,7 +129,7 @@ public class ExorcismTable : MonoBehaviour
                     TooltipManager.Instance.ShowTooltip("Press C to confirm drop");
                     if(Input.GetKeyUp(KeyCode.C))
                     {
-                        AudioManager.instance.PlaySound(confirmSound, this.gameObject.transform); ///plays confirmation sound 
+                       //AudioManager.instance.PlaySound(confirmSound, this.gameObject.transform); ///plays confirmation sound 
                         playerObjects.Add(collider.gameObject);
                         collider.gameObject.GetComponent<Collider>().enabled = false;
                         ++playerItemAmount;
@@ -164,6 +164,6 @@ public class ExorcismTable : MonoBehaviour
         
     }
 
-   
+ 
 
 }
