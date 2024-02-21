@@ -13,7 +13,10 @@ public class ExorcismTable : MonoBehaviour
     [SerializeField] private float radius = 2.0f;
     [SerializeField] private List<GameObject> playerObjects = new();
     [ShowOnly] public List<GameObject> requiredObjects = new();
-    public SoundEffect confirmSound; 
+    public SoundEffect confirmSound;
+    public SoundEffect failSound;
+    private bool b_fail_playing = false;
+    
 
     private int playerItemAmount = 0;
 
@@ -33,6 +36,7 @@ public class ExorcismTable : MonoBehaviour
             else if (!DoListsMatch(playerObjects, requiredObjects))
                 FailExorcism();
         }
+
     }
 
     private void OnDrawGizmos()
@@ -121,17 +125,29 @@ public class ExorcismTable : MonoBehaviour
             {
                 if(collider.gameObject.GetComponent<InteractableTemplate>().isExorcismObject)
                 {
+                    //play sound showing that this item is an exorcism object 
                     TooltipManager.Instance.ShowTooltip("Press C to confirm drop");
                     if(Input.GetKeyUp(KeyCode.C))
                     {
-                        AudioManager.instance.PlaySound(confirmSound, this.gameObject.transform);
+                        AudioManager.instance.PlaySound(confirmSound, this.gameObject.transform); ///plays confirmation sound 
                         playerObjects.Add(collider.gameObject);
                         collider.gameObject.GetComponent<Collider>().enabled = false;
                         ++playerItemAmount;
                         Debug.Log("Adding:" + collider.gameObject);
                         TooltipManager.Instance.HideTooltip();
+                        
+                        
                     }
-                   
+
+                }
+                else
+                {
+                   ///play fail sound here but only once. so need to return the object to inventory 
+                   InventoryHotbar.instance.AddToInventory(collider.gameObject.GetComponent<InteractableTemplate>().collectible);
+                   Destroy(collider.gameObject);
+                   AudioManager.instance.PlaySound(failSound,this.gameObject.transform);
+                   //AudioManager.instance.StopSound(failSound);
+                  
                 }
                
             }
@@ -147,5 +163,7 @@ public class ExorcismTable : MonoBehaviour
         }
         
     }
+
+   
 
 }
