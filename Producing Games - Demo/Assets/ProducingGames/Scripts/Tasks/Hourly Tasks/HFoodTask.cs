@@ -12,6 +12,12 @@ public class HFoodTask : Task
             {
                 InventoryHotbar.instance.RemoveFromInventory(InventoryHotbar.instance.currentItem);
                 CompleteTask();
+
+                //removing the hungry animation
+                if(interactedObject.TryGetComponent(out PatientCharacter character))
+                {
+                    character.animator.SetBool("isHungry", false);
+                }
             }
         }
     }
@@ -20,6 +26,7 @@ public class HFoodTask : Task
     public override void CompleteTask()
     {
         Debug.Log("Completed food task");
+        
         base.CompleteTask();
     }
 

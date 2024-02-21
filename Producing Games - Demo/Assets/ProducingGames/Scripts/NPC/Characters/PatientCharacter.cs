@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 /// <summary>
 /// Written by: Matej Cincibus
@@ -89,6 +90,13 @@ public class PatientCharacter : AICharacter
 
             if (patientStateScript != null)
                 Destroy(patientStateScript); // destroy current script attached to AI character
+
+            //remove all animations
+            animator.SetBool("isHungry", false);
+            animator.SetBool("isPraying", false);
+            animator.SetBool("reqMeds", false);
+            animator.SetBool("inBed", false);
+
 
             //set the current state of AI character to the new state
             currentState = newState;

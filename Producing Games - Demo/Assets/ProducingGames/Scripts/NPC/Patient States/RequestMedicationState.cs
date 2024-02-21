@@ -20,6 +20,8 @@ public class RequestMedicationState : PatientStateBaseClass
         transform.position = pos.position;
 
         Debug.Log(gameObject.name + ": requests medication.");
+
+        character.animator.SetBool("reqMeds", true);
     }
 
     /*public override void UpdateLogic()

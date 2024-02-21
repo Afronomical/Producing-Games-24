@@ -26,12 +26,14 @@ public class WanderingState : PatientStateBaseClass
 
         ChooseDestination();
 
-        character.animator.SetBool("inBed", false);
-        character.animator.SetBool("isPraying", false);
+        //character.animator.SetBool("inBed", false);
+        //character.animator.SetBool("isPraying", false);
     }
 
     public override void UpdateLogic()
     {
+        character.animator.SetFloat("movement", character.agent.velocity.magnitude);
+        
         character.agent.SetDestination(wanderDestination);
 
         // INFO: Given that the patient is near to the destination location a timer is started
@@ -48,10 +50,11 @@ public class WanderingState : PatientStateBaseClass
             }
         }
 
-        if (character.agent.velocity.magnitude > 0)
-            character.animator.SetBool("isMoving", true);
-        else
-            character.animator.SetBool("isMoving", false);
+
+        //if (character.agent.velocity.magnitude > 0)
+        //    character.animator.SetBool("isMoving", true);
+        //else
+        //    character.animator.SetBool("isMoving", false);
     }
 
     /// <summary>

@@ -26,6 +26,12 @@ public class RMedicationTask : Task
             {
                 InventoryHotbar.instance.RemoveFromInventory(InventoryHotbar.instance.currentItem);
                 CompleteTask();
+
+                //removing the request medicine animation
+                if (interactedObject.TryGetComponent(out PatientCharacter character))
+                {
+                    character.animator.SetBool("reqMeds", false);
+                }
             }
         }
     }

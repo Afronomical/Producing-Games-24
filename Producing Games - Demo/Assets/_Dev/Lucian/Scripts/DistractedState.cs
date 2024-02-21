@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class DistractedState : DemonStateBaseClass
 {
-    float investigationTime = 5f;
+    float investigationTime = 10;
     float currentTime;
     bool startTimer = false;
 
@@ -20,15 +20,17 @@ public class DistractedState : DemonStateBaseClass
 
     public override void UpdateLogic()
     {
-        if(Mathf.Abs(character.agent.gameObject.transform.position.magnitude - character.soundDestination.position.magnitude) < 1 )
+        if(Mathf.Abs(character.agent.gameObject.transform.position.magnitude - character.soundDestination.position.magnitude) < 1f )
         {
             character.agent.velocity = Vector3.zero;
             startTimer = true;
         }
         if(startTimer)
         {
+            character.animator.SetBool("isConfused", true);
             if(currentTime < 0)
             {
+                character.animator.SetBool("isConfused", false);
                 character.ChangeDemonState(DemonCharacter.DemonStates.Patrol);
             }
             else

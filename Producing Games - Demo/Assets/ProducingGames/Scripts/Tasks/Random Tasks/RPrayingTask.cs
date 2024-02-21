@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class RPrayingTask : Task
 {
@@ -25,7 +26,12 @@ public class RPrayingTask : Task
         if (taskTarget && taskTarget.TryGetComponent(out PatientCharacter character))
         {
             if (character.currentState == PatientCharacter.PatientStates.Bed)
+            {
                 CompleteTask();
+                character.animator.SetBool("isPraying", false);
+            }
+
+            
         }
     }
 
@@ -34,6 +40,7 @@ public class RPrayingTask : Task
     public override void CompleteTask()
     {
         Debug.Log("Completed praying task");
+        
         base.CompleteTask();
     }
 }

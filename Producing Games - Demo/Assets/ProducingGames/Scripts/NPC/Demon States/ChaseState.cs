@@ -31,6 +31,8 @@ public class ChaseState : DemonStateBaseClass
 
     public override void UpdateLogic()
     {
+        GetComponent<Animator>().SetFloat("movement", character.agent.velocity.magnitude);
+
         targetPos = character.player.transform.position;
 
         /*
@@ -57,6 +59,8 @@ public class ChaseState : DemonStateBaseClass
                 if (collider.gameObject == character.player)
                     character.ChangeDemonState(DemonCharacter.DemonStates.Attack);
             }
+
+
         }     
         else
         {

@@ -14,6 +14,8 @@ public class PrayerState : PatientStateBaseClass
 
     private void Start()
     {
+        character.animator.SetBool("isPraying", true);
+        
         if (character.agent.hasPath)
             character.agent.ResetPath();
 
@@ -25,7 +27,6 @@ public class PrayerState : PatientStateBaseClass
         character.agent.transform.position = prayingDestination;
         character.agent.Warp(prayingDestination);
 
-        character.animator.SetBool("isPraying", true);
     }
 
     /*public override void UpdateLogic()

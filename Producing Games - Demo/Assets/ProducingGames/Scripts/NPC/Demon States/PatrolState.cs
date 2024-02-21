@@ -20,21 +20,25 @@ public class PatrolState : DemonStateBaseClass
     {
         ChooseDestination();
 
-        if (character.agent.hasPath)
-            character.agent.ResetPath();
+        //if (character.agent.hasPath)
+        //    character.agent.ResetPath();
 
         character.agent.speed = character.walkSpeed;
 
-        GetComponent<Animator>().SetBool("isMoving", true);
-        GetComponent<Animator>().SetBool("isChasing", false);
+        //GetComponent<Animator>().SetBool("isMoving", true);
+        //GetComponent<Animator>().SetBool("isChasing", false);
+
+        
     }
 
     public override void UpdateLogic()
     {
-        if (character.agent.velocity.magnitude > 0)
-            GetComponent<Animator>().SetBool("isMoving", true);
-        else
-            GetComponent<Animator>().SetBool("isMoving", false);
+        GetComponent<Animator>().SetFloat("movement", character.agent.velocity.magnitude);
+
+        //if (character.agent.velocity.magnitude > 0)
+        //    GetComponent<Animator>().SetBool("isMoving", true);
+        //else
+        //    GetComponent<Animator>().SetBool("isMoving", false);
 
         character.agent.SetDestination(patrolDestination);
 

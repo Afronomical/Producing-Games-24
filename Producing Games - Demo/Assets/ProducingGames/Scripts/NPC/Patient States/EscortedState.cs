@@ -31,7 +31,7 @@ public class EscortedState : PatientStateBaseClass
 
     public override void UpdateLogic()
     {
-        character.animator.SetBool("isMoving", true);
+        character.animator.SetFloat("movement", character.agent.velocity.magnitude);
 
         targetPos = character.player.transform.position;
         
@@ -105,7 +105,7 @@ public class EscortedState : PatientStateBaseClass
             character.rb.velocity = Vector3.zero;
             character.agent.ResetPath();
 
-            character.animator.SetBool("isMoving", false);
+            //character.animator.SetBool("isMoving", false);
         }
         else
             shouldFollow = true;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class RHungryTask : Task
 {
@@ -26,7 +27,15 @@ public class RHungryTask : Task
         if (taskTarget && taskTarget.TryGetComponent(out PatientCharacter character))
         {
             if (character.currentState == PatientCharacter.PatientStates.Bed)
+            {
                 CompleteTask();
+
+                //removing the hungry animation
+                character.animator.SetBool("isHungry", false);
+
+            }
+
+
         }
     }
 
@@ -35,6 +44,7 @@ public class RHungryTask : Task
     public override void CompleteTask()
     {
         Debug.Log("Completed hungry task");
+        
         base.CompleteTask();
     }
 }

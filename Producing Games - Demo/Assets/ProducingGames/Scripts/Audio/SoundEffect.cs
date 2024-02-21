@@ -30,4 +30,5 @@ public class SoundEffect : ScriptableObject
 
     //testing sound position variable
     public Transform soundPos = null;
+    public bool isReactionSound = false; //is it a sound the NPC should react to
 }

@@ -16,6 +16,8 @@ public class HungryState : PatientStateBaseClass
 
     private void Start()
     {
+        //character.animator.SetBool("isHungry", true);
+
         if (character.agent.hasPath)
             character.agent.ResetPath();
 
@@ -24,6 +26,8 @@ public class HungryState : PatientStateBaseClass
 
     public override void UpdateLogic()
     {
+        character.animator.SetBool("isHungry", true);
+
         character.agent.SetDestination(destinationPos);
 
         if(CheckDistanceToLocation())
@@ -35,6 +39,7 @@ public class HungryState : PatientStateBaseClass
                 ChooseKitchenDestination(); 
             }
         }
+
     }
 
     /// <summary>

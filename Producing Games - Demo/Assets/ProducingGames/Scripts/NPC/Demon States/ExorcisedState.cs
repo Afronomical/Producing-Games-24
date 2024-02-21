@@ -17,7 +17,7 @@ public class ExorcisedState : DemonStateBaseClass
         GetComponent<Animator>().SetBool("isChasing", false);
 
         //invoke the destruction of the character
-        Invoke(nameof(Exorcise), 3);
+        Invoke(nameof(Exorcise), 4);
     }
 
     /*public override void UpdateLogic()
