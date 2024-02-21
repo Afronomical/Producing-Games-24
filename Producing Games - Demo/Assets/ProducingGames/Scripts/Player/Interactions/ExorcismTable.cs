@@ -13,6 +13,7 @@ public class ExorcismTable : MonoBehaviour
     [SerializeField] private float radius = 2.0f;
     [SerializeField] private List<GameObject> playerObjects = new();
     [ShowOnly] public List<GameObject> requiredObjects = new();
+    public SoundEffect confirmSound; 
 
     private int playerItemAmount = 0;
 
@@ -123,6 +124,7 @@ public class ExorcismTable : MonoBehaviour
                     TooltipManager.Instance.ShowTooltip("Press C to confirm drop");
                     if(Input.GetKeyUp(KeyCode.C))
                     {
+                        AudioManager.instance.PlaySound(confirmSound, this.gameObject.transform);
                         playerObjects.Add(collider.gameObject);
                         collider.gameObject.GetComponent<Collider>().enabled = false;
                         ++playerItemAmount;
