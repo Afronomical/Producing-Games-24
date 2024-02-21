@@ -134,6 +134,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Read Book"",
+                    ""type"": ""Button"",
+                    ""id"": ""92a90274-6b3c-49c5-9798-e2d185104151"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -521,6 +530,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Scroll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""693dd2a4-88ce-419a-b402-cf822a1d6f63"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Read Book"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -569,6 +589,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_OpenPager = m_Player.FindAction("Open Pager", throwIfNotFound: true);
         m_Player_ConsumeItem = m_Player.FindAction("Consume Item", throwIfNotFound: true);
         m_Player_Scroll = m_Player.FindAction("Scroll", throwIfNotFound: true);
+        m_Player_ReadBook = m_Player.FindAction("Read Book", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -642,6 +663,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_OpenPager;
     private readonly InputAction m_Player_ConsumeItem;
     private readonly InputAction m_Player_Scroll;
+    private readonly InputAction m_Player_ReadBook;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -658,6 +680,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @OpenPager => m_Wrapper.m_Player_OpenPager;
         public InputAction @ConsumeItem => m_Wrapper.m_Player_ConsumeItem;
         public InputAction @Scroll => m_Wrapper.m_Player_Scroll;
+        public InputAction @ReadBook => m_Wrapper.m_Player_ReadBook;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -703,6 +726,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Scroll.started += instance.OnScroll;
             @Scroll.performed += instance.OnScroll;
             @Scroll.canceled += instance.OnScroll;
+            @ReadBook.started += instance.OnReadBook;
+            @ReadBook.performed += instance.OnReadBook;
+            @ReadBook.canceled += instance.OnReadBook;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -743,6 +769,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Scroll.started -= instance.OnScroll;
             @Scroll.performed -= instance.OnScroll;
             @Scroll.canceled -= instance.OnScroll;
+            @ReadBook.started -= instance.OnReadBook;
+            @ReadBook.performed -= instance.OnReadBook;
+            @ReadBook.canceled -= instance.OnReadBook;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -792,5 +821,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnOpenPager(InputAction.CallbackContext context);
         void OnConsumeItem(InputAction.CallbackContext context);
         void OnScroll(InputAction.CallbackContext context);
+        void OnReadBook(InputAction.CallbackContext context);
     }
 }
