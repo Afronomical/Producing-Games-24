@@ -129,11 +129,13 @@ public class ExorcismTable : MonoBehaviour
                     TooltipManager.Instance.ShowTooltip("Press C to confirm drop");
                     if(Input.GetKeyUp(KeyCode.C))
                     {
-                       AudioManager.instance.PlaySound(confirmSound, this.gameObject.transform); ///plays confirmation sound 
+                        collider.gameObject.GetComponent<InteractableTemplate>().enabled = false;
+                        AudioManager.instance.PlaySound(confirmSound, this.gameObject.transform); ///plays confirmation sound 
                         playerObjects.Add(collider.gameObject);
                         collider.gameObject.GetComponent<Collider>().enabled = false;
                         ++playerItemAmount;
                         Debug.Log("Adding:" + collider.gameObject);
+                        collider.gameObject.GetComponent<InteractableTemplate>().enabled = true;
                         TooltipManager.Instance.HideTooltip();
                         
                         
@@ -142,11 +144,13 @@ public class ExorcismTable : MonoBehaviour
                 }
                 else
                 {
-                   ///play fail sound here but only once. so need to return the object to inventory 
-                   InventoryHotbar.instance.AddToInventory(collider.gameObject.GetComponent<InteractableTemplate>().collectible);
+                    ///play fail sound here but only once. so need to return the object to inventory 
+                    collider.gameObject.GetComponent<InteractableTemplate>().enabled = false;
+                    InventoryHotbar.instance.AddToInventory(collider.gameObject.GetComponent<InteractableTemplate>().collectible);
                    Destroy(collider.gameObject);
-                   AudioManager.instance.PlaySound(failSound,this.gameObject.transform);
-                   //AudioManager.instance.StopSound(failSound);
+                    collider.gameObject.GetComponent<InteractableTemplate>().enabled = true;
+                    AudioManager.instance.PlaySound(failSound,this.gameObject.transform);
+                   //issue with having 2 of same object bug 
                   
                 }
                
