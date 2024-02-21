@@ -12,6 +12,7 @@ public class ExorcismTable : MonoBehaviour
 {
     [SerializeField] private float radius = 2.0f;
     [SerializeField] private List<GameObject> playerObjects = new();
+    [SerializeField] private List<Transform> dropLocations = new(); 
     [ShowOnly] public List<GameObject> requiredObjects = new();
     public SoundEffect confirmSound;
     public SoundEffect failSound;
@@ -125,6 +126,7 @@ public class ExorcismTable : MonoBehaviour
             {
                 if(collider.gameObject.GetComponent<InteractableTemplate>().isExorcismObject)
                 {
+                    
                     //play sound showing that this item is an exorcism object 
                     TooltipManager.Instance.ShowTooltip("Press C to confirm drop");
                     if(Input.GetKeyUp(KeyCode.C))
@@ -132,9 +134,12 @@ public class ExorcismTable : MonoBehaviour
                         collider.gameObject.GetComponent<InteractableTemplate>().enabled = false;
                         AudioManager.instance.PlaySound(confirmSound, this.gameObject.transform); ///plays confirmation sound 
                         playerObjects.Add(collider.gameObject);
-                        collider.gameObject.GetComponent<Collider>().enabled = false;
+                        collider.gameObject.GetComponent<Collider>().enabled = false; /////need to comment this out but have to tag it as already laid down after, otherwise can re set it 
                         ++playerItemAmount;
                         Debug.Log("Adding:" + collider.gameObject);
+                        int dropLoc = Random.Range(0, dropLocations.Count);
+                        collider.gameObject.transform.position = dropLocations[dropLoc].transform.position;
+                        dropLocations.RemoveAt(dropLoc);
                         collider.gameObject.GetComponent<InteractableTemplate>().enabled = true;
                         TooltipManager.Instance.HideTooltip();
                         
