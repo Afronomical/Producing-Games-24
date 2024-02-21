@@ -7,17 +7,18 @@ using UnityEngine.UI;
 
 public class CheckList : MonoBehaviour
 {
+    [Header("Instantiating Tasks")]
     private List<GameObject> taskList = new List<GameObject>();
+    private GameObject taskParent;
+    public GameObject taskPrefab;
     //public Image tick;
+
+    [Header("Page Flipping")]
     public GameObject[] pageArray;
     private int pageIndex;
 
     public float turnPageDelay;
     private float turnPageTimer;
-
-    private GameObject taskParent;
-
-    public GameObject taskPrefab;
 
     public static CheckList instance;
 
@@ -53,7 +54,10 @@ public class CheckList : MonoBehaviour
 
     public void OnTasksInput(InputAction.CallbackContext context)
     {
-        gameObject.SetActive(!gameObject.activeSelf);
+        if(DiegeticUIManager.Instance.hasChecklist)
+        {
+            gameObject.SetActive(!gameObject.activeSelf);
+        }
     }
 
     public void OnFlipPage(InputAction.CallbackContext context)
@@ -62,7 +66,7 @@ public class CheckList : MonoBehaviour
         {
             pageArray[pageIndex].SetActive(false);
 
-            if (context.ReadValue<Vector2>().y > 0 && pageIndex < pageArray.Length - 1)
+            if (context.ReadValue<Vector2>().y > 0 && pageIndex < pageArray.Length - 2)
             {
                 ++pageIndex;
             }

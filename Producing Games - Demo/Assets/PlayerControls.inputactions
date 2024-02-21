@@ -112,6 +112,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Read Book",
+                    "type": "Button",
+                    "id": "92a90274-6b3c-49c5-9798-e2d185104151",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -497,6 +506,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Scroll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "693dd2a4-88ce-419a-b402-cf822a1d6f63",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Read Book",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
