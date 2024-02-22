@@ -50,10 +50,11 @@ public class EconomyManager : MonoBehaviour
 
     public void SpawnItem()
     {
-        if(deliveryTime == GameManager.Instance.currentHour)
-        {
+        //if(deliveryTime == GameManager.Instance.currentHour)
+        //{
             InteractableSpawner.instance.SpawnAllPurchasedItems(boughtItems, InteractableSpawner.instance.shopSpawns);
             deliveryTime = 0;
-        }
+            Debug.Log("Spawned");
+        //}
     }
 }
