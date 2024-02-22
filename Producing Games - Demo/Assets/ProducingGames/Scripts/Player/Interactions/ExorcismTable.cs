@@ -152,6 +152,10 @@ public class ExorcismTable : MonoBehaviour
                     
 
                 }
+                else
+                {
+                    //AudioManager.instance.PlaySound(failSound, this.gameObject.transform);
+                }
                
                
             }

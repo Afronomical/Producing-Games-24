@@ -42,6 +42,9 @@ public class GameManager : MonoBehaviour
     public GameObject demon; 
     private int patientCount;
 
+    
+    public GameObject altar;
+
 
     private void Awake()
     {
@@ -54,6 +57,7 @@ public class GameManager : MonoBehaviour
     {
         sanityEvents = GetComponent<SanityEventTracker>();
         patientCount = NPCManager.Instance.patientList.Count;
+        altar = FindFirstObjectByType<ExorcismTable>().gameObject;
         StartGame();
     }
 
