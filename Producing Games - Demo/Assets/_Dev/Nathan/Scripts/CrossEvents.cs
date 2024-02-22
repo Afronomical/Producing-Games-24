@@ -30,7 +30,7 @@ public class CrossEvents : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isTriggered == false)
+        if (other.CompareTag("Player") && isTriggered == false)
         {
             int eventType = UnityEngine.Random.Range(0, 2);
             if (eventType == 0)
