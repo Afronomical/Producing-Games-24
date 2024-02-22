@@ -35,7 +35,7 @@ public class PickUpItem : MonoBehaviour
                 PlayerInteractor.instance.currentObject = interactable;
 
                 //checks if object is interactable
-                if (interactable is InteractableTemplate interactableTemplate)
+                if (interactable is InteractableTemplate interactableTemplate && interactableTemplate.hasBeenPlaced == false)
                 {
                     //shows tooltip on mouse hover
                     TooltipManager.Instance.ShowTooltip(interactableTemplate.collectible.tooltipText);
