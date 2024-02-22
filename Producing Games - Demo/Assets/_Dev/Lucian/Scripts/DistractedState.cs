@@ -14,13 +14,23 @@ public class DistractedState : DemonStateBaseClass
 
     private void Start()
     {
-        character.agent.SetDestination(character.soundDestination.position);
+        
         currentTime = investigationTime;
     }
 
     public override void UpdateLogic()
     {
-        if(Mathf.Abs(character.agent.gameObject.transform.position.magnitude - character.soundDestination.position.magnitude) < 1f )
+        //if far away from sound the destination will be set to move towards that sound
+        if(Mathf.Abs(character.agent.gameObject.transform.position.magnitude - character.soundDestination.position.magnitude) < 5f )
+        {
+            character.agent.SetDestination(character.soundDestination.position);
+            if(Mathf.Abs(character.agent.gameObject.transform.position.magnitude - character.soundDestination.position.magnitude) < 0.1f)
+            {
+                character.agent.velocity = Vector3.zero;
+                startTimer = true;
+            }
+        }
+        else
         {
             character.agent.velocity = Vector3.zero;
             startTimer = true;
