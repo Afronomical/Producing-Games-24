@@ -22,7 +22,7 @@ public class SettingsManager : MonoBehaviour
     [SerializeField] private AudioManager audioManager;
     [SerializeField] private RectTransform panel;
     [SerializeField] private FPSCounter fpsCounter;
-    [SerializeField] private int defaultMaxFPS = 60; // default Max FPS
+    [SerializeField] private int defaultMaxFPS = 60;
 
     [Header("Inventory Elements")]
     public RectTransform inventoryPanel;
@@ -40,7 +40,13 @@ public class SettingsManager : MonoBehaviour
     public Camera mainCamera;
     public Button defaultFov;
 
-    private List<int> availableMaxFPSOptions = new List<int> { 30, 60, 120, 144, 240 }; // Max FPS options // Customize as needed
+    [Header("Display Mode")]
+    [SerializeField] private TMP_Dropdown displayModeDropdown;
+    private bool applyDisplayModeClicked = false;
+    private FullScreenMode tempDisplayMode;
+
+    private List<int> availableMaxFPSOptions = new List<int> { 30, 60, 120, 144, 240 };
+    private List<string> displayModeOptions = new List<string> { "Windowed", "Fullscreen", "Windowed Fullscreen" };
 
     private int selectedMaxFPS;
     private int currentMaxFPS;
@@ -70,6 +76,7 @@ public class SettingsManager : MonoBehaviour
         public float Brightness;
         public float InventorySize;
         public int MaxFPS;
+        public FullScreenMode DisplayMode;
     }
 
     private TemporarySettings tempSettings = new TemporarySettings();
@@ -97,18 +104,15 @@ public class SettingsManager : MonoBehaviour
 
         _instance = this;
         DontDestroyOnLoad(this.gameObject);
-        
 
         overlayImage.gameObject.SetActive(false);
 
-        originalAspect = panel.localScale.x / panel.localScale.y; // Calculate original aspect ratio
+        originalAspect = panel.localScale.x / panel.localScale.y;
         inventoryScaleSlider.onValueChanged.AddListener(OninventoryPanelScaleChanged);
     }
 
     void Start()
     {
-       
-
         Application.targetFrameRate = defaultMaxFPS;
 
         if (vsyncButton == null || vsyncButtonText == null || resolutionDropdown == null)
@@ -119,9 +123,11 @@ public class SettingsManager : MonoBehaviour
 
         PopulateResolutions();
         PopulateMaxFPSDropdown();
+        PopulateDisplayModeDropdown();
 
         resolutionDropdown.onValueChanged.AddListener(OnResolutionChanged);
         maxFPSDropdown.onValueChanged.AddListener(OnMaxFPSChanged);
+        displayModeDropdown.onValueChanged.AddListener(OnDisplayModeChanged);
 
         UpdateVSyncButtonText();
         ToggleFPSDisplay();
@@ -133,6 +139,8 @@ public class SettingsManager : MonoBehaviour
         musicVolumeSlider.onValueChanged.AddListener(OnMusicVolumeChanged);
 
         SetDropdownToCurrentResolution();
+        SetDropdownToCurrentMaxFPS();
+        SetDropdownToCurrentDisplayMode();
     }
 
     void Update()
@@ -152,7 +160,7 @@ public class SettingsManager : MonoBehaviour
     public void OnToggleFPSButtonClicked()
     {
         fpsDisplayEnabled = !fpsDisplayEnabled;
-        tempFPSDisplayValue = fpsDisplayEnabled; // Store the temporary value
+        tempFPSDisplayValue = fpsDisplayEnabled;
         ToggleFPSDisplay();
         Debug.Log("FPS Display Setting Changed: " + fpsDisplayEnabled);
     }
@@ -200,8 +208,6 @@ public class SettingsManager : MonoBehaviour
             ApplyMaxFPSSetting();
         }
 
-        PlayerPrefs.SetFloat("Brightness", brightnessSlider.value);
-        PlayerPrefs.Save();
         Debug.Log("Brightness Setting Changed: " + brightnessSlider.value);
     }
 
@@ -215,7 +221,7 @@ public class SettingsManager : MonoBehaviour
             pauseMenu.SetActive(true);
             selectedResolution = null;
 
-            tempSelectedResolution = PlayerPrefs.GetString("Resolution", selectedResolution);
+            tempSelectedResolution = resolutionDropdown.options[resolutionDropdown.value].text;
 
             SetDropdownToCurrentResolution();
 
@@ -404,6 +410,67 @@ public class SettingsManager : MonoBehaviour
         }
     }
 
+    private void PopulateDisplayModeDropdown()
+    {
+        displayModeDropdown.ClearOptions();
+        displayModeDropdown.AddOptions(displayModeOptions);
+    }
+
+    private void OnDisplayModeChanged(int index)
+    {
+        string selectedDisplayMode = displayModeOptions[index];
+        SetDisplayMode(selectedDisplayMode);
+    }
+
+    private void SetDisplayMode(string displayMode)
+    {
+        switch (displayMode)
+        {
+            case "Windowed":
+                Screen.fullScreenMode = FullScreenMode.Windowed;
+                break;
+            case "Fullscreen":
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                break;
+            case "Windowed Fullscreen":
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                break;
+            default:
+                Debug.LogError("Invalid display mode: " + displayMode);
+                break;
+        }
+
+        tempDisplayMode = Screen.fullScreenMode;
+    }
+
+    private void SetDropdownToCurrentDisplayMode()
+    {
+        FullScreenMode currentDisplayMode = Screen.fullScreenMode;
+        string currentDisplayModeString = GetDisplayModeString(currentDisplayMode);
+
+        int index = displayModeOptions.IndexOf(currentDisplayModeString);
+        if (index != -1)
+        {
+            displayModeDropdown.value = index;
+            displayModeDropdown.RefreshShownValue();
+        }
+    }
+
+    private string GetDisplayModeString(FullScreenMode displayMode)
+    {
+        switch (displayMode)
+        {
+            case FullScreenMode.Windowed:
+                return "Windowed";
+            case FullScreenMode.FullScreenWindow:
+                return "Fullscreen";
+            case FullScreenMode.ExclusiveFullScreen:
+                return "Windowed Fullscreen";
+            default:
+                return "Unknown";
+        }
+    }
+
     private void SaveTemporarySettings()
     {
         tempSettings.VSyncEnabled = vsyncEnabled;
@@ -414,6 +481,7 @@ public class SettingsManager : MonoBehaviour
         tempSettings.Brightness = tempBrightnessValue;
         tempSettings.InventorySize = inventoryScaleSlider.value;
         tempSettings.MaxFPS = selectedMaxFPS;
+        tempSettings.DisplayMode = tempDisplayMode;
     }
 
     private void LoadTemporarySettings()
@@ -426,6 +494,8 @@ public class SettingsManager : MonoBehaviour
         tempBrightnessValue = tempSettings.Brightness;
         inventoryScaleSlider.value = tempSettings.InventorySize;
         selectedMaxFPS = tempSettings.MaxFPS;
+        tempDisplayMode = tempSettings.DisplayMode;
+        applyDisplayModeClicked = true;
     }
 }
 
