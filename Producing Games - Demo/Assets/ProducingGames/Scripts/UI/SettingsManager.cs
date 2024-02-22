@@ -26,9 +26,10 @@ public class SettingsManager : MonoBehaviour
 
     [Header("Inventory Elements")]
     public RectTransform inventoryPanel;
-    public float increaseInvEffectSpeed = 3f;
-    public float decreaseInvEffectSpeed = 3f;
-    public float invEffectWaitDuration = 1.5f;
+    public float increaseEffectSpeed = 3f;
+    public float decreaseEffectSpeed = 3f;
+    public float effectWaitDuration = 1.5f;
+    public float effectScaleMultiplier = 1.2f;
     public Slider inventoryScaleSlider;
     [HideInInspector] public Vector3 originalInventorySize;
     [HideInInspector] public bool isInventoryIncreasing = false;
@@ -108,7 +109,7 @@ public class SettingsManager : MonoBehaviour
         overlayImage.gameObject.SetActive(false);
 
         originalAspect = panel.localScale.x / panel.localScale.y;
-        inventoryScaleSlider.onValueChanged.AddListener(OninventoryPanelScaleChanged);
+        //inventoryScaleSlider.onValueChanged.AddListener(OninventoryPanelScaleChanged);
     }
 
     void Start()
@@ -152,10 +153,10 @@ public class SettingsManager : MonoBehaviour
         }
     }
 
-    public void OninventoryPanelScaleChanged(float value)
-    {
-        tempSettings.InventorySize = value;
-    }
+    //public void OninventoryPanelScaleChanged(float value)
+    //{
+    //    tempSettings.InventorySize = value;
+    //}
 
     public void OnToggleFPSButtonClicked()
     {
@@ -238,8 +239,8 @@ public class SettingsManager : MonoBehaviour
             brightnessSlider.value = tempBrightnessValue;
             Debug.Log("Brightness Setting Reverted: " + tempBrightnessValue);
 
-            inventoryScaleSlider.value = tempSettings.InventorySize;
-            Debug.Log("Inventory scale Setting Reverted: " + tempSettings.InventorySize);
+            //inventoryScaleSlider.value = tempSettings.InventorySize;
+            //Debug.Log("Inventory scale Setting Reverted: " + tempSettings.InventorySize);
 
             selectedMaxFPS = originalMaxFPS;
 
@@ -479,7 +480,7 @@ public class SettingsManager : MonoBehaviour
         tempSettings.SoundEffectVolume = audioManager.soundEffectVolume;
         tempSettings.MusicVolume = audioManager.musicVolume;
         tempSettings.Brightness = tempBrightnessValue;
-        tempSettings.InventorySize = inventoryScaleSlider.value;
+        //tempSettings.InventorySize = inventoryScaleSlider.value;
         tempSettings.MaxFPS = selectedMaxFPS;
         tempSettings.DisplayMode = tempDisplayMode;
     }
@@ -492,7 +493,7 @@ public class SettingsManager : MonoBehaviour
         audioManager.soundEffectVolume = tempSettings.SoundEffectVolume;
         audioManager.musicVolume = tempSettings.MusicVolume;
         tempBrightnessValue = tempSettings.Brightness;
-        inventoryScaleSlider.value = tempSettings.InventorySize;
+        //inventoryScaleSlider.value = tempSettings.InventorySize;
         selectedMaxFPS = tempSettings.MaxFPS;
         tempDisplayMode = tempSettings.DisplayMode;
         applyDisplayModeClicked = true;
