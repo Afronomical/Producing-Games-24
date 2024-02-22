@@ -394,20 +394,24 @@ MonoBehaviour:
   runSpeed: 3
   crawlSpeed: 0.5
   detectionRadius: 5
-  isMoving: 0
   knowsAboutPlayer: 0
   player: {fileID: 0}
   rb: {fileID: 0}
   agent: {fileID: 0}
   raycastToPlayer: {fileID: 0}
+  animator: {fileID: 0}
   detectionRadiusColor: {r: 0.061599493, g: 1, b: 0, a: 1}
   currentState: 0
-  patientStateScript: {fileID: 0}
   startingHealth: 100
   currentHealth: 0
   startingSanity: 100
   currentSanity: 0
   isPossessed: 0
+  cowerRadiusPercentage: 0.125
+  calmingDuration: 15
+  distanceFromDestination: 1.1
+  patientStateScript: {fileID: 0}
+  demonSO: {fileID: 0}
   demon: {fileID: 0}
   bed: {fileID: 0}
 --- !u!114 &2284047852259487571

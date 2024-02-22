@@ -11,7 +11,6 @@ using UnityEngine;
 public class WanderingState : PatientStateBaseClass
 {
     private Vector3 wanderDestination;
-    private readonly float distanceFromDestination = 1.1f;
 
     // INFO: Timer variables used to define the duration that an NPC waits at a location
     private float currentIdleTime = 0.0f;
@@ -37,7 +36,7 @@ public class WanderingState : PatientStateBaseClass
         character.agent.SetDestination(wanderDestination);
 
         // INFO: Given that the patient is near to the destination location a timer is started
-        if (Vector3.Distance(character.transform.position, wanderDestination) < distanceFromDestination)
+        if (Vector3.Distance(character.transform.position, wanderDestination) < character.distanceFromDestination)
         {
             currentIdleTime += Time.deltaTime;
 

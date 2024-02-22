@@ -10,7 +10,10 @@ public class PossessedState : PatientStateBaseClass
     {
         // INFO: Extra security check
         if (character.isPossessed)
+        {
             GameManager.Instance.demon.GetComponent<DemonCharacter>().ChangeDemonState(DemonCharacter.DemonStates.Patrol);
+            GameManager.Instance.demon.transform.position = character.bed.transform.position;
+        }
     }
 
     /*public override void UpdateLogic()

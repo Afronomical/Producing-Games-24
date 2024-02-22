@@ -1,6 +1,5 @@
 using Unity.VisualScripting;
 using UnityEngine;
-using static PatientCharacter;
 
 /// <summary>
 /// Written by: Matej Cincibus
@@ -9,7 +8,6 @@ using static PatientCharacter;
 /// Handles all the functionality specific to demon NPCs
 /// </summary>
 /// 
-
 
 public interface IHear
 {
@@ -37,17 +35,13 @@ public class DemonCharacter : AICharacter, IHear
 
     [Header("Components")]
     public DemonStateBaseClass demonStateScript;
-
     public Transform soundDestination;
-
 
     public override void Start()
     {
         base.Start();
 
         characterType = CharacterTypes.Demon;
-
-        ChangeDemonState(DemonStates.Patrol); //INFO: Starting State
     }
 
     private void Update()
