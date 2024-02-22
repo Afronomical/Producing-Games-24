@@ -9,7 +9,9 @@ public class DropItem : MonoBehaviour
     
     public Transform interactorSource;
     public float interactionRange = 4f;
+    public SoundEffect failDropSound;
     private Camera cam;
+
 
     [Header("Throw Force Values")]
     public float throwForceHoriz;
@@ -35,6 +37,8 @@ public class DropItem : MonoBehaviour
            {
                 Drop();
            }
+           
+           
         }
     }
 
@@ -43,7 +47,7 @@ public class DropItem : MonoBehaviour
     {
         if (InventoryHotbar.instance.inventory.Count == 0)
             InventoryHotbar.instance.currentItem = null;
-        if (InventoryHotbar.instance.currentItem != null)
+        if (InventoryHotbar.instance.currentItem != null && InventoryHotbar.instance.currentItem.prefab.GetComponent<InteractableTemplate>().isExorcismObject == true)
         {
             GameObject go = null;
             //check if player is looking at ground
@@ -59,6 +63,11 @@ public class DropItem : MonoBehaviour
 
             InventoryHotbar.instance.RemoveFromInventory(InventoryHotbar.instance.currentItem);
         }
+        else
+        {
+            AudioManager.instance.PlaySound(failDropSound,this.gameObject.transform);
+        }
+        
     }
 
     //throwing code

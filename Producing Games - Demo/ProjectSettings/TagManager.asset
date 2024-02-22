@@ -8,6 +8,7 @@ TagManager:
   - Bed
   - NPC
   - HolyWater
+  - Light
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - FloorTest
   - Ground
   - Pickup
-  - 
+  - Exorcism
   - 
   - 
   - 
