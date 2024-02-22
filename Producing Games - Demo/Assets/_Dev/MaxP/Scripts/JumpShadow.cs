@@ -40,7 +40,7 @@ public class JumpShadow : MonoBehaviour
 
     void Start()
     {
-        playerObj = GameObject.FindGameObjectWithTag("Player");
+        playerObj = GameManager.Instance.player;
         characterController = playerObj.GetComponent<CharacterController>();
         playerCam = Camera.main; //playerObj.GetComponent<Camera>();
         origFOV = playerCam.fieldOfView;
