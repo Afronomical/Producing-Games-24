@@ -50,8 +50,6 @@ public class PatientCharacter : AICharacter
         currentHealth = startingHealth;
         currentSanity = startingSanity;
 
-        ChangePatientState(PatientStates.Abandoned); //INFO: Starting State
-
         if (isPossessed)                                
         {                                               
             // INFO: Possessed state will need to be changed elsewhere

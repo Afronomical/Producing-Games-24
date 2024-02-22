@@ -32,8 +32,8 @@ public class PlayerArms : MonoBehaviour
     [HideInInspector] public bool holdingPager;
 
     [Header("Arm Bobbing")]
-    [SerializeField][Range(0.1f, 5f)] private float bobAmplitude = 0.5f;
-    [SerializeField][Range(5f, 15f)] private float bobFrequency = 10f;
+    [SerializeField][Range(0.01f, 5f)] private float bobAmplitude = 0.5f;
+    [SerializeField][Range(0.5f, 15f)] private float bobFrequency = 10f;
     public float bobResetSpeed = 1.0f;
     private float bobOffSpeed = 3f;
     private Vector3 startPos;

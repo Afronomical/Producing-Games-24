@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: RHungry
   m_EditorClassIdentifier: 
   taskType: 6
-  chanceToHappen: 5
+  chanceToHappen: 250
   taskName: Hungry
   taskDescription: Escort the patient back to their bed
   location: 0
   itemToGive: {fileID: 0}
+  tooltipPrompt: {fileID: 11400000, guid: f749d2621414571498b186d8785b02f2, type: 2}

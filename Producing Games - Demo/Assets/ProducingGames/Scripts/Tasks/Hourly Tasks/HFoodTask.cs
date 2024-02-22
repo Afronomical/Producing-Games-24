@@ -23,7 +23,7 @@ public class HFoodTask : Task
         {
             if (InventoryHotbar.instance.currentItem == hTask.itemToGive)  // Check for the correct item being held
                 taskTarget.GetComponent<InteractableTemplate>().collectible = hTask.tooltipPrompt;
-            else
+            else if (targetInteraction.collectible == hTask.tooltipPrompt)
             {
                 taskTarget.GetComponent<InteractableTemplate>().collectible = PatientTaskManager.instance.noTaskPrompt;
                 TooltipManager.Instance.HideTooltip();

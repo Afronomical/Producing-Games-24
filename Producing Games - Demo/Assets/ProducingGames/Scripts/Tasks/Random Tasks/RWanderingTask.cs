@@ -21,10 +21,8 @@ public class RWanderingTask : Task
 
     public override void CheckDetectTask(GameObject interactedObject)
     {
-        Debug.Log(interactedObject.name + " - " + taskTarget.name);
         if (interactedObject == taskTarget)  // Check for the correct patient being looked at
         {
-            Debug.Log(taskTarget.GetComponent<PatientCharacter>().currentState);
             if (taskTarget.GetComponent<PatientCharacter>().currentState == PatientCharacter.PatientStates.Wandering || taskTarget.GetComponent<PatientCharacter>().currentState == PatientCharacter.PatientStates.Abandoned)
                 targetInteraction.collectible = rTask.tooltipPrompt;
             else
@@ -41,7 +39,7 @@ public class RWanderingTask : Task
     void Update()
     {
         // Check if the patient is in their bed
-        if (taskTarget && taskTarget.TryGetComponent(out PatientCharacter character))
+        if (taskNoticed && taskTarget && taskTarget.TryGetComponent(out PatientCharacter character))
         {
             if (character.currentState == PatientCharacter.PatientStates.Bed)
                 CompleteTask();

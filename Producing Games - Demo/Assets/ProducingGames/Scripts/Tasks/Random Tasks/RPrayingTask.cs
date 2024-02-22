@@ -31,13 +31,15 @@ public class RPrayingTask : Task
                 TooltipManager.Instance.HideTooltip();
             }
         }
+
+        base.CheckDetectTask(interactedObject);
     }
 
 
     void Update()
     {
         // Check if the patient is in their bed
-        if (taskTarget && taskTarget.TryGetComponent(out PatientCharacter character))
+        if (taskNoticed && taskTarget && taskTarget.TryGetComponent(out PatientCharacter character))
         {
             if (character.currentState == PatientCharacter.PatientStates.Bed)
                 CompleteTask();
