@@ -1,43 +1,68 @@
 using UnityEngine;
 using UnityEngine.Rendering.HighDefinition;
+using TMPro;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using System;
 
 public class AntiAliasingToggle : MonoBehaviour
 {
     public HDAdditionalCameraData cameraData;
-    public Button toggleButton;
+    public TMP_Dropdown antiAliasingDropdown;
 
-    private bool isAntialiasingActive = true;
-    private Color activeColor = Color.green;
-    private Color inactiveColor = Color.red;
+    private List<string> customNames = new List<string>
+    {
+        "None",
+        "Fast Approximate Antialiasing",
+        "Temporal Antialiasing",
+        "Subpixel Morphological Antialiasing"
+    };
 
     void Start()
     {
-      
+        if (antiAliasingDropdown != null)
+        {
+            //Clear options in dropdown
+            antiAliasingDropdown.ClearOptions();
 
-        
-        toggleButton.onClick.AddListener(ToggleAntialiasingState);
+            //custom names to the dropdown
+            antiAliasingDropdown.AddOptions(customNames);
 
-        //Set initial button color
-        UpdateButtonColor();
+            antiAliasingDropdown.onValueChanged.AddListener(OnDropdownValueChanged);
+            UpdateDropdownValue();
+        }
     }
 
-    void ToggleAntialiasingState()
+    void OnDropdownValueChanged(int value)
     {
-        //checks wether its set to FXAA. if it is already, then set to none. if FXAA is not active then it will activate.  (just a ternary to toggle between states)  
-        cameraData.antialiasing = (cameraData.antialiasing == HDAdditionalCameraData.AntialiasingMode.FastApproximateAntialiasing)
-            ? HDAdditionalCameraData.AntialiasingMode.None
-            : HDAdditionalCameraData.AntialiasingMode.FastApproximateAntialiasing;
+        //Convert the dropdown value to AntialiasingMode enum
+        HDAdditionalCameraData.AntialiasingMode selectedMode = (HDAdditionalCameraData.AntialiasingMode)value;
 
-        // Update button color
-        UpdateButtonColor();
+        cameraData.antialiasing = selectedMode;
+
+        ApplyAntiAliasingSettings();
     }
 
-    void UpdateButtonColor()
+    void UpdateDropdownValue()
     {
-        isAntialiasingActive = (cameraData.antialiasing == HDAdditionalCameraData.AntialiasingMode.FastApproximateAntialiasing);
+        antiAliasingDropdown.value = (int)cameraData.antialiasing;
+    }
 
-        //Change button color based on the state
-        toggleButton.image.color = isAntialiasingActive ? activeColor : inactiveColor;
+    //Just incase for applying any additional settings. not acc necessary and doesnt apply anything right now
+    void ApplyAntiAliasingSettings()
+    {
+        switch (cameraData.antialiasing)
+        {
+            case HDAdditionalCameraData.AntialiasingMode.None:
+                break;
+            case HDAdditionalCameraData.AntialiasingMode.FastApproximateAntialiasing:
+                break;
+            case HDAdditionalCameraData.AntialiasingMode.TemporalAntialiasing:
+                break;
+            case HDAdditionalCameraData.AntialiasingMode.SubpixelMorphologicalAntiAliasing://REMINDER**** This one has a capital A in Aliasing.... :'( ******
+             
+             //Example of setting addition: cameraData.subpixelMorphologicalAntialiAsing.quality = SubpixelMorphologicalAntialiAsing.Quality.High;
+                break;
+        }
     }
 }
