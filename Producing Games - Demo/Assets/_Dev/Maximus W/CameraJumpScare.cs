@@ -1,103 +1,88 @@
 using UnityEngine;
+using System.Collections;
 
 public class CameraJumpScare : MonoBehaviour
 {
-    public GameObject darkFigurePrefab;
-    public GameObject flyByPrefab;
-    public Camera mainCamera;
-    public float jumpScareChance = 0.1f;
-    public float flyByChance = 0.05f;
-    public float jumpScareDuration = 2f;
-    public float maxDistanceFromCamera = 10f;
-
-    private GameObject darkFigureInstance;
-    private GameObject flyByInstance;
-    private Vector3 originalPosition;
-    private bool isJumpScareActive = false;
-    private bool isFlyByActive = false;
-    private float jumpScareTimer = 0f;
-    private float flyByTimer = 0f;
-
-    private void Start()
+    [System.Serializable]
+    public class JumpScareModelData
     {
-        originalPosition = transform.position;
+        public GameObject jumpScareModel; // Reference to the jump scare model
+        [HideInInspector] public Vector3 initialPosition; // Initial position of the jump scare model
+        [HideInInspector] public Quaternion initialRotation; // Initial rotation of the jump scare model
     }
 
-    private void Update()
+    public JumpScareModelData[] jumpScareModels; // Array of jump scare models
+    public GameObject screenPrefab; // The prefab for the security camera screen
+
+    [Range(0f, 1f)] public float jumpScareEventProbability = 0.1f; // Probability of the jump scare event happening
+
+    public float jumpScareDuration = 3f; // Duration of the jump scare in seconds
+
+    private bool isJumpScareActive = false; // Flag to indicate if a jump scare is currently active
+    private GameObject activeJumpScareModel; // Currently active jump scare model
+
+    void Start()
     {
-        if (!isJumpScareActive && IsLookingAtCamera() && Random.value < jumpScareChance)
+        // Save the initial positions and rotations of all jump scare models
+        foreach (JumpScareModelData modelData in jumpScareModels)
         {
-            TriggerJumpScare();
+            modelData.initialPosition = modelData.jumpScareModel.transform.position;
+            modelData.initialRotation = modelData.jumpScareModel.transform.rotation;
         }
+    }
 
-        if (!isFlyByActive && IsLookingAtCamera() && Random.value < flyByChance)
+    void Update()
+    {
+        // Check if the screen prefab is active and a jump scare is not already active
+        if (screenPrefab.activeSelf && !isJumpScareActive)
         {
-            TriggerFlyBy();
-        }
-
-        if (isJumpScareActive)
-        {
-            jumpScareTimer += Time.deltaTime;
-            if (jumpScareTimer >= jumpScareDuration)
+            // Randomly determine if a jump scare should be activated
+            if (Random.value < jumpScareEventProbability)
             {
-                ResetJumpScare();
-            }
-        }
-
-        if (isFlyByActive)
-        {
-            flyByTimer += Time.deltaTime;
-            if (flyByTimer >= jumpScareDuration)
-            {
-                ResetFlyBy();
+                // Activate a random jump scare model
+                ActivateRandomJumpScareModel();
             }
         }
     }
 
-    private bool IsLookingAtCamera()
+    void ActivateRandomJumpScareModel()
     {
-        Vector3 cameraDirection = mainCamera.transform.position - transform.position;
-        float angle = Vector3.Angle(cameraDirection, transform.forward);
-        if (angle < 90f)
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(mainCamera.transform.position, cameraDirection, out hit))
-            {
-                if (hit.collider.CompareTag("MainCamera"))
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
+        // Choose a random jump scare model
+        JumpScareModelData chosenModel = jumpScareModels[Random.Range(0, jumpScareModels.Length)];
+
+        // Activate the chosen jump scare model
+        chosenModel.jumpScareModel.SetActive(true);
+        activeJumpScareModel = chosenModel.jumpScareModel;
+
+        // Start the coroutine to deactivate the model after a certain duration
+        StartCoroutine(DeactivateJumpScareModel());
     }
 
-    private void TriggerJumpScare()
+    IEnumerator DeactivateJumpScareModel()
     {
-        Vector3 randomPosition = mainCamera.transform.position + Random.onUnitSphere * maxDistanceFromCamera;
-        darkFigureInstance = Instantiate(darkFigurePrefab, randomPosition, Quaternion.identity);
+        // Set isJumpScareActive flag to true
         isJumpScareActive = true;
-        jumpScareTimer = 0f;
-    }
 
-    private void ResetJumpScare()
-    {
-        Destroy(darkFigureInstance);
+        // Wait for the specified duration
+        yield return new WaitForSeconds(jumpScareDuration);
+
+        // Deactivate the currently active jump scare model
+        activeJumpScareModel.SetActive(false);
+
+        // Reset the position and rotation of the jump scare model
+        ResetJumpScareModel(activeJumpScareModel);
+
+        // Reset isJumpScareActive flag to false
         isJumpScareActive = false;
-        transform.position = originalPosition;
     }
 
-    private void TriggerFlyBy()
+    void ResetJumpScareModel(GameObject jumpScareModel)
     {
-        flyByInstance = Instantiate(flyByPrefab, mainCamera.transform.position, Quaternion.identity);
-        isFlyByActive = true;
-        flyByTimer = 0f;
-    }
+        // Find the jump scare model data corresponding to the given model
+        JumpScareModelData modelData = System.Array.Find(jumpScareModels, data => data.jumpScareModel == jumpScareModel);
 
-    private void ResetFlyBy()
-    {
-        Destroy(flyByInstance);
-        isFlyByActive = false;
+        // Reset the position and rotation of the jump scare model to its initial values
+        jumpScareModel.transform.position = modelData.initialPosition;
+        jumpScareModel.transform.rotation = modelData.initialRotation;
     }
 }
-
