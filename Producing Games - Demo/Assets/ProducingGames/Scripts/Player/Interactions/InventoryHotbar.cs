@@ -137,7 +137,7 @@ public class InventoryHotbar : MonoBehaviour
                 }
 
             }
-            
+            go.layer = 9;
         }
             
         

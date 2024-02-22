@@ -29,7 +29,7 @@ public class DropItem : MonoBehaviour
     private void Update()
     {
         altarDist = Vector3.Distance(GameManager.Instance.altar.transform.position,this.transform.position);
-        Debug.Log(altarDist);
+        //Debug.Log(altarDist);
     }
 
     //event for 'R' key
