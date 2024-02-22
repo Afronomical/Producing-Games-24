@@ -12,7 +12,12 @@ public class ExorcismTable : MonoBehaviour
 {
     [SerializeField] private float radius = 2.0f;
     [SerializeField] private List<GameObject> playerObjects = new();
+    [SerializeField] private List<Transform> dropLocations = new(); 
     [ShowOnly] public List<GameObject> requiredObjects = new();
+    public SoundEffect confirmSound;
+    public SoundEffect failSound;
+    private bool b_fail_playing = false;
+    
 
     private int playerItemAmount = 0;
 
@@ -32,6 +37,7 @@ public class ExorcismTable : MonoBehaviour
             else if (!DoListsMatch(playerObjects, requiredObjects))
                 FailExorcism();
         }
+
     }
 
     private void OnDrawGizmos()
@@ -118,13 +124,39 @@ public class ExorcismTable : MonoBehaviour
             //check they are interactable objects e.g water, cross, before adding to the count 
             if (collider.gameObject.TryGetComponent(out IInteractable interactable))
             {
-                if(collider.gameObject.GetComponent<InteractableTemplate>().isExorcismObject)
+                if (collider.gameObject.GetComponent<InteractableTemplate>().isExorcismObject)
                 {
-                    playerObjects.Add(collider.gameObject);
-                    collider.gameObject.GetComponent<Collider>().enabled = false;
-                    ++playerItemAmount;
-                    Debug.Log("Adding:" + collider.gameObject);
+                    if(collider.gameObject.GetComponent<InteractableTemplate>().hasBeenPlaced == false)
+                    {
+                        //play sound showing that this item is an exorcism object 
+                        TooltipManager.Instance.ShowTooltip("Press C to confirm drop");
+                        if (Input.GetKeyUp(KeyCode.C))
+                        {
+                            collider.gameObject.GetComponent<InteractableTemplate>().hasBeenPlaced = true;
+                            collider.gameObject.GetComponent<InteractableTemplate>().enabled = false;
+                            AudioManager.instance.PlaySound(confirmSound, this.gameObject.transform); ///plays confirmation sound 
+                            playerObjects.Add(collider.gameObject);
+                            //collider.gameObject.GetComponent<Collider>().enabled = false; /////need to comment this out but have to tag it as already laid down after, otherwise can re set it 
+                            ++playerItemAmount;
+                            //Debug.Log("Adding:" + collider.gameObject);
+                            int dropLoc = Random.Range(0, dropLocations.Count);
+                            collider.gameObject.transform.position = dropLocations[dropLoc].transform.position;
+                            dropLocations.RemoveAt(dropLoc);
+                            //collider.gameObject.GetComponent<InteractableTemplate>().enabled = true;
+                            TooltipManager.Instance.HideTooltip();
+
+
+                        }
+                    }
+                    
+                    
+
                 }
+                else
+                {
+                    //AudioManager.instance.PlaySound(failSound, this.gameObject.transform);
+                }
+               
                
             }
         }
@@ -135,9 +167,11 @@ public class ExorcismTable : MonoBehaviour
         foreach(var item in NPCManager.Instance.ChosenDemon.itemsForExorcism)
         {
             requiredObjects.Add(item.gameObject);
-            Debug.Log(item.gameObject + "has been added to required list ");
+            //Debug.Log(item.gameObject + "has been added to required list ");
         }
         
     }
+
+ 
 
 }

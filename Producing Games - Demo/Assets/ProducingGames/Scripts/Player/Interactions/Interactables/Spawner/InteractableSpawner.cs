@@ -21,6 +21,21 @@ public class InteractableSpawner : MonoBehaviour
     public List<Transform> possibleSpawns = new();
     private List<Vector3> spawnedLocations = new();
 
+    public static InteractableSpawner instance;
+
+    private void Awake()
+    {
+        if(instance != null)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+
+
     private void Start()
     {
         SpawnAllObjects();
@@ -96,12 +111,15 @@ public class InteractableSpawner : MonoBehaviour
     /// spawns all purchased items from computer shop. 
     /// </summary>
     /// <param name="Purchaseditems"></param>
-    public void SpawnAllPurchasedItems(List<GameObject> Purchaseditems)
+    /// <param name="transforms"></param>
+    public void SpawnAllPurchasedItems(List<GameObject> Purchaseditems, List<Transform> transforms)
     {
         //temporary until char sim have "purchasing objects" functionality 
         foreach (GameObject item in Purchaseditems)
         {
-
+            int transformChoice = Random.Range(0, transforms.Count);
+            Instantiate(item, transforms[transformChoice].position, Quaternion.identity);
+            transforms.RemoveAt(transformChoice);
         }
     }
 }

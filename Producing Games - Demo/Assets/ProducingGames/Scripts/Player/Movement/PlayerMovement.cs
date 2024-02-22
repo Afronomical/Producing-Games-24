@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject crouchObject;
     [HideInInspector] public float defaultWalkSpeed;
     [HideInInspector] public float defaultSprintSpeed;
+    [HideInInspector] public float defaultCrouchSpeed;
     private float maxStamina;
     [Range(1, 100)]public float stamina = 50;
     [Range(1, 100)] public float staminaDrainSpeed = 25;
@@ -90,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
         panel = GameObject.Find("CameraDimOverlay").GetComponent<Image>();
         defaultWalkSpeed = walkSpeed;
         defaultSprintSpeed = sprintSpeed;
-
+        defaultCrouchSpeed = crouchSpeed;
     }
 
 
@@ -98,8 +99,11 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
 
-
         CheckEffect();
+        
+        if(boostedEffect)
+            StartCoroutine(cameraShake.CamShake(7, 0.2f));
+        
 
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckDistance, groundLayer);  // Check for ground beneath player
@@ -252,6 +256,7 @@ public class PlayerMovement : MonoBehaviour
                 boostedEffect = false;
                 walkSpeed = defaultWalkSpeed;
                 sprintSpeed = defaultSprintSpeed;
+                crouchSpeed = defaultCrouchSpeed;
                 currentBoostedTime = boostedEffectDuration;
             }
             else
@@ -267,7 +272,9 @@ public class PlayerMovement : MonoBehaviour
                 slowedEffect = false;
                 walkSpeed = defaultWalkSpeed;
                 sprintSpeed = defaultSprintSpeed;
+                crouchSpeed = defaultCrouchSpeed;
                 currentSlowedTime = slowedEffectDuration;
+                GetComponent<Flashlight>().light.intensity /= 10;
             }
             else
             {
@@ -281,7 +288,14 @@ public class PlayerMovement : MonoBehaviour
                 stoppedEffect = false;
                 walkSpeed = defaultWalkSpeed;
                 sprintSpeed = defaultSprintSpeed;
+                crouchSpeed = defaultCrouchSpeed;
                 currentStoppedTime = stoppedEffectDuration;
+
+                if (GameManager.Instance.demon.activeSelf)
+                {
+                    GameManager.Instance.demon.GetComponent<DemonCharacter>().agent.velocity *= 2;
+
+                }
             }
             else 
             {
