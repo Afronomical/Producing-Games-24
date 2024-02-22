@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HMedicineTask : Task
@@ -8,10 +10,25 @@ public class HMedicineTask : Task
     {
         if (interactedObject == taskTarget)  // Check for the correct patient being interacted with
         {
-            if (InventoryHotbar.instance.currentItem == hTask.itemToGive)  // Check for the correct item being held
+            if (InventoryHotbar.instance.currentItem == hTask.itemToGive && targetInteraction.collectible == hTask.tooltipPrompt)
             {
                 InventoryHotbar.instance.RemoveFromInventory(InventoryHotbar.instance.currentItem);
                 CompleteTask();
+            }
+        }
+    }
+
+
+    public override void CheckDetectTask(GameObject interactedObject)
+    {
+        if (interactedObject == taskTarget && taskTarget.GetComponent<PatientCharacter>().currentState == PatientCharacter.PatientStates.Bed)  // Check for the correct patient being looked at
+        {
+            if (InventoryHotbar.instance.currentItem == hTask.itemToGive)  // Check for the correct item being held
+                targetInteraction.collectible = hTask.tooltipPrompt;
+            else
+            {
+                targetInteraction.collectible = PatientTaskManager.instance.noTaskPrompt;
+                TooltipManager.Instance.HideTooltip();
             }
         }
     }

@@ -8,10 +8,25 @@ public class HFoodTask : Task
     {
         if (interactedObject == taskTarget)  // Check for the correct patient being interacted with
         {
-            if (InventoryHotbar.instance.currentItem == hTask.itemToGive)  // Check for the correct item being held
+            if (InventoryHotbar.instance.currentItem == hTask.itemToGive && taskTarget.GetComponent<InteractableTemplate>().collectible == hTask.tooltipPrompt)
             {
                 InventoryHotbar.instance.RemoveFromInventory(InventoryHotbar.instance.currentItem);
                 CompleteTask();
+            }
+        }
+    }
+
+
+    public override void CheckDetectTask(GameObject interactedObject)
+    {
+        if (interactedObject == taskTarget && taskTarget.GetComponent<PatientCharacter>().currentState == PatientCharacter.PatientStates.Bed)  // Check for the correct patient being looked at
+        {
+            if (InventoryHotbar.instance.currentItem == hTask.itemToGive)  // Check for the correct item being held
+                taskTarget.GetComponent<InteractableTemplate>().collectible = hTask.tooltipPrompt;
+            else
+            {
+                taskTarget.GetComponent<InteractableTemplate>().collectible = PatientTaskManager.instance.noTaskPrompt;
+                TooltipManager.Instance.HideTooltip();
             }
         }
     }

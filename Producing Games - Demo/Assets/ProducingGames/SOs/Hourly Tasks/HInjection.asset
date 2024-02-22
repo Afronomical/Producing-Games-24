@@ -19,6 +19,5 @@ MonoBehaviour:
   taskDescription: Give the patient their injection
   location: 0
   itemToGive: {fileID: 11400000, guid: 79dfcdceaf598a444973567781c3cfe5, type: 2}
+  tooltipPrompt: {fileID: 11400000, guid: e267efb48bd9ff54d92f660b7fa85870, type: 2}
   genericTask: 0
-  basicEyes: {fileID: 2100000, guid: 52cf8b4cadbd77a4585dcfec7f131e1f, type: 2}
-  taskEyes: {fileID: 2100000, guid: fc9c27b0894613e41885ac58d49d127c, type: 2}

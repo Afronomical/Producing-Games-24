@@ -125,5 +125,10 @@ public class CheckList : MonoBehaviour
         Destroy(task.checkList);
     }
 
-
+    public void CompleteTask(Task task)
+    {
+        TMP_Text newText = task.checkList.GetComponent<TMP_Text>();
+        newText.color = Color.gray;
+        newText.fontStyle = FontStyles.Strikethrough;
+    }
 }

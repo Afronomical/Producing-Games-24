@@ -37,20 +37,24 @@ public class PickUpItem : MonoBehaviour
                 //checks if object is interactable
                 if (interactable is InteractableTemplate interactableTemplate)
                 {
-                    //shows tooltip on mouse hover
-                    TooltipManager.Instance.ShowTooltip(interactableTemplate.collectible.tooltipText);
                     if (interactableTemplate.gameObject != null)
                         PatientTaskManager.instance.DetectTasks(interactableTemplate.gameObject);
 
-                    if (c.performed && canPickUp)
+                    if (interactableTemplate.collectible != PatientTaskManager.instance.noTaskPrompt && interactableTemplate.collectible != null)
                     {
-                        if (interactableTemplate.gameObject != null)
-                            PatientTaskManager.instance.CheckTaskConditions(interactableTemplate.gameObject);
+                        //shows tooltip on mouse hover
+                        TooltipManager.Instance.ShowTooltip(interactableTemplate.collectible.tooltipText);
 
-                        if (PlayerInteractor.instance.currentObject != null)
+                        if (c.performed && canPickUp)
                         {
-                            Debug.Log("Interact");
-                            StartCoroutine(arms.GrabObject());
+                            if (interactableTemplate.gameObject != null)
+                                PatientTaskManager.instance.CheckTaskConditions(interactableTemplate.gameObject);
+
+                            if (PlayerInteractor.instance.currentObject != null)
+                            {
+                                Debug.Log("Interact");
+                                StartCoroutine(arms.GrabObject());
+                            }
                         }
                     }
                 }
@@ -67,7 +71,7 @@ public class PickUpItem : MonoBehaviour
 
                     if (NPCTemplate.character.currentState == PatientCharacter.PatientStates.Wandering)
                     {
-                        TooltipManager.Instance.ShowTooltip("ESCORT " + NPCTemplate.ToolTipText);
+                        //TooltipManager.Instance.ShowTooltip("ESCORT " + NPCTemplate.ToolTipText);
                         if (c.performed)
                         {
                             NPCTemplate.character.ChangePatientState(PatientCharacter.PatientStates.Escorted);

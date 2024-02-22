@@ -12,7 +12,7 @@ using UnityEngine;
 
 public class PlayerArms : MonoBehaviour
 {
-    private enum leftArmStates { Idle, Pager};
+    private enum leftArmStates { Flashlight, Pager, Clipboard};
     private enum rightArmStates { Idle, Object, Clipboard };
 
     public Transform playerBody;
@@ -58,9 +58,11 @@ public class PlayerArms : MonoBehaviour
 
 
 
-        if (holdingPager) leftArmState = leftArmStates.Pager;
+        if (holdingClipboard) leftArmState = leftArmStates.Clipboard;
 
-        else leftArmState = leftArmStates.Idle;
+        else if (holdingPager) leftArmState = leftArmStates.Pager;
+
+        else leftArmState = leftArmStates.Flashlight;
 
 
         ArmBobbing();

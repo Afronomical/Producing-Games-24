@@ -6,6 +6,7 @@ using UnityEngine;
 public class Task : MonoBehaviour
 {
     public GameObject taskTarget;  // Patient that the task is for or object such as altar (The thing the player must interact with)
+    protected InteractableTemplate targetInteraction;
     protected List<GameObject> detectingObjects;  // Used for detecting random tasks
 
     public bool isHourlyTask = true;
@@ -17,6 +18,8 @@ public class Task : MonoBehaviour
 
     public virtual void TaskStart()
     {
+        taskTarget.GetComponent<InteractableTemplate>();
+
         if (!isHourlyTask)
         {
             taskNoticed = false;
@@ -30,15 +33,18 @@ public class Task : MonoBehaviour
     }
 
 
-    public void CheckDetectTask(GameObject interactedObject)
+    public virtual void CheckDetectTask(GameObject interactedObject)
     {
-        if (detectingObjects != null)
+        if (!isHourlyTask && !taskNoticed)
         {
-            foreach (var obj in detectingObjects)
+            if (detectingObjects != null)
             {
-                if (interactedObject == taskTarget)  // Check for the correct object being looked at
+                foreach (var obj in detectingObjects)
                 {
-                    DetectTask();
+                    if (interactedObject == taskTarget)  // Check for the correct object being looked at
+                    {
+                        DetectTask();
+                    }
                 }
             }
         }
@@ -58,6 +64,9 @@ public class Task : MonoBehaviour
     public virtual void CompleteTask()
     {
         taskCompleted = true;
+
+        taskTarget.GetComponent<InteractableTemplate>().collectible = PatientTaskManager.instance.noTaskPrompt;
+        TooltipManager.Instance.HideTooltip();
 
 
         //steam achievement for completing first task

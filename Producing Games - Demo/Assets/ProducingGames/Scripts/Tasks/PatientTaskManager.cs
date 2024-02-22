@@ -17,13 +17,14 @@ public class PatientTaskManager : MonoBehaviour
 
     public GameObject[] patients;
     public HourlyTask[] hourlyTasks;
-    public HourlyTask[] genericTasks;
-
+    public HourlyTask[] playerTasks;
     public RandomTask[] randomTasks;
 
     [HideInInspector] public List<Task> currentTasks = new List<Task>();
 
     public int tasksPerPatient = 1;
+
+    public InteractiveObject noTaskPrompt;
 
 
     void Awake()
@@ -62,13 +63,10 @@ public class PatientTaskManager : MonoBehaviour
 
     public void DetectTasks(GameObject interactedObject)
     {
-        if (!GameManager.Instance.shiftEndActive)
+        for (int i = currentTasks.Count - 1; i >= 0; i--)
         {
-            for (int i = currentTasks.Count - 1; i >= 0; i--)
-            {
-                if (!currentTasks[i].isHourlyTask && !currentTasks[i].taskCompleted && !currentTasks[i].taskNoticed)
-                    currentTasks[i].CheckDetectTask(interactedObject);
-            }
+            if(!currentTasks[i].taskCompleted)
+                currentTasks[i].CheckDetectTask(interactedObject);
         }
     }
 
@@ -127,7 +125,8 @@ public class PatientTaskManager : MonoBehaviour
                         case HourlyTasks.Food:
                             newTask = transform.AddComponent<HFoodTask>();
                             break;
-                        default:
+                        case HourlyTasks.Comfort:
+                            newTask = transform.AddComponent<HComfortTask>();
                             break;
                     }
 
@@ -139,6 +138,7 @@ public class PatientTaskManager : MonoBehaviour
                         newTask.taskTarget = patients[i];
                         CheckList.instance.AddTask(newTask);
                         tasksSetForThisPatient.Add(chosenTask);
+                        newTask.TaskStart();
                     }
                 }
 
@@ -237,7 +237,7 @@ public class PatientTaskManager : MonoBehaviour
 
     public void CompleteTask(Task task)
     {
-        CheckList.instance.RemoveTask(task);
+        CheckList.instance.CompleteTask(task);
 
         if (!task.isHourlyTask)  // Is not hourly task
         {
