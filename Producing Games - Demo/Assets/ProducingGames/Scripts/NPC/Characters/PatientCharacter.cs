@@ -37,8 +37,8 @@ public class PatientCharacter : AICharacter
     public float currentSanity;
     public bool isPossessed = false;
     [Range(0, 1)] public float cowerRadiusPercentage = 0.25f;
-    public float calmingDuration = 15.0f;
-    public float distanceFromDestination = 1.1f;
+    public float calmingDuration = 5.0f;
+    public float distanceFromDestination = 3.0f;
 
     [Header("Components")]
     public PatientStateBaseClass patientStateScript;
@@ -85,7 +85,7 @@ public class PatientCharacter : AICharacter
             patientStateScript.UpdateLogic();  // Calls the virtual function for whatever state scripts
 
         // INFO: Monitors health to check whether patient has died
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && currentState != PatientStates.Dead)
             ChangePatientState(PatientStates.Dead);
 
         if (demon != null)
@@ -95,7 +95,7 @@ public class PatientCharacter : AICharacter
 
             // INFO: So long as the demon is active and hasn't been exorcised he can scare
             // patients and cause them to go into the panic state
-            if (DistanceFromDemon < detectionRadius && 
+            if (DistanceFromDemon < detectionRadius && currentState != PatientStates.Panic &&
                 (demonCharacter.currentState != DemonCharacter.DemonStates.Inactive ||
                 demonCharacter.currentState != DemonCharacter.DemonStates.Exorcised))
                 ChangePatientState(PatientStates.Panic);

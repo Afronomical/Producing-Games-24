@@ -408,8 +408,8 @@ MonoBehaviour:
   currentSanity: 0
   isPossessed: 0
   cowerRadiusPercentage: 0.125
-  calmingDuration: 15
-  distanceFromDestination: 1.1
+  calmingDuration: 5
+  distanceFromDestination: 3
   patientStateScript: {fileID: 0}
   demonSO: {fileID: 0}
   demon: {fileID: 0}

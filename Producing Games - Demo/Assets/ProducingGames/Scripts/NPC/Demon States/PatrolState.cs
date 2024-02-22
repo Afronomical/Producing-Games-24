@@ -10,7 +10,7 @@ using UnityEngine;
 public class PatrolState : DemonStateBaseClass
 {
     private Vector3 patrolDestination;
-    private readonly float distanceFromDestination = 1.1f;
+    private readonly float distanceFromDestination = 3.0f;
 
     // INFO: Timer variables used to define the duration that an NPC waits at a location
     private float currentIdleTime = 0.0f;
