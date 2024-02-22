@@ -156,9 +156,11 @@ public class ExorcismTable : MonoBehaviour
                 {
                     ///play fail sound here but only once. so need to return the object to inventory 
                     collider.gameObject.GetComponent<InteractableTemplate>().enabled = false;
+                    collider.gameObject.GetComponent<Collider>().enabled = false;
                     InventoryHotbar.instance.AddToInventory(collider.gameObject.GetComponent<InteractableTemplate>().collectible);
-                   Destroy(collider.gameObject);
+                    Destroy(collider.gameObject);
                     collider.gameObject.GetComponent<InteractableTemplate>().enabled = true;
+                    collider.gameObject.GetComponent<Collider>().enabled = true;
                     AudioManager.instance.PlaySound(failSound,this.gameObject.transform);
                    //issue with having 2 of same object bug 
                   
