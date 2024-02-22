@@ -44,7 +44,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Object References")]
     public GameObject altar;
-    public GameObject jug; 
+    public GameObject jug;
+    public bool playerHasJug = false; 
 
 
     private void Awake()
@@ -59,6 +60,7 @@ public class GameManager : MonoBehaviour
         sanityEvents = GetComponent<SanityEventTracker>();
         patientCount = NPCManager.Instance.patientList.Count;
         altar = FindFirstObjectByType<ExorcismTable>().gameObject;
+        jug = FindFirstObjectByType<PickUpJug>().gameObject;
         StartGame();
     }
 
