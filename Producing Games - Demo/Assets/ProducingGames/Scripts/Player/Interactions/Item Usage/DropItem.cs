@@ -12,6 +12,8 @@ public class DropItem : MonoBehaviour
     public SoundEffect failDropSound;
     private Camera cam;
 
+    private float altarDist;
+
 
     [Header("Throw Force Values")]
     public float throwForceHoriz;
@@ -21,6 +23,13 @@ public class DropItem : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
+        
+    }
+
+    private void Update()
+    {
+        altarDist = Vector3.Distance(GameManager.Instance.altar.transform.position,this.transform.position);
+        //Debug.Log(altarDist);
     }
 
     //event for 'R' key
@@ -47,26 +56,21 @@ public class DropItem : MonoBehaviour
     {
         if (InventoryHotbar.instance.inventory.Count == 0)
             InventoryHotbar.instance.currentItem = null;
-        if (InventoryHotbar.instance.currentItem != null && InventoryHotbar.instance.currentItem.prefab.GetComponent<InteractableTemplate>().isExorcismObject == true)
+
+        if (InventoryHotbar.instance.currentItem != null && altarDist > 2f)
         {
-            GameObject go = null;
-            //check if player is looking at ground
-            Ray r = new Ray(interactorSource.position, interactorSource.forward);
-
-            //if player looking at ground place item on floor
-            if (Physics.Raycast(r, out RaycastHit hit, interactionRange) && hit.collider != null)
-            {
-                go = GameObject.Instantiate(InventoryHotbar.instance.currentItem.prefab, hit.point, Quaternion.Euler(90, 0, 0));
-            }//if player is not looking at the ground spawn it in front of him
-            else
-                go = GameObject.Instantiate(InventoryHotbar.instance.currentItem.prefab, cam.transform.position + cam.transform.forward * 1.2f, Quaternion.Euler(90, 0, 0));
-
-            InventoryHotbar.instance.RemoveFromInventory(InventoryHotbar.instance.currentItem);
+            PerformDrop();
         }
-        else
+        else if (InventoryHotbar.instance.currentItem != null && altarDist < 2f && InventoryHotbar.instance.currentItem.prefab.GetComponent<InteractableTemplate>().isExorcismObject == false)
         {
             AudioManager.instance.PlaySound(failDropSound,this.gameObject.transform);
         }
+        else if(InventoryHotbar.instance.currentItem != null && altarDist < 2f && InventoryHotbar.instance.currentItem.prefab.GetComponent<InteractableTemplate>().isExorcismObject == true)
+        {
+            PerformDrop();
+        }
+        
+       
         
     }
 
@@ -87,5 +91,22 @@ public class DropItem : MonoBehaviour
             //removing the item from inventory
             InventoryHotbar.instance.RemoveFromInventory(InventoryHotbar.instance.currentItem);
         }
+    }
+
+    private void PerformDrop()
+    {
+        GameObject go = null;
+        //check if player is looking at ground
+        Ray r = new Ray(interactorSource.position, interactorSource.forward);
+
+        //if player looking at ground place item on floor
+        if (Physics.Raycast(r, out RaycastHit hit, interactionRange) && hit.collider != null)
+        {
+            go = GameObject.Instantiate(InventoryHotbar.instance.currentItem.prefab, hit.point, Quaternion.Euler(90, 0, 0));
+        }//if player is not looking at the ground spawn it in front of him
+        else
+            go = GameObject.Instantiate(InventoryHotbar.instance.currentItem.prefab, cam.transform.position + cam.transform.forward * 1.2f, Quaternion.Euler(90, 0, 0));
+
+        InventoryHotbar.instance.RemoveFromInventory(InventoryHotbar.instance.currentItem);
     }
 }
