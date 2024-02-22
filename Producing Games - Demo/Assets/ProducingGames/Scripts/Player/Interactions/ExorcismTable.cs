@@ -133,7 +133,7 @@ public class ExorcismTable : MonoBehaviour
                         if (Input.GetKeyUp(KeyCode.C))
                         {
                             collider.gameObject.GetComponent<InteractableTemplate>().hasBeenPlaced = true;
-                            //collider.gameObject.GetComponent<InteractableTemplate>().enabled = false;
+                            collider.gameObject.GetComponent<InteractableTemplate>().enabled = false;
                             AudioManager.instance.PlaySound(confirmSound, this.gameObject.transform); ///plays confirmation sound 
                             playerObjects.Add(collider.gameObject);
                             //collider.gameObject.GetComponent<Collider>().enabled = false; /////need to comment this out but have to tag it as already laid down after, otherwise can re set it 
