@@ -241,8 +241,8 @@ public class PatientTaskManager : MonoBehaviour
 
         if (!task.isHourlyTask)  // Is not hourly task
         {
-            currentTasks.Remove(task);
-            Destroy(task);
+            //currentTasks.Remove(task);
+            //Destroy(task);
         }
         else  // Is hourly task
         {
@@ -257,12 +257,8 @@ public class PatientTaskManager : MonoBehaviour
         {
             if (currentTasks[i].isHourlyTask)
             {
-
                 if (!currentTasks[i].taskCompleted)
                     currentTasks[i].FailTask();
-
-
-
             }
             CheckList.instance.RemoveTask(currentTasks[i]);
             Destroy(currentTasks[i]);

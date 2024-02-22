@@ -18,7 +18,7 @@ public class Task : MonoBehaviour
 
     public virtual void TaskStart()
     {
-        taskTarget.GetComponent<InteractableTemplate>();
+        targetInteraction = taskTarget.GetComponent<InteractableTemplate>();
 
         if (!isHourlyTask)
         {

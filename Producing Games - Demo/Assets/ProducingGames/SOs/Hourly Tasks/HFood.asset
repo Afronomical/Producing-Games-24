@@ -18,6 +18,6 @@ MonoBehaviour:
   taskName: Food
   taskDescription: Give the patient their food
   location: 0
-  itemToGive: {fileID: 11400000, guid: 466d28f252da7d14ea55f7cc9ffeb6fe, type: 2}
+  itemToGive: {fileID: 11400000, guid: 82fdb7ac93408ac4cb14bc17b6a3204b, type: 2}
   tooltipPrompt: {fileID: 11400000, guid: bb5ed53ea07f4cf4c8d4e16ab5591313, type: 2}
   genericTask: 0
