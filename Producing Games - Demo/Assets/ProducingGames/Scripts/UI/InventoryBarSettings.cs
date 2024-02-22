@@ -48,20 +48,20 @@ public class InventoryBarSettings : MonoBehaviour
     private IEnumerator SizeEffectCoroutine()
     {
         float elapsedTimeForInvEffect = 0f;
-        Vector3 targetInventorySize = settingsManager.originalInventorySize * 1.2f;
+        Vector3 targetInventorySize = settingsManager.originalInventorySize * settingsManager.effectScaleMultiplier;
 
         while (elapsedTimeForInvEffect < 1f)
         {
             settingsManager.inventoryPanel.localScale = Vector3.Lerp(settingsManager.originalInventorySize, targetInventorySize, elapsedTimeForInvEffect);
             settingsManager.inventoryPanelCanvasGroup.alpha = Mathf.Lerp(0.5f, 1f, elapsedTimeForInvEffect); //Increase alpha
-            elapsedTimeForInvEffect += Time.deltaTime * settingsManager.increaseInvEffectSpeed;
+            elapsedTimeForInvEffect += Time.deltaTime * settingsManager.increaseEffectSpeed;
             yield return null;
         }
 
         settingsManager.inventoryPanel.localScale = targetInventorySize;
 
         float timer = 0f;
-        while (timer < settingsManager.invEffectWaitDuration)
+        while (timer < settingsManager.effectWaitDuration)
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
             {
@@ -77,7 +77,7 @@ public class InventoryBarSettings : MonoBehaviour
         {
             settingsManager.inventoryPanel.localScale = Vector3.Lerp(targetInventorySize, settingsManager.originalInventorySize, elapsedTimeForInvEffect);
             settingsManager.inventoryPanelCanvasGroup.alpha = Mathf.Lerp(1f, 0.5f, elapsedTimeForInvEffect); //Decrease alpha
-            elapsedTimeForInvEffect += Time.deltaTime * settingsManager.decreaseInvEffectSpeed;
+            elapsedTimeForInvEffect += Time.deltaTime * settingsManager.decreaseEffectSpeed;
             yield return null;
         }
 
