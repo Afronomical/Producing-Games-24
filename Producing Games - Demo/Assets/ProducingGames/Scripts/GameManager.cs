@@ -42,8 +42,9 @@ public class GameManager : MonoBehaviour
     public GameObject demon; 
     private int patientCount;
 
-    
+    [Header("Object References")]
     public GameObject altar;
+    public GameObject jug; 
 
 
     private void Awake()
