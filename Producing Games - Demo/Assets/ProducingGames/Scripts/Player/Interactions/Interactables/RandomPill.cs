@@ -4,6 +4,7 @@ using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 using Steamworks;
+using Unity.VisualScripting;
 
 public class RandomPill : InteractableTemplate, IConsumable
 {
@@ -60,16 +61,21 @@ public class RandomPill : InteractableTemplate, IConsumable
     {
         Debug.Log("Slowed effect");
         player.GetComponent<PlayerMovement>().slowedEffect = true;
-        player.GetComponent<PlayerMovement>().walkSpeed /= 2;
-        player.GetComponent<PlayerMovement>().sprintSpeed /= 2;
+        player.GetComponent<PlayerMovement>().walkSpeed /= 1.5f;
+        player.GetComponent<PlayerMovement>().sprintSpeed /= 1.5f;
+        player.GetComponent<PlayerMovement>().crouchSpeed /= 1.5f;
+
+        player.GetComponent<Flashlight>().light.intensity *= 10;
     }
 
     private void SpeedPlayerUp()
     {
         Debug.Log("Speed up effect");
         player.GetComponent<PlayerMovement>().boostedEffect = true;
-        player.GetComponent<PlayerMovement>().walkSpeed *= 2;
-        player.GetComponent<PlayerMovement>().sprintSpeed *= 2;
+        player.GetComponent<PlayerMovement>().walkSpeed *= 1.2f;
+        player.GetComponent<PlayerMovement>().sprintSpeed *= 1.2f;
+        player.GetComponent<PlayerMovement>().crouchSpeed *= 1.2f;
+
     }
 
     private void StopPlayer()
@@ -78,6 +84,13 @@ public class RandomPill : InteractableTemplate, IConsumable
         player.GetComponent<PlayerMovement>().stoppedEffect = true;
         player.GetComponent<PlayerMovement>().walkSpeed = 0;
         player.GetComponent<PlayerMovement>().sprintSpeed = 0;
+        player.GetComponent<PlayerMovement>().crouchSpeed = 0f;
+
+        if(GameManager.Instance.demon.activeSelf)
+        {
+            GameManager.Instance.demon.GetComponent<DemonCharacter>().agent.velocity /= 2;
+
+        }
     }
 
     private void DimPlayerScreen()

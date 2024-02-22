@@ -138,7 +138,7 @@ public class ExorcismTable : MonoBehaviour
                             playerObjects.Add(collider.gameObject);
                             //collider.gameObject.GetComponent<Collider>().enabled = false; /////need to comment this out but have to tag it as already laid down after, otherwise can re set it 
                             ++playerItemAmount;
-                            Debug.Log("Adding:" + collider.gameObject);
+                            //Debug.Log("Adding:" + collider.gameObject);
                             int dropLoc = Random.Range(0, dropLocations.Count);
                             collider.gameObject.transform.position = dropLocations[dropLoc].transform.position;
                             dropLocations.RemoveAt(dropLoc);
@@ -167,7 +167,7 @@ public class ExorcismTable : MonoBehaviour
         foreach(var item in NPCManager.Instance.ChosenDemon.itemsForExorcism)
         {
             requiredObjects.Add(item.gameObject);
-            Debug.Log(item.gameObject + "has been added to required list ");
+            //Debug.Log(item.gameObject + "has been added to required list ");
         }
         
     }
