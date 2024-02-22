@@ -20,6 +20,7 @@ public class InteractableSpawner : MonoBehaviour
     public List<ObjectSpawn> objectsToBeSpawned = new();
     public List<Transform> possibleSpawns = new();
     private List<Vector3> spawnedLocations = new();
+    public List<Transform> shopSpawns = new();
 
     public static InteractableSpawner instance;
 
@@ -55,7 +56,7 @@ public class InteractableSpawner : MonoBehaviour
     /// </summary>
     /// <param name="objectToSpawn"></param>
     /// <param name="amount"></param>
-    private void SpawnObject(GameObject objectToSpawn, int amount)
+    public void SpawnObject(GameObject objectToSpawn, int amount)
     {
         if (objectToSpawn != null && amount > 0)
         {

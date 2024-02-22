@@ -13,6 +13,7 @@ public class PagerDisplay : MonoBehaviour
     public TMP_Text alert;
     private float timer = 0;
 
+    //Scrolling text
     private Vector3 originalPos;
     private Vector3 currentPos;
     private Vector3 targetPos;

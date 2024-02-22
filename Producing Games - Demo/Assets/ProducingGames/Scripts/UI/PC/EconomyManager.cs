@@ -8,6 +8,8 @@ public class EconomyManager : MonoBehaviour
     public static EconomyManager instance;
     private int budget = 100;
     public TMP_Text money;
+    private int deliveryTime = 0;
+    public List<GameObject> boughtItems = new();
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +39,21 @@ public class EconomyManager : MonoBehaviour
         {
             budget -= amount;
             //Spawn item in storage
+        }
+    }
+
+    public void OrderItem(GameObject item)
+    {
+        deliveryTime = GameManager.Instance.currentHour + 1;
+        boughtItems.Add(item);
+    }
+
+    public void SpawnItem()
+    {
+        if(deliveryTime == GameManager.Instance.currentHour)
+        {
+            InteractableSpawner.instance.SpawnAllPurchasedItems(boughtItems, InteractableSpawner.instance.shopSpawns);
+            deliveryTime = 0;
         }
     }
 }
