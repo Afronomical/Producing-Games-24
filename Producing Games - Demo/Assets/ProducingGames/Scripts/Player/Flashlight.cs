@@ -38,8 +38,11 @@ public class Flashlight : MonoBehaviour
             StartCoroutine(Flickering());
         
         if(batteryCharge <= 0)
+        {
             intensityIndex = 0;
-
+            IntensityChange();
+        }
+        
         //Higher the intensity of the flashlight, the faster the battery will drain
         batteryCharge -= batteryDrainRate * Time.deltaTime * intensityIndex;
        
@@ -52,15 +55,10 @@ public class Flashlight : MonoBehaviour
     {
         if (context.performed)
         {
-            if(batteryCharge <= 0)
-                return;
-            else
-            {
-                intensityIndex++;
-                if (intensityIndex >= intensities.Length)
-                    intensityIndex = 0;
-                IntensityChange();
-            }
+            intensityIndex++;
+            if (intensityIndex >= intensities.Length)
+                intensityIndex = 0;
+            IntensityChange();
         }
     }
 
