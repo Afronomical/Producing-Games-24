@@ -27,7 +27,8 @@ public class FOV_Bounce : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isTriggered == false)
+        
+        if (other.CompareTag("Player") && isTriggered == false)
         {
             StartCoroutine(CamBounce());
             isTriggered = true;

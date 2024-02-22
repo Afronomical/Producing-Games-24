@@ -28,7 +28,7 @@ public class Floating_Items : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         
-        if (!isTriggered)
+        if (other.CompareTag("Player") && !isTriggered)
         {
             StartCoroutine(ShakingItem());
             isTriggered = true;
