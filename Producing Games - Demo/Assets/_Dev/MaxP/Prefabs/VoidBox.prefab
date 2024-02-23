@@ -460,7 +460,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5824884251615086}
-  - component: {fileID: 3431928952746642361}
+  - component: {fileID: 1603648450504955202}
   m_Layer: 0
   m_Name: VoidBox
   m_TagString: Untagged
@@ -490,7 +490,7 @@ Transform:
   - {fileID: 5927540145635854825}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3431928952746642361
+--- !u!114 &1603648450504955202
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -499,10 +499,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4740443189479292169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b32762d4b900c2f40a1f0c691d2737d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 77ca133967dd4f14faa04f4d680d2c4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tpLoc: {fileID: 815146945403231561}
 --- !u!1 &6216162175237951101
 GameObject:
   m_ObjectHideFlags: 0
