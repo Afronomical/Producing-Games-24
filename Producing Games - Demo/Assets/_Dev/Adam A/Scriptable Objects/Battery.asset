@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c76ba9bd6ee8d4491c07e1d1697379, type: 3}
   m_Name: Battery
   m_EditorClassIdentifier: 
-  objectName: Battery
+  objectName: 
   obj: {fileID: 7378454551202385189, guid: b1b955e3904a53d47bcf94790de428da, type: 3}
   prefab: {fileID: 7378454551202385189, guid: b1b955e3904a53d47bcf94790de428da, type: 3}
   objectImage: {fileID: 0}
-  tooltipText: 
+  tooltipText: Battery

@@ -37,6 +37,7 @@ public class Flashlight : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.T))
             StartCoroutine(Flickering());
         
+        //If the battery charge is 0, it will turn off the flashlight
         if(batteryCharge <= 0)
         {
             intensityIndex = 0;

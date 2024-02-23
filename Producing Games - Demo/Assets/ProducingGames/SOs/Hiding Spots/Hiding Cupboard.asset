@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26c76ba9bd6ee8d4491c07e1d1697379, type: 3}
-  m_Name: Hidding Cupboard
+  m_Name: Hiding Cupboard
   m_EditorClassIdentifier: 
   objectName: 
   obj: {fileID: 5837303818483238476, guid: 47d38266adb96d14a90965a57810b20b, type: 3}

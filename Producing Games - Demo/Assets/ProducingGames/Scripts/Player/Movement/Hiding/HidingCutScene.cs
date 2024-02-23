@@ -9,12 +9,14 @@ public class HidingCutScene : InteractableTemplate
 {
     private Camera cam;
     private int pointIndex;
+    private Transform playerRef;
 
-    [Header("Player Reference/Object Animation")]
-    public Transform playerRef;
+    [Header("Object Animation/Object Door Material (Leave empty if not required!)")]
     public Animator playAnimation;
+    public Material doorMaterialRef;
+    private Color doorColour;
 
-    [Header("Hiding Animation Position Points")]
+   [Header("Hiding Animation Position Points")]
     public List<Transform> points;
 
     [Header("Hiding Animation Speeds")]
@@ -37,12 +39,8 @@ public class HidingCutScene : InteractableTemplate
     {
         cam = Camera.main;
         playerRef = GameObject.Find("Player").transform;
-        /*
-        Had issues while tidying code, will be fixing shortly...
-        camPos = cam.transform.position;
-        camRot = cam.transform.rotation;
-        */
         hidingScare = Object.FindFirstObjectByType<HidingScare>();
+
     }
 
     private void Update()
@@ -99,9 +97,10 @@ public class HidingCutScene : InteractableTemplate
         }
     }
 
-    //If the player is insdie the cupboard, it allows the player to click "c" to exit (moves to the GoOut function)
+    //If the player is inside the cupboard, it allows the player to click "c" to exit (moves to the GoOut function)
     public void Inside()
     {
+       // doorMaterialRef.SetColor("_BaseColor", new Color(255,255,255,144));
         CupboardAnim(false);
         if ((Input.GetKeyDown(KeyCode.C)))
         {
@@ -136,6 +135,8 @@ public class HidingCutScene : InteractableTemplate
         CupboardAnim(false);
         PlayerControlsAccess(true);
         playerHidingStates = PlayerHidingStates.none;
+
+       // doorMaterialRef.SetColor("_BaseColor", new Color(255, 255, 255, 255));
     }
 
     //Logic handles the player entering the hiding spot

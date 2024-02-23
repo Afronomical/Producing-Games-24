@@ -8,6 +8,7 @@ public class Battery : InteractableTemplate
     public Flashlight flashlightRef;
     [Range(0.0f, 200f)]public int chargeGainAmount = 50;
 
+    //When the Battery is picked up, charge the flashlight by the specified amount (chargeGainAmount)
     public override void Interact()
     {
         flashlightRef.batteryCharge += chargeGainAmount;
