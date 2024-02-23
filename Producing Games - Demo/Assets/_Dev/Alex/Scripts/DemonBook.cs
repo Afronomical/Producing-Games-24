@@ -26,10 +26,10 @@ public class DemonBook : MonoBehaviour
 
     public void OnReadBook(InputAction.CallbackContext context)
     {
-        //if(DiegeticUIManager.Instance.hasDemonBook)
-        //{
+        if(DiegeticUIManager.Instance.hasDemonBook)
+        {
             gameObject.SetActive(!gameObject.activeSelf);
-        //}
+        }
     }
 
     public void OnFlipPage(InputAction.CallbackContext context)

@@ -1,7 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 // <summary>
@@ -12,18 +12,14 @@ public class PagerDisplay : MonoBehaviour
 {
     [Header("Messages")]
     public TMP_Text alert;
-    private char[] messageArray;
+    public int textWidth = 10;
+    private string messageArray;
     private List<string> messageList = new List<string>();
     private float timer = 0;
-
-    //Scrolling text
-    //private Vector3 originalPos;
-    //private Vector3 currentPos;
-    //private Vector3 targetPos;
+    private string lastMessage;
 
     [Header("Time")]
     public TMP_Text clock;
-
 
     public static PagerDisplay instance;
 
@@ -31,31 +27,22 @@ public class PagerDisplay : MonoBehaviour
     {
         if (instance == null)
             instance = this;
-
-        //originalPos = alert.transform.position;
-        //currentPos = originalPos;
-        //targetPos = alert.transform.position - new Vector3(-1.5f, 0, 0);
     }
 
     private void Start()
     {
         alert.gameObject.SetActive(false);
+        alert.overflowMode = TextOverflowModes.Truncate;
         alert.text = " ";
 
-        DisplayMessage("This is a test for the scrolling text functionality!", 10);
+        DisplayMessage("This is a test!", 20);
     }
 
     private void Update()
     {
         timer -= Time.deltaTime;
 
-        if (timer <= 0)
-        {
-            alert.text = " ";
-        }
-
-        if(!alert.IsActive()) DisplayTime();
-
+        if (!alert.IsActive()) DisplayTime();
     }
 
     private void DisplayTime()
@@ -80,30 +67,36 @@ public class PagerDisplay : MonoBehaviour
         clock.enabled = false;
         alert.gameObject.SetActive(true);
 
-        //Scroll text across pager screen
-        StartCoroutine(ScrollText(1));
-
+        lastMessage = message;
+        SendText(message);
         timer = displayTime;
-        messageArray = message.ToCharArray();
-        foreach(char c in messageArray)
-        {
-            messageList.Add(c.ToString());
-        }
-        //messageArray.Capacity = 20;
-        alert.text = messageArray.ToString();
+
+        //Scroll text across pager screen
+        StartCoroutine(ScrollText(0.2f));
+
+        messageList.Add(message);
+     
     }
 
     private IEnumerator ScrollText(float duration)
     {
-        //currentPos = Vector3.MoveTowards(originalPos, targetPos, 0.1f);
-        //yield return new WaitForSeconds(duration/10);
-        //if(duration <= 0) { currentPos = originalPos; }
 
-        alert.overflowMode = TextOverflowModes.Truncate;
-        //alert.text =
+        while (timer > 0)
+        {
+            while (messageArray.Length > 0)
+            {
+                yield return new WaitForSeconds(duration);
+                messageArray = messageArray.Substring(1);
+                alert.text = messageArray;
+            }
 
-        yield return new WaitForSeconds(duration);
-        
-        messageList.RemoveAt(0);
+            SendText(lastMessage);
+        }
+
+    }
+
+    private void SendText(string message)
+    {
+        messageArray = new String(' ', textWidth) + message.ToUpper();
     }
 }

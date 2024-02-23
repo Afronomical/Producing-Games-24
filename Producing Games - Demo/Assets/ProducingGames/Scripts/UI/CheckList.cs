@@ -54,10 +54,10 @@ public class CheckList : MonoBehaviour
 
     public void OnTasksInput(InputAction.CallbackContext context)
     {
-        //if(DiegeticUIManager.Instance.hasChecklist)
-        //{
+        if(DiegeticUIManager.Instance.hasChecklist)
+        {
             gameObject.SetActive(!gameObject.activeSelf);
-        //}
+        }
     }
 
     public void OnFlipPage(InputAction.CallbackContext context)
