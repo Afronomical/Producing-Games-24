@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -8,7 +10,7 @@ public class CrossEvents : MonoBehaviour
 {
     [Header("Cross Item Components")]
     public GameObject Cross;
-    public Rigidbody rb;
+    //public Rigidbody rb;
     [Space]
     [Header("Cross Variables")]
     public float rotationSpeed;
@@ -19,7 +21,9 @@ public class CrossEvents : MonoBehaviour
 
     private void Start()
     {
-        rb.useGravity = false;
+       
+        //Cross.GetComponent<Rigidbody>().SetActive(false);
+        //rb.useGravity = false;
         isTriggered = false;
     }
 
@@ -55,9 +59,9 @@ public class CrossEvents : MonoBehaviour
     
     void FallingCross()
     {
-        rb.useGravity = true;
-        rb.AddRelativeForce(Vector3.back * throwingForce, ForceMode.Impulse);
-        
+        Cross.AddComponent<Rigidbody>();
+        Rigidbody rb = Cross.GetComponent<Rigidbody>();  
+        rb.AddRelativeForce(Vector3.back * throwingForce, ForceMode.Impulse);        
     }
 
     
