@@ -68,6 +68,7 @@ public class DropItem : MonoBehaviour
         else if(InventoryHotbar.instance.currentItem != null && altarDist < 2f && InventoryHotbar.instance.currentItem.prefab.GetComponent<InteractableTemplate>().isExorcismObject == true)
         {
             PerformDrop();
+
         }
         
        
