@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PNoTask
   m_EditorClassIdentifier: 
   taskType: 6
-  chanceToHappen: 0
+  chanceToHappen: 50
   BlockingTasks: []
   taskName: 
   taskDescription: 

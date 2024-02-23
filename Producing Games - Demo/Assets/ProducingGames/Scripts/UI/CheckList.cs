@@ -20,8 +20,6 @@ public class CheckList : MonoBehaviour
     public float turnPageDelay;
     private float turnPageTimer;
 
-    private GameObject taskParent;
-    public GameObject taskPrefab;
     public PlayerArms arms;
 
     public static CheckList instance;
@@ -73,7 +71,7 @@ public class CheckList : MonoBehaviour
         {
             pageArray[pageIndex].SetActive(false);
 
-            if (context.ReadValue<Vector2>().y > 0 && pageIndex < pageArray.Length - 2)
+            if (context.ReadValue<Vector2>().y > 0 && pageIndex < pageArray.Length - 1)
             {
                 ++pageIndex;
             }

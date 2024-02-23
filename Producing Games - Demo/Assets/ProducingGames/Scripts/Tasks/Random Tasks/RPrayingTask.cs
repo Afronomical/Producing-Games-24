@@ -24,7 +24,7 @@ public class RPrayingTask : Task
     {
         if (interactedObject == taskTarget)  // Check for the correct patient being looked at
         {
-            if (taskTarget.GetComponent<PatientCharacter>().currentState == PatientCharacter.PatientStates.Praying || taskTarget.GetComponent<PatientCharacter>().currentState == PatientCharacter.PatientStates.Abandoned)
+            if (taskTarget.GetComponent<PatientCharacter>().currentState == PatientCharacter.PatientStates.Prayer || taskTarget.GetComponent<PatientCharacter>().currentState == PatientCharacter.PatientStates.Abandoned)
                 targetInteraction.collectible = rTask.tooltipPrompt;
             else
             {

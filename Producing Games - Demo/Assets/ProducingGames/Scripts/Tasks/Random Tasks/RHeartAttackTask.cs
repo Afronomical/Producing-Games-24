@@ -16,7 +16,7 @@ public class RHeartAttackTask : Task
         timeRemaining = timeTillHeartAttack;
         base.TaskStart();
         
-        PagerMessages.instance.DisplayMessage(taskTarget.name + " is about to be killed by a heart attack", timeTillHeartAttack);
+        PagerDisplay.instance.DisplayMessage(taskTarget.name + " is about to be killed by a heart attack", timeTillHeartAttack);
     }
 
 

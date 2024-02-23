@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RHeartAttack
   m_EditorClassIdentifier: 
   taskType: 2
-  chanceToHappen: 82
+  chanceToHappen: 1
   taskName: Heart Attack
   taskDescription: Reach them before they have a heart attack!
   location: 0

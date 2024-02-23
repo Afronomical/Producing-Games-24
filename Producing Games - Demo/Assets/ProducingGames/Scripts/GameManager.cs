@@ -57,10 +57,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        sanityEvents = GetComponent<SanityEventTracker>();
-        patientCount = NPCManager.Instance.patientList.Count;
-        altar = FindFirstObjectByType<ExorcismTable>().gameObject;
-        jug = FindFirstObjectByType<PickUpJug>().gameObject;
         StartGame();
     }
 
@@ -76,6 +72,10 @@ public class GameManager : MonoBehaviour
         currentSanity = startingSanity;
         currentHour = startingHour;
         StartCoroutine(StartHour());
+        sanityEvents = GetComponent<SanityEventTracker>();
+        patientCount = NPCManager.Instance.patientList.Count;
+        altar = FindFirstObjectByType<ExorcismTable>().gameObject;
+        //jug = FindFirstObjectByType<PickUpJug>().gameObject;
     }
 
 

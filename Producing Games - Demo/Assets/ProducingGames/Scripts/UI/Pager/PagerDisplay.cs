@@ -58,7 +58,7 @@ public class PagerDisplay : MonoBehaviour
         time += (int)GameManager.Instance.currentTime;
         time += "AM";
 
-        clock.text = time;
+        clock.text = time.ToUpper();
         clock.enabled = true;
     }
 

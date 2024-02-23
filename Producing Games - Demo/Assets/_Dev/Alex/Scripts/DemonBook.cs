@@ -38,11 +38,11 @@ public class DemonBook : MonoBehaviour
         {
             pageArray[pageIndex].SetActive(false);
 
-            if (context.ReadValue<Vector2>().y > 0 && pageIndex < pageArray.Length - 1)
+            if (context.ReadValue<Vector2>().y < 0 && pageIndex < pageArray.Length - 1)
             {
                 ++pageIndex;
             }
-            else if (context.ReadValue<Vector2>().y < 0 && pageIndex > 0)
+            else if (context.ReadValue<Vector2>().y > 0 && pageIndex > 0)
             {
                 --pageIndex;
             }

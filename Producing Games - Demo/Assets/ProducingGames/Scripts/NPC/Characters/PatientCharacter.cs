@@ -62,7 +62,7 @@ public class PatientCharacter : AICharacter
         {                                               
             // INFO: Possessed state will need to be changed elsewhere
             // INFO: Add demon state                         
-            demon = NPCManager.Instance.ChosenDemon;
+            demon = NPCManager.Instance.ChosenDemon.demonPrefab;
 
             InitialiseDemonStats();
 
@@ -154,7 +154,7 @@ public class PatientCharacter : AICharacter
 
     private void InitialiseDemonStats()
     {
-        Debug.Log(demonSO.demonName + " stats initialised");
+        //Debug.Log(demonSO.demonName + " stats initialised");
         // INFO: Initialise further demon stats here?
     }
 }
