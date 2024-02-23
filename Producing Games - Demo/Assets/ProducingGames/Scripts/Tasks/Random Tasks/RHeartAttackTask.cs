@@ -21,7 +21,7 @@ public class RHeartAttackTask : Task
 
     void Update()
     {
-        if (!taskCompleted)
+        if (!taskCompleted && timeRemaining > 0)
         {
             timeRemaining -= Time.deltaTime;
             if (timeRemaining <= 0)
