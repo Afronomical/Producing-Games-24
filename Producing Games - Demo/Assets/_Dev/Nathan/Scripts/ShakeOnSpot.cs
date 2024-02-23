@@ -1,8 +1,13 @@
-using JetBrains.Annotations;
-using NUnit.Framework.Constraints;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+/// <summary>
+/// <para> Written By: Nathan Jowett  </para>
+/// Moderated By: Lucian Dusciac
+/// <para> A random item from the array will be chosen, this item will 'shake' until the time set has passed.</para> 
+/// </summary>
+
 
 public class ShakeOnSpot : MonoBehaviour
 {

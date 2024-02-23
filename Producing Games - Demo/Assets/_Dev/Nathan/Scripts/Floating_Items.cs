@@ -1,7 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using static UnityEditor.Progress;
+
+/// <summary>
+/// <para> Written By: Nathan Jowett  </para>
+/// Moderated By: Lucian Dusciac
+/// <para>This event will choose a random object from the array, item then floats a set amount then shakes, all variables can be set in the inspector.</para> 
+/// </summary>
+
 
 public class Floating_Items : MonoBehaviour
 {

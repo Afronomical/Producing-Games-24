@@ -1,6 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+/// <summary>
+/// <para> Written By: Nathan Jowett  </para>
+/// Moderated By: Lucian Dusciac
+/// <para>The purpose of this script is to increase and decrease the FOV, once the player has entered the attached trigger box.</para> 
+/// </summary>
 
 public class FOV_Bounce : MonoBehaviour
 {

@@ -3,10 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 /// <summary>
-/// 
+/// <para> Written By: Nathan Jowett  </para>
+/// Moderated By: Lucian Dusciac
+/// <para> Once the player has entered the objects trigger the object will either rotate 180 degrees or be thrown from its place, 
+/// forces are set in the inspector.</para> 
 /// </summary>
+
+
 public class CrossBehaviour : InteractableTemplate
 {
     

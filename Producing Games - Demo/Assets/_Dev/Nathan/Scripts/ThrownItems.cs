@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// <para> Written By: Nathan Jowett  </para>
+/// Moderated By: Lucian Dusciac
+/// <para> A random item will be selected from a list, this item will be 'thrown' using forces set in the inspector, 
+/// this will happen once the player has entered the attached trigger box.</para> 
+/// </summary>
+
 public class ThrownItems : MonoBehaviour
 {
     bool isTriggered;
