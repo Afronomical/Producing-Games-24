@@ -32,6 +32,7 @@ public class PlayerArms : MonoBehaviour
     private bool holdingClipboard;
     private bool holdingObject;
     [HideInInspector] public bool holdingPager;
+    private string lastLeftAnimation;
 
     [Header("Arm Bobbing")]
     [SerializeField][Range(0.01f, 5f)] private float bobAmplitude = 0.5f;
@@ -85,20 +86,27 @@ public class PlayerArms : MonoBehaviour
         }
 
 
-        if (leftAnimator.GetCurrentAnimatorStateInfo(0).IsName("PagerUp") && leftAnimator.GetCurrentAnimatorStateInfo(0).speed == 1)
-            SetHeldObjects();
-        if (leftAnimator.GetCurrentAnimatorStateInfo(0).IsName("FlashlightUp") && leftAnimator.GetCurrentAnimatorStateInfo(0).speed == 1)
-            SetHeldObjects();
-        if (leftAnimator.GetCurrentAnimatorStateInfo(0).IsName("ClipboardUp") && leftAnimator.GetCurrentAnimatorStateInfo(0).speed == 1)
-            SetHeldObjects();
+        if (leftAnimator.GetCurrentAnimatorClipInfoCount(0) != 0)  // When the animation on the left arm changes
+        {
+            if (leftAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name != lastLeftAnimation && leftAnimator.GetCurrentAnimatorStateInfo(0).speed == 1)
+            {
+                if (leftAnimator.GetCurrentAnimatorStateInfo(0).IsName("PagerUp"))  // If it is a pick up animation
+                    SetHeldObjects();
+                else if (leftAnimator.GetCurrentAnimatorStateInfo(0).IsName("FlashlightUp"))
+                    SetHeldObjects();
+                else if (leftAnimator.GetCurrentAnimatorStateInfo(0).IsName("ClipboardUp"))
+                    SetHeldObjects();
+            }
 
+            lastLeftAnimation = leftAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
+        }
 
         ArmBobbing();
     }
 
 
 
-    private void SetHeldObjects()
+    private void SetHeldObjects()  // Change the items visible in your hands
     {
         switch(leftArmState)
         {
@@ -106,16 +114,19 @@ public class PlayerArms : MonoBehaviour
                 pager.SetActive(false);
                 pagerScreen.SetActive(false);
                 flashlight.gameObject.SetActive(false);
+                clipboard.gameObject.SetActive(true);
                 break;
             case leftArmStates.Pager:
                 pager.SetActive(true);
                 pagerScreen.SetActive(true);
                 flashlight.gameObject.SetActive(false);
+                clipboard.SetActive(false);
                 break;
             case leftArmStates.Flashlight:
                 pager.SetActive(false);
                 pagerScreen.SetActive(false);
                 flashlight.gameObject.SetActive(true);
+                clipboard.SetActive(false);
                 break;
         }
 
@@ -159,6 +170,19 @@ public class PlayerArms : MonoBehaviour
     {
         leftAnimator.SetBool("Pager", false);
         holdingPager = false;
+    }
+
+
+    public void HoldClipboard()  // Pick up the clipboard
+    {
+        leftAnimator.SetBool("Checklist", true);
+        holdingClipboard = true;
+    }
+
+    public void DropClipboard()  // Put down the Clipboard
+    {
+        leftAnimator.SetBool("Checklist", false);
+        holdingClipboard = false;
     }
 
 
