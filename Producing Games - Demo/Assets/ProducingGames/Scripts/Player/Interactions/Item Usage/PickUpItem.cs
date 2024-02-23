@@ -59,39 +59,28 @@ public class PickUpItem : MonoBehaviour
                     }
                 }
             }
-            else if (hit.collider.gameObject.TryGetComponent(out INPCInteractable NPCInteractable))
+
+            else TooltipManager.Instance.HideTooltip();
+
+            if (hit.collider.gameObject.TryGetComponent(out INPCInteractable NPCInteractable))
             {
                 PlayerInteractor.instance.currentNPC = NPCInteractable;
                 if (NPCInteractable is NPCInteractableTemplate NPCTemplate)
                 {
-                    PatientTaskManager.instance.DetectTasks(NPCTemplate.character.gameObject);
-
-                    if (c.performed)
-                        PatientTaskManager.instance.CheckTaskConditions(NPCTemplate.character.gameObject);
-
-                    if (NPCTemplate.character.currentState == PatientCharacter.PatientStates.Wandering)
+                    if (NPCTemplate.character.currentState != PatientCharacter.PatientStates.Bed &&  // If not in any of these states
+                        NPCTemplate.character.currentState != PatientCharacter.PatientStates.Dead &&
+                        NPCTemplate.character.currentState != PatientCharacter.PatientStates.Escorted &&
+                        NPCTemplate.character.currentState != PatientCharacter.PatientStates.Possessed &&
+                        NPCTemplate.character.currentState != PatientCharacter.PatientStates.ReqMeds)
                     {
-                        //TooltipManager.Instance.ShowTooltip("ESCORT " + NPCTemplate.ToolTipText);
                         if (c.performed)
                         {
                             NPCTemplate.character.ChangePatientState(PatientCharacter.PatientStates.Escorted);
                             //currentNPC.Escort();
                         }
                     }
-                    else if (NPCTemplate.character.currentState == PatientCharacter.PatientStates.Bed)
-                    {
-                        ////can interact unless dead 
-
-                    }
-
-
                 }
                
-            }
-            else
-            {
-                TooltipManager.Instance.HideTooltip();
-
             }
         }
         else

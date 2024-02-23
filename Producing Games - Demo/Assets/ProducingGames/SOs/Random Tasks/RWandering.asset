@@ -18,3 +18,4 @@ MonoBehaviour:
   taskDescription: Escort the patient back to their bed
   location: 0
   itemToGive: {fileID: 0}
+  tooltipPrompt: {fileID: 11400000, guid: f749d2621414571498b186d8785b02f2, type: 2}

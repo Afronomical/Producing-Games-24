@@ -19,6 +19,7 @@ public class CheckList : MonoBehaviour
 
     public GameObject taskPrefab;
 
+    public PlayerArms arms;
     public static CheckList instance;
 
     //private int timer = 100;
@@ -53,7 +54,10 @@ public class CheckList : MonoBehaviour
 
     public void OnTasksInput(InputAction.CallbackContext context)
     {
-        gameObject.SetActive(!gameObject.activeSelf);
+        if (context.performed)
+            arms.HoldClipboard();
+        if (context.canceled)
+            arms.DropClipboard();
     }
 
     public void OnFlipPage(InputAction.CallbackContext context)

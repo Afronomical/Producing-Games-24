@@ -23,7 +23,7 @@ public class HInjectionTask : Task
         {
             if (InventoryHotbar.instance.currentItem == hTask.itemToGive)  // Check for the correct item being held
                 targetInteraction.collectible = hTask.tooltipPrompt;
-            else
+            else if (targetInteraction.collectible == hTask.tooltipPrompt)
             {
                 targetInteraction.collectible = PatientTaskManager.instance.noTaskPrompt;
                 TooltipManager.Instance.HideTooltip();

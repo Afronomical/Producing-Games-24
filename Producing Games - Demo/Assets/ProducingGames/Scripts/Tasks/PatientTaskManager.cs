@@ -7,7 +7,8 @@ using UnityEngine;
 
 public class PatientTaskManager : MonoBehaviour
 {
-    public enum HourlyTasks { Medicine, Injection, Cardiogram, Food, Board, Comfort, Pray };
+    public enum HourlyTasks { Medicine, Injection, Cardiogram, Food, Board, Comfort,  // Hourly
+        NoTask, Pray, Clean, CheckFuse, CheckWater, SetClock };  // Player
     public enum RandomTasks { NoTask, Wandering, HeartAttack, Hiding, Cardiogram, Prayer, Hungry, Medication };
     public enum TaskLocation { Bed, Bedside, Board, Altar };
 
@@ -25,6 +26,13 @@ public class PatientTaskManager : MonoBehaviour
     public int tasksPerPatient = 1;
 
     public InteractiveObject noTaskPrompt;
+
+    [Header("Task Objects")]
+    public GameObject altar;
+    public GameObject fuse;
+    public GameObject pipes;
+    public GameObject clock;
+    public GameObject[] tables;
 
 
     void Awake()
@@ -235,14 +243,63 @@ public class PatientTaskManager : MonoBehaviour
 
 
 
+    public void SetPlayerTask()
+    {
+        List<HourlyTask> choiceOfTasks = new List<HourlyTask>();
+        int totalChance = 0;
+        foreach (HourlyTask t in playerTasks)  // Check for invalid tasks and calculate total chance
+        {
+            totalChance += t.chanceToHappen;
+            choiceOfTasks.Add(t);  // Add it to the list of tasks to pick from
+        }
+
+        int rand = Random.Range(0, totalChance);
+        HourlyTask chosenTask = choiceOfTasks[0];
+        Task newTask = null;
+
+        int x = 0;
+        foreach (HourlyTask t in choiceOfTasks)
+        {
+            if (rand >= x)
+            {
+                x += t.chanceToHappen;
+                if (rand <= x)
+                {
+                    chosenTask = t;
+                }
+            }
+            else x += t.chanceToHappen;
+        }
+
+
+        switch (chosenTask.taskType)
+        {
+            case HourlyTasks.Pray:
+                newTask = transform.AddComponent<PPrayTask>();
+                newTask.taskTarget = altar;
+                break;
+        }
+
+
+        if (newTask != null)
+        {
+            currentTasks.Add(newTask);
+            newTask.hTask = chosenTask;
+            CheckList.instance.AddTask(newTask);
+            newTask.TaskStart();
+        }
+    }
+
+
+
     public void CompleteTask(Task task)
     {
         CheckList.instance.CompleteTask(task);
 
         if (!task.isHourlyTask)  // Is not hourly task
         {
-            currentTasks.Remove(task);
-            Destroy(task);
+            //currentTasks.Remove(task);
+            //Destroy(task);
         }
         else  // Is hourly task
         {
@@ -257,12 +314,8 @@ public class PatientTaskManager : MonoBehaviour
         {
             if (currentTasks[i].isHourlyTask)
             {
-
                 if (!currentTasks[i].taskCompleted)
                     currentTasks[i].FailTask();
-
-
-
             }
             CheckList.instance.RemoveTask(currentTasks[i]);
             Destroy(currentTasks[i]);

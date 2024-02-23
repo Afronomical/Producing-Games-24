@@ -33,9 +33,6 @@ public class Flashlight : MonoBehaviour
     void Update()
     {
         //Debug.Log(light.intensity);
-
-        if (Input.GetKeyDown(KeyCode.T))
-            StartCoroutine(Flickering());
         
         //If the battery charge is 0, it will turn off the flashlight
         if(batteryCharge <= 0)
@@ -54,7 +51,7 @@ public class Flashlight : MonoBehaviour
 
     public void OnFlashlightInput(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && flashlight.activeInHierarchy)
         {
             intensityIndex++;
             if (intensityIndex >= intensities.Length)
@@ -65,13 +62,7 @@ public class Flashlight : MonoBehaviour
 
     private void IntensityChange()
     {
-        if (intensityIndex == 0)
-        {
-            flashlight.SetActive(false);
-            light.intensity = 0;
-        }
-
-        else if (light.intensity != intensities[intensityIndex])
+        if (light.intensity != intensities[intensityIndex])
         {
             flashlight.SetActive(true);
             light.intensity = intensities[intensityIndex];

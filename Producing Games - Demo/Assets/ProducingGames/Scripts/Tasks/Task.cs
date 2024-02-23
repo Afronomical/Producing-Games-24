@@ -18,7 +18,7 @@ public class Task : MonoBehaviour
 
     public virtual void TaskStart()
     {
-        taskTarget.GetComponent<InteractableTemplate>();
+        targetInteraction = taskTarget.GetComponent<InteractableTemplate>();
 
         if (!isHourlyTask)
         {
@@ -41,7 +41,7 @@ public class Task : MonoBehaviour
             {
                 foreach (var obj in detectingObjects)
                 {
-                    if (interactedObject == taskTarget)  // Check for the correct object being looked at
+                    if (interactedObject == obj)  // Check for the correct object being looked at
                     {
                         DetectTask();
                     }
