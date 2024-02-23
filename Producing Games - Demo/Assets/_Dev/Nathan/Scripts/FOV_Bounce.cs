@@ -1,6 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+/// <summary>
+/// <para> Written By: Nathan Jowett  </para>
+/// Moderated By: Lucian Dusciac
+/// <para>The purpose of this script is to increase and decrease the FOV, once the player has entered the attached trigger box.</para> 
+/// </summary>
 
 public class FOV_Bounce : MonoBehaviour
 {
@@ -13,7 +18,9 @@ public class FOV_Bounce : MonoBehaviour
     [Header("Bounce Variables")]
     public float changeSpeed; //Delta time will be multiplied by this to increase 'speed'
     public float bounceTime; //length of time bounce will last for, keep in mind that this also depends on speed variable (e.g faster changeSpeed, you'll reach bounce time sooner)
-
+    [Space]
+    [Header("SFX")]
+    public SoundEffect ScreenFXSound;
 
 
     bool isTriggered;
@@ -27,7 +34,8 @@ public class FOV_Bounce : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isTriggered == false)
+        
+        if (other.CompareTag("Player") && isTriggered == false)
         {
             StartCoroutine(CamBounce());
             isTriggered = true;
