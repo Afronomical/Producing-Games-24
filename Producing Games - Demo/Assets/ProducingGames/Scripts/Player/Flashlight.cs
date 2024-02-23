@@ -17,6 +17,7 @@ public class Flashlight : MonoBehaviour
     [Range(0, 200)] public float batteryCharge;
     [Range(0, 10)] public float batteryDrainRate;
     [NonSerialized] public float maxBatteryCharge;
+    private bool unlimitedBatteryActivated;
     private int intensityIndex = 0;
 
     [Header("Flashlight Flickering Settings")]
@@ -35,7 +36,7 @@ public class Flashlight : MonoBehaviour
         //Debug.Log(light.intensity);
         
         //If the battery charge is 0, it will turn off the flashlight
-        if(batteryCharge <= 0)
+        if(batteryCharge <= 0 && !unlimitedBatteryActivated)
         {
             intensityIndex = 0;
             IntensityChange();
@@ -101,7 +102,7 @@ public class Flashlight : MonoBehaviour
             
             isFlickering = false;
         }
-        
     }
-   
+
+    public void UnlimitedBatteryToggle() => unlimitedBatteryActivated = !unlimitedBatteryActivated;
 }

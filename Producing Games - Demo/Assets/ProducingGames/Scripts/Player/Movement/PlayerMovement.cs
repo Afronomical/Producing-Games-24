@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     [Range(1, 100)] public float staminaDrainSpeed = 25;
     [Range(1, 100)] public float staminaRegenSpeed = 25;
     [Range(1, 100)] public float staminaRequiredToSprint = 25;//The amount of stamina the player needs to Sprint again
+    private bool unlimitedStaminaActivated;
 
     [Header("Air Movement")]
     [Range(0.05f, 1.5f)] public float jumpHeight = 0.5f;
@@ -126,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
         if (!isSprinting && stamina <= maxStamina)
             stamina += staminaRegenSpeed * Time.deltaTime;
 
-        if(stamina <= 1)
+        if(stamina <= 1 && !unlimitedStaminaActivated)
         {
             isSprinting = false;
         }
@@ -303,4 +304,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
+    public void UnlimitedStaminaToggle() => unlimitedStaminaActivated = !unlimitedStaminaActivated; 
+    
 }
