@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RNoTask
   m_EditorClassIdentifier: 
   taskType: 0
-  chanceToHappen: 100
+  chanceToHappen: 75
   taskName: 
   taskDescription: 
   location: 0

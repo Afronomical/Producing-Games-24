@@ -33,7 +33,7 @@ public class CheckList : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.SetActive(false); //Toggling the checklist
+        //gameObject.SetActive(false); //Toggling the checklist
         pageArray[0].SetActive(true);
     }
 

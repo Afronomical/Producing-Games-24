@@ -38,7 +38,7 @@ public class HidingCutScene : InteractableTemplate
     private void Start()
     {
         cam = Camera.main;
-        playerRef = GameObject.Find("Player").transform;
+        playerRef = GameManager.Instance.player.transform;
         hidingScare = Object.FindFirstObjectByType<HidingScare>();
 
         originCamNearClippingPlane = cam.nearClipPlane;

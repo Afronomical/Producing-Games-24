@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RHungry
   m_EditorClassIdentifier: 
   taskType: 6
-  chanceToHappen: 250
+  chanceToHappen: 5
   taskName: Hungry
   taskDescription: Escort the patient back to their bed
   location: 0
