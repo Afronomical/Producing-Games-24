@@ -22,6 +22,7 @@ public class NPCManager : MonoBehaviour
     [SerializeField] private List<Transform> kitchenLocations = new();
 
     [Header("Demon Locations:")]
+    [SerializeField] private Transform demonInstantiationLocation;
     [SerializeField] private List<Transform> patrolDestinations = new();
 
     [Header("Miscellaneous:")]
@@ -43,6 +44,7 @@ public class NPCManager : MonoBehaviour
     public int GetPatrolDestinationsCount() => patrolDestinations.Count;
     public int GetKitchenLocationsCount() => kitchenLocations.Count;
     public int GetPrayerLocationsCount() => prayingLocations.Count;
+    public Transform GetDemonInstantionLocation() => demonInstantiationLocation;
 
     private void Awake()
     {
