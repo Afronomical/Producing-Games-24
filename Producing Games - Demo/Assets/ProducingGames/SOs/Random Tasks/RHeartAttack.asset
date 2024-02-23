@@ -18,3 +18,4 @@ MonoBehaviour:
   taskDescription: Reach them before they have a heart attack!
   location: 0
   itemToGive: {fileID: 0}
+  tooltipPrompt: {fileID: 11400000, guid: d574081f97641d84eb83174d40d29dc9, type: 2}

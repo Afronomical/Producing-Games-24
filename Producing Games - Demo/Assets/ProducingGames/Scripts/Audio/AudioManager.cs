@@ -34,7 +34,7 @@ public class AudioManager : MonoBehaviour
         if (instance == null)  // Creates a singleton
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);  // This object won't be destroyed between scenes
+            //DontDestroyOnLoad(gameObject);  // This object won't be destroyed between scenes
         }
         else
             Destroy(gameObject);

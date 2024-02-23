@@ -5,7 +5,7 @@ using UnityEngine.TextCore.Text;
 
 public class RHeartAttackTask : Task
 {
-    public float timeTillHeartAttack = 60;
+    public float timeTillHeartAttack = 90;
     public float timeRemaining = 10;
 
     public override void TaskStart()
@@ -15,17 +15,32 @@ public class RHeartAttackTask : Task
 
         timeRemaining = timeTillHeartAttack;
         base.TaskStart();
-        PagerDisplay.instance.DisplayMessage(taskTarget.name + " is about to be killed by a heart attack", 30);
+        
+        PagerMessages.instance.DisplayMessage(taskTarget.name + " is about to be killed by a heart attack", timeTillHeartAttack);
     }
 
 
     void Update()
     {
-        timeRemaining -= Time.deltaTime;
-        if (timeRemaining <= 0)
+        if (!taskCompleted && timeRemaining > 0)
         {
-            FailTask();
+            timeRemaining -= Time.deltaTime;
+            if (timeRemaining <= 0)
+            {
+                FailTask();
+            }
         }
+    }
+
+
+    public override void CheckDetectTask(GameObject interactedObject)
+    {
+        if (interactedObject == taskTarget)  // Check for the correct patient being looked at
+        {
+            targetInteraction.collectible = rTask.tooltipPrompt;
+        }
+
+        base.CheckDetectTask(interactedObject);
     }
 
 

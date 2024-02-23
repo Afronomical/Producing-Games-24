@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: RNoTask
   m_EditorClassIdentifier: 
   taskType: 0
-  chanceToHappen: 60
+  chanceToHappen: 75
   taskName: 
   taskDescription: 
   location: 0
   itemToGive: {fileID: 0}
+  tooltipPrompt: {fileID: 0}

@@ -58,10 +58,12 @@ public class PatientCharacter : AICharacter
         currentHealth = startingHealth;
         currentSanity = startingSanity;
 
-        if (isPossessed)
-        {
-            // INFO: Retrieves the scriptable object of the chosen demon
-            demonSO = NPCManager.Instance.ChosenDemon;
+        if (isPossessed)                                
+        {                                               
+            // INFO: Possessed state will need to be changed elsewhere
+            // INFO: Add demon state                         
+            demon = NPCManager.Instance.ChosenDemon;
+
             InitialiseDemonStats();
 
             // INFO: Instantiates the demon and saves it on the game manager so it can be used elsewhere

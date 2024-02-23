@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
         shiftEndActive = false;
 
         PatientTaskManager.instance.SetHourlyTasks();
+        PatientTaskManager.instance.SetPlayerTask();
         PatientTaskManager.instance.SetRandomTasks();
 
         yield return new WaitForSeconds(0);

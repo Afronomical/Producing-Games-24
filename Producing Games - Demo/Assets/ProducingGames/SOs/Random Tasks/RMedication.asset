@@ -18,3 +18,4 @@ MonoBehaviour:
   taskDescription: Give the patient their mediaction
   location: 0
   itemToGive: {fileID: 11400000, guid: 466d28f252da7d14ea55f7cc9ffeb6fe, type: 2}
+  tooltipPrompt: {fileID: 11400000, guid: 39721da997843d64d8af2d11caa226f8, type: 2}

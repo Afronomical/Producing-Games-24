@@ -45,10 +45,10 @@ public class InteractableSpawner : MonoBehaviour
     private void Update()
     {
         // Temp Code:
-        if (Input.GetKeyDown(KeyCode.G))
+        /*if (Input.GetKeyDown(KeyCode.G))
         {
             SpawnAllObjects();
-        }
+        }*/
     }
 
     /// <summary>

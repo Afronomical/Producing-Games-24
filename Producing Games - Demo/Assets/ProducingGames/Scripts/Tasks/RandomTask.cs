@@ -8,7 +8,7 @@ public class RandomTask : ScriptableObject
 {
     public PatientTaskManager.RandomTasks taskType;
 
-    [Range(0, 100)] public int chanceToHappen;
+    [Range(0, 250)] public int chanceToHappen;
 
     public string taskName;
 
@@ -17,4 +17,6 @@ public class RandomTask : ScriptableObject
     public PatientTaskManager.TaskLocation location;
 
     public InteractiveObject itemToGive;
+
+    public InteractiveObject tooltipPrompt;
 }
