@@ -15,6 +15,9 @@ public class ShakeOnSpot : MonoBehaviour
     public float maxRotAngle = 45f;
     public float shakeTime;
     public float shakeForce;
+    [Space]
+    [Header("SFX")]
+    public SoundEffect ItemShakeSound;
     void Start()
     {
         isTriggered = false;

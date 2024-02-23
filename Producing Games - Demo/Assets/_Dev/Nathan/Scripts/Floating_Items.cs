@@ -18,7 +18,11 @@ public class Floating_Items : MonoBehaviour
     [Space]
     [Header ("Shake Settings")]
     public float maxRotAngle = 45f;
-    public float shakeTime;   
+    public float shakeTime;
+    [Space]
+    [Header("SFX")]
+    public SoundEffect ThrowSound;
+    public SoundEffect ItemShakeSound;
 
     void Start()
     {

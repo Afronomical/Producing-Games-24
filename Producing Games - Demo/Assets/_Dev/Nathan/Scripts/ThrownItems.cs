@@ -15,7 +15,10 @@ public class ThrownItems : MonoBehaviour
     [Space]
     public float minVertical;
     public float maxVertical;
-    
+    [Space]
+    [Header("SFX")]
+    public SoundEffect ThrowSound;
+
     void Start()
     {
         isTriggered = false;   

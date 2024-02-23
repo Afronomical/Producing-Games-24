@@ -13,7 +13,9 @@ public class FOV_Bounce : MonoBehaviour
     [Header("Bounce Variables")]
     public float changeSpeed; //Delta time will be multiplied by this to increase 'speed'
     public float bounceTime; //length of time bounce will last for, keep in mind that this also depends on speed variable (e.g faster changeSpeed, you'll reach bounce time sooner)
-
+    [Space]
+    [Header("SFX")]
+    public SoundEffect ScreenFXSound;
 
 
     bool isTriggered;
