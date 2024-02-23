@@ -53,7 +53,10 @@ public class CheckList : MonoBehaviour
 
     public void OnTasksInput(InputAction.CallbackContext context)
     {
-        gameObject.SetActive(!gameObject.activeSelf);
+        if (context.performed)
+            gameObject.SetActive(true);
+        if (context.canceled)
+            gameObject.SetActive(false);
     }
 
     public void OnFlipPage(InputAction.CallbackContext context)

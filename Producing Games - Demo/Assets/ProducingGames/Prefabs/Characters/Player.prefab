@@ -286,7 +286,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.01
+  near clip plane: 0.4
   far clip plane: 1000
   field of view: 75
   orthographic: 0
@@ -333,7 +333,7 @@ MonoBehaviour:
   canHeadBob: 1
   bobAmplitude: 0.5
   bobFrequency: 10
-  bobResetSpeed: 22.55
+  bobResetSpeed: 7.5
 --- !u!114 &7026742038485894683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5931,6 +5931,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: InventoryHotbar, Assembly-CSharp
+        m_MethodName: OnScrollInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 7b728faa-3bcb-4cc6-92ec-c7f5971566b5
     m_ActionName: 'Player/Scroll[/Mouse/scroll]'
   m_NeverAutoSwitchControlSchemes: 0
@@ -6055,14 +6067,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerBody: {fileID: 2604761008673467045}
+  flashlight: {fileID: 3675739620016178336}
+  pager: {fileID: 8917946525867851784}
+  pagerScreen: {fileID: 5708886413181022302}
+  clipboard: {fileID: 0}
+  clipboardFlashlight: {fileID: 0}
   leftAnimator: {fileID: 4995820011611785559}
   rightAnimator: {fileID: 7385205961216807932}
   heldItem: {fileID: 1686071197657309528}
   grabItemTime: 0.4
   holdingPager: 0
   bobAmplitude: 0.1
-  bobFrequency: 5
-  bobResetSpeed: 22.5
+  bobFrequency: 0.5
+  bobResetSpeed: 5
 --- !u!1 &5168336487746827849
 GameObject:
   m_ObjectHideFlags: 0
@@ -6526,13 +6543,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9011604210558312060}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.4476474, y: -0.44960624, z: -0.49533027, w: 0.59339195}
+  m_LocalRotation: {x: -0.4038815, y: -0.39749, z: -0.5316204, w: 0.62949294}
   m_LocalPosition: {x: -0.002738, y: 0.001533, z: 0.006376}
   m_LocalScale: {x: 0.006493504, y: 0.006493508, z: 0.0064935023}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2098817649793787644}
-  m_LocalEulerAnglesHint: {x: -102.401, y: -204.812, z: 120.352005}
+  m_LocalEulerAnglesHint: {x: -111.392, y: -191.227, z: 107.309}
 --- !u!108 &6671088451864743818
 Light:
   m_ObjectHideFlags: 0
@@ -6758,11 +6775,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 84842765130806521, guid: dd492dba33fdcf948802e8aef5f1f56c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.001876884
+      value: 0.0026837853
       objectReference: {fileID: 0}
     - target: {fileID: 869915945437991109, guid: dd492dba33fdcf948802e8aef5f1f56c, type: 3}
       propertyPath: m_Size
-      value: 0.99999964
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 869915945437991109, guid: dd492dba33fdcf948802e8aef5f1f56c, type: 3}
       propertyPath: m_Value
@@ -6770,11 +6787,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2225659308117284669, guid: dd492dba33fdcf948802e8aef5f1f56c, type: 3}
       propertyPath: m_Size
-      value: 0.9999871
+      value: 0.9999915
       objectReference: {fileID: 0}
     - target: {fileID: 2225659308117284669, guid: dd492dba33fdcf948802e8aef5f1f56c, type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2812824957360585144, guid: dd492dba33fdcf948802e8aef5f1f56c, type: 3}
       propertyPath: m_Name
@@ -6858,7 +6875,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5802319244415523209, guid: dd492dba33fdcf948802e8aef5f1f56c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6114840723460315327, guid: dd492dba33fdcf948802e8aef5f1f56c, type: 3}
       propertyPath: turnPageDelay
@@ -6866,7 +6883,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6849140549813080283, guid: dd492dba33fdcf948802e8aef5f1f56c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7950427547078629023, guid: dd492dba33fdcf948802e8aef5f1f56c, type: 3}
       propertyPath: m_AnchorMax.x
@@ -6886,15 +6903,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8969899919018881714, guid: dd492dba33fdcf948802e8aef5f1f56c, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8969899919018881714, guid: dd492dba33fdcf948802e8aef5f1f56c, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8969899919018881714, guid: dd492dba33fdcf948802e8aef5f1f56c, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.00000035762787
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

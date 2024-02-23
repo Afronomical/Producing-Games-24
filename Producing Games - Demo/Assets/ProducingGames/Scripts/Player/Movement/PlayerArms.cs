@@ -18,6 +18,8 @@ public class PlayerArms : MonoBehaviour
     public Transform playerBody;
     private PlayerMovement playerMovement;
     private CharacterController playerController;
+    public GameObject flashlight, pager, pagerScreen;
+    public GameObject clipboard, clipboardFlashlight;
     private PickUpItem pickUpItem;
     public Animator leftAnimator, rightAnimator;
     public GameObject heldItem;
@@ -50,24 +52,86 @@ public class PlayerArms : MonoBehaviour
 
     void Update()
     {
-        if (holdingClipboard) rightArmState = rightArmStates.Clipboard;
+        if (holdingClipboard)
+        {
+            rightArmState = rightArmStates.Clipboard;
+        }
 
-        else if (holdingObject) rightArmState = rightArmStates.Object;
+        else if (holdingObject)
+        {
+            rightArmState = rightArmStates.Object;
+        }
 
-        else rightArmState = rightArmStates.Idle;
+        else
+        {
+            rightArmState = rightArmStates.Idle;
+        }
 
 
 
-        if (holdingClipboard) leftArmState = leftArmStates.Clipboard;
+        if (holdingClipboard)
+        {
+            leftArmState = leftArmStates.Clipboard;
+        }
 
-        else if (holdingPager) leftArmState = leftArmStates.Pager;
+        else if (holdingPager)
+        {
+            leftArmState = leftArmStates.Pager;
+        }
 
-        else leftArmState = leftArmStates.Flashlight;
+        else
+        {
+            leftArmState = leftArmStates.Flashlight;
+        }
+
+
+        if (leftAnimator.GetCurrentAnimatorStateInfo(0).IsName("PagerUp") && leftAnimator.GetCurrentAnimatorStateInfo(0).speed == 1)
+            SetHeldObjects();
+        if (leftAnimator.GetCurrentAnimatorStateInfo(0).IsName("FlashlightUp") && leftAnimator.GetCurrentAnimatorStateInfo(0).speed == 1)
+            SetHeldObjects();
+        if (leftAnimator.GetCurrentAnimatorStateInfo(0).IsName("ClipboardUp") && leftAnimator.GetCurrentAnimatorStateInfo(0).speed == 1)
+            SetHeldObjects();
 
 
         ArmBobbing();
     }
 
+
+
+    private void SetHeldObjects()
+    {
+        switch(leftArmState)
+        {
+            case leftArmStates.Clipboard:
+                pager.SetActive(false);
+                pagerScreen.SetActive(false);
+                flashlight.gameObject.SetActive(false);
+                break;
+            case leftArmStates.Pager:
+                pager.SetActive(true);
+                pagerScreen.SetActive(true);
+                flashlight.gameObject.SetActive(false);
+                break;
+            case leftArmStates.Flashlight:
+                pager.SetActive(false);
+                pagerScreen.SetActive(false);
+                flashlight.gameObject.SetActive(true);
+                break;
+        }
+
+        switch (rightArmState)
+        {
+            case rightArmStates.Clipboard:
+                heldItem.SetActive(false);
+                break;
+            case rightArmStates.Object:
+                heldItem.SetActive(true);
+                break;
+            case rightArmStates.Idle:
+                heldItem.SetActive(false);
+                break;
+        }
+    }
 
 
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.InputSystem;
 
 public class InventoryHotbar : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class InventoryHotbar : MonoBehaviour
 
     public List<GameObject> itemSlots = new List<GameObject>();
     private int centerSlotIndex = 2;
+
+    public float changeSlotDelay;
+    private float changeSlotTimer;
 
     public static InventoryHotbar instance;
 
@@ -40,13 +44,30 @@ public class InventoryHotbar : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) ScrollInventory(-1);
-        if (Input.GetKeyDown(KeyCode.RightArrow)) ScrollInventory(1);
+        changeSlotTimer += Time.deltaTime;
 
         if (inventory.Count != 0)
         {
             currentItem = inventory[currentIndex];
             //go = currentItem.prefab.gameObject;
+        }
+    }
+
+
+    public void OnScrollInput(InputAction.CallbackContext context)
+    {
+        if (context.performed && changeSlotTimer >= changeSlotDelay)
+        {
+            if (context.ReadValue<Vector2>().y > 0)
+            {
+                ScrollInventory(1);
+            }
+            else if (context.ReadValue<Vector2>().y < 0)
+            {
+                ScrollInventory(-1);
+            }
+
+            changeSlotTimer = 0;
         }
     }
 
