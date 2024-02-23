@@ -148,6 +148,7 @@ public class GameManager : MonoBehaviour
             player.GetComponent<PlayerInput>().enabled = false;
             FadeOut();
             yield return new WaitForSeconds(3);
+            //if(EconomyManager.instance.boughtItems.Count > 0) EconomyManager.instance.SpawnItem();
             StartCoroutine(StartHour());  // Move to the next hour
         }
         else  // If the final hour just ended
