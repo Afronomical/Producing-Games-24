@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 /// <summary>
@@ -12,7 +13,6 @@ using UnityEngine;
 public class ThrownItems : MonoBehaviour
 {
     bool isTriggered;
-
     [Header("Item List")]
     public Rigidbody[] Items;
     [Space]
@@ -26,17 +26,22 @@ public class ThrownItems : MonoBehaviour
     [Header("SFX")]
     public SoundEffect ThrowSound;
 
+ 
+
     void Start()
     {
-        isTriggered = false;   
+        isTriggered = false; 
+       
     }
 
     private void OnTriggerEnter(Collider other)
-    {
+    {    
+        
         //create random forces
         float vertForce = Random.Range(minVertical, maxVertical);
         float horizForce = Random.Range(minHorizontal, maxHorizontal);
-
+       
+        
         //adds relative force and torque to item (Check Z axis in scene view as this may change whether item flies forward or into wall)
         if (other.CompareTag("Player") && !isTriggered) 
         {

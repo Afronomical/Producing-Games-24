@@ -50,12 +50,13 @@ public class ShakeOnSpot : MonoBehaviour
         {
             switch (startRotation <= maxRotAngle)
             {
-                case true:                    
-                    Items[randIndex].AddRelativeTorque(Vector3.right * shakeForce, ForceMode.Impulse);
+                case true:
+                   
+                    Items[randIndex].AddRelativeTorque(Vector3.forward * shakeForce, ForceMode.Impulse);
                     startRotation += Mathf.Abs(shakeForce);
                     break;
                 case false:
-                    Items[randIndex].AddRelativeTorque(Vector3.left * shakeForce, ForceMode.Impulse);
+                    Items[randIndex].AddRelativeTorque(Vector3.back * shakeForce, ForceMode.Impulse);
                     startRotation -= Mathf.Abs(shakeForce);
                     break;
             }
