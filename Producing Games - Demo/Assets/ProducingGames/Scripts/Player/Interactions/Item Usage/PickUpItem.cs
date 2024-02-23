@@ -65,7 +65,11 @@ public class PickUpItem : MonoBehaviour
                     if (c.performed)
                         PatientTaskManager.instance.CheckTaskConditions(NPCTemplate.character.gameObject);
 
-                    if (NPCTemplate.character.currentState == PatientCharacter.PatientStates.Wandering)
+                    if (NPCTemplate.character.currentState != PatientCharacter.PatientStates.Bed &&
+                        NPCTemplate.character.currentState != PatientCharacter.PatientStates.Dead &&
+                        NPCTemplate.character.currentState != PatientCharacter.PatientStates.Escorted &&
+                        NPCTemplate.character.currentState != PatientCharacter.PatientStates.Possessed &&
+                        NPCTemplate.character.currentState != PatientCharacter.PatientStates.ReqMeds)
                     {
                         TooltipManager.Instance.ShowTooltip("ESCORT " + NPCTemplate.ToolTipText);
                         if (c.performed)
