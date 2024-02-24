@@ -29,7 +29,7 @@ public class CameraLook : MonoBehaviour
     private Vector3 camStartPos;
 
     private bool isLeaning;
-    private float xRot = 0f;
+    [HideInInspector] public float xRot = 0f;
 
 
     void Start()
