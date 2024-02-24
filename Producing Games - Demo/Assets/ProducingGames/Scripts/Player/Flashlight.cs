@@ -18,7 +18,7 @@ public class Flashlight : MonoBehaviour
     [Range(0, 10)] public float batteryDrainRate;
     [NonSerialized] public float maxBatteryCharge;
     private bool unlimitedBatteryActivated;
-    private int intensityIndex = 0;
+    [HideInInspector] public int intensityIndex = 0;
 
     [Header("Flashlight Flickering Settings")]
     public int randFlickerChance = 500;
@@ -61,7 +61,7 @@ public class Flashlight : MonoBehaviour
         }
     }
 
-    private void IntensityChange()
+    public void IntensityChange()
     {
         if (light.intensity != intensities[intensityIndex])
         {
