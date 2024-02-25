@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 261.90073, g: 324.45557, b: 429.4347, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -259,9 +259,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settingsPanel: {fileID: 0}
   pauseMenu: {fileID: 0}
-  FpsCounter: {fileID: 339550429}
+  checkBox: {fileID: 0}
   vsyncButton: {fileID: 1844059568}
+  fpsText: {fileID: 0}
   vsyncButtonText: {fileID: 2101232468}
+  resolutionDropdown: {fileID: 0}
+  maxFPSDropdown: {fileID: 0}
+  overlayImage: {fileID: 0}
+  globalVolumeSlider: {fileID: 0}
+  soundEffectVolumeSlider: {fileID: 0}
+  brightnessSlider: {fileID: 0}
+  musicVolumeSlider: {fileID: 0}
+  audioManager: {fileID: 0}
+  panel: {fileID: 0}
+  fpsCounter: {fileID: 0}
+  defaultMaxFPS: 60
+  inventoryPanel: {fileID: 0}
+  increaseEffectSpeed: 3
+  decreaseEffectSpeed: 3
+  effectWaitDuration: 1.5
+  effectScaleMultiplier: 1.2
+  inventoryScaleSlider: {fileID: 0}
+  originalInventorySize: {x: 0, y: 0, z: 0}
+  isInventoryIncreasing: 0
+  inventoryPanelCanvasGroup: {fileID: 0}
+  originalInventoryAspect: 0
+  fovSlider: {fileID: 0}
+  mainCamera: {fileID: 0}
+  defaultFov: {fileID: 0}
+  displayModeDropdown: {fileID: 0}
 --- !u!1 &155563412
 GameObject:
   m_ObjectHideFlags: 0
@@ -3446,6 +3472,63 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1001 &1949239998
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1167900106644451686, guid: 8a7652e4bbde8594e8fa143afdc25894, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1167900106644451686, guid: 8a7652e4bbde8594e8fa143afdc25894, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1167900106644451686, guid: 8a7652e4bbde8594e8fa143afdc25894, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1167900106644451686, guid: 8a7652e4bbde8594e8fa143afdc25894, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1167900106644451686, guid: 8a7652e4bbde8594e8fa143afdc25894, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1167900106644451686, guid: 8a7652e4bbde8594e8fa143afdc25894, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1167900106644451686, guid: 8a7652e4bbde8594e8fa143afdc25894, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1167900106644451686, guid: 8a7652e4bbde8594e8fa143afdc25894, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1167900106644451686, guid: 8a7652e4bbde8594e8fa143afdc25894, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1167900106644451686, guid: 8a7652e4bbde8594e8fa143afdc25894, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5022419425961456897, guid: 8a7652e4bbde8594e8fa143afdc25894, type: 3}
+      propertyPath: m_Name
+      value: SteamManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8a7652e4bbde8594e8fa143afdc25894, type: 3}
 --- !u!1 &1979638109
 GameObject:
   m_ObjectHideFlags: 0
@@ -3834,3 +3917,4 @@ SceneRoots:
   - {fileID: 339550432}
   - {fileID: 916884465}
   - {fileID: 1988705225}
+  - {fileID: 1949239998}
