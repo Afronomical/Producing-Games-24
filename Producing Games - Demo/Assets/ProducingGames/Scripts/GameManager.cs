@@ -45,8 +45,9 @@ public class GameManager : MonoBehaviour
     [Header("Object References")]
     public GameObject altar;
     public GameObject jug;
-    public bool playerHasJug = false; 
-
+    public bool playerHasJug = false;
+    public GameObject captureBox;
+    private CapturedBox captureBoxScript;
 
     private void Awake()
     {
@@ -75,7 +76,9 @@ public class GameManager : MonoBehaviour
         sanityEvents = GetComponent<SanityEventTracker>();
         patientCount = NPCManager.Instance.patientList.Count;
         altar = FindFirstObjectByType<ExorcismTable>().gameObject;
+        captureBoxScript = captureBox.GetComponent<CapturedBox>();
         //jug = FindFirstObjectByType<PickUpJug>().gameObject;
+
     }
 
 
@@ -227,5 +230,10 @@ public class GameManager : MonoBehaviour
     public void FadeIn()
     {
         fadeAnim.Play("FadeOut");
+    }
+
+    public void DemonCaptureEvent()
+    {
+        StartCoroutine(captureBoxScript.MainEvent());
     }
 }
