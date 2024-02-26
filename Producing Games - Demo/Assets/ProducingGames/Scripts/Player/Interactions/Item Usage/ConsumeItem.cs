@@ -8,7 +8,7 @@ public class ConsumeItem : MonoBehaviour
 {
     public void OnConsumeItem(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        /*if (context.performed)
         {
             //steam achievement for consuming first pill
             if (SteamManager.Initialized)
@@ -20,7 +20,7 @@ public class ConsumeItem : MonoBehaviour
                     SteamUserStats.SetAchievement("ACH_WIN_ONE_GAME");
                     SteamUserStats.StoreStats();
                 }
-            }
+            }*/
         
             if (PlayerInteractor.instance.consumable != null)
             {
@@ -32,4 +32,4 @@ public class ConsumeItem : MonoBehaviour
 
         }
     }
-}
+//}

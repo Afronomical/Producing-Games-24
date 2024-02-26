@@ -3,16 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public struct Command
-{
-    public string name;
+using System.Diagnostics;
 
-    public Action command;
-}
+
+
 public class CommandConsole : MonoBehaviour
 {
     
@@ -20,7 +17,7 @@ public class CommandConsole : MonoBehaviour
 
     public TMP_InputField commandInput;
     
-    private Dictionary<string, Action> commandsList = new Dictionary<string, Action>();
+    public Dictionary<string, Action> commandsList = new Dictionary<string, Action>();
 
 
 
@@ -78,7 +75,7 @@ public class CommandConsole : MonoBehaviour
         commandsList.Add("endhour", EndHour);
         commandsList.Add("addcash", Add1000Cash);
     }
-
+    [STAThread]
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Slash))
@@ -91,17 +88,22 @@ public class CommandConsole : MonoBehaviour
         {
             CheckCommandInput(commandInput.text);
         }
+
+        
+        
+        
     }
     public void CheckCommandInput(string input)
     {
-        Debug.Log("Command checking: " + input);
+        
+
+        UnityEngine.Debug.Log("Command checking: " + input);
         foreach (var key in commandsList.Keys.ToList())
         {
-            /*Debug.Log(key.ToString());
-            Debug.Log(input);*/
+            
             if (key == input)
             {
-                Debug.Log("Calling command: " + key);
+                UnityEngine.Debug.Log("Successfully ran command: " + key);
                 commandsList[key]();
             }
             else
@@ -114,7 +116,7 @@ public class CommandConsole : MonoBehaviour
 
     private void CommandTestCall()
     {
-        Debug.Log("It works");
+        UnityEngine.Debug.Log("It works");
     }
 
     private void SceneRestart()
