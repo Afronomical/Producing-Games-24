@@ -27,6 +27,7 @@ public class InspectableObject : InteractableTemplate
     private int index = 0;
 
     Vector2 defaultScreenSize;
+    Dictionary<Material, bool> zoomedScreens = new Dictionary<Material, bool>();
 
     protected virtual void Start()
     {
@@ -36,6 +37,11 @@ public class InspectableObject : InteractableTemplate
         camRotation = camMoveTransform.rotation.eulerAngles;
 
         defaultScreenSize = cameraScreens[0].mainTextureScale;
+
+        foreach (var m in cameraScreens)
+        {
+            zoomedScreens.Add(m, false);
+        }
     }
 
     protected virtual void Update()
@@ -45,12 +51,20 @@ public class InspectableObject : InteractableTemplate
         currentMaterial = cameraScreens[index];
         monitor.GetComponent<MeshRenderer>().material = currentMaterial;
 
-        if (Input.GetKeyDown(KeyCode.X) && looking)
+        //this code will check if the current screen is already zoomed in and will either allow or not allow zooming in/out based on position
+        bool isZoomedIn = false;
+        zoomedScreens.TryGetValue(cameraScreens[index], out isZoomedIn);
+
+        if (Input.GetKeyDown(KeyCode.X) && looking && isZoomedIn)
         {
+            zoomedScreens.Remove(cameraScreens[index]);
+            zoomedScreens.Add(cameraScreens[index], false);
             cameraScreens[index].mainTextureScale = cameraScreens[index].mainTextureScale * new Vector2(2, 2);
         }
-        if (Input.GetKeyDown(KeyCode.Z) && looking)
+        else if (Input.GetKeyDown(KeyCode.Z) && looking && !isZoomedIn)
         {
+            zoomedScreens.Remove(cameraScreens[index]);
+            zoomedScreens.Add(cameraScreens[index], true);
             cameraScreens[index].mainTextureScale = cameraScreens[index].mainTextureScale / new Vector2(2, 2)/* - cameraScreens[index].mainTextureScale / 2*/;
         }
 

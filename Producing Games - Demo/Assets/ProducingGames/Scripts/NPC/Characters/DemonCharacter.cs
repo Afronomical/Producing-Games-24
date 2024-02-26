@@ -1,3 +1,4 @@
+using Steamworks;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -37,6 +38,10 @@ public class DemonCharacter : AICharacter, IHear
     public DemonStateBaseClass demonStateScript;
     public Transform soundDestination;
 
+   
+
+    bool exorcised = false;
+
     public override void Start()
     {
         base.Start();
@@ -45,7 +50,9 @@ public class DemonCharacter : AICharacter, IHear
     }
 
     private void Update()
-    {
+    { 
+
+
         if (demonStateScript != null)
             demonStateScript.UpdateLogic();  // Calls the virtual function for whatever state scripts
 
@@ -93,20 +100,10 @@ public class DemonCharacter : AICharacter, IHear
     {
         if(collision.gameObject.CompareTag("HolyWater"))
         {
+            
             Destroy(collision.gameObject);
             ChangeDemonState(DemonStates.Exorcised);
 
-            //steam achievement for banishing demon
-            //if(SteamManager.Initialized)
-            //{
-            //    Steamworks.SteamUserStats.GetAchievement("BanishDemon", out bool completed);
-
-            //    if(!completed)
-            //    {
-            //        SteamUserStats.SetAchievement("BanishDemon");
-            //        SteamUserStats.StoreStats();
-            //    }
-            //}
         }
     }
 
@@ -116,4 +113,6 @@ public class DemonCharacter : AICharacter, IHear
         soundDestination = effect.soundPos;
         ChangeDemonState(DemonStates.Distracted);
     }
+
+    
 }
