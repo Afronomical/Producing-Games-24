@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Diagnostics.Tracing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -45,8 +46,9 @@ public class GameManager : MonoBehaviour
     [Header("Object References")]
     public GameObject altar;
     public GameObject jug;
-    public bool playerHasJug = false; 
+    public bool playerHasJug = false;
 
+    [HideInInspector]public int eventChance;
 
     private void Awake()
     {
@@ -64,6 +66,7 @@ public class GameManager : MonoBehaviour
     private void LateUpdate()
     {
         UpdateTime();
+        DynamicEventChance();
     }
 
 
@@ -227,5 +230,21 @@ public class GameManager : MonoBehaviour
     public void FadeIn()
     {
         fadeAnim.Play("FadeOut");
+    }
+
+
+
+    public void DynamicEventChance()
+    {
+        if (sanityLevel == SanityEventTracker.SanityLevels.Sane)
+           eventChance = 50;
+        else if (sanityLevel == SanityEventTracker.SanityLevels.Delirious)
+            eventChance = 20;
+        else if (sanityLevel == SanityEventTracker.SanityLevels.Derranged)
+            eventChance = 30;
+        else if (sanityLevel == SanityEventTracker.SanityLevels.Hysterical)
+            eventChance = 35;
+        else if (sanityLevel == SanityEventTracker.SanityLevels.Madness)
+            eventChance = 40;
     }
 }

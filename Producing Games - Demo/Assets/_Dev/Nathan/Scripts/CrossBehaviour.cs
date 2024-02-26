@@ -24,22 +24,27 @@ public class CrossBehaviour : InteractableTemplate
     [Header("SFX")]
     public SoundEffect CrossSpinSound;
     public SoundEffect CrossDropSound;
+    private GameManager gM;
 
    
 
     private void Start()
     {
         isTriggered = false;
+        gM = GameManager.Instance;
     }
 
     private void Update()
     {
+       
         invertedCross();
     }
 
     private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player") && isTriggered == false)
+    { 
+        int randChance = Random.Range(0, 101);
+        
+      if (other.CompareTag("Player") && randChance <= gM.eventChance)
         {
             int eventType = UnityEngine.Random.Range(0, 2);
             if (eventType == 0)
@@ -63,16 +68,24 @@ public class CrossBehaviour : InteractableTemplate
 
     /// <summary>
     /// 
-    /// </summary>
+    /// </summary> 
+    /// 
+    void EnterInteractableState()
+    {
+       gameObject.AddComponent<BoxCollider>();
+        
+    }
+
     void FallingCross()
     {
         gameObject.AddComponent<Rigidbody>();
         Rigidbody rb = gameObject.GetComponent<Rigidbody>();
         rb.AddRelativeForce(Vector3.back * throwingForce, ForceMode.Impulse);
         gameObject.GetComponent<BoxCollider>().isTrigger = false;
-        Destroy(gameObject.GetComponent<BoxCollider>());
-        AudioManager.instance.PlaySound(CrossDropSound, gameObject.transform);
+        Destroy(gameObject.GetComponent<BoxCollider>()); 
         EnterInteractableState();
+        AudioManager.instance.PlaySound(CrossDropSound, gameObject.transform);
+       
     }
 
 
@@ -86,12 +99,7 @@ public class CrossBehaviour : InteractableTemplate
         }
     }
 
-    void EnterInteractableState()
-    {
-       gameObject.AddComponent<BoxCollider>();
-        
-    }
-
+   
     public override void Interact()
     {
         //add implementation for ammending cross

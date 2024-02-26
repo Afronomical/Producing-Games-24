@@ -20,9 +20,14 @@ public class CamShakeOnTrigger : MonoBehaviour
     [Space]
     [Header("SFX")]
     public SoundEffect CamShakeSound;
+
+    private GameManager gM;
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player") && !triggered)
+        int randChance = Random.Range(0, 101);
+
+        if (other.CompareTag("Player") && randChance <= gM.eventChance)
+
         {
             StartCoroutine(cameraShake.CamShake(duration, intensity));
             triggered = true;

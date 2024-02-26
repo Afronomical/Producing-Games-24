@@ -23,6 +23,8 @@ public class ShakeOnSpot : MonoBehaviour
     [Space]
     [Header("SFX")]
     public SoundEffect ItemShakeSound;
+
+    private GameManager gM;
     void Start()
     {
         isTriggered = false;
@@ -30,7 +32,9 @@ public class ShakeOnSpot : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !isTriggered)
+        int randChance = Random.Range(0, 101);
+
+        if (other.CompareTag("Player") && randChance <= gM.eventChance)
         {
             StartCoroutine(ShakingOnSpot());
             isTriggered = true;

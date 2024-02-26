@@ -25,8 +25,8 @@ public class ThrownItems : MonoBehaviour
     [Space]
     [Header("SFX")]
     public SoundEffect ThrowSound;
+    private GameManager gM;
 
- 
 
     void Start()
     {
@@ -40,10 +40,12 @@ public class ThrownItems : MonoBehaviour
         //create random forces
         float vertForce = Random.Range(minVertical, maxVertical);
         float horizForce = Random.Range(minHorizontal, maxHorizontal);
-       
-        
+
+
         //adds relative force and torque to item (Check Z axis in scene view as this may change whether item flies forward or into wall)
-        if (other.CompareTag("Player") && !isTriggered) 
+        int randChance = Random.Range(0, 101);
+
+        if (other.CompareTag("Player") && randChance <= gM.eventChance)
         {
             int randIndex = Random.Range(0, Items.Length);
             Items[randIndex].AddRelativeForce((Vector3.up * vertForce) + (Vector3.forward * horizForce), ForceMode.Impulse);           

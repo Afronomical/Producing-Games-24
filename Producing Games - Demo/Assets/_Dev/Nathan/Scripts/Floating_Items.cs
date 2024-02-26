@@ -30,6 +30,8 @@ public class Floating_Items : MonoBehaviour
     public SoundEffect ThrowSound;
     public SoundEffect ItemShakeSound;
 
+    private GameManager gM;
+
     void Start()
     {
         isTriggered = false;
@@ -37,8 +39,10 @@ public class Floating_Items : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
-        if (other.CompareTag("Player") && !isTriggered)
+
+        int randChance = Random.Range(0, 101);
+
+        if (other.CompareTag("Player") && randChance <= gM.eventChance)
         {
             StartCoroutine(ShakingItem());
             isTriggered = true;

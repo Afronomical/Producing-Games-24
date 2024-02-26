@@ -22,7 +22,7 @@ public class FOV_Bounce : MonoBehaviour
     [Header("SFX")]
     public SoundEffect ScreenFXSound;
 
-
+    private GameManager gM;
     bool isTriggered;
     private float initialFOV;
 
@@ -34,8 +34,10 @@ public class FOV_Bounce : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
-        if (other.CompareTag("Player") && isTriggered == false)
+
+        int randChance = Random.Range(0, 101);
+
+        if (other.CompareTag("Player") && randChance <= gM.eventChance)
         {
             StartCoroutine(CamBounce());
             isTriggered = true;

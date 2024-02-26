@@ -125,8 +125,7 @@ public class PlayerMovement : MonoBehaviour
 
 
         FootstepSounds();
-        if (Input.GetKeyDown(KeyCode.O))
-            StartCoroutine(cameraShake.CamShake(0.15f, .2f));
+        
         
         if (!isSprinting && stamina <= maxStamina)
             stamina += staminaRegenSpeed * Time.deltaTime;
