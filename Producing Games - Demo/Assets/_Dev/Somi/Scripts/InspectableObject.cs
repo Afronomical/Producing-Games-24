@@ -26,12 +26,16 @@ public class InspectableObject : InteractableTemplate
     private Material currentMaterial;
     private int index = 0;
 
+    Vector2 defaultScreenSize;
+
     protected virtual void Start()
     {
         mainCam = Camera.main;//.transform.parent.gameObject;
         camLookScript = Camera.main.GetComponent<CameraLook>();
         camPosition = camMoveTransform.position;
         camRotation = camMoveTransform.rotation.eulerAngles;
+
+        defaultScreenSize = cameraScreens[0].mainTextureScale;
     }
 
     protected virtual void Update()
@@ -40,6 +44,16 @@ public class InspectableObject : InteractableTemplate
 
         currentMaterial = cameraScreens[index];
         monitor.GetComponent<MeshRenderer>().material = currentMaterial;
+
+        if (Input.GetKeyDown(KeyCode.X) && looking)
+        {
+            cameraScreens[index].mainTextureScale = cameraScreens[index].mainTextureScale * new Vector2(2, 2);
+        }
+        if (Input.GetKeyDown(KeyCode.Z) && looking)
+        {
+            cameraScreens[index].mainTextureScale = cameraScreens[index].mainTextureScale / new Vector2(2, 2)/* - cameraScreens[index].mainTextureScale / 2*/;
+        }
+
 
         if (Input.GetKeyDown(KeyCode.RightArrow) && looking)
         {
@@ -69,7 +83,10 @@ public class InspectableObject : InteractableTemplate
             //re-enable interaction ability
             this.gameObject.GetComponent<BoxCollider>().enabled = true;
 
-
+            foreach(var m in cameraScreens)
+            {
+                m.mainTextureScale = defaultScreenSize;
+            }
         }
         //move camera to glass panel if door is interacted with
         if (looking)
