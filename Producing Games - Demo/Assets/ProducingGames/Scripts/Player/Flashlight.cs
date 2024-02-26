@@ -29,6 +29,11 @@ public class Flashlight : MonoBehaviour
     private bool isFlickering;
     private float oldIntensity;
 
+
+    private void Awake()
+    {
+        CommandConsole.Instance.ToggleFlashlight += UnlimitedBatteryToggle;
+    }
     private void Start() => maxBatteryCharge = batteryCharge; //This will be used to make sure when you pickup a battery, your flashlight isn't Max Charge
     
     void Update()
