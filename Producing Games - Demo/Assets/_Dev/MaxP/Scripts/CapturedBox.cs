@@ -57,11 +57,7 @@ public class CapturedBox : MonoBehaviour
 
 
 
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            StartCoroutine(MainEvent());
-
-        }
+       
     }
 
     public IEnumerator MainEvent()

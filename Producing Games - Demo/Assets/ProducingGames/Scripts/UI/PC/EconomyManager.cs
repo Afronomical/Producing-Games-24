@@ -6,18 +6,32 @@ using UnityEngine;
 public class EconomyManager : MonoBehaviour
 {
     public static EconomyManager instance;
-    private int budget = 100;
+    [SerializeField]private int budget = 100;
     public TMP_Text money;
     private int deliveryTime = 0;
     public List<GameObject> boughtItems = new();
 
+
+
+    private void Awake()
+    {
+        
+    }
+    public void InitializeCommands()
+    {
+
+        CommandConsole.Instance.Add1000Cash += Add1000Income;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        if(instance == null)
+        InitializeCommands();
+        if (instance == null)
             instance = this;
 
         money.text = "£ " + budget;
+
     }
 
     public void DisplayBudget()
@@ -26,7 +40,13 @@ public class EconomyManager : MonoBehaviour
         money.text = "£ " + budget;
     }
 
-    public void AddIncome(int amount) { budget += amount; }
+    public void AddIncome(int amount) { budget += amount; DisplayBudget(); }
+
+    public void Add1000Income()
+    {
+        Debug.Log("Cash command Invoked");
+        AddIncome(1000);
+    }
 
     public void RemoveIncome(int amount) 
     {
@@ -40,6 +60,7 @@ public class EconomyManager : MonoBehaviour
             budget -= amount;
             //Spawn item in storage
         }
+        DisplayBudget();
     }
 
     public void OrderItem(GameObject item)

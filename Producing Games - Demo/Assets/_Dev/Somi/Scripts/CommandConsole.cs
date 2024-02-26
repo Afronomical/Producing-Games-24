@@ -23,7 +23,8 @@ public class CommandConsole : MonoBehaviour
     private Dictionary<string, Action> commandsList = new Dictionary<string, Action>();
 
 
-    
+
+    public event Action InitializeEvents;
 
     #region CommandsList
     public event Action Commandcall;
@@ -32,6 +33,7 @@ public class CommandConsole : MonoBehaviour
     public event Action ToggleFlashlight;
     public event Action IncrementTime;
     public event Action EndHour;
+    public event Action Add1000Cash;
 
     #endregion
     CommandConsole() { }
@@ -55,22 +57,34 @@ public class CommandConsole : MonoBehaviour
     }
 
     
-
     private void Start()
     {
+        
+        StartCoroutine(EventAwake());
+
+        
+        
+        
+    }
+    public IEnumerator EventAwake()
+    {
+        
+        yield return new WaitForSeconds(0.5f);
         commandsList.Add("commandCall", Commandcall);
         commandsList.Add("restart", Restart);
         commandsList.Add("togglestamina", ToggleSprintStamina);
         commandsList.Add("toggleflashlight", ToggleFlashlight);
         commandsList.Add("fastforward", IncrementTime);
         commandsList.Add("endhour", EndHour);
-        
+        commandsList.Add("addcash", Add1000Cash);
     }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Slash))
         {
             commandInput.gameObject.SetActive(!commandInput.gameObject.activeSelf);
+            //GameManager.Instance.player.GetComponent<PlayerControls>().Disable();
         }
 
         if (Input.GetKeyDown(KeyCode.Return) && commandInput.gameObject.activeSelf == true)
@@ -80,14 +94,14 @@ public class CommandConsole : MonoBehaviour
     }
     public void CheckCommandInput(string input)
     {
-        Debug.Log("Commandcheck Called");
+        Debug.Log("Command checking: " + input);
         foreach (var key in commandsList.Keys.ToList())
         {
-            Debug.Log(key.ToString());
-            Debug.Log(input);
+            /*Debug.Log(key.ToString());
+            Debug.Log(input);*/
             if (key == input)
             {
-                
+                Debug.Log("Calling command: " + key);
                 commandsList[key]();
             }
             else
