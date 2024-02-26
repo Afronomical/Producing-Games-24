@@ -317,7 +317,7 @@ public class PatientTaskManager : MonoBehaviour
                 if (!currentTasks[i].taskCompleted)
                     currentTasks[i].FailTask();
             }
-            CheckList.instance.RemoveTask(currentTasks[i]);
+            if (currentTasks[i].checkList != null) CheckList.instance.RemoveTask(currentTasks[i]);
             Destroy(currentTasks[i]);
             currentTasks.RemoveAt(i);
         }
