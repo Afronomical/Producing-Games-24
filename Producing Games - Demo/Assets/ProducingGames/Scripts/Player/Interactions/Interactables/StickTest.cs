@@ -6,7 +6,6 @@ public class StickTest : InteractableTemplate
 {
     public override void Interact()
     {
-        Debug.Log("***Stick code is running*** \n Collected " + collectible.name);
         InventoryHotbar.instance.AddToInventory(collectible);
         Destroy(gameObject);
     }

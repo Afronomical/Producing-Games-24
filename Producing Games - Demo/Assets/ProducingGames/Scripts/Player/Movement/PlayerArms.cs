@@ -12,12 +12,14 @@ using UnityEngine;
 
 public class PlayerArms : MonoBehaviour
 {
-    private enum leftArmStates { Idle, Pager};
+    private enum leftArmStates { Flashlight, Pager, Clipboard};
     private enum rightArmStates { Idle, Object, Clipboard };
 
     public Transform playerBody;
     private PlayerMovement playerMovement;
     private CharacterController playerController;
+    public GameObject flashlight, pager, pagerScreen;
+    public GameObject clipboard, clipboardFlashlight;
     private PickUpItem pickUpItem;
     public Animator leftAnimator, rightAnimator;
     public GameObject heldItem;
@@ -30,10 +32,11 @@ public class PlayerArms : MonoBehaviour
     private bool holdingClipboard;
     private bool holdingObject;
     [HideInInspector] public bool holdingPager;
+    private string lastLeftAnimation;
 
     [Header("Arm Bobbing")]
-    [SerializeField][Range(0.1f, 5f)] private float bobAmplitude = 0.5f;
-    [SerializeField][Range(5f, 15f)] private float bobFrequency = 10f;
+    [SerializeField][Range(0.01f, 5f)] private float bobAmplitude = 0.5f;
+    [SerializeField][Range(0.5f, 15f)] private float bobFrequency = 10f;
     public float bobResetSpeed = 1.0f;
     private float bobOffSpeed = 3f;
     private Vector3 startPos;
@@ -50,22 +53,96 @@ public class PlayerArms : MonoBehaviour
 
     void Update()
     {
-        if (holdingClipboard) rightArmState = rightArmStates.Clipboard;
+        if (holdingClipboard)
+        {
+            rightArmState = rightArmStates.Clipboard;
+        }
 
-        else if (holdingObject) rightArmState = rightArmStates.Object;
+        else if (holdingObject)
+        {
+            rightArmState = rightArmStates.Object;
+        }
 
-        else rightArmState = rightArmStates.Idle;
+        else
+        {
+            rightArmState = rightArmStates.Idle;
+        }
 
 
 
-        if (holdingPager) leftArmState = leftArmStates.Pager;
+        if (holdingClipboard)
+        {
+            leftArmState = leftArmStates.Clipboard;
+        }
 
-        else leftArmState = leftArmStates.Idle;
+        else if (holdingPager)
+        {
+            leftArmState = leftArmStates.Pager;
+        }
 
+        else
+        {
+            leftArmState = leftArmStates.Flashlight;
+        }
+
+
+        if (leftAnimator.GetCurrentAnimatorClipInfoCount(0) != 0)  // When the animation on the left arm changes
+        {
+            if (leftAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name != lastLeftAnimation && leftAnimator.GetCurrentAnimatorStateInfo(0).speed == 1)
+            {
+                if (leftAnimator.GetCurrentAnimatorStateInfo(0).IsName("PagerUp"))  // If it is a pick up animation
+                    SetHeldObjects();
+                else if (leftAnimator.GetCurrentAnimatorStateInfo(0).IsName("FlashlightUp"))
+                    SetHeldObjects();
+                else if (leftAnimator.GetCurrentAnimatorStateInfo(0).IsName("ClipboardUp"))
+                    SetHeldObjects();
+            }
+
+            lastLeftAnimation = leftAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
+        }
 
         ArmBobbing();
     }
 
+
+
+    private void SetHeldObjects()  // Change the items visible in your hands
+    {
+        switch(leftArmState)
+        {
+            case leftArmStates.Clipboard:
+                pager.GetComponent<SkinnedMeshRenderer>().enabled = false;
+                pagerScreen.GetComponent<Canvas>().enabled = false;
+                flashlight.gameObject.SetActive(false);
+                clipboard.gameObject.SetActive(true);
+                break;
+            case leftArmStates.Pager:
+                pager.GetComponent<SkinnedMeshRenderer>().enabled = true;
+                pagerScreen.GetComponent<Canvas>().enabled = true;
+                flashlight.gameObject.SetActive(false);
+                clipboard.SetActive(false);
+                break;
+            case leftArmStates.Flashlight:
+                pager.GetComponent<SkinnedMeshRenderer>().enabled = false;
+                pagerScreen.GetComponent<Canvas>().enabled = false;
+                flashlight.gameObject.SetActive(true);
+                clipboard.SetActive(false);
+                break;
+        }
+
+        switch (rightArmState)
+        {
+            case rightArmStates.Clipboard:
+                heldItem.SetActive(false);
+                break;
+            case rightArmStates.Object:
+                heldItem.SetActive(true);
+                break;
+            case rightArmStates.Idle:
+                heldItem.SetActive(false);
+                break;
+        }
+    }
 
 
 
@@ -93,6 +170,19 @@ public class PlayerArms : MonoBehaviour
     {
         leftAnimator.SetBool("Pager", false);
         holdingPager = false;
+    }
+
+
+    public void HoldClipboard()  // Pick up the clipboard
+    {
+        leftAnimator.SetBool("Checklist", true);
+        holdingClipboard = true;
+    }
+
+    public void DropClipboard()  // Put down the Clipboard
+    {
+        leftAnimator.SetBool("Checklist", false);
+        holdingClipboard = false;
     }
 
 

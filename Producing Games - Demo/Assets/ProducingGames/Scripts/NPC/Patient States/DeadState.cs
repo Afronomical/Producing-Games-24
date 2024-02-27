@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -10,23 +8,17 @@ using UnityEngine;
 
 public class DeadState : PatientStateBaseClass
 {
-    private void Awake()
-    {
-       // Debug.Log("NPC DEAD");
-       
-        transform.Rotate(0, 0, -90.0f); //placeholder function to display death
-       
-    }
     private void Start()
     {
-        character.agent.velocity = Vector3.zero;
-        character.agent.ResetPath(); 
-        character.rb.velocity = Vector3.zero;
+        if (character.agent.hasPath)
+            character.agent.ResetPath();
+
+        character.animator.SetBool("isDead", true);
+
         GameManager.Instance.DecrementRemainingPatients();
-        GetComponent<Animator>().SetBool("isDead", true);
     }
 
-    public override void UpdateLogic()
+    /*public override void UpdateLogic()
     {
-    }
+    }*/
 }

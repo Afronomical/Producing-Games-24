@@ -14,20 +14,16 @@ public class ChaseState : DemonStateBaseClass
 {
     private Vector3 targetPos;
     private Vector3 lastTargetPos;
+    private bool isChasing;
 
     private float timeAlone = 0;
     private readonly float maxTimeAlone = 20f;
 
-    //bool to check if chasing
-    bool isChasing;
-    private void Awake()
-    {
-        GetComponent<AICharacter>().isMoving = true;
-    }
-
     private void Start()
     {
-        character.agent.ResetPath();
+        if (character.agent.hasPath)
+            character.agent.ResetPath();
+
         character.agent.speed = character.runSpeed;
 
         isChasing = false;
@@ -35,6 +31,8 @@ public class ChaseState : DemonStateBaseClass
 
     public override void UpdateLogic()
     {
+        GetComponent<Animator>().SetFloat("movement", character.agent.velocity.magnitude);
+
         targetPos = character.player.transform.position;
 
         /*
@@ -59,11 +57,10 @@ public class ChaseState : DemonStateBaseClass
             foreach (Collider collider in colliders)
             {
                 if (collider.gameObject == character.player)
-                {
-                    Debug.Log("Changing To attack state");
                     character.ChangeDemonState(DemonCharacter.DemonStates.Attack);
-                }
             }
+
+
         }     
         else
         {
@@ -73,13 +70,10 @@ public class ChaseState : DemonStateBaseClass
             isChasing = false;
 
             if (timeAlone >= maxTimeAlone)
-            {
-                timeAlone = 0.0f;
                 character.ChangeDemonState(DemonCharacter.DemonStates.Patrol); //changes state to patrol
-            }
         }
 
-        GetComponent<Animator>().SetBool("isChasing", isChasing);
+        character.animator.SetBool("isChasing", isChasing);
     }
 
     /// <summary>
@@ -89,10 +83,9 @@ public class ChaseState : DemonStateBaseClass
     void MoveTowardsPlayer()
     {
         // INFO: Ensures the NPC only rotates on the y-axis
-        Vector3 playerPosition = new(character.player.transform.position.x, transform.position.y, character.player.transform.position.z);
+        Vector3 playerPosition = new(targetPos.x, transform.position.y, targetPos.z);
         transform.LookAt(playerPosition);
 
-        if (character.rb != null)
-            character.agent.SetDestination(targetPos); // sets target position to player last pos 
+        character.agent.SetDestination(targetPos); // sets target position to player last pos 
     }
 }

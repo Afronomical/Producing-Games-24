@@ -20,6 +20,8 @@ public class CheckList : MonoBehaviour
     public float turnPageDelay;
     private float turnPageTimer;
 
+    public PlayerArms arms;
+
     public static CheckList instance;
 
     //private int timer = 100;
@@ -33,7 +35,7 @@ public class CheckList : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.SetActive(false); //Toggling the checklist
+        //gameObject.SetActive(false); //Toggling the checklist
         pageArray[0].SetActive(true);
     }
 
@@ -56,7 +58,10 @@ public class CheckList : MonoBehaviour
     {
         if(DiegeticUIManager.Instance.hasChecklist)
         {
-            gameObject.SetActive(!gameObject.activeSelf);
+            if (context.performed)
+                arms.HoldClipboard();
+            if (context.canceled)
+                arms.DropClipboard();
         }
     }
 
@@ -66,7 +71,7 @@ public class CheckList : MonoBehaviour
         {
             pageArray[pageIndex].SetActive(false);
 
-            if (context.ReadValue<Vector2>().y > 0 && pageIndex < pageArray.Length - 2)
+            if (context.ReadValue<Vector2>().y > 0 && pageIndex < pageArray.Length - 1)
             {
                 ++pageIndex;
             }
@@ -129,5 +134,10 @@ public class CheckList : MonoBehaviour
         Destroy(task.checkList);
     }
 
-
+    public void CompleteTask(Task task)
+    {
+        TMP_Text newText = task.checkList.GetComponent<TMP_Text>();
+        newText.color = Color.gray;
+        newText.fontStyle = FontStyles.Strikethrough;
+    }
 }

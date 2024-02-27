@@ -19,6 +19,5 @@ MonoBehaviour:
   taskDescription: Give the patient their pills
   location: 0
   itemToGive: {fileID: 11400000, guid: 466d28f252da7d14ea55f7cc9ffeb6fe, type: 2}
+  tooltipPrompt: {fileID: 11400000, guid: 39721da997843d64d8af2d11caa226f8, type: 2}
   genericTask: 0
-  basicEyes: {fileID: 2100000, guid: 52cf8b4cadbd77a4585dcfec7f131e1f, type: 2}
-  taskEyes: {fileID: 2100000, guid: 873fba8d991e73e4fa1ce54ac1e9ff88, type: 2}

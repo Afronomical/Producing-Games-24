@@ -11,7 +11,7 @@ using UnityEngine.LowLevel;
 
 public class DemonLightFlicker : MonoBehaviour
 {
-    private List<Collider> colliders;
+    private List<InteriorLampFlicker> lights;
     
     private float origFlickerLightPower;
     private int origFlickerCount;
@@ -24,27 +24,25 @@ public class DemonLightFlicker : MonoBehaviour
 
     void Start()
     {
-        colliders = new List<Collider>();
+        lights = new List<InteriorLampFlicker>();
     }
 
 
     void Update()
     {
-        if (colliders != null)
+        if (lights != null)
         {
-            foreach (Collider collider in colliders) //for each light apply flicker
+            foreach (InteriorLampFlicker light in lights) //for each light apply flicker
             {
-                GameObject otherObj = collider.gameObject;
-                lightScript = otherObj.GetComponent<InteriorLampFlicker>();
-
+                lightScript = light;
                 Vector3 thisLoc = transform.position;
-                Vector3 lightLoc = otherObj.transform.position;
+                Vector3 lightLoc = light.transform.position;
                 float distance = Vector3.Distance(thisLoc, lightLoc);
                 Debug.Log(distance);
                 bool resetFlicker = false;
-                float origFlickerLightPower = lightScript.flickerLightPower;
-                int origFlickerCount = lightScript.avgFlickerCount;
-                float origFlickerLightDiff = lightScript.flickerLightPowerDiff;
+                origFlickerLightPower = lightScript.flickerLightPower;
+                origFlickerCount = lightScript.avgFlickerCount;
+                origFlickerLightDiff = lightScript.flickerLightPowerDiff;
                 if (distance < maxDist && !(distance < minDist)) //&& distance > minDist
                 {
                     resetFlicker = true;
@@ -53,22 +51,17 @@ public class DemonLightFlicker : MonoBehaviour
                     lightScript.flickerLightPower = Mathf.Lerp(maxBrightAtMinRange, origFlickerLightPower, distance / maxDist);
                     lightScript.flickerLightPowerDiff = Mathf.Lerp(maxDiffAtMinRange, origFlickerLightDiff, distance / maxDist);
                     lightScript.avgFlickerCount = 7;
-                    
                 }
                 else if (distance < minDist)
                 {
                     StartCoroutine(lightScript.Flickering());
-                    
                 }
                 else if (resetFlicker)
                 {
                     lightScript.avgFlickerCount = origFlickerCount;
-                    resetFlicker = false;
-
                 }
             }
         }
-        
     }
 
 
@@ -76,7 +69,7 @@ public class DemonLightFlicker : MonoBehaviour
     {
         if (other.CompareTag("Light"))
         {
-            colliders.Add(other);
+            lights.Add(other.GetComponent<InteriorLampFlicker>());
         }
     }
 
@@ -84,7 +77,7 @@ public class DemonLightFlicker : MonoBehaviour
     {
         if (other.CompareTag("Light"))
         {
-            colliders.Remove(other);
+            lights.Remove(other.GetComponent<InteriorLampFlicker>());
         }
     }
 

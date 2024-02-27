@@ -20,7 +20,7 @@ public class HourlyTask : ScriptableObject
 
     public InteractiveObject itemToGive;
 
-    public bool genericTask;
+    public InteractiveObject tooltipPrompt;
 
-    public Material basicEyes, taskEyes;
+    public bool genericTask;
 }

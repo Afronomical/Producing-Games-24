@@ -23,8 +23,13 @@ public class PagerController : MonoBehaviour
     {
         if (pagerInterface != null)
         {
-            if (!arms.holdingPager) arms.HoldPager();
-            else arms.DropPager();
+            if (context.performed)
+                arms.HoldPager();
+            if (context.canceled)
+                arms.DropPager();
+
+            //if (!arms.holdingPager) arms.HoldPager();
+            //else arms.DropPager();
         }
     }
 }

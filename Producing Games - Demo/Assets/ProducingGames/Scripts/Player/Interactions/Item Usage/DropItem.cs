@@ -63,11 +63,12 @@ public class DropItem : MonoBehaviour
         }
         else if (InventoryHotbar.instance.currentItem != null && altarDist < 2f && InventoryHotbar.instance.currentItem.prefab.GetComponent<InteractableTemplate>().isExorcismObject == false)
         {
-            AudioManager.instance.PlaySound(failDropSound,this.gameObject.transform);
+            AudioManager.instance.PlaySound(failDropSound,transform);
         }
         else if(InventoryHotbar.instance.currentItem != null && altarDist < 2f && InventoryHotbar.instance.currentItem.prefab.GetComponent<InteractableTemplate>().isExorcismObject == true)
         {
             PerformDrop();
+
         }
         
        

@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdfcf11202b697448b0dcdc743394992, type: 3}
   m_Name: HFood
   m_EditorClassIdentifier: 
-  taskType: 0
+  taskType: 3
   chanceToHappen: 70
   BlockingTasks: []
   taskName: Food
   taskDescription: Give the patient their food
   location: 0
-  itemToGive: {fileID: 11400000, guid: 466d28f252da7d14ea55f7cc9ffeb6fe, type: 2}
+  itemToGive: {fileID: 11400000, guid: 82fdb7ac93408ac4cb14bc17b6a3204b, type: 2}
+  tooltipPrompt: {fileID: 11400000, guid: bb5ed53ea07f4cf4c8d4e16ab5591313, type: 2}
   genericTask: 0
-  basicEyes: {fileID: 2100000, guid: 52cf8b4cadbd77a4585dcfec7f131e1f, type: 2}
-  taskEyes: {fileID: 2100000, guid: 873fba8d991e73e4fa1ce54ac1e9ff88, type: 2}

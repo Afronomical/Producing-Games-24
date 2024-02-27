@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random=UnityEngine.Random;
 using UnityEngine.InputSystem;
 
 public class Flashlight : MonoBehaviour
@@ -12,10 +14,11 @@ public class Flashlight : MonoBehaviour
     
     
     [Header("Battery Settings")]
-    [Range(1, 200)] public float batteryCharge;
-    [Range(1, 10)] public float batteryDrainRate;
-    private float maxBatteryCharge;
-    private int intensityIndex = 0;
+    [Range(0, 200)] public float batteryCharge;
+    [Range(0, 10)] public float batteryDrainRate;
+    [NonSerialized] public float maxBatteryCharge;
+    private bool unlimitedBatteryActivated;
+    [HideInInspector] public int intensityIndex = 0;
 
     [Header("Flashlight Flickering Settings")]
     public int randFlickerChance = 500;
@@ -26,28 +29,35 @@ public class Flashlight : MonoBehaviour
     private bool isFlickering;
     private float oldIntensity;
 
+
+    private void Awake()
+    {
+        CommandConsole.Instance.ToggleFlashlight += UnlimitedBatteryToggle;
+    }
     private void Start() => maxBatteryCharge = batteryCharge; //This will be used to make sure when you pickup a battery, your flashlight isn't Max Charge
     
     void Update()
     {
         //Debug.Log(light.intensity);
-
-        if (Input.GetKeyDown(KeyCode.T))
+        
+        //If the battery charge is 0, it will turn off the flashlight
+        if(batteryCharge <= 0 && !unlimitedBatteryActivated)
         {
-            StartCoroutine(Flickering());
+            intensityIndex = 0;
+            IntensityChange();
         }
         
+        //Higher the intensity of the flashlight, the faster the battery will drain
+        batteryCharge -= batteryDrainRate * Time.deltaTime * intensityIndex;
+       
         FlashFlicker();
 
-
-        //Higher the intensity of the flashlight, the faster the battery will drain
-        batteryCharge -= batteryDrainRate * Time.deltaTime * intensities[intensityIndex];
     }
 
 
     public void OnFlashlightInput(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && flashlight.activeInHierarchy)
         {
             intensityIndex++;
             if (intensityIndex >= intensities.Length)
@@ -56,15 +66,9 @@ public class Flashlight : MonoBehaviour
         }
     }
 
-    private void IntensityChange()
+    public void IntensityChange()
     {
-        if (intensityIndex == 0)
-        {
-            flashlight.SetActive(false);
-            light.intensity = 0;
-        }
-
-        else if (light.intensity != intensities[intensityIndex])
+        if (light.intensity != intensities[intensityIndex])
         {
             flashlight.SetActive(true);
             light.intensity = intensities[intensityIndex];
@@ -103,6 +107,7 @@ public class Flashlight : MonoBehaviour
             
             isFlickering = false;
         }
-        
     }
+
+    public void UnlimitedBatteryToggle() => unlimitedBatteryActivated = !unlimitedBatteryActivated;
 }

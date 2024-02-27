@@ -42,22 +42,25 @@ public class GameManager : MonoBehaviour
     public GameObject demon; 
     private int patientCount;
 
-    
+    [Header("Object References")]
     public GameObject altar;
-
+    public GameObject jug;
+    public bool playerHasJug = false;
+    public GameObject captureBox;
+    private CapturedBox captureBoxScript;
 
     private void Awake()
     {
         if (Instance != null && Instance != this) Destroy(gameObject);
         else Instance = this;
+
+        
     }
 
 
     private void Start()
     {
-        sanityEvents = GetComponent<SanityEventTracker>();
-        patientCount = NPCManager.Instance.patientList.Count;
-        altar = FindFirstObjectByType<ExorcismTable>().gameObject;
+
         StartGame();
     }
 
@@ -70,9 +73,17 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        
         currentSanity = startingSanity;
         currentHour = startingHour;
         StartCoroutine(StartHour());
+        sanityEvents = GetComponent<SanityEventTracker>();
+        patientCount = NPCManager.Instance.patientList.Count;
+        altar = FindFirstObjectByType<ExorcismTable>().gameObject;
+        captureBoxScript = captureBox.GetComponent<CapturedBox>();
+        //jug = FindFirstObjectByType<PickUpJug>().gameObject;
+       CommandConsole.Instance.IncrementTime += IncrementTimeBy5;
+        CommandConsole.Instance.EndHour += EndHourCommand;
     }
 
 
@@ -108,11 +119,16 @@ public class GameManager : MonoBehaviour
         shiftEndActive = false;
 
         PatientTaskManager.instance.SetHourlyTasks();
+        PatientTaskManager.instance.SetPlayerTask();
         PatientTaskManager.instance.SetRandomTasks();
 
         yield return new WaitForSeconds(0);
     }
 
+    public void InitializeCheats()
+    {
+
+    }
 
     private void UpdateTime()
     {
@@ -131,8 +147,14 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
-
+    private void IncrementTimeBy5()
+    {
+        currentTime += 5;
+    }
+    private void EndHourCommand()
+    {
+        StartCoroutine(EndHour());
+    }
     public IEnumerator EndHour()
     {
         currentHour++;
@@ -223,5 +245,10 @@ public class GameManager : MonoBehaviour
     public void FadeIn()
     {
         fadeAnim.Play("FadeOut");
+    }
+
+    public void DemonCaptureEvent()
+    {
+        StartCoroutine(captureBoxScript.MainEvent());
     }
 }

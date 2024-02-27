@@ -18,16 +18,7 @@ public class InactiveState : DemonStateBaseClass
         gameObject.SetActive(false);
     }
 
-    public override void UpdateLogic()
+    /*public override void UpdateLogic()
     {
-        // INFO: Need some logic that tells us when rage mode is activate so that
-        // we can re-activate the demon if it's already been spawned in previously
-        /*
-         * if (GameManager.Instance.IsRageModeActivated)
-         * {
-         *      gameObject.SetActive(true);
-         *      character.ChangeDemonState(DemonCharacter.DemonStates.Patrol);
-         * }
-         */
-    }
+    }*/
 }

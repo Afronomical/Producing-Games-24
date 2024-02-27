@@ -12,27 +12,20 @@ public class HidingState : PatientStateBaseClass
 {
     private Vector3 hidingLocation;
 
-    private void Awake()
-    {
-        GetComponent<AICharacter>().isMoving = false;
-    }
-
     private void Start()
     {
         ChooseLocation();
 
-        character.agent.speed = 0.0f;
-        character.agent.enabled = true;
-        character.agent.ResetPath();
+        if (character.agent.hasPath)
+            character.agent.ResetPath();
 
         character.agent.transform.position = hidingLocation;
         character.agent.Warp(hidingLocation);
     }
 
-    public override void UpdateLogic()
+    /*public override void UpdateLogic()
     {
-
-    }
+    }*/
 
     /// <summary>
     /// Chooses a hiding location from an available list of hiding locations held in the NPC manager

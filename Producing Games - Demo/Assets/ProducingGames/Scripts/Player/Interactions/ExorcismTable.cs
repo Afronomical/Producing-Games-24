@@ -15,7 +15,6 @@ public class ExorcismTable : MonoBehaviour
     [SerializeField] private List<Transform> dropLocations = new(); 
     [ShowOnly] public List<GameObject> requiredObjects = new();
     public SoundEffect confirmSound;
-    public SoundEffect failSound;
     private bool b_fail_playing = false;
     
 

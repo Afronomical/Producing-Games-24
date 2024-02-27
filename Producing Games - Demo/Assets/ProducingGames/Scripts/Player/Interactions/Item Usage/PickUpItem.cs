@@ -37,57 +37,50 @@ public class PickUpItem : MonoBehaviour
                 //checks if object is interactable
                 if (interactable is InteractableTemplate interactableTemplate && interactableTemplate.hasBeenPlaced == false)
                 {
-                    //shows tooltip on mouse hover
-                    TooltipManager.Instance.ShowTooltip(interactableTemplate.collectible.tooltipText);
                     if (interactableTemplate.gameObject != null)
                         PatientTaskManager.instance.DetectTasks(interactableTemplate.gameObject);
 
-                    if (c.performed && canPickUp)
+                    if (interactableTemplate.collectible != PatientTaskManager.instance.noTaskPrompt && interactableTemplate.collectible != null)
                     {
-                        if (interactableTemplate.gameObject != null)
-                            PatientTaskManager.instance.CheckTaskConditions(interactableTemplate.gameObject);
+                        //shows tooltip on mouse hover
+                        TooltipManager.Instance.ShowTooltip(interactableTemplate.collectible.tooltipText);
 
-                        if (PlayerInteractor.instance.currentObject != null)
+                        if (c.performed && canPickUp)
                         {
-                            Debug.Log("Interact");
-                            StartCoroutine(arms.GrabObject());
+                            if (interactableTemplate.gameObject != null)
+                                PatientTaskManager.instance.CheckTaskConditions(interactableTemplate.gameObject);
+
+                            if (PlayerInteractor.instance.currentObject != null)
+                            {
+                                Debug.Log("Interact");
+                                StartCoroutine(arms.GrabObject());
+                            }
                         }
                     }
                 }
             }
-            else if (hit.collider.gameObject.TryGetComponent(out INPCInteractable NPCInteractable))
+
+            else TooltipManager.Instance.HideTooltip();
+
+            if (hit.collider.gameObject.TryGetComponent(out INPCInteractable NPCInteractable))
             {
                 PlayerInteractor.instance.currentNPC = NPCInteractable;
                 if (NPCInteractable is NPCInteractableTemplate NPCTemplate)
                 {
-                    PatientTaskManager.instance.DetectTasks(NPCTemplate.character.gameObject);
-
-                    if (c.performed)
-                        PatientTaskManager.instance.CheckTaskConditions(NPCTemplate.character.gameObject);
-
-                    if (NPCTemplate.character.currentState == PatientCharacter.PatientStates.Wandering)
+                    if (NPCTemplate.character.currentState != PatientCharacter.PatientStates.Bed &&  // If not in any of these states
+                        NPCTemplate.character.currentState != PatientCharacter.PatientStates.Dead &&
+                        NPCTemplate.character.currentState != PatientCharacter.PatientStates.Escorted &&
+                        NPCTemplate.character.currentState != PatientCharacter.PatientStates.Possessed &&
+                        NPCTemplate.character.currentState != PatientCharacter.PatientStates.ReqMeds)
                     {
-                        TooltipManager.Instance.ShowTooltip("ESCORT " + NPCTemplate.ToolTipText);
                         if (c.performed)
                         {
                             NPCTemplate.character.ChangePatientState(PatientCharacter.PatientStates.Escorted);
                             //currentNPC.Escort();
                         }
                     }
-                    else if (NPCTemplate.character.currentState == PatientCharacter.PatientStates.Bed)
-                    {
-                        ////can interact unless dead 
-
-                    }
-
-
                 }
                
-            }
-            else
-            {
-                TooltipManager.Instance.HideTooltip();
-
             }
         }
         else

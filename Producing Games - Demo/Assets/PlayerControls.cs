@@ -136,9 +136,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Read Book"",
+                    ""name"": ""Open Book"",
                     ""type"": ""Button"",
-                    ""id"": ""92a90274-6b3c-49c5-9798-e2d185104151"",
+                    ""id"": ""649bb929-96b0-43ea-a3f3-95a42b40a718"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -194,6 +194,61 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Right"",
                     ""id"": ""460bebfd-06b3-4820-ad5c-559bdfadeba3"",
                     ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Keyboard"",
+                    ""id"": ""ac55b6e8-44b0-44c9-b567-3407adf71859"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Up"",
+                    ""id"": ""0b9966b5-e79e-451a-991f-d62c7e88bbfe"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Down"",
+                    ""id"": ""92160692-d740-4ffd-b416-5c51400859eb"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Left"",
+                    ""id"": ""7ab5206b-6150-4d2a-a1b5-f3c0aa58f00d"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Right"",
+                    ""id"": ""7c4d5669-c78b-42e8-83b3-37f203587850"",
+                    ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -314,7 +369,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""b84dcf46-99dc-48cc-add2-7568ff23ab78"",
-                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -391,7 +446,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""5300a690-39fe-403a-ab9a-0a5d1fa93e27"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -402,7 +457,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""7919f428-98bd-427d-9ae3-83568b917572"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -413,7 +468,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""f353c76f-3f8b-453e-b56c-f36af46ef9f5"",
-                    ""path"": ""<Keyboard>/r"",
+                    ""path"": ""<Keyboard>/g"",
                     ""interactions"": ""Hold(duration=1),Press"",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -424,7 +479,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""f6a86ec2-f402-4028-98a7-b9ae5e31b776"",
-                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -457,7 +512,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""122be7ba-a49f-41ca-a7b7-b285d72b6d88"",
-                    ""path"": ""<Keyboard>/t"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -468,7 +523,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""76d9dee7-200d-42ea-9f31-1169dfd12beb"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -479,7 +534,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""e2f6defc-728f-4ed6-aca4-0f7f7acf9ca0"",
-                    ""path"": ""<Keyboard>/tab"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -490,7 +545,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ee1fbeff-dca7-4c23-a029-012120f134b6"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -501,7 +556,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""5e8b3957-9f20-4b60-9531-00d4f71baefc"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -512,7 +567,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""576012d1-182f-41f9-9773-76e4699959f2"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -533,12 +588,78 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""693dd2a4-88ce-419a-b402-cf822a1d6f63"",
+                    ""id"": ""be41187f-3c1d-4e8a-b01f-f923c9a046dd"",
+                    ""path"": ""<Gamepad>/dpad"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Scroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""40cf98e1-a8c9-40c1-a1e6-17865cc96a2a"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Scroll"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""8bebc519-5f71-42a7-b199-3d4663441e8f"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Scroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""27d8085f-7c1e-4065-aa1c-6dea0b7f42ed"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Scroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""b8534c51-0cac-4c56-8959-9284d6439ee8"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Scroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""f4db5a58-661f-4ea0-a868-fcd76f2ba78e"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Scroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8cfe7426-37c1-4c83-9036-734a4f8c14a6"",
                     ""path"": ""<Keyboard>/b"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Read Book"",
+                    ""action"": ""Open Book"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -589,7 +710,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_OpenPager = m_Player.FindAction("Open Pager", throwIfNotFound: true);
         m_Player_ConsumeItem = m_Player.FindAction("Consume Item", throwIfNotFound: true);
         m_Player_Scroll = m_Player.FindAction("Scroll", throwIfNotFound: true);
-        m_Player_ReadBook = m_Player.FindAction("Read Book", throwIfNotFound: true);
+        m_Player_OpenBook = m_Player.FindAction("Open Book", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -663,7 +784,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_OpenPager;
     private readonly InputAction m_Player_ConsumeItem;
     private readonly InputAction m_Player_Scroll;
-    private readonly InputAction m_Player_ReadBook;
+    private readonly InputAction m_Player_OpenBook;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -680,7 +801,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @OpenPager => m_Wrapper.m_Player_OpenPager;
         public InputAction @ConsumeItem => m_Wrapper.m_Player_ConsumeItem;
         public InputAction @Scroll => m_Wrapper.m_Player_Scroll;
-        public InputAction @ReadBook => m_Wrapper.m_Player_ReadBook;
+        public InputAction @OpenBook => m_Wrapper.m_Player_OpenBook;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -726,9 +847,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Scroll.started += instance.OnScroll;
             @Scroll.performed += instance.OnScroll;
             @Scroll.canceled += instance.OnScroll;
-            @ReadBook.started += instance.OnReadBook;
-            @ReadBook.performed += instance.OnReadBook;
-            @ReadBook.canceled += instance.OnReadBook;
+            @OpenBook.started += instance.OnOpenBook;
+            @OpenBook.performed += instance.OnOpenBook;
+            @OpenBook.canceled += instance.OnOpenBook;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -769,9 +890,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Scroll.started -= instance.OnScroll;
             @Scroll.performed -= instance.OnScroll;
             @Scroll.canceled -= instance.OnScroll;
-            @ReadBook.started -= instance.OnReadBook;
-            @ReadBook.performed -= instance.OnReadBook;
-            @ReadBook.canceled -= instance.OnReadBook;
+            @OpenBook.started -= instance.OnOpenBook;
+            @OpenBook.performed -= instance.OnOpenBook;
+            @OpenBook.canceled -= instance.OnOpenBook;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -821,6 +942,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnOpenPager(InputAction.CallbackContext context);
         void OnConsumeItem(InputAction.CallbackContext context);
         void OnScroll(InputAction.CallbackContext context);
-        void OnReadBook(InputAction.CallbackContext context);
+        void OnOpenBook(InputAction.CallbackContext context);
     }
 }

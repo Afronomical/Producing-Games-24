@@ -31,7 +31,7 @@ public class DistantShadowEvent : MonoBehaviour
 
     void Start()
     {
-        playerObj = GameObject.FindGameObjectWithTag("Player");
+        playerObj = GameManager.Instance.player;
         
     }
 

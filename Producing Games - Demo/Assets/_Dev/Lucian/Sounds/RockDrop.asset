@@ -26,3 +26,5 @@ MonoBehaviour:
   font: {fileID: 0}
   typingSpeed: 0.15
   waitTillHide: 4
+  soundPos: {fileID: 0}
+  isReactionSound: 1
