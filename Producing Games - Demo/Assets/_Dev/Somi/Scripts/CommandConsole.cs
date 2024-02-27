@@ -59,9 +59,6 @@ public class CommandConsole : MonoBehaviour
         
         StartCoroutine(EventAwake());
 
-        
-        
-        
     }
     public IEnumerator EventAwake()
     {
