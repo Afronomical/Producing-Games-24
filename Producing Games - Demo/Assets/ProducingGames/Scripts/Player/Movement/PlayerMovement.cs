@@ -75,9 +75,15 @@ public class PlayerMovement : MonoBehaviour
 
     public CameraShake cameraShake;
 
+    private void Awake()
+    {
+        
+    }
 
     private void Start()
     {
+        CommandConsole.Instance.ToggleSprintStamina += UnlimitedStaminaToggle;
+
         controller = GetComponent<CharacterController>();
         groundCheck = transform.Find("Ground Check");
 

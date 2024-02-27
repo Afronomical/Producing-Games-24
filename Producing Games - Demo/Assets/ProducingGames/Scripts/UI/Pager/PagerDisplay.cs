@@ -33,7 +33,7 @@ public class PagerDisplay : MonoBehaviour
     {
         alert.gameObject.SetActive(false);
         alert.overflowMode = TextOverflowModes.Truncate;
-        alert.text = " ";
+        //alert.text = " ";
 
         DisplayMessage("This is a test!", 20);
     }
@@ -75,7 +75,6 @@ public class PagerDisplay : MonoBehaviour
         StartCoroutine(ScrollText(0.2f));
 
         messageList.Add(message);
-     
     }
 
     private IEnumerator ScrollText(float duration)
@@ -92,6 +91,8 @@ public class PagerDisplay : MonoBehaviour
 
             SendText(lastMessage);
         }
+
+        alert.gameObject.SetActive(false);
 
     }
 

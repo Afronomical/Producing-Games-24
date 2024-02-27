@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class InspectableObject : InteractableTemplate
 {
-    protected GameObject mainCam;
+    protected Camera mainCam;
     protected CameraLook camLookScript;
     public Vector3 camRotation;// = new Vector3(0,0,0);
     public Transform camMoveTransform;
@@ -19,9 +19,16 @@ public class InspectableObject : InteractableTemplate
     protected bool playerCanMove = true;
     protected bool stopLooking = false;
 
+    [Header("Camera Values")]
+    public GameObject monitor;
+    public Material[] cameraScreens;
+
+    private Material currentMaterial;
+    private int index = 0;
+
     protected virtual void Start()
     {
-        mainCam = Camera.main.transform.parent.gameObject;
+        mainCam = Camera.main;//.transform.parent.gameObject;
         camLookScript = Camera.main.GetComponent<CameraLook>();
         camPosition = camMoveTransform.position;
         camRotation = camMoveTransform.rotation.eulerAngles;
@@ -29,6 +36,29 @@ public class InspectableObject : InteractableTemplate
 
     protected virtual void Update()
     {
+
+
+        currentMaterial = cameraScreens[index];
+        monitor.GetComponent<MeshRenderer>().material = currentMaterial;
+
+        if (Input.GetKeyDown(KeyCode.RightArrow) && looking)
+        {
+            if (index == cameraScreens.Length - 1)
+            {
+                index = 0;
+                return;
+            }
+            index++;
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow) && looking)
+        {
+            if (index == 0)
+            {
+                index = cameraScreens.Length - 1;
+                return;
+            }
+            index--;
+        }
 
         if (Input.GetKeyDown(KeyCode.C) && looking)
         {

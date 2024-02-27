@@ -59,15 +59,13 @@ public class PatientCharacter : AICharacter
         currentSanity = startingSanity;
 
         if (isPossessed)                                
-        {                                               
-            // INFO: Possessed state will need to be changed elsewhere
-            // INFO: Add demon state                         
-            demon = NPCManager.Instance.ChosenDemon.demonPrefab;
-
+        {
+            // INFO: Retrieves the scriptable object of the chosen demon                       
+            demonSO = NPCManager.Instance.ChosenDemon;
             InitialiseDemonStats();
 
             // INFO: Instantiates the demon and saves it on the game manager so it can be used elsewhere
-            GameObject GO = Instantiate(demonSO.demonPrefab, Vector3.zero, Quaternion.identity);
+            GameObject GO = Instantiate(demonSO.demonPrefab, NPCManager.Instance.GetDemonInstantionLocation().transform.position, Quaternion.identity);
             GameManager.Instance.demon = GO;
         }
 

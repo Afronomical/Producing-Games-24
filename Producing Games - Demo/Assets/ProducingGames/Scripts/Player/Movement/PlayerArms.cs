@@ -111,20 +111,20 @@ public class PlayerArms : MonoBehaviour
         switch(leftArmState)
         {
             case leftArmStates.Clipboard:
-                pager.SetActive(false);
-                pagerScreen.SetActive(false);
+                pager.GetComponent<SkinnedMeshRenderer>().enabled = false;
+                pagerScreen.GetComponent<Canvas>().enabled = false;
                 flashlight.gameObject.SetActive(false);
                 clipboard.gameObject.SetActive(true);
                 break;
             case leftArmStates.Pager:
-                pager.SetActive(true);
-                pagerScreen.SetActive(true);
+                pager.GetComponent<SkinnedMeshRenderer>().enabled = true;
+                pagerScreen.GetComponent<Canvas>().enabled = true;
                 flashlight.gameObject.SetActive(false);
                 clipboard.SetActive(false);
                 break;
             case leftArmStates.Flashlight:
-                pager.SetActive(false);
-                pagerScreen.SetActive(false);
+                pager.GetComponent<SkinnedMeshRenderer>().enabled = false;
+                pagerScreen.GetComponent<Canvas>().enabled = false;
                 flashlight.gameObject.SetActive(true);
                 clipboard.SetActive(false);
                 break;

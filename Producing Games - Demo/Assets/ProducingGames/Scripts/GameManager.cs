@@ -50,15 +50,22 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector]public int eventChance;
 
+    public GameObject captureBox;
+    private CapturedBox captureBoxScript;
+
+
     private void Awake()
     {
         if (Instance != null && Instance != this) Destroy(gameObject);
         else Instance = this;
+
+        
     }
 
 
     private void Start()
     {
+
         StartGame();
     }
 
@@ -72,13 +79,17 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        
         currentSanity = startingSanity;
         currentHour = startingHour;
         StartCoroutine(StartHour());
         sanityEvents = GetComponent<SanityEventTracker>();
         patientCount = NPCManager.Instance.patientList.Count;
         altar = FindFirstObjectByType<ExorcismTable>().gameObject;
+        captureBoxScript = captureBox.GetComponent<CapturedBox>();
         //jug = FindFirstObjectByType<PickUpJug>().gameObject;
+       CommandConsole.Instance.IncrementTime += IncrementTimeBy5;
+        CommandConsole.Instance.EndHour += EndHourCommand;
     }
 
 
@@ -120,6 +131,10 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0);
     }
 
+    public void InitializeCheats()
+    {
+
+    }
 
     private void UpdateTime()
     {
@@ -138,8 +153,14 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
-
+    private void IncrementTimeBy5()
+    {
+        currentTime += 5;
+    }
+    private void EndHourCommand()
+    {
+        StartCoroutine(EndHour());
+    }
     public IEnumerator EndHour()
     {
         currentHour++;
@@ -234,6 +255,7 @@ public class GameManager : MonoBehaviour
 
 
 
+
     public void DynamicEventChance()
     {
         if (sanityLevel == SanityEventTracker.SanityLevels.Sane)
@@ -246,5 +268,10 @@ public class GameManager : MonoBehaviour
             eventChance = 35;
         else if (sanityLevel == SanityEventTracker.SanityLevels.Madness)
             eventChance = 40;
+    }
+    public void DemonCaptureEvent()
+    {
+        StartCoroutine(captureBoxScript.MainEvent());
+
     }
 }
