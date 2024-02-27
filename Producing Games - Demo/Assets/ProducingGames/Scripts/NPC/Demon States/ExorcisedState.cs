@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class ExorcisedState : DemonStateBaseClass
 {
-    protected Callback<UserAchievementStored_t> m_UserAchievementStored;
+    
 
     private void Start()
     {
@@ -20,21 +20,7 @@ public class ExorcisedState : DemonStateBaseClass
 
         //SteamUserStats.SetAchievement("ACH_WIN_100_GAMES");
 
-        //steam achievement for banishing demon
-        if (SteamManager.Initialized)
-        {
-
-
-            SteamUserStats.GetAchievement("ACH_WIN_100_GAMES", out bool completed);
-
-            if (!completed)
-            {
-                m_UserAchievementStored = Callback<UserAchievementStored_t>.Create(OnAchievementStored);
-
-                SteamUserStats.SetAchievement("ACH_WIN_100_GAMES");
-                SteamUserStats.StoreStats();
-            }
-        }
+        
 
 
         //invoke the destruction of the character
@@ -50,8 +36,5 @@ public class ExorcisedState : DemonStateBaseClass
         gameObject.SetActive(false); //de-activates the Demon 
     }
 
-    void OnAchievementStored(UserAchievementStored_t pCallback)
-    {
-
-    }
+    
 }

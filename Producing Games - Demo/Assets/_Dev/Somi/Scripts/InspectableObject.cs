@@ -1,3 +1,4 @@
+using Steamworks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ public class InspectableObject : InteractableTemplate
 
     Vector2 defaultScreenSize;
     Dictionary<Material, bool> zoomedScreens = new Dictionary<Material, bool>();
-
+    protected Callback<UserAchievementStored_t> m_UserAchievementStored;
     protected virtual void Start()
     {
         mainCam = Camera.main;//.transform.parent.gameObject;
@@ -150,7 +151,37 @@ public class InspectableObject : InteractableTemplate
         playerCanMove = false;
 
         Camera.main.GetComponent<CameraLook>().canHeadBob = false;
+
+
+
+        SteamAPI.Init();
+
+        //steam achievement for banishing demon
+        if (!SteamManager.Initialized)
+        {
+            Debug.LogWarning("Steam Manager doesn't exist!");
+
+            //return;
+
+        }
+        //else
+        //{
+        //SteamUserStats.GetAchievement("ACH_WIN_100_GAMES", out bool completed);
+
+        //if (!completed)
+        //{
+        m_UserAchievementStored = Callback<UserAchievementStored_t>.Create(OnAchievementStored);
+
+        SteamUserStats.SetAchievement("ACH_TRAVEL_FAR_ACCUM");
+        SteamUserStats.StoreStats();
+        //}
+
+        //}
     }
 
+    void OnAchievementStored(UserAchievementStored_t pCallback)
+    {
+
+    }
 
 }

@@ -38,7 +38,7 @@ public class DemonCharacter : AICharacter, IHear
     public DemonStateBaseClass demonStateScript;
     public Transform soundDestination;
 
-   
+    protected Callback<UserAchievementStored_t> m_UserAchievementStored;
 
     bool exorcised = false;
 
@@ -100,7 +100,30 @@ public class DemonCharacter : AICharacter, IHear
     {
         if(collision.gameObject.CompareTag("HolyWater"))
         {
-            
+                SteamAPI.Init();
+
+            //steam achievement for banishing demon
+            if (!SteamManager.Initialized)
+            {
+                Debug.LogWarning("Steam Manager doesn't exist!");
+                
+                //return;
+
+            }
+            //else
+            //{
+                //SteamUserStats.GetAchievement("ACH_WIN_100_GAMES", out bool completed);
+
+                //if (!completed)
+                //{
+                    m_UserAchievementStored = Callback<UserAchievementStored_t>.Create(OnAchievementStored);
+
+                    SteamUserStats.SetAchievement("ACH_WIN_100_GAMES");
+                    SteamUserStats.StoreStats();
+                //}
+
+            //}
+
             Destroy(collision.gameObject);
             ChangeDemonState(DemonStates.Exorcised);
 
@@ -114,5 +137,8 @@ public class DemonCharacter : AICharacter, IHear
         ChangeDemonState(DemonStates.Distracted);
     }
 
-    
+    void OnAchievementStored(UserAchievementStored_t pCallback)
+    {
+
+    }
 }
