@@ -259,7 +259,7 @@ public class GameManager : MonoBehaviour
     public void DynamicEventChance()
     {
         if (sanityLevel == SanityEventTracker.SanityLevels.Sane)
-           eventChance = 50;
+           eventChance = 10;
         else if (sanityLevel == SanityEventTracker.SanityLevels.Delirious)
             eventChance = 20;
         else if (sanityLevel == SanityEventTracker.SanityLevels.Derranged)

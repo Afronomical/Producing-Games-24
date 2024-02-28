@@ -67,7 +67,7 @@ public class DistantShadowEvent : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if ((Random.Range(1, eventChance) == 1) && canPlay)
+            if ((Random.Range(1, 100) <= GameManager.Instance.eventChance) && canPlay)
             {
                 ShadowSpawnEvent();
                 canPlay = false;
