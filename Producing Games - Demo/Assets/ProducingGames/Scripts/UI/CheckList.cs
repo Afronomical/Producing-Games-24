@@ -8,8 +8,9 @@ using UnityEngine.UI;
 public class CheckList : MonoBehaviour
 {
     [Header("Instantiating Tasks")]
-    private List<GameObject> taskList = new List<GameObject>();
+    private List<GameObject> taskList = new List<GameObject>(); //Used for the task prefabs 
     private GameObject taskParent;
+    public List<GameObject> taskLayouts; //Used for where the tasks appear
     public GameObject taskPrefab;
     //public Image tick;
 
@@ -71,11 +72,11 @@ public class CheckList : MonoBehaviour
         {
             pageArray[pageIndex].SetActive(false);
 
-            if (context.ReadValue<Vector2>().y > 0 && pageIndex < pageArray.Length - 1)
+            if (context.ReadValue<Vector2>().y < 0 && pageIndex < pageArray.Length - 1)
             {
                 ++pageIndex;
             }
-            else if (context.ReadValue<Vector2>().y < 0 && pageIndex > 0)
+            else if (context.ReadValue<Vector2>().y > 0 && pageIndex > 0)
             {
                 --pageIndex;
             }
@@ -90,21 +91,21 @@ public class CheckList : MonoBehaviour
         //Adding it on list
         if (task.taskTarget == NPCManager.Instance.patientList[0])
         {
-            taskParent = pageArray[0].gameObject.transform.GetChild(3).gameObject;
+            taskParent = taskLayouts[0];
         }
         else if (task.taskTarget == NPCManager.Instance.patientList[1])
         {
-            taskParent = pageArray[1].gameObject.transform.GetChild(3).gameObject;
+            taskParent = taskLayouts[1];
         }
         else if (task.taskTarget == NPCManager.Instance.patientList[2])
         {
-            taskParent = pageArray[2].gameObject.transform.GetChild(3).gameObject;
+            taskParent = taskLayouts[2];
         }
         else if (task.taskTarget == NPCManager.Instance.patientList[3])
         {
-            taskParent = pageArray[3].gameObject.transform.GetChild(3).gameObject;
+            taskParent = taskLayouts[3];
         }
-        else taskParent = pageArray[4].gameObject.transform.GetChild(3).gameObject;
+        else taskParent = taskLayouts[4];
 
         GameObject newTask = GameObject.Instantiate(taskPrefab, taskParent.transform.position, taskParent.transform.rotation);
         newTask.transform.SetParent(taskParent.transform);
