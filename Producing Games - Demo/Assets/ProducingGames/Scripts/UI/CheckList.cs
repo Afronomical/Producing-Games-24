@@ -90,21 +90,21 @@ public class CheckList : MonoBehaviour
         //Adding it on list
         if (task.taskTarget == NPCManager.Instance.patientList[0])
         {
-            taskParent = pageArray[0];
+            taskParent = pageArray[0].gameObject.transform.GetChild(3).gameObject;
         }
         else if (task.taskTarget == NPCManager.Instance.patientList[1])
         {
-            taskParent = pageArray[1];
+            taskParent = pageArray[1].gameObject.transform.GetChild(3).gameObject;
         }
         else if (task.taskTarget == NPCManager.Instance.patientList[2])
         {
-            taskParent = pageArray[2];
+            taskParent = pageArray[2].gameObject.transform.GetChild(3).gameObject;
         }
         else if (task.taskTarget == NPCManager.Instance.patientList[3])
         {
-            taskParent = pageArray[3];
+            taskParent = pageArray[3].gameObject.transform.GetChild(3).gameObject;
         }
-        else taskParent = pageArray[4];
+        else taskParent = pageArray[4].gameObject.transform.GetChild(3).gameObject;
 
         GameObject newTask = GameObject.Instantiate(taskPrefab, taskParent.transform.position, taskParent.transform.rotation);
         newTask.transform.SetParent(taskParent.transform);
