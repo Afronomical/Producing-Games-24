@@ -10,4 +10,5 @@ public class PickUpHolyWater : InteractableTemplate
         InventoryHotbar.instance.AddToInventory(collectible);
         Destroy(gameObject);
     }
+
 }
