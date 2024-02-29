@@ -15,6 +15,7 @@ public class InteractableSpawner : MonoBehaviour
     {
         public GameObject objectToSpawn;
         public int amount;
+        public List<Transform> Locations;
     }
 
     public List<ObjectSpawn> objectsToBeSpawned = new();
@@ -56,25 +57,38 @@ public class InteractableSpawner : MonoBehaviour
     /// </summary>
     /// <param name="objectToSpawn"></param>
     /// <param name="amount"></param>
-    public void SpawnObject(GameObject objectToSpawn, int amount)
+    public void SpawnObject(GameObject objectToSpawn, int amount, List<Transform> locations)
     {
         if (objectToSpawn != null && amount > 0)
         {
             for (int i = 0; i < amount; i++)
             {
-                int Size = possibleSpawns.Count;
-                if (Size > 0)
+                if(locations.Count > 0)
                 {
-                    int randomIndex = Random.Range(0, Size);
-                    Instantiate(objectToSpawn, possibleSpawns[randomIndex].position, Quaternion.identity);
-                    Debug.Log("Spawned: " + objectToSpawn.name + " at: " + possibleSpawns[randomIndex]);
-                    //SpawnedLocations.Add(PossibleSpawnLocations[randomIndex]); 
-                    possibleSpawns.RemoveAt(randomIndex);
+                    int size = locations.Count;
+                    int randomIndex = Random.Range(0, size);
+                    Instantiate(objectToSpawn, locations[randomIndex].position, Quaternion.identity);
+                    locations.RemoveAt(randomIndex);
                 }
                 else
                 {
-                    Debug.Log("Not enough possible locations entered");
+                    int Size = possibleSpawns.Count;
+                    if (Size > 0)
+                    {
+                        int randomIndex = Random.Range(0, Size);
+                        Instantiate(objectToSpawn, possibleSpawns[randomIndex].position, Quaternion.identity);
+                        Debug.Log("Spawned: " + objectToSpawn.name + " at: " + possibleSpawns[randomIndex]);
+                        //SpawnedLocations.Add(PossibleSpawnLocations[randomIndex]); 
+                        possibleSpawns.RemoveAt(randomIndex);
+                    }
+                    else
+                    {
+                        Debug.Log("Not enough possible locations entered");
+                    }
                 }
+
+
+
             }
         }
     }
@@ -88,7 +102,7 @@ public class InteractableSpawner : MonoBehaviour
         {
             foreach (ObjectSpawn objectSpawn in objectsToBeSpawned)
             {
-                SpawnObject(objectSpawn.objectToSpawn, objectSpawn.amount);
+                SpawnObject(objectSpawn.objectToSpawn, objectSpawn.amount, objectSpawn.Locations);
             }
         }
         else
