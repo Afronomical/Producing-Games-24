@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bdfcf11202b697448b0dcdc743394992, type: 3}
-  m_Name: PSetClock
+  m_Name: PSatellite
   m_EditorClassIdentifier: 
   taskType: 11
-  chanceToHappen: 20
+  chanceToHappen: 1
   BlockingTasks: []
-  taskName: Set Clock
-  taskDescription: Fix the time on the clock
+  taskName: Fix Satellite
+  taskDescription: Fix the satellite
   location: 0
   itemToGive: {fileID: 0}
   tooltipPrompt: {fileID: 11400000, guid: 5fe077c0cf4e8584bba68bc831d74dcf, type: 2}

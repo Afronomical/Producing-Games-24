@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RMedication
   m_EditorClassIdentifier: 
   taskType: 7
-  chanceToHappen: 5
+  chanceToHappen: 1
   taskName: Medication
   taskDescription: Give the patient their mediaction
   location: 0
