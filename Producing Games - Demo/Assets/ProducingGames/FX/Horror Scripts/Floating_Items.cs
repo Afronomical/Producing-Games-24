@@ -29,6 +29,7 @@ public class Floating_Items : MonoBehaviour
     public SoundEffect ItemShakeSound;
 
     private GameManager gM;
+    [HideInInspector] public bool eventTriggered;
 
     void Start()
     {
@@ -40,10 +41,10 @@ public class Floating_Items : MonoBehaviour
 
         int randChance = Random.Range(0, 101);
 
-        if (other.CompareTag("Player") && randChance <= gM.eventChance && !gM.eventTriggered)
+        if (other.CompareTag("Player") && randChance <= gM.eventChance && !eventTriggered)
         {
             StartCoroutine(ShakingItem());
-            gM.eventTriggered = true;  
+            eventTriggered = true;  
         }
 
     }

@@ -21,19 +21,21 @@ public class CamShakeOnTrigger : MonoBehaviour
     public SoundEffect CamShakeSound;
 
     private GameManager gM;
+    [HideInInspector]public bool eventTriggered;
 
     private void Start()
     {
         gM = GameManager.Instance;
+     
     }
     private void OnTriggerEnter(Collider other)
     {
         int randChance = Random.Range(0, 101);
 
-        if (other.CompareTag("Player") && randChance <= gM.eventChance && !gM.eventTriggered)
+        if (other.CompareTag("Player") && randChance <= gM.eventChance && !eventTriggered)
         {
             StartCoroutine(cameraShake.CamShake(duration, intensity));
-            gM.eventTriggered = true;
+            eventTriggered = true;
         }
         
     }

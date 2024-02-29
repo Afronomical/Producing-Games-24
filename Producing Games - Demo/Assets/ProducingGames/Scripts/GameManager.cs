@@ -55,10 +55,11 @@ public class GameManager : MonoBehaviour
     public int derrangedChance;
     public int hystericalChance;
     public int madnessChance;
-    public bool eventTriggered;
+    //public bool eventTriggered;
     [Space]
     public GameObject captureBox;
     private CapturedBox captureBoxScript;
+    private DynamicEventBool DynamicEventBool;
 
 
     private void Awake()
@@ -130,6 +131,8 @@ public class GameManager : MonoBehaviour
         PatientTaskManager.instance.SetHourlyTasks();
         PatientTaskManager.instance.SetPlayerTask();
         PatientTaskManager.instance.SetRandomTasks();
+
+        DynamicEventBool.resetDynamicEventBool();
 
         yield return new WaitForSeconds(0);
     }

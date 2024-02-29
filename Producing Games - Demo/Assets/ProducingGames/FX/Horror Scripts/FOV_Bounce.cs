@@ -24,6 +24,7 @@ public class FOV_Bounce : MonoBehaviour
 
     private GameManager gM;
     private float initialFOV;
+    [HideInInspector] public bool eventTriggered;
 
     void Start()
     {
@@ -36,10 +37,10 @@ public class FOV_Bounce : MonoBehaviour
 
         int randChance = Random.Range(0, 101);
 
-        if (other.CompareTag("Player") && randChance <= gM.eventChance && !gM.eventTriggered)
+        if (other.CompareTag("Player") && randChance <= gM.eventChance && !eventTriggered)
         {
             StartCoroutine(CamBounce());
-            gM.eventTriggered = true;
+            eventTriggered = true;
         }
     }
 
