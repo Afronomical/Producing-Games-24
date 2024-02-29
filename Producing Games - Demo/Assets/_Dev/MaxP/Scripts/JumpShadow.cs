@@ -59,7 +59,8 @@ public class JumpShadow : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if ((Random.Range(1, eventChance) == 1) && canPlay) //play event if chance hits, else event starts after delay
+
+            if ((Random.Range(1, 100) <= GameManager.Instance.eventChance) && canPlay) //play event if chance hits, else event starts after delay
             {
                 playEvent = true;
                 shadowBaseObj.SetActive(true);

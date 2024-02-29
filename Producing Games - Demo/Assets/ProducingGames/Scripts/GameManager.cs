@@ -48,8 +48,15 @@ public class GameManager : MonoBehaviour
     public GameObject jug;
     public bool playerHasJug = false;
 
-    [HideInInspector]public int eventChance;
+    [Header("Dynamic Event Chances")] //Chance of dynamic event activating based on player sanity
+    [Range(0,100)] public int eventChance = 100;
+    public int saneChance;
+    public int deleriousChance;
+    public int derrangedChance;
+    public int hystericalChance;
+    public int madnessChance;
 
+    [Space]
     public GameObject captureBox;
     private CapturedBox captureBoxScript;
 
@@ -57,15 +64,12 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         if (Instance != null && Instance != this) Destroy(gameObject);
-        else Instance = this;
-
-        
+        else Instance = this;        
     }
 
 
     private void Start()
     {
-
         StartGame();
     }
 
@@ -78,8 +82,7 @@ public class GameManager : MonoBehaviour
 
 
     public void StartGame()
-    {
-        
+    {        
         currentSanity = startingSanity;
         currentHour = startingHour;
         StartCoroutine(StartHour());
@@ -259,15 +262,15 @@ public class GameManager : MonoBehaviour
     public void DynamicEventChance()
     {
         if (sanityLevel == SanityEventTracker.SanityLevels.Sane)
-           eventChance = 50;
+           eventChance = saneChance;
         else if (sanityLevel == SanityEventTracker.SanityLevels.Delirious)
-            eventChance = 20;
+            eventChance = deleriousChance;
         else if (sanityLevel == SanityEventTracker.SanityLevels.Derranged)
-            eventChance = 30;
+            eventChance = derrangedChance;
         else if (sanityLevel == SanityEventTracker.SanityLevels.Hysterical)
-            eventChance = 35;
+            eventChance = hystericalChance;
         else if (sanityLevel == SanityEventTracker.SanityLevels.Madness)
-            eventChance = 40;
+            eventChance = madnessChance;
     }
     public void DemonCaptureEvent()
     {
