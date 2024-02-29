@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 8168856236731444879}
   - component: {fileID: 9202829718717733215}
   - component: {fileID: 4976379841826882017}
+  - component: {fileID: -4073488200777986004}
   m_Layer: 6
   m_Name: Cross
   m_TagString: Untagged
@@ -205,9 +206,30 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-4073488200777986004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7661773188408393803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5b24eb5dbc393844b98fa529f393f82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectIcon: {fileID: 0}
+  collectible: {fileID: 0}
+  isExorcismObject: 0
+  hasBeenPlaced: 0
+  rotationSpeed: 2
+  throwingForce: 4
+  CrossSpinSound: {fileID: 0}
+  CrossDropSound: {fileID: 0}
+  eventTriggered: 0
