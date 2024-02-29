@@ -2,6 +2,7 @@ using Steamworks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 /// <summary>
 /// <para> Written By: Nathan Jowett  </para>
@@ -18,8 +19,8 @@ public class CrossBehaviour : InteractableTemplate
     public float rotationSpeed;
     private float rotTime;
     public float throwingForce;
-    bool isRotating;
-    bool isTriggered;
+    bool isInverting;
+    bool isReInverting;
     [Space]
     [Header("SFX")]
     public SoundEffect CrossSpinSound;
@@ -27,15 +28,28 @@ public class CrossBehaviour : InteractableTemplate
 
     private GameManager gM;
     [HideInInspector] public bool eventTriggered;
-
+    private float startXEuAng;
+    private float startYEuAng;  
+    private float startXpos;
+    private float startYpos;
+    private float startZpos;
+    private int eventType;
+   
     private void Start()
-    {        
+    {
         gM = GameManager.Instance;
+
+        startXEuAng = gameObject.transform.localEulerAngles.x;
+        startYEuAng = gameObject.transform.localEulerAngles.y;
+
+        CrossStartPos();
     }
+    
 
     private void Update()
     {       
         invertedCross();
+        ReInvertCross();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -44,10 +58,10 @@ public class CrossBehaviour : InteractableTemplate
         
       if (other.CompareTag("Player") && randChance <= gM.eventChance && !eventTriggered)
         {
-            int eventType = UnityEngine.Random.Range(0, 2);
+            eventType = UnityEngine.Random.Range(0, 2);
             if (eventType == 0)
             {
-                isRotating = true;
+                isInverting = true;
                 eventTriggered = true;
             }
             else if (eventType == 1)
@@ -64,10 +78,7 @@ public class CrossBehaviour : InteractableTemplate
 
     }
 
-    /// <summary>
-    /// 
-    /// </summary> 
-    /// 
+    
     void EnterInteractableState()
     {
        gameObject.AddComponent<BoxCollider>();
@@ -85,22 +96,59 @@ public class CrossBehaviour : InteractableTemplate
         AudioManager.instance.PlaySound(CrossDropSound, gameObject.transform);
        
     }
-
+    void CrossStartPos()
+    {
+        startXpos = gameObject.transform.position.x;
+        startYpos = gameObject.transform.position.y;
+        startZpos = gameObject.transform.position.z;
+    }
 
     void invertedCross()
     {
-        if (isRotating)
+        if (isInverting)
         {
             rotTime += (Time.deltaTime * rotationSpeed);
-            gameObject.transform.localEulerAngles = new Vector3(0, 0, Mathf.Lerp(0, 180, rotTime));
+            gameObject.transform.localEulerAngles = new Vector3(startXEuAng,startYEuAng, Mathf.Lerp(0, 180, rotTime));
             AudioManager.instance.PlaySound(CrossSpinSound,gameObject.transform);
+            Destroy(gameObject.GetComponent<BoxCollider>());
+            EnterInteractableState();
         }
     }
 
-   
+    private void ReInvertCross()
+    {
+        if (isReInverting)
+        {
+            rotTime += (Time.deltaTime * rotationSpeed);
+            gameObject.transform.localEulerAngles = new Vector3(startXEuAng, startYEuAng, Mathf.Lerp(0, -180, rotTime));
+            AudioManager.instance.PlaySound(CrossSpinSound, gameObject.transform);
+        }
+    }
+
+    void ReplaceCross()
+    {
+        gameObject.transform.position = new Vector3(startXpos,startYpos,startZpos);
+    }
+        
     public override void Interact()
     {
-        //add implementation for ammending cross
+        
+        if (eventType == 0)
+        {
+            isReInverting = true;
+           
+        }
+        else if (eventType == 1)
+        {
+           ReplaceCross();
+           
+        }
+        else //(eventType == 2) 
+        {
+            Debug.Log("No Cross Event");
+           
+        }
+
     }
 
 
