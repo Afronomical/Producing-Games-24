@@ -30,7 +30,7 @@ public class PauseMenu : MonoBehaviour
     public void ResumeGame()
     {
         pauseMenu.SetActive(false);
-        inventoryBar.SetActive(true);
+        inventoryBar.transform.localScale = new Vector3(1, 1, 1);
         Time.timeScale = 1f; // Unpause time
         isPaused = false;
 
@@ -46,7 +46,7 @@ public class PauseMenu : MonoBehaviour
     void PauseGame()
     {
         pauseMenu.SetActive(true);
-        inventoryBar.SetActive(false);
+        inventoryBar.transform.localScale = new Vector3(0, 0, 0);
         Time.timeScale = 0f; // Pause time
         isPaused = true;
 
