@@ -24,19 +24,15 @@ public class CrossBehaviour : InteractableTemplate
     [Header("SFX")]
     public SoundEffect CrossSpinSound;
     public SoundEffect CrossDropSound;
-    private GameManager gM;
-
-   
+    private GameManager gM;   
 
     private void Start()
-    {
-        isTriggered = false;
+    {        
         gM = GameManager.Instance;
     }
 
     private void Update()
-    {
-       
+    {       
         invertedCross();
     }
 
@@ -44,23 +40,23 @@ public class CrossBehaviour : InteractableTemplate
     { 
         int randChance = Random.Range(0, 101);
         
-      if (other.CompareTag("Player") && randChance <= gM.eventChance)
+      if (other.CompareTag("Player") && randChance <= gM.eventChance && !gM.eventTriggered)
         {
             int eventType = UnityEngine.Random.Range(0, 2);
             if (eventType == 0)
             {
                 isRotating = true;
-                isTriggered = true;
+                gM.eventTriggered = true;
             }
             else if (eventType == 1)
             {
                 FallingCross();
-                isTriggered = true;
+                gM.eventTriggered = true;
             }
             else //(eventType == 2) 
             {
                 Debug.Log("No Cross Event");
-                isTriggered = true;
+                gM.eventTriggered = true;
             }
         }
 

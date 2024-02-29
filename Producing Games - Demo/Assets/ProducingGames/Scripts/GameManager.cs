@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
     public int derrangedChance;
     public int hystericalChance;
     public int madnessChance;
-
+    public bool eventTriggered;
     [Space]
     public GameObject captureBox;
     private CapturedBox captureBoxScript;
@@ -256,9 +256,6 @@ public class GameManager : MonoBehaviour
         fadeAnim.Play("FadeOut");
     }
 
-
-
-
     public void DynamicEventChance()
     {
         if (sanityLevel == SanityEventTracker.SanityLevels.Sane)
@@ -272,6 +269,7 @@ public class GameManager : MonoBehaviour
         else if (sanityLevel == SanityEventTracker.SanityLevels.Madness)
             eventChance = madnessChance;
     }
+
     public void DemonCaptureEvent()
     {
         StartCoroutine(captureBoxScript.MainEvent());

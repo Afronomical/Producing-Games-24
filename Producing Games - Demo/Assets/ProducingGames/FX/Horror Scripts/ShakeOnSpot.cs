@@ -11,8 +11,6 @@ using UnityEngine;
 
 public class ShakeOnSpot : MonoBehaviour
 {
-    bool isTriggered;
-
     [Header("Item List")]
     public Rigidbody[] Items;
     [Space]
@@ -28,17 +26,16 @@ public class ShakeOnSpot : MonoBehaviour
     void Start()
     {
         gM = GameManager.Instance;
-        isTriggered = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         int randChance = Random.Range(0, 101);
 
-        if (other.CompareTag("Player") && randChance <= gM.eventChance)
+        if (other.CompareTag("Player") && randChance <= gM.eventChance && !gM.eventTriggered)
         {
             StartCoroutine(ShakingOnSpot());
-            isTriggered = true;
+            gM.eventTriggered = true;
         }
     }
 

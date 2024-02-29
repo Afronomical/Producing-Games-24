@@ -11,11 +11,9 @@ using UnityEngine;
 
 public class Floating_Items : MonoBehaviour
 {
-    bool isTriggered;
-
+   
     [Header("Item List")]
     public Rigidbody[] Items;
-
 
     [Header("Ascension Forces")]
     public float minHeight;
@@ -34,7 +32,6 @@ public class Floating_Items : MonoBehaviour
 
     void Start()
     {
-        isTriggered = false;
         gM = GameManager.Instance;
     }
 
@@ -43,10 +40,10 @@ public class Floating_Items : MonoBehaviour
 
         int randChance = Random.Range(0, 101);
 
-        if (other.CompareTag("Player") && randChance <= gM.eventChance)
+        if (other.CompareTag("Player") && randChance <= gM.eventChance && !gM.eventTriggered)
         {
             StartCoroutine(ShakingItem());
-            isTriggered = true;
+            gM.eventTriggered = true;  
         }
 
     }

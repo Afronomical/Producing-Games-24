@@ -10,7 +10,6 @@ using UnityEngine;
 
 public class CamShakeOnTrigger : MonoBehaviour
 {
-    private bool triggered;
     [Header("Ref")]
     public CameraShake cameraShake;
     [Space]
@@ -31,11 +30,10 @@ public class CamShakeOnTrigger : MonoBehaviour
     {
         int randChance = Random.Range(0, 101);
 
-        if (other.CompareTag("Player") && randChance <= gM.eventChance)
-
+        if (other.CompareTag("Player") && randChance <= gM.eventChance && !gM.eventTriggered)
         {
             StartCoroutine(cameraShake.CamShake(duration, intensity));
-            triggered = true;
+            gM.eventTriggered = true;
         }
         
     }
