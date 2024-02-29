@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class DistantScreamsEvent : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class DistantScreamsEvent : MonoBehaviour
 
     private float lastScreamTime;
     private GameObject player;
+    private GameManager gM;
+    [HideInInspector] public bool eventTriggered;
+
 
     private void Start()
     {
@@ -31,6 +35,8 @@ public class DistantScreamsEvent : MonoBehaviour
             return;
         }
 
+        gM = GameManager.Instance;
+
         TriggerDistantScreams();
     }
 
@@ -44,8 +50,10 @@ public class DistantScreamsEvent : MonoBehaviour
         while (true)
         {
             float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+            int randChance = Random.Range(0, 101);
 
-            if (distanceToPlayer <= maxDistance && Time.time - lastScreamTime >= minInterval)
+
+            if (distanceToPlayer <= maxDistance && Time.time - lastScreamTime >= minInterval && randChance <= gM.eventChance && !eventTriggered)
             {
                 lastScreamTime = Time.time;
 
@@ -54,6 +62,8 @@ public class DistantScreamsEvent : MonoBehaviour
 
                 // Play the scream sound through the assigned audio source
                 audioSource.PlayOneShot(screamSound);
+                
+                eventTriggered = true;
             }
 
             yield return null;
