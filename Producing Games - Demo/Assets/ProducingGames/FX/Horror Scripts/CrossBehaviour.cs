@@ -38,6 +38,8 @@ public class CrossBehaviour : InteractableTemplate
 
     private void Start()
     {
+        isInverting = false;
+        isReInverting = false;
         gM = GameManager.Instance;
 
         startXEuAng = gameObject.transform.localEulerAngles.x;
@@ -61,12 +63,47 @@ public class CrossBehaviour : InteractableTemplate
             isInverting = true;
             eventTriggered = true;           
         }
-        else if (eventType == 1)
+        else if(eventType == 1)
         {
             FallingCross();
             eventTriggered = true;            
         }
+        else //(eventType == 2)
+        {
+            Debug.Log("No Cross Event Found");
+        }
         
+    }
+    void EnterInteractableState()
+    {
+        Debug.Log("Cross Interactable");
+    }
+
+    public override void Interact()
+    {
+        Debug.Log("....");
+
+        switch (eventType == 0)
+        {
+            case true:
+                isReInverting = true;
+                break;
+            case false:
+                ReplaceCross();
+                break;
+            default:
+        }
+
+        /* if (eventType == 0)
+         {
+             rotTime += (Time.deltaTime * rotationSpeed);
+             gameObject.transform.localEulerAngles = new Vector3(startXEuAng, startYEuAng, Mathf.Lerp(0, -180, rotTime));
+             AudioManager.instance.PlaySound(CrossSpinSound, gameObject.transform);
+         }
+         else //(eventType == 1)
+         {
+             ReplaceCross();       
+         }     */
     }
     void CrossStartPos()
     {
@@ -111,23 +148,7 @@ public class CrossBehaviour : InteractableTemplate
         }
     }
 
-    void EnterInteractableState()
-    {
-        Debug.Log("Cross Interactable");
-    }
-
-    public override void Interact()
-    {        
-        Debug.Log("....");
-        if (eventType == 0)
-        {
-            isReInverting = true;
-        }
-        else if (eventType == 1)
-        {
-            ReplaceCross();       
-        }     
-    }
+    
 
 
 }

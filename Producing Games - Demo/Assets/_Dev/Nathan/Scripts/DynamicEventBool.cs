@@ -17,7 +17,6 @@ public class DynamicEventBool : MonoBehaviour
         GM = GameManager.Instance;
     }
 
-
     public void resetDynamicEventBool()
     {
         thrownItems.eventTriggered = false;

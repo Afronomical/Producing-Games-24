@@ -9,10 +9,7 @@ using static UnityEditor.Searcher.Searcher.AnalyticsEvent;
 public class CrossTrigger : MonoBehaviour
 {
     public CrossBehaviour cross;
-    GameManager gM;
-    GameObject CrossObject;
-    private int eventType;
-    
+    GameManager gM;  
 
     private void Start()
     {
