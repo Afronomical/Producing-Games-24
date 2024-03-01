@@ -12,6 +12,8 @@ public class HidingCutScene : InteractableTemplate
     private Transform playerRef;
     private float originCamNearClippingPlane;
 
+    private bool isDoorOpen;
+
     [Header("Object Animation/Object Door Material (Leave empty if not required!)")]
     public Animator playAnimation;
     public Material doorMaterialRef;
@@ -110,7 +112,19 @@ public class HidingCutScene : InteractableTemplate
             CupboardAnim(true);
             playerHidingStates = PlayerHidingStates.goOut;
         }
-            
+        if (Input.GetMouseButton(0) && !isDoorOpen)
+        {
+            isDoorOpen = true;
+            CupboardAnim(true);
+            Debug.Log("Open");
+        }
+        else
+        {
+            isDoorOpen = false;
+            CupboardAnim(false);
+            Debug.Log("Close");
+        }
+
     }
 
     //Logic handles the player exiting the hiding spot
@@ -156,7 +170,7 @@ public class HidingCutScene : InteractableTemplate
     public void CupboardAnim(bool isEntering)
     {
         if(playAnimation != null)
-        playAnimation.SetBool("CupboardOpen", isEntering);
+        playAnimation.SetBool("DoorState", isEntering);
     }
 
     //When the Player interacts with the hiding spot, start entering
