@@ -24,9 +24,6 @@ public class InspectableObject : InteractableTemplate
     //public GameObject monitor;
     //public Material[] cameraScreens;
 
-    private Material currentMaterial;
-    private int index = 0;
-
     //Vector2 defaultScreenSize;
     //Dictionary<Material, bool> zoomedScreens = new Dictionary<Material, bool>();
     protected Callback<UserAchievementStored_t> m_UserAchievementStored;

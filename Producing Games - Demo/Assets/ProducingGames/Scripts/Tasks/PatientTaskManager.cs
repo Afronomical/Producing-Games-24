@@ -298,7 +298,6 @@ public class PatientTaskManager : MonoBehaviour
     {
         List<HourlyTask> choiceOfTasks = new List<HourlyTask>();
         int totalChance = 0;
-        Debug.Log(NPCManager.Instance.ChosenDemon.demonName);
         foreach (HourlyTask t in playerTasks)  // Check for invalid tasks and calculate total chance
         {
             if (t.taskName == "Fix Satellite")
