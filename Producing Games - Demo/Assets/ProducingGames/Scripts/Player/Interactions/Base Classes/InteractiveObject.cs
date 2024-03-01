@@ -9,6 +9,7 @@ public class InteractiveObject : ScriptableObject
     public string objectName;
     public GameObject obj;
     public GameObject prefab;
+    public SoundEffect interactSound;
     public Sprite objectImage;
     //public Sound sound;
 

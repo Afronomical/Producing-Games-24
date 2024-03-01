@@ -14,7 +14,6 @@ public class SoundEffect : ScriptableObject
 
     public bool loop = false;  // Whether the sound effect loops or not
     public bool isMusic = false;  // Whether the sound is music
-    public bool canEcho = false;  // Whether sounds effects can echo  
 
     [Header("Spacial Audio")]
     public bool spacialAudio = true;  // Whether the sound effect is in the world or not (3D Audio)
@@ -26,9 +25,4 @@ public class SoundEffect : ScriptableObject
     public TMP_FontAsset font;  // The font that will be used for the text
     [Range(0, 0.25f)] public float typingSpeed = 0.15f;  // Time between each character appearing
     [Range(0, 10)] public float waitTillHide = 4.0f;  // Time till text dissapears after text has finished typing
-
-
-    //testing sound position variable
-    public Transform soundPos = null;
-    public bool isReactionSound = false; //is it a sound the NPC should react to
 }

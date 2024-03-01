@@ -38,6 +38,8 @@ public class PatientTaskManager : MonoBehaviour
     private bool waterHasBroken = false;
     private bool satelliteHasBroken = false;
 
+    public SoundEffect writingSound, completeSound;
+
     [Header("Task Objects")]
     public GameObject altar;
     public GameObject fuse;
@@ -392,6 +394,7 @@ public class PatientTaskManager : MonoBehaviour
     public void CompleteTask(Task task)
     {
         CheckList.instance.CompleteTask(task);
+        AudioManager.instance.PlaySound(completeSound, null);
 
         if (!task.isHourlyTask)  // Is not hourly task
         {

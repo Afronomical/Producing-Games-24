@@ -46,6 +46,11 @@ public class NPCManager : MonoBehaviour
     public int GetPrayerLocationsCount() => prayingLocations.Count;
     public Transform GetDemonInstantionLocation() => demonInstantiationLocation;
 
+
+    public SoundEffect heartAttackSound;
+
+
+
     private void Awake()
     {
         if (Instance != null && Instance != this)

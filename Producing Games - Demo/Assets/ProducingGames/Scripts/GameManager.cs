@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     public int finalHour = 8;
     public Transform playerStartPosition;
     public StudyDoorInteractable studyDoor;
-    public ShiftToggle newShiftStart, newShiftEnd;
+    public ShiftChange newShiftStart, newShiftEnd;
 
     public int currentHour;
     public float currentTime;

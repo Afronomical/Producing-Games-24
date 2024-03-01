@@ -12,7 +12,7 @@ using UnityEngine;
 
 public interface IHear
 {
-    void ReactToSound(SoundEffect effect);
+    void ReactToSound(Transform pos);
 }
 
 public class DemonCharacter : AICharacter, IHear
@@ -130,10 +130,9 @@ public class DemonCharacter : AICharacter, IHear
         }
     }
 
-    public void ReactToSound(SoundEffect effect)
+    public void ReactToSound(Transform pos)
     {
-
-        soundDestination = effect.soundPos;
+        soundDestination = pos;
         ChangeDemonState(DemonStates.Distracted);
     }
 
