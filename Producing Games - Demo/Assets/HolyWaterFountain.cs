@@ -38,16 +38,20 @@ public class HolyWaterFountain : MonoBehaviour
                 Debug.Log("Jug detected"); 
                 if(timesUsedThisHour < maxUsesPerHour && !isJugFull && !placed && FountainCapacity >= fillDrain)
                 {
-                    TooltipManager.Instance.ShowTooltip("Press H to confirm Jug fill");
+                    //TooltipManager.Instance.ShowTooltip("Press H to confirm Jug fill");
+                    collider.gameObject.GetComponent<InteractableTemplate>().collectible.tooltipText = ("Press H to confirm Jug Fill");
                     if (Input.GetKeyDown(KeyCode.H))
                     {
                         TooltipManager.Instance.HideTooltip();
+                        
                         placed = true;
                         collider.gameObject.transform.position = fillPos.transform.position;
                         collider.gameObject.GetComponent<InteractableTemplate>().hasBeenPlaced = true;
                        
                         StartCoroutine(StartFill());
-                         
+                        collider.gameObject.GetComponent<PickUpJug>().capacity += fillDrain;
+                        collider.gameObject.GetComponent<Rigidbody>().mass *= 4;
+                        collider.gameObject.GetComponent<InteractableTemplate>().collectible.tooltipText = ("Pick up Holy Water Jug");
                         ++timesUsedThisHour;
                        
                         //collider.gameObject.GetComponent<PickUpJug>().enabled = true;
@@ -76,6 +80,7 @@ public class HolyWaterFountain : MonoBehaviour
         isJugFull = true;
         jugCollider.GetComponent<InteractableTemplate>().hasBeenPlaced = false;
         FountainCapacity -= fillDrain;
+        
         //collider.GetComponent<InteractableTemplate>().enabled = true;
 
     }

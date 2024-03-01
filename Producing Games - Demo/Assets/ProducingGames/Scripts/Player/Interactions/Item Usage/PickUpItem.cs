@@ -55,6 +55,7 @@ public class PickUpItem : MonoBehaviour
                                 Debug.Log("Interact");
                                 StartCoroutine(arms.GrabObject());
                             }
+                            
                         }
                     }
                 }
