@@ -36,28 +36,29 @@ public class InspectableObject : InteractableTemplate
 
     protected virtual void Update()
     {
-
-
-        currentMaterial = cameraScreens[index];
-        monitor.GetComponent<MeshRenderer>().material = currentMaterial;
-
-        if (Input.GetKeyDown(KeyCode.RightArrow) && looking)
+        if (monitor != null)
         {
-            if (index == cameraScreens.Length - 1)
+            currentMaterial = cameraScreens[index];
+            monitor.GetComponent<MeshRenderer>().material = currentMaterial;
+
+            if (Input.GetKeyDown(KeyCode.RightArrow) && looking)
             {
-                index = 0;
-                return;
+                if (index == cameraScreens.Length - 1)
+                {
+                    index = 0;
+                    return;
+                }
+                index++;
             }
-            index++;
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow) && looking)
-        {
-            if (index == 0)
+            else if (Input.GetKeyDown(KeyCode.LeftArrow) && looking)
             {
-                index = cameraScreens.Length - 1;
-                return;
+                if (index == 0)
+                {
+                    index = cameraScreens.Length - 1;
+                    return;
+                }
+                index--;
             }
-            index--;
         }
 
         if (Input.GetKeyDown(KeyCode.C) && looking)
@@ -84,13 +85,13 @@ public class InspectableObject : InteractableTemplate
             mainCam.transform.position = Vector3.MoveTowards(mainCam.transform.position, oldCamPosition, 2.5f * Time.deltaTime);
             mainCam.transform.rotation = Quaternion.Lerp(mainCam.transform.rotation, oldCamRotation, 2.5f * Time.deltaTime);
 
-            mainCam.transform.parent = GameObject.Find("Player").transform;
+            mainCam.transform.parent = GameManager.Instance.player.transform;
 
             if (mainCam.transform.position == oldCamPosition)
             {
                 //re-enable player and door interaction when leaving the door
                 stopLooking = false;
-                GameObject.Find("Player").GetComponent<PlayerMovement>().enabled = true;
+                GameManager.Instance.player.GetComponent<PlayerMovement>().enabled = true;
                 Camera.main.GetComponent<CameraLook>().canHeadBob = true;
                 camLookScript.enabled = true;
             }
@@ -100,7 +101,7 @@ public class InspectableObject : InteractableTemplate
         //we would need the state manager at this point to be able to freeze player movement and interaction
         if (!playerCanMove)
         {
-            GameObject.Find("Player").GetComponent<PlayerMovement>().enabled = false;
+            GameManager.Instance.player.GetComponent<PlayerMovement>().enabled = false;
             this.gameObject.GetComponent<BoxCollider>().enabled = false;
 
         }

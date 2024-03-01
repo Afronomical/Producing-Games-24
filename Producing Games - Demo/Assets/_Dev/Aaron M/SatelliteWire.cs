@@ -18,44 +18,70 @@ public class SatelliteWire : MonoBehaviour
     public LineRenderer lineRenderer;
     public int pointCount = 12;
 
-    void Start()
+    private Vector3 LineCD;
+    private Vector3 LineAB;
+    private Vector3 LineBC;
+    private Vector3 LineAB_BC;
+    private Vector3 LineBC_CD;
+    private Vector3 bezierPoint;
+    private List<Vector3> pointList = new List<Vector3>();
+
+    public void InitializeWire()
     {
         box = transform.parent.GetComponent<SatelliteBox>();
-        pointB.position = new Vector3(pointB.position.x, wireEnd.transform.GetChild(0).position.y, pointB.position.z);
-        pointD.position = new Vector3(wireEnd.transform.GetChild(0).position.x, pointD.position.y, pointD.position.z);
+        if (lineRenderer) lineRenderer.enabled = false;
+        connected = false;
     }
+
 
     void Update()
     {
-        pointD.position = box.virtualMouse.transform.position;
-
-        var pointList = new List<Vector3>();
-        for (float ratio = 0; ratio <= 1; ratio += 1 / pointCount)
+        if (lineRenderer && box)
         {
-            Vector3 LineAB = Vector3.Lerp(pointA.position, pointB.position, ratio);
-            Vector3 LineBC = Vector3.Lerp(pointB.position, pointC.position, ratio);
-            Vector3 LineCD = Vector3.Lerp(pointC.position, pointD.position, ratio);
+            if (followingMouse)
+            {
+                pointD.position = box.cursor.transform.position;
+                float yDistAD = pointD.position.y - pointA.position.y;
+                float zDistAD = pointD.position.z - pointA.position.z;
+                pointC.position = new Vector3(pointD.position.x, pointD.position.y + (yDistAD / 7.5f), pointA.position.z + (zDistAD / 1.75f));
 
-            Vector3 LineAB_BC = Vector3.Lerp(LineAB, LineBC, ratio);
-            Vector3 LineBC_CD = Vector3.Lerp(LineBC, LineCD, ratio);
+                SetLineCurve();
+            }
+        }
+    }
 
-            Vector3 bezierPoint = Vector3.Lerp(LineAB_BC, LineBC_CD, ratio);
+
+    private void SetLineCurve()
+    {
+        pointList.Clear();
+        for (float ratio = 0; ratio <= 1.0f; ratio += 1.0f / pointCount)  // Calculate bezier curve
+        {
+            LineAB = Vector3.Lerp(pointA.position, pointB.position, ratio);
+            LineBC = Vector3.Lerp(pointB.position, pointC.position, ratio);
+            LineCD = Vector3.Lerp(pointC.position, pointD.position, ratio);
+
+            LineAB_BC = Vector3.Lerp(LineAB, LineBC, ratio);
+            LineBC_CD = Vector3.Lerp(LineBC, LineCD, ratio);
+
+            bezierPoint = Vector3.Lerp(LineAB_BC, LineBC_CD, ratio);
             pointList.Add(bezierPoint);
         }
-        lineRenderer.positionCount = pointList.Count;
+        lineRenderer.positionCount = pointList.Count;  // Add the points along the curve to the line renderer
         lineRenderer.SetPositions(pointList.ToArray());
     }
+
 
     public void Hold()
     {
         followingMouse = true;
-        line.SetActive(true);
+        lineRenderer.enabled = true;
     }
 
 
     public void Release()
     {
         followingMouse = false;
+        lineRenderer.enabled = false;
     }
 
 
@@ -63,5 +89,13 @@ public class SatelliteWire : MonoBehaviour
     {
         connected = true;
         followingMouse = false;
+        lineRenderer.enabled = true;
+
+        pointD.position = wireEnd.transform.GetChild(0).position;
+        float yDistAD = pointD.position.y - pointA.position.y;
+        float zDistAD = pointD.position.z - pointA.position.z;
+        pointC.position = new Vector3(pointD.position.x, pointD.position.y + (yDistAD / 7.5f), pointA.position.z + (zDistAD / 1.75f));
+
+        SetLineCurve();
     }
 }

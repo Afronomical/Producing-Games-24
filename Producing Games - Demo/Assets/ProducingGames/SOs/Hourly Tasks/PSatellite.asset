@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PSatellite
   m_EditorClassIdentifier: 
   taskType: 11
-  chanceToHappen: 1
+  chanceToHappen: 50
   BlockingTasks: []
   taskName: Fix Satellite
   taskDescription: Fix the satellite

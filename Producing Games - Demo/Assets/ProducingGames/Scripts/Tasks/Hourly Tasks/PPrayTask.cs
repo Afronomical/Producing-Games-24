@@ -13,7 +13,6 @@ public class PPrayTask : Task
     {
         if (interactedObject == taskTarget)  // Check for the correct object being interacted with
         {
-            Debug.Log("3");
             StartCoroutine(Pray());
         }
     }
@@ -21,10 +20,8 @@ public class PPrayTask : Task
 
     public override void CheckDetectTask(GameObject interactedObject)
     {
-        Debug.Log(interactedObject + " - " + taskTarget);
         if (interactedObject == taskTarget)  // Check for the correct patient being looked at
         {
-            Debug.Log("2");
             targetInteraction.collectible = hTask.tooltipPrompt;
         }
     }

@@ -42,7 +42,7 @@ public class PatientTaskManager : MonoBehaviour
     public GameObject altar;
     public GameObject fuse;
     public GameObject pipes;
-    public GameObject clock;
+    public GameObject satellite;
     public GameObject[] tables;
 
 
@@ -190,33 +190,42 @@ public class PatientTaskManager : MonoBehaviour
                         }
                     }
 
-                    else if (t.taskName == "Hiding" && (NPCManager.Instance.ChosenDemon.demonName == "Leviathan" || NPCManager.Instance.ChosenDemon.demonName == "Beezlebub"))
+                    else if (t.taskName == "Hiding")
                     {
-                        int hidingChance = GetDemonTellTaskChance(patientDemonTells, patients[i].GetComponent<PatientCharacter>().hasBeenHiding);
-                        for (int j = 0; j < hidingChance; j++)
+                        if (NPCManager.Instance.ChosenDemon.demonName == "Leviathan" || NPCManager.Instance.ChosenDemon.demonName == "Beezlebub")
                         {
-                            totalChance += t.chanceToHappen;
-                            choiceOfTasks.Add(t);
+                            int hidingChance = GetDemonTellTaskChance(patientDemonTells, patients[i].GetComponent<PatientCharacter>().hasBeenHiding);
+                            for (int j = 0; j < hidingChance; j++)
+                            {
+                                totalChance += t.chanceToHappen;
+                                choiceOfTasks.Add(t);
+                            }
                         }
                     }
 
-                    else if (t.taskName == "Medication" && (NPCManager.Instance.ChosenDemon.demonName == "Leviathan" || NPCManager.Instance.ChosenDemon.demonName == "Mammon"))
+                    else if (t.taskName == "Medication")
                     {
-                        int greedChance = GetDemonTellTaskChance(patientDemonTells, patients[i].GetComponent<PatientCharacter>().hasBeenGreedy);
-                        for (int j = 0; j < greedChance; j++)
+                        if (NPCManager.Instance.ChosenDemon.demonName == "Leviathan" || NPCManager.Instance.ChosenDemon.demonName == "Mammon")
                         {
-                            totalChance += t.chanceToHappen;
-                            choiceOfTasks.Add(t);
+                            int greedChance = GetDemonTellTaskChance(patientDemonTells, patients[i].GetComponent<PatientCharacter>().hasBeenGreedy);
+                            for (int j = 0; j < greedChance; j++)
+                            {
+                                totalChance += t.chanceToHappen;
+                                choiceOfTasks.Add(t);
+                            }
                         }
                     }
 
-                    else if (t.taskName == "Hungry" && (NPCManager.Instance.ChosenDemon.demonName == "Mammon" || NPCManager.Instance.ChosenDemon.demonName == "Beezlebub"))
+                    else if (t.taskName == "Hungry")
                     {
-                        int hungryChance = GetDemonTellTaskChance(patientDemonTells, patients[i].GetComponent<PatientCharacter>().hasBeenHungry);
-                        for (int j = 0; j < hungryChance; j++)
+                        if (NPCManager.Instance.ChosenDemon.demonName == "Mammon" || NPCManager.Instance.ChosenDemon.demonName == "Beezlebub")
                         {
-                            totalChance += t.chanceToHappen;
-                            choiceOfTasks.Add(t);
+                            int hungryChance = GetDemonTellTaskChance(patientDemonTells, patients[i].GetComponent<PatientCharacter>().hasBeenHungry);
+                            for (int j = 0; j < hungryChance; j++)
+                            {
+                                totalChance += t.chanceToHappen;
+                                choiceOfTasks.Add(t);
+                            }
                         }
                     }
 
@@ -289,39 +298,49 @@ public class PatientTaskManager : MonoBehaviour
     {
         List<HourlyTask> choiceOfTasks = new List<HourlyTask>();
         int totalChance = 0;
+        Debug.Log(NPCManager.Instance.ChosenDemon.demonName);
         foreach (HourlyTask t in playerTasks)  // Check for invalid tasks and calculate total chance
         {
-            if (t.taskName == "Fix Satellite" && (NPCManager.Instance.ChosenDemon.demonName == "Leviathan" || NPCManager.Instance.ChosenDemon.demonName == "Beezlebub"))
+            if (t.taskName == "Fix Satellite")
             {
-                int satelliteChance = GetDemonTellTaskChance(patientDemonTells, satelliteHasBroken, true);
-                for (int j = 0; j < satelliteChance; j++)
+                if (NPCManager.Instance.ChosenDemon.demonName == "Leviathan" || NPCManager.Instance.ChosenDemon.demonName == "Beezlebub")
                 {
-                    totalChance += t.chanceToHappen;
-                    choiceOfTasks.Add(t);
+                    int satelliteChance = GetDemonTellTaskChance(patientDemonTells, satelliteHasBroken, true);
+                    for (int j = 0; j < satelliteChance; j++)
+                    {
+                        totalChance += t.chanceToHappen;
+                        choiceOfTasks.Add(t);
+                    }
                 }
             }
 
-            else if (t.taskName == "Fix Water" && (NPCManager.Instance.ChosenDemon.demonName == "Leviathan" || NPCManager.Instance.ChosenDemon.demonName == "Mammon"))
+            else if (t.taskName == "Fix Water")
             {
-                int waterChance = GetDemonTellTaskChance(patientDemonTells, waterHasBroken, true);
-                for (int j = 0; j < waterChance; j++)
+                if (NPCManager.Instance.ChosenDemon.demonName == "Leviathan" || NPCManager.Instance.ChosenDemon.demonName == "Mammon")
                 {
-                    totalChance += t.chanceToHappen;
-                    choiceOfTasks.Add(t);
+                    int waterChance = GetDemonTellTaskChance(patientDemonTells, waterHasBroken, true);
+                    for (int j = 0; j < waterChance; j++)
+                    {
+                        totalChance += t.chanceToHappen;
+                        choiceOfTasks.Add(t);
+                    }
                 }
             }
 
-            else if (t.taskName == "Change Fuse" && (NPCManager.Instance.ChosenDemon.demonName == "Mammon" || NPCManager.Instance.ChosenDemon.demonName == "Beezlebub"))
+            else if (t.taskName == "Change Fuse")
             {
-                int fuseChance = GetDemonTellTaskChance(patientDemonTells, fuseHasBroken, true);
-                for (int j = 0; j < fuseChance; j++)
+                if (NPCManager.Instance.ChosenDemon.demonName == "Mammon" || NPCManager.Instance.ChosenDemon.demonName == "Beezlebub")
                 {
-                    totalChance += t.chanceToHappen;
-                    choiceOfTasks.Add(t);
+                    int fuseChance = GetDemonTellTaskChance(patientDemonTells, fuseHasBroken, true);
+                    for (int j = 0; j < fuseChance; j++)
+                    {
+                        totalChance += t.chanceToHappen;
+                        choiceOfTasks.Add(t);
+                    }
                 }
             }
 
-            else 
+            else
             {
                 totalChance += t.chanceToHappen;
                 choiceOfTasks.Add(t);  // Add it to the list of tasks to pick from
@@ -352,6 +371,10 @@ public class PatientTaskManager : MonoBehaviour
             case HourlyTasks.Pray:
                 newTask = transform.AddComponent<PPrayTask>();
                 newTask.taskTarget = altar;
+                break;
+            case HourlyTasks.Satellite:
+                newTask = transform.AddComponent<PSatelliteTask>();
+                newTask.taskTarget = satellite;
                 break;
         }
 
