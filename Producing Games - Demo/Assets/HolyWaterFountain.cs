@@ -56,7 +56,7 @@ public class HolyWaterFountain : MonoBehaviour
                 }
                 else
                 {
-                    TooltipManager.Instance.HideTooltip();
+                    //TooltipManager.Instance.HideTooltip();
                 }
                 
             }
