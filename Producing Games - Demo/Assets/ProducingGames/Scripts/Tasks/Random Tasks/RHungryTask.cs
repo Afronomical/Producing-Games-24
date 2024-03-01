@@ -16,7 +16,10 @@ public class RHungryTask : Task
         taskTarget.transform.position = NPCManager.Instance.RandomKitchenPosition();
 
         if (taskTarget && taskTarget.TryGetComponent(out PatientCharacter character))
+        {
             character.ChangePatientState(PatientCharacter.PatientStates.Hungry);
+            character.hasBeenHungry = true;
+        }
 
         initialized = true;
         base.TaskStart();

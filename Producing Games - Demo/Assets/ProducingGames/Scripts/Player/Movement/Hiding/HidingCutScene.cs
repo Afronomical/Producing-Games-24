@@ -110,7 +110,17 @@ public class HidingCutScene : InteractableTemplate
             CupboardAnim(true);
             playerHidingStates = PlayerHidingStates.goOut;
         }
+
+        //Hold LMB to open the door to peek out, when the LMB is released, it will close the door again
+        if (Input.GetMouseButton(0))
+            CupboardAnim(true);
             
+        
+        if(Input.GetMouseButtonUp(0))
+            CupboardAnim(false);
+            
+       
+
     }
 
     //Logic handles the player exiting the hiding spot
@@ -156,7 +166,7 @@ public class HidingCutScene : InteractableTemplate
     public void CupboardAnim(bool isEntering)
     {
         if(playAnimation != null)
-        playAnimation.SetBool("CupboardOpen", isEntering);
+        playAnimation.SetBool("DoorState", isEntering);
     }
 
     //When the Player interacts with the hiding spot, start entering

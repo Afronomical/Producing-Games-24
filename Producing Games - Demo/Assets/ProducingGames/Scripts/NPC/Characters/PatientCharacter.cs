@@ -40,6 +40,12 @@ public class PatientCharacter : AICharacter
     public float calmingDuration = 5.0f;
     public float distanceFromDestination = 3.0f;
 
+    [Header("Tasks")]
+    [HideInInspector] public bool hungry = false;
+    [HideInInspector] public bool hasBeenHiding = false;
+    [HideInInspector] public bool hasBeenHungry = false;
+    [HideInInspector] public bool hasBeenGreedy = false;
+
     [Header("Components")]
     public PatientStateBaseClass patientStateScript;
     public DemonItemsSO demonSO;
