@@ -4,27 +4,23 @@ using UnityEngine;
 
 public class VFXTestScript : MonoBehaviour
 {
-    // Reference to the CameraVFXManager
-    public CameraVFXManager vfxManager;
+    // Reference to the CameraShake script
+    public CShakeEffect cameraShake;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        // Check if the CameraVFXManager is assigned
-        if (vfxManager == null)
-        {
-            Debug.LogError("CameraVFXManager is not assigned to VFXTestScript!");
-        }
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        // Example: Trigger VFX effect when pressing the spacebar
-        if (Input.GetKeyDown(KeyCode.J))
+        // Check if the "K" key is pressed
+        if (Input.GetKeyDown(KeyCode.K))
         {
-            // Trigger the "Explosion" event
-            vfxManager.TriggerVFX("Explosion");
+            // Trigger camera shake effect
+            if (cameraShake != null)
+            {
+                cameraShake.TriggerEffect();
+            }
+            else
+            {
+                Debug.LogError("CameraShake script is not assigned.");
+            }
         }
     }
 }
