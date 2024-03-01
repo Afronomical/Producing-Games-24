@@ -12,7 +12,6 @@ using UnityEngine;
 public class ScaredState : PatientStateBaseClass
 {
     //need reference to current horror events happening 
-    public SoundEffect NPCScared;
     private float currentEventDistance;
     private Vector3 safetyLocation;
     private Transform closestEvent;
@@ -27,6 +26,12 @@ public class ScaredState : PatientStateBaseClass
 
     private void Start()
     {
+        if(character.scaredNPC != null)
+        {
+            AudioManager.instance.PlaySound(character.scaredNPC,character.transform);
+        }
+        
+        
         if (character.agent.hasPath)
             character.agent.ResetPath();
         character.agent.speed = character.runSpeed;
@@ -51,18 +56,7 @@ public class ScaredState : PatientStateBaseClass
         character.agent.SetDestination(safetyLocation); 
         currentEventDistance = Vector3.Distance(character.transform.position, closestEvent.position);
 
-        if(currentEventDistance < character.detectionRadius)
-        {
-            if(NPCScared)
-            {
-                AudioManager.instance.PlaySound(NPCScared, character.transform);
-            }
-             
-        }
-        else if(character.DistanceFromDemon < character.detectionRadius)
-        {
-
-        }
+        
     }
 
     private T GetRandomEnum<T>()
