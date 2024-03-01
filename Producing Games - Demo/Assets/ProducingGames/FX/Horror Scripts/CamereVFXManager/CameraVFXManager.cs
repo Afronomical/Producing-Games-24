@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class CameraVFXManager : MonoBehaviour
 {
@@ -35,6 +36,17 @@ public class CameraVFXScript
     // Priority of the VFX script
     public int priority;
 
+    // Reference to the camera to affect
+    public Camera targetCamera;
+
+    // Projection settings
+    public float fieldOfView;
+    public float nearClipPlane;
+    public float farClipPlane;
+
+    // Volume profile for post-processing effects
+    public VolumeProfile volumeProfile;
+
     // Function to trigger the VFX script
     public void Trigger()
     {
@@ -48,4 +60,41 @@ public class CameraVFXScript
             Debug.LogWarning("VFX script is not assigned for event: " + eventName);
         }
     }
+
+    // Apply projection settings to the target camera
+    public void ApplyProjectionSettings()
+    {
+        if (targetCamera != null)
+        {
+            targetCamera.fieldOfView = fieldOfView;
+            targetCamera.nearClipPlane = nearClipPlane;
+            targetCamera.farClipPlane = farClipPlane;
+        }
+        else
+        {
+            Debug.LogWarning("Target camera is not assigned for event: " + eventName);
+        }
+    }
+
+    // Apply volume profile to the target camera
+    public void ApplyVolumeProfile()
+    {
+        if (volumeProfile != null && targetCamera != null)
+        {
+            Volume volume = targetCamera.GetComponent<Volume>();
+            if (volume != null)
+            {
+                volume.profile = volumeProfile;
+            }
+            else
+            {
+                Debug.LogWarning("Volume component not found on the target camera.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Volume profile or target camera is not assigned for event: " + eventName);
+        }
+    }
+
 }
