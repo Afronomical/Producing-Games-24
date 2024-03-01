@@ -36,6 +36,7 @@ public class ThrowItem : MonoBehaviour
                 //removing the item from inventory
                 InventoryHotbar.instance.RemoveFromInventory(InventoryHotbar.instance.currentItem);
             }
+            
         }
     }
 }

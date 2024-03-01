@@ -6,12 +6,16 @@ public class HolyWaterFountain : MonoBehaviour
 {
     private float radius = 2f;
     public bool isJugFull;
+    private bool placed;
     public Transform fillPos;
     public float fillTime;
     public int maxUsesPerHour;
     public int timesUsedThisHour = 0;
+    public int FountainCapacity;
+    public int fillDrain;
+    public SoundEffect fillSound;
 
-
+    private Collider jugCollider;
 
     private void Start()
     {
@@ -30,19 +34,29 @@ public class HolyWaterFountain : MonoBehaviour
         {
             if(collider.gameObject.TryGetComponent(out PickUpJug HolyJug))
             {
+               jugCollider = collider;
                 Debug.Log("Jug detected"); 
-                if(timesUsedThisHour < maxUsesPerHour && !isJugFull)
+                if(timesUsedThisHour < maxUsesPerHour && !isJugFull && !placed && FountainCapacity >= fillDrain)
                 {
                     TooltipManager.Instance.ShowTooltip("Press H to confirm Jug fill");
                     if (Input.GetKeyDown(KeyCode.H))
                     {
+                        TooltipManager.Instance.HideTooltip();
+                        placed = true;
                         collider.gameObject.transform.position = fillPos.transform.position;
-                        //collider.gameObject.GetComponent<PickUpJug>().enabled = false;
+                        collider.gameObject.GetComponent<InteractableTemplate>().hasBeenPlaced = true;
+                       
                         StartCoroutine(StartFill());
+                         
                         ++timesUsedThisHour;
+                       
                         //collider.gameObject.GetComponent<PickUpJug>().enabled = true;
                         break;
                     }
+                }
+                else
+                {
+                    TooltipManager.Instance.HideTooltip();
                 }
                 
             }
@@ -56,8 +70,14 @@ public class HolyWaterFountain : MonoBehaviour
     public IEnumerator StartFill()
     {
         Debug.Log("Jug Filling");
+        AudioManager.instance.PlaySound(fillSound, transform);
         yield return new WaitForSeconds(fillTime);
-        Debug.Log("Jug Full"); 
+        Debug.Log("Jug Full");
+        isJugFull = true;
+        jugCollider.GetComponent<InteractableTemplate>().hasBeenPlaced = false;
+        FountainCapacity -= fillDrain;
+        //collider.GetComponent<InteractableTemplate>().enabled = true;
+
     }
 
     private void OnDrawGizmos()
@@ -65,5 +85,8 @@ public class HolyWaterFountain : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, radius);
     }
+
+
+    
 
 }

@@ -4,7 +4,6 @@ using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 using Steamworks;
-using Unity.VisualScripting;
 
 public class RandomPill : InteractableTemplate, IConsumable
 {
@@ -18,8 +17,10 @@ public class RandomPill : InteractableTemplate, IConsumable
         panel = GameObject.Find("CameraDimOverlay").GetComponent<Image>();
     }
 
+
     public void Consume()
     {
+
         AudioManager.instance.PlaySound(munchSoundEffect, player.transform);
         Debug.Log("Consuming random pill");
         InventoryHotbar.instance.RemoveFromInventory(collectible);
@@ -124,4 +125,5 @@ public class RandomPill : InteractableTemplate, IConsumable
                 break;
         }
     }
+
 }
