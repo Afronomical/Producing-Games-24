@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class HRM : MonoBehaviour
 {
-    public HRM instance;
+    public static HRM instance;
     public TMP_Text hRateText;
     private int bPM;
     //public AnimationCurve heartRate;

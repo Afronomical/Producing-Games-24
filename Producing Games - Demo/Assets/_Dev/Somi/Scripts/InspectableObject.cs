@@ -153,29 +153,29 @@ public class InspectableObject : InteractableTemplate
         Camera.main.GetComponent<CameraLook>().canHeadBob = false;
 
 
+        //TODO Move into the steam manager or somewhere not here
+        //SteamAPI.Init();
 
-        SteamAPI.Init();
-
-        //steam achievement for banishing demon
-        if (!SteamManager.Initialized)
-        {
-            Debug.LogWarning("Steam Manager doesn't exist!");
-
-            //return;
-
-        }
-        //else
+        ////steam achievement for banishing demon
+        //if (!SteamManager.Initialized)
         //{
-        //SteamUserStats.GetAchievement("ACH_WIN_100_GAMES", out bool completed);
+        //    Debug.LogWarning("Steam Manager doesn't exist!");
 
-        //if (!completed)
-        //{
-        m_UserAchievementStored = Callback<UserAchievementStored_t>.Create(OnAchievementStored);
+        //    //return;
 
-        SteamUserStats.SetAchievement("ACH_TRAVEL_FAR_ACCUM");
-        SteamUserStats.StoreStats();
         //}
+        ////else
+        ////{
+        ////SteamUserStats.GetAchievement("ACH_WIN_100_GAMES", out bool completed);
 
+        ////if (!completed)
+        ////{
+        //m_UserAchievementStored = Callback<UserAchievementStored_t>.Create(OnAchievementStored);
+
+        //SteamUserStats.SetAchievement("ACH_TRAVEL_FAR_ACCUM");
+        //SteamUserStats.StoreStats();
+        //}
+        
         //}
     }
 
