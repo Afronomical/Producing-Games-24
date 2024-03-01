@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6851d4599b4e27f4b9487b97345aa9aa, type: 3}
   m_Name: LeviathanStats
   m_EditorClassIdentifier: 
-  demonName: 'Leviathan '
+  demonName: Leviathan
   itemsForExorcism:
   - {fileID: 7824952522015762862, guid: 3caa920475e4b7c4680fc1a94271a2c3, type: 3}
   - {fileID: 11759742422874786, guid: 3b11e73bf287ef54e952367a56355f26, type: 3}

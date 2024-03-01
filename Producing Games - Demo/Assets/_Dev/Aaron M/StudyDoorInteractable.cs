@@ -1,25 +1,24 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class StudyDoorInteractable : InteractableTemplate
+public class ShiftToggle : InteractableTemplate
 {
     public Transform startShiftPosition;
-    public InteractiveObject startShiftSO, endHourSO;
-
-    public void Awake()
-    {
-        collectible = startShiftSO;
-    }
-
+    public bool startShift;
+   
     public override void Interact()
     {
         if (GameManager.Instance.player.GetComponent<PlayerInput>().enabled)
         {
-            if (GameManager.Instance.inStudy)
+            if (startShift && GameManager.Instance.inStudy)
             {
                 StartCoroutine(GameManager.Instance.StartShift(startShiftPosition));
+                // Open the door
+                // No fade
+                // No teleport
+                // Remember to close it after shift
             }
-            else
+            else if (!startShift)
             {
                 StartCoroutine(GameManager.Instance.EndHour());
             }

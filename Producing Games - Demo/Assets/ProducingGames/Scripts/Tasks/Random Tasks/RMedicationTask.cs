@@ -10,7 +10,10 @@ public class RMedicationTask : Task
         detectingObjects.Add(taskTarget);  // Patient can be detected
 
         if (taskTarget && taskTarget.TryGetComponent(out PatientCharacter character))
+        {
             character.ChangePatientState(PatientCharacter.PatientStates.ReqMeds);
+            character.hasBeenGreedy = true;
+        }
 
         base.TaskStart();
     }

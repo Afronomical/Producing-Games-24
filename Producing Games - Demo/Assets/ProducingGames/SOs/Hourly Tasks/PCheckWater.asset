@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: PCheckWater
   m_EditorClassIdentifier: 
   taskType: 10
-  chanceToHappen: 25
+  chanceToHappen: 1
   BlockingTasks: []
-  taskName: Check Water
+  taskName: Fix Water
   taskDescription: Check the water pipes
   location: 0
   itemToGive: {fileID: 0}
