@@ -206,7 +206,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -225,11 +225,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectIcon: {fileID: 0}
-  collectible: {fileID: 0}
+  collectible: {fileID: 11400000, guid: f459d9aaeefb35a4f85555f9bab0129b, type: 2}
   isExorcismObject: 0
   hasBeenPlaced: 0
   rotationSpeed: 2
   throwingForce: 4
   CrossSpinSound: {fileID: 0}
   CrossDropSound: {fileID: 0}
+  TriggerBox: {fileID: 0}
   eventTriggered: 0

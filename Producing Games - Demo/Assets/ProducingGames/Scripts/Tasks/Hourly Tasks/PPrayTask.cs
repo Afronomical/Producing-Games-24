@@ -21,7 +21,7 @@ public class PPrayTask : Task
 
     public override void CheckDetectTask(GameObject interactedObject)
     {
-        Debug.Log(interactedObject + " - " + taskTarget);
+        //Debug.Log(interactedObject + " - " + taskTarget);
         if (interactedObject == taskTarget)  // Check for the correct patient being looked at
         {
             Debug.Log("2");
