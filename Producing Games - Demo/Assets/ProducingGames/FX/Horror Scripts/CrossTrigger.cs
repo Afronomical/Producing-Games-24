@@ -28,8 +28,7 @@ public class CrossTrigger : MonoBehaviour
         if (other.CompareTag("Player") && randChance <= gM.eventChance && !cross.eventTriggered)
         {
             cross.TriggerEvent();
-            cross.eventTriggered = true;
-            
+            cross.eventTriggered = true;            
         }
     }
 

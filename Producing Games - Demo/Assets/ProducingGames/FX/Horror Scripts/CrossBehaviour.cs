@@ -12,30 +12,29 @@ using UnityEngine.Rendering;
 
 
 public class CrossBehaviour : InteractableTemplate
-{
-    
+{ 
     [Header("Cross Variables")]
     public float rotationSpeed;
     private float rotTime;
     public float throwingForce;
-    public bool isInverting;
-    bool isReInverting;
+    
     [Space]
     [Header("SFX")]
     public SoundEffect CrossSpinSound;
     public SoundEffect CrossDropSound;
-    
 
+   
+    [HideInInspector] public bool eventTriggered; 
     private GameManager gM;
-    [HideInInspector] public bool eventTriggered;
+    bool isInverting;
+    bool isReInverting;
     private float startXEuAng;
     private float startYEuAng;
     private float startZEuAng;
     private float startXpos;
     private float startYpos;
     private float startZpos;
-    private int eventType;
-   
+    private int eventType;   
 
     private void Start()
     {
@@ -46,8 +45,7 @@ public class CrossBehaviour : InteractableTemplate
         startZEuAng = gameObject.transform.localEulerAngles.z;
                 
         CrossStartPos();
-    }
-    
+    }   
 
     private void Update()
     {       
@@ -61,56 +59,47 @@ public class CrossBehaviour : InteractableTemplate
         if (eventType == 0)
         {
             isInverting = true;
-            eventTriggered = true;
-            EnterInteractableState();
+            eventTriggered = true;           
         }
         else if (eventType == 1)
         {
             FallingCross();
-            eventTriggered = true;
-            EnterInteractableState();
+            eventTriggered = true;            
         }
-        else //(eventType == 2) 
-        {
-            Debug.Log("No Cross Event");
-            eventTriggered = true;
-        }
+        
     }
-
-    
-    void EnterInteractableState()
-    {
-        Debug.Log("Cross Interactable");
-    }
-
-    public void FallingCross()
-    {
-        gameObject.AddComponent<Rigidbody>();
-        Rigidbody rb = gameObject.GetComponent<Rigidbody>();
-        rb.AddRelativeForce(Vector3.back * throwingForce, ForceMode.Impulse);
-        AudioManager.instance.PlaySound(CrossDropSound, gameObject.transform);       
-    }
-
     void CrossStartPos()
     {
         startXpos = gameObject.transform.position.x;
         startYpos = gameObject.transform.position.y;
         startZpos = gameObject.transform.position.z;
+    }   
+    
+    public void FallingCross()
+    {
+        EnterInteractableState();
+        gameObject.AddComponent<Rigidbody>();
+        Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+        rb.AddRelativeForce(Vector3.back * throwingForce, ForceMode.Impulse);
+        AudioManager.instance.PlaySound(CrossDropSound, gameObject.transform);
     }
- 
-
+    void ReplaceCross()
+    {
+        Destroy(gameObject.GetComponent<Rigidbody>());
+        gameObject.transform.position = new Vector3(startXpos, startYpos, startZpos);
+        gameObject.transform.localEulerAngles = new Vector3(startXEuAng, startYEuAng, startZEuAng);
+    }
     void invertedCross()
     {
         if (isInverting)
         {
+            EnterInteractableState();
             rotTime += (Time.deltaTime * rotationSpeed);
             gameObject.transform.localEulerAngles = new Vector3(startXEuAng,startYEuAng, Mathf.Lerp(0, 180, rotTime));
             AudioManager.instance.PlaySound(CrossSpinSound,gameObject.transform);
-            EnterInteractableState();
+            isInverting = false;
         }
-    }
-   
-
+    } 
     private void ReInvertCross()
     {
         if (isReInverting)
@@ -118,27 +107,26 @@ public class CrossBehaviour : InteractableTemplate
             rotTime += (Time.deltaTime * rotationSpeed);
             gameObject.transform.localEulerAngles = new Vector3(startXEuAng, startYEuAng, Mathf.Lerp(0, -180, rotTime));
             AudioManager.instance.PlaySound(CrossSpinSound, gameObject.transform);
+            isReInverting = false;
         }
     }
 
-    void ReplaceCross()
+    void EnterInteractableState()
     {
-        Destroy(gameObject.GetComponent<Rigidbody>());
-        gameObject.transform.position = new Vector3(startXpos,startYpos,startZpos);
-        gameObject.transform.localEulerAngles = new Vector3(startXEuAng, startYEuAng, startZEuAng);
+        Debug.Log("Cross Interactable");
     }
-        
+
     public override void Interact()
-    {
+    {        
         Debug.Log("....");
-        if (gameObject.transform.localEulerAngles.z >= startZEuAng)
+        if (eventType == 0)
         {
-            isReInverting = true;           
+            isReInverting = true;
         }
-        else
-        {           
-           ReplaceCross();           
-        }
+        else if (eventType == 1)
+        {
+            ReplaceCross();       
+        }     
     }
 
 

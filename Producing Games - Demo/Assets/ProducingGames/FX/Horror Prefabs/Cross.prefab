@@ -232,5 +232,4 @@ MonoBehaviour:
   throwingForce: 4
   CrossSpinSound: {fileID: 0}
   CrossDropSound: {fileID: 0}
-  TriggerBox: {fileID: 0}
   eventTriggered: 0
