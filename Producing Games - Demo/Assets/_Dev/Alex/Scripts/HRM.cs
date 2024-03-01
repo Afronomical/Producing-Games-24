@@ -64,5 +64,6 @@ public class HRM : MonoBehaviour
     public void TurnOff()
     {
         gameObject.GetComponent<ParticleSystem>().Stop();
+        gameObject.GetComponent<ParticleSystem>().Clear();
     }
 }
