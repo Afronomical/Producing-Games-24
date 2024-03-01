@@ -12,8 +12,6 @@ public class HidingCutScene : InteractableTemplate
     private Transform playerRef;
     private float originCamNearClippingPlane;
 
-    private bool isDoorOpen;
-
     [Header("Object Animation/Object Door Material (Leave empty if not required!)")]
     public Animator playAnimation;
     public Material doorMaterialRef;
@@ -112,18 +110,16 @@ public class HidingCutScene : InteractableTemplate
             CupboardAnim(true);
             playerHidingStates = PlayerHidingStates.goOut;
         }
-        if (Input.GetMouseButton(0) && !isDoorOpen)
-        {
-            isDoorOpen = true;
+
+        //Hold LMB to open the door to peek out, when the LMB is released, it will close the door again
+        if (Input.GetMouseButton(0))
             CupboardAnim(true);
-            Debug.Log("Open");
-        }
-        else
-        {
-            isDoorOpen = false;
+            
+        
+        if(Input.GetMouseButtonUp(0))
             CupboardAnim(false);
-            Debug.Log("Close");
-        }
+            
+       
 
     }
 
