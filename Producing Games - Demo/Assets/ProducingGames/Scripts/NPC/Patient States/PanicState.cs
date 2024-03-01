@@ -19,7 +19,7 @@ public class PanicState : PatientStateBaseClass
     }
 
     private Choices currentChoice;
-    private bool isCowering;
+    private bool isCowering = false;
     private Vector3 safetyLocation;
     private float calmingTime;
 
@@ -43,6 +43,7 @@ public class PanicState : PatientStateBaseClass
                 safetyLocation = character.bed.transform.position;
                 break;
             default:
+                Debug.LogWarning("Unable to choose a suitable safety location to go to!");
                 break;
         }
     }
@@ -53,23 +54,24 @@ public class PanicState : PatientStateBaseClass
 
         // INFO: Goes into cower state which is where the patient stops
         // moving and goes into a fetal position
-        if (character.DistanceFromDemon < character.detectionRadius && !isCowering)
+        if (character.DistanceFromDemon < character.cowerRadius && !isCowering)
         {
             isCowering = true;
             character.agent.isStopped = true;
 
             // PLAY COWERING ANIMATION HERE + MAYBE CRYING SOUNDS
         }
-        else
+        else if (character.DistanceFromDemon > character.cowerRadius && isCowering)
         {
-            if (isCowering)
-            {
-                isCowering = false;
-                character.agent.isStopped = false;
-            }
+            isCowering = false;
+            character.agent.isStopped = false;
+
+            // STOP COWERING ANIMATION + STOP CRYING SOUNDS -> PLAY WALKING ANIMATION
         }
 
-        if (Vector3.Distance(character.transform.position, safetyLocation) < character.distanceFromDestination)
+        // INFO: Given that the patient reaches their hiding location and the demon is no longer near them
+        // they will then wait for a while before going into another state as they are no longer panicked
+        if (Vector3.Distance(character.transform.position, safetyLocation) < character.distanceFromDestination && !isCowering)
         {
             calmingTime += Time.deltaTime;
 
@@ -79,34 +81,6 @@ public class PanicState : PatientStateBaseClass
                 character.ChangePatientState(PatientCharacter.PatientStates.Wandering);
             }
         }
-
-        //if (character.DistanceFromDemon < (character.detectionRadius * character.cowerRadiusPercentage) && !isCowering)
-        //{
-        //    isCowering = true;
-        //    character.agent.isStopped = true;
-        //
-        //    // PLAY COWERING ANIMATION HERE + MAYBE CRYING SOUNDS
-        //}
-        //// INFO: Given that the demon is no longer within the patients cowering zone
-        //// the patient returns to running towards their safety location
-        //else if (character.DistanceFromDemon > (character.detectionRadius * character.cowerRadiusPercentage) && isCowering)
-        //{
-        //    isCowering = false;
-        //    character.agent.isStopped = false;
-        //}
-        //// INFO: Given that the patient has reached their bedroom/hiding spot they enter a calming
-        //// period
-        //else if (character.DistanceFromDemon > character.detectionRadius &&
-        //    Vector3.Distance(character.transform.position, safetyLocation) < character.distanceFromDestination)
-        //{
-        //    calmingTime += Time.deltaTime;
-        //
-        //    if (calmingTime > character.calmingDuration)
-        //    {
-        //        // TEMP FOR NOW, WILL LIKELY BE CHANGED WITH THE INTRODUCTION OF NEW STATES
-        //        character.ChangePatientState(PatientCharacter.PatientStates.Wandering);
-        //    }
-        //}
     }
 
     /// <summary>

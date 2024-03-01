@@ -36,7 +36,7 @@ public class PatientCharacter : AICharacter
     public float startingSanity = 100;
     public float currentSanity;
     public bool isPossessed = false;
-    [Range(0, 1)] public float cowerRadiusPercentage = 0.25f;
+    [Min(0)] public float cowerRadius = 2.0f;
     public float calmingDuration = 5.0f;
     public float distanceFromDestination = 3.0f;
 
@@ -88,16 +88,15 @@ public class PatientCharacter : AICharacter
         if (currentHealth <= 0 && currentState != PatientStates.Dead)
             ChangePatientState(PatientStates.Dead);
 
-        if (demon != null)
+        if (demon != null && (demonCharacter.currentState != DemonCharacter.DemonStates.Inactive ||
+                              demonCharacter.currentState != DemonCharacter.DemonStates.Exorcised))
         {
             // INFO: Logic for detecting how far away the demon is from the patient and what state to enter
             DistanceFromDemon = Vector3.Distance(transform.position, demon.transform.position);
 
             // INFO: So long as the demon is active and hasn't been exorcised he can scare
             // patients and cause them to go into the panic state
-            if (DistanceFromDemon < detectionRadius && currentState != PatientStates.Panic &&
-                (demonCharacter.currentState != DemonCharacter.DemonStates.Inactive ||
-                demonCharacter.currentState != DemonCharacter.DemonStates.Exorcised))
+            if (DistanceFromDemon < detectionRadius && currentState != PatientStates.Panic)
                 ChangePatientState(PatientStates.Panic);
         }
     }
