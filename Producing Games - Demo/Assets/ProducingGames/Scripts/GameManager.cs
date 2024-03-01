@@ -53,14 +53,11 @@ public class GameManager : MonoBehaviour
     {
         if (Instance != null && Instance != this) Destroy(gameObject);
         else Instance = this;
-
-        
     }
 
 
     private void Start()
     {
-
         StartGame();
     }
 
@@ -77,12 +74,13 @@ public class GameManager : MonoBehaviour
         currentSanity = startingSanity;
         currentHour = startingHour;
         StartCoroutine(StartHour());
+
         sanityEvents = GetComponent<SanityEventTracker>();
         patientCount = NPCManager.Instance.patientList.Count;
         altar = FindFirstObjectByType<ExorcismTable>().gameObject;
         captureBoxScript = captureBox.GetComponent<CapturedBox>();
         //jug = FindFirstObjectByType<PickUpJug>().gameObject;
-       CommandConsole.Instance.IncrementTime += IncrementTimeBy5;
+        CommandConsole.Instance.IncrementTime += IncrementTimeBy5;
         CommandConsole.Instance.EndHour += EndHourCommand;
     }
 

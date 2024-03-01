@@ -12,8 +12,8 @@ public class CameraLook : MonoBehaviour
     [Header("Camera Properties")]
     [Range(0, 1)] public float mouseSensitivity = 0.5f;
     private Vector2 currentInput;
-    [Range(-80, 0)] public float downClampAngle = -50;
-    [Range(0, 80)] public float upClampAngle = 50;
+    [Range(-100, 0)] public float downClampAngle = -50;
+    [Range(0, 100)] public float upClampAngle = 50;
 
     public Transform playerBody;
     private PlayerMovement playerMovement;
