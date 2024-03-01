@@ -34,7 +34,7 @@ public class AudioManager : MonoBehaviour
         if (instance == null)  // Creates a singleton
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);  // This object won't be destroyed between scenes
+            //DontDestroyOnLoad(gameObject);  // This object won't be destroyed between scenes
         }
         else
             Destroy(gameObject);
@@ -50,12 +50,12 @@ public class AudioManager : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J))  // Used for testing spacial audio, will play a sound effect at a random location
-        {
-            GameObject obj = Instantiate(sourcePrefab);
-            obj.transform.position = new Vector3(Random.Range(0, 50), Random.Range(0, 50), Random.Range(0, 50));
-            PlaySound(testSound, obj.transform);
-        }
+        //if (Input.GetKeyDown(KeyCode.J))  // Used for testing spacial audio, will play a sound effect at a random location
+        //{
+        //    GameObject obj = Instantiate(sourcePrefab);
+        //    obj.transform.position = new Vector3(Random.Range(0, 50), Random.Range(0, 50), Random.Range(0, 50));
+        //    PlaySound(testSound, obj.transform);
+        //}
     }
 
 
@@ -79,7 +79,7 @@ public class AudioManager : MonoBehaviour
     public void PlaySound(SoundEffect effect, Transform effectParent)
     {
         AudioSource source = musicSource;
-
+        effect.soundPos = effectParent;
 
         for (int i = 0; i < effectSources.Count; i++)
         {
@@ -134,6 +134,11 @@ public class AudioManager : MonoBehaviour
         {
             if (col[i].TryGetComponent(out AudioListenScript audioListener))
                 audioListener.canSoundBeHeard = true;
+            else if (col[i].TryGetComponent(out IHear character))
+            {
+                if(effect.isReactionSound)
+                    character.ReactToSound(effect);
+            }
         }
     }
 

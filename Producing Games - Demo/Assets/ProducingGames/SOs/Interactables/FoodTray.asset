@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26c76ba9bd6ee8d4491c07e1d1697379, type: 3}
+  m_Name: FoodTray
+  m_EditorClassIdentifier: 
+  objectName: Food Tray
+  obj: {fileID: 3699245084085694877, guid: 931093b14649e3d469ac34fddbe34af5, type: 3}
+  prefab: {fileID: 3699245084085694877, guid: 931093b14649e3d469ac34fddbe34af5, type: 3}
+  objectImage: {fileID: 21300000, guid: ab7a5d1d6d5c6ec43a8c8a2862dcfb64, type: 3}
+  tooltipText: Pick up food
