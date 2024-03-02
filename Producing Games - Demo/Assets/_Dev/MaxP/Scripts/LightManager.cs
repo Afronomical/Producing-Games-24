@@ -19,14 +19,14 @@ public class LightManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.M))
-        {
-            AllLightToggle(true);
-        }
-        if (Input.GetKey(KeyCode.N))
-        {
-            AllLightToggle(false);
-        }
+        //if (Input.GetKey(KeyCode.M))
+        //{
+        //    AllLightToggle(true);
+        //}
+        //if (Input.GetKey(KeyCode.N))
+        //{
+        //    AllLightToggle(false);
+        //}
     }
 
     void AllLightToggle(bool lightOn)
