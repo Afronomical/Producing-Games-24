@@ -41,11 +41,13 @@ public class CrossEvents : MonoBehaviour
             {
                 isRotating = true;
                 isTriggered = true;
+                StartCoroutine(ApplyToActiveEvents());
             }
             else if (eventType == 1)
             {
                 FallingCross();
                 isTriggered = true;
+                StartCoroutine(ApplyToActiveEvents());
             }
             else //(eventType == 2) 
             {
@@ -72,5 +74,12 @@ public class CrossEvents : MonoBehaviour
             rotTime += (Time.deltaTime * rotationSpeed);
             Cross.transform.localEulerAngles = new Vector3(0, 0, Mathf.Lerp(0, 180, rotTime));
         }
+    }
+
+    IEnumerator ApplyToActiveEvents()
+    {
+        HorrorEventManager.Instance.Events.Add(gameObject);
+        yield return new WaitForSeconds(5);
+        HorrorEventManager.Instance.Events.Remove(gameObject);
     }
 }

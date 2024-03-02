@@ -44,7 +44,8 @@ public class Floating_Items : MonoBehaviour
         if (other.CompareTag("Player") && randChance <= gM.eventChance && !eventTriggered)
         {
             StartCoroutine(ShakingItem());
-            eventTriggered = true;  
+            eventTriggered = true;
+            HorrorEventManager.Instance.Events.Add(gameObject);
         }
 
     }
@@ -93,6 +94,6 @@ public class Floating_Items : MonoBehaviour
 
         yield return new WaitForSeconds(1);
         Items[randIndex].useGravity = true;
-        
+        HorrorEventManager.Instance.Events.Remove(gameObject);
     }
 }
