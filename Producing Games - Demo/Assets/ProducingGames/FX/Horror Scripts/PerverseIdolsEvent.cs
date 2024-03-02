@@ -11,6 +11,14 @@ public class PerverseIdolEvent : MonoBehaviour
     public GameObject idolObject; // Reference to the perverse idol GameObject
 
     private bool isPlayerInside = false;
+    private GameManager gM;
+    [HideInInspector] public bool eventTriggered;
+
+
+    private void Start()
+    {
+        gM = GameManager.Instance;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -33,10 +41,12 @@ public class PerverseIdolEvent : MonoBehaviour
 
     private void Update()
     {
-        if (isPlayerInside && !IsPlayerLookingAtIdol())
+        int randChance = Random.Range(0, 101);
+        if (isPlayerInside && !IsPlayerLookingAtIdol() && randChance <= gM.eventChance && !eventTriggered)
         {
             HideIdol();
             StopMusic(); // Stop the music when the player is inside the trigger but not looking at the idol
+            eventTriggered = true;
         }
     }
 

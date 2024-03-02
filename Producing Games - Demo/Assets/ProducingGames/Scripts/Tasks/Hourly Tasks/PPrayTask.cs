@@ -20,6 +20,7 @@ public class PPrayTask : Task
 
     public override void CheckDetectTask(GameObject interactedObject)
     {
+        //Debug.Log(interactedObject + " - " + taskTarget);
         if (interactedObject == taskTarget)  // Check for the correct patient being looked at
         {
             targetInteraction.collectible = hTask.tooltipPrompt;

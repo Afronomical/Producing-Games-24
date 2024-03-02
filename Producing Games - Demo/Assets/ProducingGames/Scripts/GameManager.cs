@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Diagnostics.Tracing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -47,8 +48,20 @@ public class GameManager : MonoBehaviour
     public GameObject altar;
     public GameObject jug;
     public bool playerHasJug = false;
+
+    [Header("Dynamic Event Chances")] //Chance of dynamic event activating based on player sanity
+    [Range(0,100)] public int eventChance = 100;
+    public int saneChance;
+    public int deleriousChance;
+    public int derrangedChance;
+    public int hystericalChance;
+    public int madnessChance;
+    //public bool eventTriggered;
+    [Space]
     public GameObject captureBox;
     private CapturedBox captureBoxScript;
+    private DynamicEventBool DynamicEventBool;
+
 
     private void Awake()
     {
@@ -66,12 +79,12 @@ public class GameManager : MonoBehaviour
     private void LateUpdate()
     {
         UpdateTime();
+        DynamicEventChance();
     }
 
 
     public void StartGame()
-    {
-        
+    {        
         currentSanity = startingSanity;
         currentHour = startingHour;
         StartCoroutine(StartHour());
@@ -120,6 +133,8 @@ public class GameManager : MonoBehaviour
         PatientTaskManager.instance.SetHourlyTasks();
         PatientTaskManager.instance.SetPlayerTask();
         PatientTaskManager.instance.SetRandomTasks();
+
+        DynamicEventBool.resetDynamicEventBool();
 
         yield return new WaitForSeconds(0);
     }
@@ -246,8 +261,23 @@ public class GameManager : MonoBehaviour
         fadeAnim.Play("FadeOut");
     }
 
+    public void DynamicEventChance()
+    {
+        if (sanityLevel == SanityEventTracker.SanityLevels.Sane)
+           eventChance = saneChance;
+        else if (sanityLevel == SanityEventTracker.SanityLevels.Delirious)
+            eventChance = deleriousChance;
+        else if (sanityLevel == SanityEventTracker.SanityLevels.Derranged)
+            eventChance = derrangedChance;
+        else if (sanityLevel == SanityEventTracker.SanityLevels.Hysterical)
+            eventChance = hystericalChance;
+        else if (sanityLevel == SanityEventTracker.SanityLevels.Madness)
+            eventChance = madnessChance;
+    }
+
     public void DemonCaptureEvent()
     {
         StartCoroutine(captureBoxScript.MainEvent());
+
     }
 }

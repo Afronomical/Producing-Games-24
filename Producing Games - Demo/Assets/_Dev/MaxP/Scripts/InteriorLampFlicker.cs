@@ -7,6 +7,7 @@ public class InteriorLampFlicker : MonoBehaviour
     private Light wallLight;
     private float origIntensity;
     private bool isFlickering;
+    public bool dontPowerOff;
     [Header("Flicker settings")]
     public int randFlickerChance = 500;
     public int avgFlickerCount = 20;
@@ -25,6 +26,8 @@ public class InteriorLampFlicker : MonoBehaviour
     void Update()
     {
         WallFlicker();
+
+        
     }
 
     private void OnTriggerEnter(Collider other)
