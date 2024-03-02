@@ -126,8 +126,6 @@ public class JumpShadow : MonoBehaviour
             {
                 jumpScareOnce = false;
                 AudioManager.instance.PlaySound(jumpScareSound, playerObj.transform);
-                postProcVolRef.SetActive(true);
-                pulseProcScript.StartCoroutine(pulseProcScript.Pulsate());
                 StartCoroutine(AfterEvent());
             }
         }
@@ -136,6 +134,8 @@ public class JumpShadow : MonoBehaviour
     private IEnumerator AfterEvent() //resetting shit after jumpscare
     {
         yield return new WaitForSeconds(1f);
+        postProcVolRef.SetActive(true);
+        StartCoroutine(pulseProcScript.Pulsate());
         fovTime = 0;
         reverseFOV = true;
         yield return new WaitForSeconds(0.6f);
