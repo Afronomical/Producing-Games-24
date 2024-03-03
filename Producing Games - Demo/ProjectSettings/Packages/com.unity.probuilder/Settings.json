@@ -272,11 +272,6 @@
                 "value": "{\"m_Value\":0.5}"
             },
             {
-                "type": "System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
-                "key": "WeldVertices.weldDistance",
-                "value": "{\"m_Value\":219.36000061035157}"
-            },
-            {
                 "type": "UnityEngine.ProBuilder.ExtrudeMethod, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                 "key": "editor.extrudeMethod",
                 "value": "{\"m_Value\":2}"
