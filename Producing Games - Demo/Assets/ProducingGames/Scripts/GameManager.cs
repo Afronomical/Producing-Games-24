@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
     {        
         currentSanity = startingSanity;
         currentHour = startingHour;
-        StartCoroutine(StartHour());
+        StartHour();
 
         sanityEvents = GetComponent<SanityEventTracker>();
         patientCount = NPCManager.Instance.patientList.Count;
@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private IEnumerator StartHour()
+    private void StartHour()
     {
         player.GetComponent<PlayerInput>().enabled = true;
         FadeIn();
@@ -134,9 +134,7 @@ public class GameManager : MonoBehaviour
         PatientTaskManager.instance.SetPlayerTask();
         PatientTaskManager.instance.SetRandomTasks();
 
-        DynamicEventBool.resetDynamicEventBool();
-
-        yield return new WaitForSeconds(0);
+        //DynamicEventBool.resetDynamicEventBool();
     }
 
     public void InitializeCheats()
@@ -182,12 +180,22 @@ public class GameManager : MonoBehaviour
             FadeOut();
             yield return new WaitForSeconds(3);
             //if(EconomyManager.instance.boughtItems.Count > 0) EconomyManager.instance.SpawnItem();
-            StartCoroutine(StartHour());  // Move to the next hour
+            StartHour();  // Move to the next hour
         }
         else  // If the final hour just ended
         {
             EndGame(false);  // Lose the game
         }
+    }
+
+
+    public void OpenDoor(Transform startShiftPosition)
+    {
+        StartCoroutine(StartShift(startShiftPosition));
+    }
+    public void CloseDoor()
+    {
+        StartCoroutine(EndHour());
     }
 
 
@@ -203,8 +211,8 @@ public class GameManager : MonoBehaviour
         FadeIn();
         player.GetComponent<PlayerInput>().enabled = true;
         player.GetComponent<CharacterController>().enabled = false;
-        GameManager.Instance.player.transform.position = startShiftPosition.position;
-        GameManager.Instance.player.transform.rotation = startShiftPosition.rotation;
+        player.transform.position = startShiftPosition.position;
+        player.transform.rotation = startShiftPosition.rotation;
         player.GetComponent<CharacterController>().enabled = true;
     }
 

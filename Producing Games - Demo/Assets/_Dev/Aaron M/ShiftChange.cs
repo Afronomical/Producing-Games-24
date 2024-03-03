@@ -5,6 +5,7 @@ public class ShiftChange : InteractableTemplate
 {
     public Transform startShiftPosition;
     public bool startShift;
+    public GameObject openDoor, closedDoor, endShift;
    
     public override void Interact()
     {
@@ -12,15 +13,17 @@ public class ShiftChange : InteractableTemplate
         {
             if (startShift && GameManager.Instance.inStudy)
             {
-                StartCoroutine(GameManager.Instance.StartShift(startShiftPosition));
-                // Open the door
-                // No fade
-                // No teleport
-                // Remember to close it after shift
+                GameManager.Instance.OpenDoor(startShiftPosition);
+                openDoor.SetActive(true);
+                closedDoor.SetActive(false);
+                endShift.SetActive(true);
             }
             else if (!startShift)
             {
-                StartCoroutine(GameManager.Instance.EndHour());
+                GameManager.Instance.CloseDoor();
+                openDoor.SetActive(false);
+                closedDoor.SetActive(true);
+                endShift.SetActive(false);
             }
         }
     }
