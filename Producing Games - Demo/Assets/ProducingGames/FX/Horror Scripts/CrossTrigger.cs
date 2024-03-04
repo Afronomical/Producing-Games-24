@@ -1,10 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.Timeline;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using static UnityEditor.Searcher.Searcher.AnalyticsEvent;
 
 public class CrossTrigger : MonoBehaviour
 {

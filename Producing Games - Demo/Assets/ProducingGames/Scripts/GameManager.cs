@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour
     public int finalHour = 8;
     public Transform playerStartPosition;
     public StudyDoorInteractable studyDoor;
-    public ShiftChange newShiftStart, newShiftEnd;
 
     public int currentHour;
     public float currentTime;
@@ -134,7 +133,8 @@ public class GameManager : MonoBehaviour
         PatientTaskManager.instance.SetPlayerTask();
         PatientTaskManager.instance.SetRandomTasks();
 
-        //DynamicEventBool.resetDynamicEventBool();
+        if (DynamicEventBool)
+            DynamicEventBool.resetDynamicEventBool();
     }
 
     public void InitializeCheats()
