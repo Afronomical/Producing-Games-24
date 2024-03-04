@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 /// <summary>
 /// Written by: Matej Cincibus
@@ -55,6 +56,15 @@ public class PatientCharacter : AICharacter
     public float DistanceFromDemon { get; private set; }
     private DemonCharacter demonCharacter;
 
+    private void Awake()
+    {
+        player = FindFirstObjectByType<PlayerMovement>().gameObject;
+        rb = GetComponent<Rigidbody>();
+        agent = GetComponent<NavMeshAgent>();
+        raycastToPlayer = GetComponent<RaycastToPlayer>();
+        animator = GetComponent<Animator>();
+    }
+
     public override void Start()
     {
         base.Start();
@@ -109,21 +119,19 @@ public class PatientCharacter : AICharacter
 
     public void ChangePatientState(PatientStates newState)  // Will destroy the old state script and create a new one
     {
-
         if (currentState != newState || patientStateScript == null)
         {
-            Debug.Log("1");
             // INFO: If the previous state had the patient remain stationary, we will need to grant the patient
             // movement again for the new state that they're going to go into
             if (currentState == PatientStates.Bed || currentState == PatientStates.ReqMeds || currentState == PatientStates.Prayer)
             {
-                rb.useGravity = true;
+                if (rb) rb.useGravity = true;
                 if (agent.isOnNavMesh) agent.enabled = true;
             }
-            Debug.Log("2");
+
             if (patientStateScript != null)
                 Destroy(patientStateScript); // destroy current script attached to AI character
-            Debug.Log("3");
+
             //remove all animations
             if (animator != null)
             {
@@ -132,7 +140,6 @@ public class PatientCharacter : AICharacter
                 animator.SetBool("reqMeds", false);
                 animator.SetBool("inBed", false);
             }
-            Debug.Log("4");
 
             //set the current state of AI character to the new state
             currentState = newState;
@@ -153,7 +160,7 @@ public class PatientCharacter : AICharacter
                 PatientStates.None => null,
                 _ => null,
             };
-            Debug.Log("5");
+
             if (patientStateScript != null)
                 patientStateScript.character = this;  // Set the reference that state scripts will use
         }
