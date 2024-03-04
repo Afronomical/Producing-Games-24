@@ -124,7 +124,7 @@ public class CheckList : MonoBehaviour
         else
             newText.text += task.rTask.taskName;
         //tick.enabled = false; //Check mark for completion of task
-        //newText.color = Color.white;
+        newText.color = Color.black;
         //newText.fontStyle = FontStyles.Normal;
 
         task.checkList = newTask;
