@@ -17,4 +17,4 @@ MonoBehaviour:
   prefab: {fileID: 0}
   interactSound: {fileID: 0}
   objectImage: {fileID: 0}
-  tooltipText: 
+  tooltipText: Book
