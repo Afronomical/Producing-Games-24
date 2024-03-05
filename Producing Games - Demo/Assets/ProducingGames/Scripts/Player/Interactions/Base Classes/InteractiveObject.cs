@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "New Interactive Object", menuName = "Interactive Object")]
 public class InteractiveObject : ScriptableObject
