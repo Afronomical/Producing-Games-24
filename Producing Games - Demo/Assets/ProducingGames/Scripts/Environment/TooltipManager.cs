@@ -30,12 +30,12 @@ public class TooltipManager : MonoBehaviour
         transform.position = Input.mousePosition;
     }
 
-    public void ShowTooltip(string text, Image image)
+    public void ShowTooltip(string text, Sprite image)
     {
         gameObject.SetActive(true);
         tooltipText.text = text;
 
-        tooltipImage = image;
+        tooltipImage.overrideSprite = image;
     }
 
     public void HideTooltip()

@@ -15,5 +15,5 @@ public class InteractiveObject : ScriptableObject
 
     [Header("Tooltip")]
     public string tooltipText;
-    public Image tooltipImage;
+    public Sprite tooltipImage;
 }
