@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,7 +13,7 @@ public class ObjectiveTracker : MonoBehaviour
     public enum objectiveTypes
     {
         Main,
-        Side,
+        //Side,
         Urgent
     }
 
@@ -25,42 +26,57 @@ public class ObjectiveTracker : MonoBehaviour
 
     //Lists of objectives (different types)
     private List<Objectives> mainObjectives = new List<Objectives>();
-    private List<Objectives> sideObjectives = new List<Objectives>();
+    //private List<Objectives> sideObjectives = new List<Objectives>();
     private List<Objectives> urgentObjectives = new List<Objectives>();
 
+    //Timer for removing objectives
+    float timerInterval = 100;
+    float timer = 0;
 
     private void Start()
     {
         if(instance == null)
             instance = this;
+
+        //Testing
+        AddObjective("Main objective test!", objectiveTypes.Main);
+        AddObjective("Urgent objective test!", objectiveTypes.Urgent);
+    }
+
+    private void Update()
+    {
+        RemoveObjective(mainObj);
+        //DisplayObjectives();
+        timer++;
     }
 
     Objectives mainObj = new Objectives();
-    Objectives sideObj = new Objectives();
+    //Objectives sideObj = new Objectives();
     Objectives urgentObj = new Objectives();
 
+    //Details and type of objective needed
     public void AddObjective(string name, objectiveTypes type)
     {
         switch(type)
         {
             case objectiveTypes.Main:
-                //trackers[0].text = name;
+                trackers[0].fontStyle = FontStyles.Normal;
                 mainObj.name = name;
                 mainObj.type = type;
                 mainObjectives.Add(mainObj);
                 mainObj.ID = mainObjectives.Count;
                 break;
 
-            case objectiveTypes.Side:
-                //trackers[1].text = name;
-                sideObj.name = name;
-                sideObj.type = type;
-                sideObjectives.Add(sideObj);
-                sideObj.ID = sideObjectives.Count;
-                break; 
-            
+            //case objectiveTypes.Side:
+            //    trackers[1].fontStyle = FontStyles.Normal;
+            //    sideObj.name = name;
+            //    sideObj.type = type;
+            //    sideObjectives.Add(sideObj);
+            //    sideObj.ID = sideObjectives.Count;
+            //    break; 
+
             case objectiveTypes.Urgent:
-                //trackers[2].text = name;
+                trackers[1].fontStyle = FontStyles.Normal;
                 urgentObj.name = name;
                 urgentObj.type = type;
                 urgentObjectives.Add(urgentObj);
@@ -73,39 +89,47 @@ public class ObjectiveTracker : MonoBehaviour
         DisplayObjectives();
     }
 
-    //Displays all objectives
     private void DisplayObjectives()
     {
-        trackers[0].fontStyle = FontStyles.Normal;
         trackers[0].text = mainObj.name;
-        trackers[1].fontStyle = FontStyles.Normal;
-        trackers[1].text = sideObj.name;
-        trackers[2].fontStyle = FontStyles.Normal;
-        trackers[2].text = urgentObj.name;
+        //trackers[1].text = sideObj.name;
+        trackers[1].text = urgentObj.name;
     }
 
     //Remove a specific objective
     public void RemoveObjective(Objectives objToRemove)
     {
+
         switch(objToRemove.type)
         {
             case objectiveTypes.Main:
                 trackers[0].fontStyle = FontStyles.Strikethrough;
-                
+                trackers[0].color = Color.gray;
+                //StartCoroutine(RemoveText(mainObj.name));
+                if (timer >= timerInterval) mainObj.name = " ";
                 break;
 
-            case objectiveTypes.Side:
-                trackers[1].fontStyle = FontStyles.Strikethrough;
+            //case objectiveTypes.Side:
+            //    trackers[1].fontStyle = FontStyles.Strikethrough;
 
-                break;
+            //    break;
 
             case objectiveTypes.Urgent:
-                trackers[2].fontStyle = FontStyles.Strikethrough;
-
+                trackers[1].fontStyle = FontStyles.Strikethrough;
+                trackers[1].color = Color.gray;
+                //StartCoroutine(RemoveText(urgentObj.name));
+                if (timer >= timerInterval) urgentObj.name = " ";
                 break;
 
             default:
                 break;
         }
+        DisplayObjectives();
+    }
+
+    private IEnumerator RemoveText(string name)
+    {
+        yield return new WaitForSeconds(10);
+        name = " ";
     }
 }
