@@ -21,7 +21,7 @@ public class PagerController : MonoBehaviour
 
     public void OnPagerInput(InputAction.CallbackContext context)
     {
-        if (pagerInterface != null)
+        if (pagerInterface != null && DiegeticUIManager.Instance.hasPager)
         {
             if (context.performed)
                 arms.HoldPager();
