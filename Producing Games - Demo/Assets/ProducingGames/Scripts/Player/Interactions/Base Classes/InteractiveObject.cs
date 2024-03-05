@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 [CreateAssetMenu(fileName = "New Interactive Object", menuName = "Interactive Object")]
 public class InteractiveObject : ScriptableObject
@@ -15,5 +15,5 @@ public class InteractiveObject : ScriptableObject
 
     [Header("Tooltip")]
     public string tooltipText;
-
+    public Image tooltipImage;
 }
