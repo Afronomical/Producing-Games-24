@@ -26,7 +26,7 @@ public class SatelliteBoxExtention : Editor
                 SatelliteWire wire = w.GetComponent<SatelliteWire>();
                 wire.pointList.Clear();
                 wire.pointList.Add(wire.pointA.position);  // Get the start and end points that the line should use
-                wire.pointList.Add(wire.pointD.position);
+                wire.pointList.Add(wire.wireEnd.transform.position);
                 wire.lineRenderer.positionCount = wire.pointList.Count;
                 wire.lineRenderer.SetPositions(wire.pointList.ToArray());  // Move the line to those points
             }

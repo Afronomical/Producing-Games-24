@@ -8,7 +8,6 @@ public class SatelliteWire : MonoBehaviour
     public bool followingMouse;
     public bool connected;
     public SatelliteBox.Colours colour;
-    public GameObject line;
     public GameObject wireEnd;
 
     public Transform pointA;
