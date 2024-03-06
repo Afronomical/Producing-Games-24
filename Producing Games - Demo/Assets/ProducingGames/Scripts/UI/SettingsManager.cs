@@ -291,7 +291,7 @@ public class SettingsManager : MonoBehaviour
         resolutionDropdown.AddOptions(resolutions);
     }
 
-    private void OnResolutionChanged(int index)
+    public void OnResolutionChanged(int index)
     {
         string selectedResolution = resolutionDropdown.options[index].text;
         SetResolution(selectedResolution);

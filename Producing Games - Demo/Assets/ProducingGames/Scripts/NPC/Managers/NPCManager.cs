@@ -27,7 +27,8 @@ public class NPCManager : MonoBehaviour
 
     [Header("Miscellaneous:")]
     [SerializeField] private List<DemonItemsSO> demonTypes = new();
-    [HideInInspector] public readonly List<GameObject> patientList = new();
+    //[HideInInspector] public readonly List<GameObject> patientList = new
+    public List<GameObject> patientList = new();
     [HideInInspector] public readonly List<GameObject> patientBeds = new();
 
     // INFO: The key represents the location that the NPC should move to
@@ -45,6 +46,11 @@ public class NPCManager : MonoBehaviour
     public int GetPrayerLocationsCount() => prayingLocations.Count;
     public Transform GetDemonInstantionLocation() => demonInstantiationLocation;
 
+
+    public SoundEffect heartAttackSound;
+
+
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -53,9 +59,17 @@ public class NPCManager : MonoBehaviour
             Instance = this;
 
         // INFO: Get all patients in the scene and store them in the patients list
-        PatientCharacter[] aICharacters = FindObjectsByType<PatientCharacter>(FindObjectsSortMode.None);
-        foreach (PatientCharacter character in aICharacters)
-            patientList.Add(character.gameObject);
+        //PatientCharacter[] aICharacters = FindObjectsByType<PatientCharacter>(FindObjectsSortMode.None);
+        //foreach (PatientCharacter character in aICharacters)
+        //{
+        //    character.gameObject.SetActive(true);
+        //    patientList.Add(character.gameObject);
+        //}
+
+        foreach (GameObject character in patientList)
+        {
+            character.SetActive(true);
+        }
 
         // INFO: Get all beds in the scene and store them in the beds list
         GameObject[] beds = GameObject.FindGameObjectsWithTag("Bed");

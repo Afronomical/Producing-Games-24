@@ -12,6 +12,7 @@ public class DemonBook : MonoBehaviour
 
     public float turnPageDelay;
     private float turnPageTimer;
+    public SoundEffect pageSound;
 
     void Start()
     {
@@ -41,10 +42,12 @@ public class DemonBook : MonoBehaviour
             if (context.ReadValue<Vector2>().y < 0 && pageIndex < pageArray.Length - 1)
             {
                 ++pageIndex;
+                AudioManager.instance.PlaySound(pageSound, null);
             }
             else if (context.ReadValue<Vector2>().y > 0 && pageIndex > 0)
             {
                 --pageIndex;
+                AudioManager.instance.PlaySound(pageSound, null);
             }
 
             pageArray[pageIndex].SetActive(true);

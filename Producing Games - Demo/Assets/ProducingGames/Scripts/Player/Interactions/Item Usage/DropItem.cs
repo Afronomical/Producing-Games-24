@@ -82,16 +82,26 @@ public class DropItem : MonoBehaviour
             InventoryHotbar.instance.currentItem = null;
         if (InventoryHotbar.instance.currentItem != null)
         {
+            
+            
             GameObject go = null;
             //creates the item from holding position
             go = GameObject.Instantiate(InventoryHotbar.instance.currentItem.prefab, throwOrigin.position, Quaternion.identity);
             //throwing force added to object
             Vector3 throwForceToAdd = throwOrigin.forward * throwForceHoriz + throwOrigin.up * throwForceVert;
 
+            //code for destroying the holy water as a consumable
+            if (go.CompareTag("HolyWater"))
+            {
+                go.transform.GetComponent<BreakOnImpact>().isThrown = true;
+            }
+
             go.GetComponent<Rigidbody>().AddForce(throwForceToAdd, ForceMode.Impulse);
             //removing the item from inventory
             InventoryHotbar.instance.RemoveFromInventory(InventoryHotbar.instance.currentItem);
+            
         }
+        
     }
 
     private void PerformDrop()

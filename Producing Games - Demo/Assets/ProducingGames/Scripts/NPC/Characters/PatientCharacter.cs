@@ -1,6 +1,5 @@
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 /// <summary>
 /// Written by: Matej Cincibus
@@ -60,6 +59,12 @@ public class PatientCharacter : AICharacter
 
     [Space(10)]
 
+    [Header("Tasks")]
+    [HideInInspector] public bool hungry = false;
+    [HideInInspector] public bool hasBeenHiding = false;
+    [HideInInspector] public bool hasBeenHungry = false;
+    [HideInInspector] public bool hasBeenGreedy = false;
+
     [Header("Components")]
     public PatientStateBaseClass patientStateScript;
     public GameObject bed;
@@ -69,6 +74,15 @@ public class PatientCharacter : AICharacter
 
     private GameObject demonGO;
     private DemonCharacter demonCharacter;
+
+    private void Awake()
+    {
+        player = FindFirstObjectByType<PlayerMovement>().gameObject;
+        rb = GetComponent<Rigidbody>();
+        agent = GetComponent<NavMeshAgent>();
+        raycastToPlayer = GetComponent<RaycastToPlayer>();
+        animator = GetComponent<Animator>();
+    }
 
     public override void Start()
     {
@@ -137,8 +151,8 @@ public class PatientCharacter : AICharacter
             // movement again for the new state that they're going to go into
             if (currentState == PatientStates.Bed || currentState == PatientStates.ReqMeds || currentState == PatientStates.Prayer)
             {
-                rb.useGravity = true;
-                agent.enabled = true;
+                if (rb) rb.useGravity = true;
+                if (agent.isOnNavMesh) agent.enabled = true;
             }
 
             // INFO: If the patient has a path set from a previous state, this will get rid of it
@@ -153,7 +167,6 @@ public class PatientCharacter : AICharacter
             animator.SetBool("isPraying", false);
             animator.SetBool("reqMeds", false);
             animator.SetBool("inBed", false);
-
 
             // INFO: Set the current state of the patient to the new state
             currentState = newState;

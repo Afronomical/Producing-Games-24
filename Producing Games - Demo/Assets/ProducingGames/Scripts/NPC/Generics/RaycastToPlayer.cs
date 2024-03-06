@@ -21,7 +21,7 @@ public class RaycastToPlayer : MonoBehaviour
 
     private void Update()
     {
-        playerDistance = Vector3.Distance(character.transform.position, character.player.transform.position);
+        playerDistance = Vector3.Distance(character.transform.position, GameManager.Instance.player.transform.position);
     }
 
     /// <summary>

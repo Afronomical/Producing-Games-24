@@ -30,8 +30,8 @@ public class EconomyManager : MonoBehaviour
         if (instance == null)
             instance = this;
 
-        money.text = "£ " + budget;
-
+        if (money != null)
+            money.text = "£ " + budget;
     }
 
     public void DisplayBudget()

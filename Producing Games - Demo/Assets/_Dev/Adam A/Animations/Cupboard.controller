@@ -31,7 +31,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: CupboardOpen
+    m_ConditionEvent: DoorState
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2478552648636473832}
@@ -56,7 +56,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: CupboardOpen
+    m_ConditionEvent: DoorState
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1718135901042234746}
@@ -136,7 +136,7 @@ AnimatorController:
   m_Name: Cupboard
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: CupboardOpen
+  - m_Name: DoorState
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0

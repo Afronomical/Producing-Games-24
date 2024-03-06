@@ -69,6 +69,8 @@ public class PanicState : PatientStateBaseClass
             // STOP COWERING ANIMATION + STOP CRYING SOUNDS -> PLAY WALKING ANIMATION
         }
 
+        character.animator.SetBool("isTerrified", isCowering);
+
         // INFO: Given that the patient reaches their hiding location and the demon is no longer near them
         // they will then wait for a while before going into another state as they are no longer panicked
         if (Vector3.Distance(character.transform.position, safetyLocation) < character.distanceFromDestination && !isCowering)

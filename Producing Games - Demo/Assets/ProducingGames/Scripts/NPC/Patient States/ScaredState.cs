@@ -30,8 +30,11 @@ public class ScaredState : PatientStateBaseClass
         {
             AudioManager.instance.PlaySound(character.scaredNPC,character.transform);
         }
-        
-        
+
+        //set the animation
+        character.animator.SetBool("isScared", true);
+
+
         if (character.agent.hasPath)
             character.agent.ResetPath();
         character.agent.speed = character.runSpeed;

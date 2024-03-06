@@ -1,5 +1,5 @@
+using Steamworks;
 using UnityEngine;
-
 /// <summary>
 /// Written By: Matt Brake
 /// <para>Moderated By: Matej Cincibus </para>
@@ -8,6 +8,8 @@ using UnityEngine;
 
 public class ExorcisedState : DemonStateBaseClass
 {
+    
+
     private void Start()
     {
         // maybe scream sound effect of some kind
@@ -15,6 +17,11 @@ public class ExorcisedState : DemonStateBaseClass
         //bool to change animation to death
         GetComponent<Animator>().SetBool("isExorcised", true);
         GetComponent<Animator>().SetBool("isChasing", false);
+
+        //SteamUserStats.SetAchievement("ACH_WIN_100_GAMES");
+
+        
+
 
         //invoke the destruction of the character
         Invoke(nameof(Exorcise), 4);
@@ -28,4 +35,6 @@ public class ExorcisedState : DemonStateBaseClass
     {
         gameObject.SetActive(false); //de-activates the Demon 
     }
+
+    
 }

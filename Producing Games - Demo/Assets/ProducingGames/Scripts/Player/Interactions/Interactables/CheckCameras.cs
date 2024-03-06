@@ -22,13 +22,22 @@ public class CheckCameras : InspectableObject
     private Material currentMaterial;
     private int index = 0;
 
-    
-    /*protected override void Start()
+    Vector2 defaultScreenSize;
+    Dictionary<Material, bool> zoomedScreens = new Dictionary<Material, bool>();
+
+    protected override void Start()
     {
         mainCam = Camera.main;
         if(cameraScreens != null )
             currentMaterial = cameraScreens[index];
-    }*/
+
+        defaultScreenSize = cameraScreens[0].mainTextureScale;
+
+        foreach (var m in cameraScreens)
+        {
+            zoomedScreens.Add(m, false);
+        }
+    }
 
     protected override void Update()
     {
@@ -36,35 +45,59 @@ public class CheckCameras : InspectableObject
         currentMaterial = cameraScreens[index];
         monitor.GetComponent<MeshRenderer>().material = currentMaterial;
 
-        /*//exit the screen and re-enable interactions
-        if (Input.GetKeyDown(KeyCode.C) && looking)
+        //exit the screen and re-enable interactions
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            looking = false;
-            playerCanMove = true;
-            stopLooking = true;
 
-            this.gameObject.GetComponent<BoxCollider>().enabled = true;
-
-
-        }*/
-        /*else*/ if(Input.GetKeyDown(KeyCode.RightArrow) && looking)
-        {
-            if(index == cameraScreens.Length - 1)
+            foreach (var m in cameraScreens)
             {
+                m.mainTextureScale = defaultScreenSize;
+            }
+        }
+        /*else*/
+
+        currentMaterial = cameraScreens[index];
+        monitor.GetComponent<MeshRenderer>().material = currentMaterial;
+
+        //this code will check if the current screen is already zoomed in and will either allow or not allow zooming in/out based on position
+        bool isZoomedIn = false;
+        zoomedScreens.TryGetValue(cameraScreens[index], out isZoomedIn);
+
+        if (Input.GetKeyDown(KeyCode.X)&& isZoomedIn)
+        {
+            zoomedScreens.Remove(cameraScreens[index]);
+            zoomedScreens.Add(cameraScreens[index], false);
+            cameraScreens[index].mainTextureScale = cameraScreens[index].mainTextureScale * new Vector2(2, 2);
+        }
+        else if (Input.GetKeyDown(KeyCode.Z) && !isZoomedIn)
+        {
+            zoomedScreens.Remove(cameraScreens[index]);
+            zoomedScreens.Add(cameraScreens[index], true);
+            cameraScreens[index].mainTextureScale = cameraScreens[index].mainTextureScale / new Vector2(2, 2)/* - cameraScreens[index].mainTextureScale / 2*/;
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            Debug.Log("2");
+            if (index == cameraScreens.Length - 1)
+            {
+                Debug.Log("3wa");
                 index = 0;
                 return;
             }
             index++;
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow) && looking)
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if(index == 0)
+            if (index == 0)
             {
-                index = cameraScreens.Length - 1; 
+                index = cameraScreens.Length - 1;
                 return;
             }
             index--;
         }
+
         /*//move camera to screen position
         if (looking)
         {
@@ -87,14 +120,14 @@ public class CheckCameras : InspectableObject
             }
         }*/
 
-/*
-        //we would need the state manager at this point to be able to freeze player movement and interaction
-        if (!playerCanMove)
-        {
-            GameObject.Find("Player").GetComponent<PlayerMovement>().enabled = false;
-            this.gameObject.GetComponent<BoxCollider>().enabled = false;
-            //GetComponent<CameraLook>().enabled = false;
-        }*/
+        /*
+                //we would need the state manager at this point to be able to freeze player movement and interaction
+                if (!playerCanMove)
+                {
+                    GameObject.Find("Player").GetComponent<PlayerMovement>().enabled = false;
+                    this.gameObject.GetComponent<BoxCollider>().enabled = false;
+                    //GetComponent<CameraLook>().enabled = false;
+                }*/
 
     }
 
