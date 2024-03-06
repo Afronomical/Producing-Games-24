@@ -122,6 +122,8 @@ public class PatientCharacter : AICharacter
             animator.SetBool("isPraying", false);
             animator.SetBool("reqMeds", false);
             animator.SetBool("inBed", false);
+            animator.SetBool("isTerrified", false);
+            animator.SetBool("isScared", false);
 
 
             //set the current state of AI character to the new state
