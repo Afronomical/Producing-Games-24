@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public GameObject player;
+    public bool tutorial;
     public Animation fadeAnim;
 
     [Header("Hour System")]
@@ -129,9 +130,18 @@ public class GameManager : MonoBehaviour
         inStudy = true;
         shiftEndActive = false;
 
-        PatientTaskManager.instance.SetHourlyTasks();
-        PatientTaskManager.instance.SetPlayerTask();
-        PatientTaskManager.instance.SetRandomTasks();
+        if (tutorial && TutorialTaskManager.instance != null)
+        {
+            TutorialTaskManager.instance.SetHourlyTasks();
+            TutorialTaskManager.instance.SetPlayerTask();
+            TutorialTaskManager.instance.SetRandomTasks();
+        }
+        else
+        {
+            PatientTaskManager.instance.SetHourlyTasks();
+            PatientTaskManager.instance.SetPlayerTask();
+            PatientTaskManager.instance.SetRandomTasks();
+        }
 
         if (DynamicEventBool)
             DynamicEventBool.resetDynamicEventBool();

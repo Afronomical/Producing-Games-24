@@ -9,8 +9,8 @@ public class PatientTaskManager : MonoBehaviour
 {
     public enum HourlyTasks
     {
-        Medicine, Injection, Cardiogram, Food, Board, Comfort,  // Hourly
-        NoTask, Pray, Clean, CheckFuse, CheckWater, Satellite
+        NoTask, Medicine, Injection, Cardiogram, Food, Board, Comfort,  // Hourly
+        Pray, Clean, CheckFuse, CheckWater, Satellite
     };  // Player
     public enum RandomTasks { NoTask, Wandering, HeartAttack, Hiding, Cardiogram, Prayer, Hungry, Medication };
     public enum TaskLocation { Bed, Bedside, Board, Altar };
