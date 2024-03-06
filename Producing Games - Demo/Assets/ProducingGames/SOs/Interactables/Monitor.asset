@@ -15,5 +15,7 @@ MonoBehaviour:
   objectName: Monitor
   obj: {fileID: 6711631659589343124, guid: 3c2fda9e0289753419cd422d441ac0cb, type: 3}
   prefab: {fileID: 6711631659589343124, guid: 3c2fda9e0289753419cd422d441ac0cb, type: 3}
+  interactSound: {fileID: 0}
   objectImage: {fileID: 0}
   tooltipText: Check cameras
+  tooltipImage: {fileID: 21300000, guid: 5f3341524a651f74089f3c9a503c826d, type: 3}

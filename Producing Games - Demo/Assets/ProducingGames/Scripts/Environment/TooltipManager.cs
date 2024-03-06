@@ -35,13 +35,13 @@ public class TooltipManager : MonoBehaviour
         gameObject.SetActive(true);
         tooltipText.text = text;
 
-        tooltipImage.overrideSprite = image;
+        tooltipImage.sprite = image;
     }
 
     public void HideTooltip()
     {
         gameObject.SetActive(false);
         tooltipText.text = string.Empty;
-        tooltipImage = null;
+        tooltipImage.sprite = null;
     }
 }
