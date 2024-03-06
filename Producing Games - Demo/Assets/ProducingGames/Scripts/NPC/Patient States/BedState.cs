@@ -10,12 +10,12 @@ public class BedState : PatientStateBaseClass
 {
     private void Start()
     {
+        // INFO: Prevents the patient from moving
         character.agent.enabled = false;
         character.rb.velocity = Vector3.zero;
         character.rb.useGravity = false;
 
-        Transform pos = character.bed.transform.Find("PatientPosition");
-        transform.SetPositionAndRotation(pos.position, pos.rotation);
+        transform.SetPositionAndRotation(character.BedDestination.position, character.BedDestination.rotation);
 
         character.animator.SetBool("inBed", true);
     }
