@@ -134,8 +134,8 @@ public class PatientCharacter : AICharacter
             DistanceFromDemon = (transform.position - demonGO.transform.position).sqrMagnitude;
 
             // INFO: So long as the demon is active and hasn't been exorcised he can scare
-            // patients and cause them to go into the panic state
-            if (DistanceFromDemon < detectionRadius && currentState != PatientStates.Panic)
+            // alive patients and cause them to go into the panic state 
+            if (DistanceFromDemon < detectionRadius && currentState != PatientStates.Panic && currentState != PatientStates.Dead)
                 ChangePatientState(PatientStates.Panic);
         }
     }

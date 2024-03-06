@@ -2,6 +2,7 @@
 /// Written By: Matej Cincibus
 /// Moderated By: ...
 /// 
+/// Handles the logic of the possessed patient
 /// </summary>
 
 public class PossessedState : PatientStateBaseClass
@@ -11,12 +12,11 @@ public class PossessedState : PatientStateBaseClass
         // INFO: Extra security check
         if (character.isPossessed)
         {
-            GameManager.Instance.demon.GetComponent<DemonCharacter>().ChangeDemonState(DemonCharacter.DemonStates.Patrol);
-            GameManager.Instance.demon.transform.position = character.bed.transform.position;
+            DemonCharacter demonCharacter = GameManager.Instance.demon.GetComponent<DemonCharacter>();
+            
+            // INFO: Makes the demon start patrolling and spawns it at the possessed patients bed
+            demonCharacter.ChangeDemonState(DemonCharacter.DemonStates.Patrol);
+            demonCharacter.agent.Warp(character.bed.transform.position);
         }
     }
-
-    /*public override void UpdateLogic()
-    {
-    }*/
 }

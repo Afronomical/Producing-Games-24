@@ -5,7 +5,7 @@ using UnityEngine;
 /// Moderated By: ...
 /// 
 /// Script in-charge of finding a hiding location and having the patient
-/// walk and hide at that location
+/// hide at that location by teleporting them at the start of the hour
 /// </summary>
 
 public class HidingState : PatientStateBaseClass
@@ -16,16 +16,11 @@ public class HidingState : PatientStateBaseClass
     {
         ChooseLocation();
 
-        if (character.agent.hasPath)
-            character.agent.ResetPath();
-
         character.agent.transform.position = hidingLocation;
         character.agent.Warp(hidingLocation);
-    }
 
-    /*public override void UpdateLogic()
-    {
-    }*/
+        // PLAY HIDING ANIMATION HERE
+    }
 
     /// <summary>
     /// Chooses a hiding location from an available list of hiding locations held in the NPC manager
@@ -35,7 +30,7 @@ public class HidingState : PatientStateBaseClass
         // INFO: If there are no hiding locations in the list then end
         if (NPCManager.Instance.GetHidingLocationsCount() == 0)
         {
-            Debug.LogWarning("There are no hiding locations setup in the hiding location list.");
+            Debug.LogError("There are no hiding locations setup in the hiding location list.");
             return;
         }
 

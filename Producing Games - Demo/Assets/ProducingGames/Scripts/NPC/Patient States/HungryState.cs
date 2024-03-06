@@ -8,6 +8,44 @@ using UnityEngine;
 
 public class HungryState : PatientStateBaseClass
 {
+    private Vector3 hungryLocation;
+
+    private void Start()
+    {
+        ChooseKitchenDestination();
+
+        character.agent.transform.position = hungryLocation;
+        character.agent.Warp(hungryLocation);
+
+        character.animator.SetBool("isHungry", true);
+    }
+
+    /// <summary>
+    /// Chooses a kitchen location from an available list of kitchen locations held in the NPC manager
+    /// </summary>
+    public void ChooseKitchenDestination()
+    {
+        // INFO: If there are no kitchen locations in the list then end
+        if (NPCManager.Instance.GetKitchenLocationsCount() == 0)
+        {
+            Debug.LogError("There are no kitchen locations setup in the hiding location list.");
+            return;
+        }
+
+        // INFO: Chooses a location to be hungry at
+        hungryLocation = NPCManager.Instance.RandomKitchenPosition();
+    }
+
+    /// <summary>
+    /// When the script is destroyed (changes state) it will free up the kitchen
+    /// spot location ready for when the next hungry task is set for a patient
+    /// </summary>
+    private void OnDestroy()
+    {
+        NPCManager.Instance.SetHidingLocationFree(hungryLocation);
+    }
+
+    /*
     private Vector3 destinationPos;
     private readonly float distanceFromFood;
 
@@ -69,4 +107,5 @@ public class HungryState : PatientStateBaseClass
 
         destinationPos = NPCManager.Instance.RandomKitchenPosition();
     }
+    */
 }

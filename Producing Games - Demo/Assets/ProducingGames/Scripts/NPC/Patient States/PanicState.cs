@@ -25,9 +25,6 @@ public class PanicState : PatientStateBaseClass
 
     private void Start()
     {
-        if (character.agent.hasPath)
-            character.agent.ResetPath();
-
         character.agent.speed = character.runSpeed;
 
         currentChoice = GetRandomEnum<Choices>();
@@ -46,12 +43,12 @@ public class PanicState : PatientStateBaseClass
                 Debug.LogWarning("Unable to choose a suitable safety location to go to!");
                 break;
         }
+
+        character.agent.SetDestination(safetyLocation);
     }
 
     public override void UpdateLogic()
     {
-        character.agent.SetDestination(safetyLocation);
-
         // INFO: Goes into cower state which is where the patient stops
         // moving and goes into a fetal position
         if (character.DistanceFromDemon < character.cowerRadius && !isCowering)
@@ -73,7 +70,7 @@ public class PanicState : PatientStateBaseClass
 
         // INFO: Given that the patient reaches their hiding location and the demon is no longer near them
         // they will then wait for a while before going into another state as they are no longer panicked
-        if (Vector3.Distance(character.transform.position, safetyLocation) < character.distanceFromDestination && !isCowering)
+        if (character.agent.remainingDistance < 0.1f && !isCowering)
         {
             calmingTime += Time.deltaTime;
 
