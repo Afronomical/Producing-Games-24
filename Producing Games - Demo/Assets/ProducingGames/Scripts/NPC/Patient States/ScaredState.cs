@@ -58,8 +58,7 @@ public class ScaredState : PatientStateBaseClass
 
         character.agent.SetDestination(safetyLocation); 
         currentEventDistance = Vector3.Distance(character.transform.position, closestEvent.position);
-
-        
+        LocateNearestEvent();
     }
 
     private T GetRandomEnum<T>()
@@ -67,5 +66,24 @@ public class ScaredState : PatientStateBaseClass
         System.Array enumArray = System.Enum.GetValues(typeof(T));
         T randomEnumMember = (T)enumArray.GetValue(Random.Range(0, enumArray.Length));
         return randomEnumMember;
+    }
+
+    private void LocateNearestEvent()
+    {
+        if(HorrorEventManager.Instance != null)
+        {
+            if(HorrorEventManager.Instance.Events .Count > 0)
+            {
+                foreach(var item in HorrorEventManager.Instance.Events)
+                {
+                    if(Vector3.Distance(item.transform.position, character.transform.position) < character.detectionRadius)
+                    {
+                        closestEvent = item.transform;
+                        ///have npc react here 
+                    }
+                }
+                    
+            }
+        }
     }
 }
