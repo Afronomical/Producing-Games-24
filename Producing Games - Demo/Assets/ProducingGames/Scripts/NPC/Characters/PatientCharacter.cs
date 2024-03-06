@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 /// <summary>
 /// Written by: Matej Cincibus
