@@ -34,6 +34,7 @@ public class Floating_Items : MonoBehaviour
     void Start()
     {
         gM = GameManager.Instance;
+        eventTriggered = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -41,7 +42,7 @@ public class Floating_Items : MonoBehaviour
 
         int randChance = Random.Range(0, 101);
 
-        if (other.CompareTag("Player") && randChance <= gM.eventChance && !eventTriggered)
+        if (other.CompareTag("Player") /*&& randChance <= gM.eventChance && !eventTriggered*/)
         {
             StartCoroutine(ShakingItem());
             eventTriggered = true;

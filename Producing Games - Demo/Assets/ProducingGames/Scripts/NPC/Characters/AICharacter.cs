@@ -31,8 +31,7 @@ public class AICharacter : MonoBehaviour
     public Animator animator;
 
 
-    [Header("Sound Effects")]
-    public SoundEffect scaredNPC; 
+   
 
     [Header("Debugging Tools")]
     public Color detectionRadiusColor = Color.white;

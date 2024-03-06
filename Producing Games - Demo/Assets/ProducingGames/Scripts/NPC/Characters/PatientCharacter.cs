@@ -27,7 +27,8 @@ public class PatientCharacter : AICharacter
         Hiding,
         Hungry,
         ReqMeds,
-        Panic
+        Panic,
+        Scared
     }
 
     [Header("Patient Settings:")]
@@ -70,12 +71,15 @@ public class PatientCharacter : AICharacter
     [Header("Components")]
     public PatientStateBaseClass patientStateScript;
     public GameObject bed;
+    public SoundEffect scaredNPC; 
 
     public float DistanceFromDemon { get; private set; }
     public Transform BedDestination { get; private set; }
 
     private GameObject demonGO;
     private DemonCharacter demonCharacter;
+
+   
 
     private void Awake()
     {
@@ -97,11 +101,11 @@ public class PatientCharacter : AICharacter
 
         BedDestination = bed.transform.Find("PatientPosition");
 
-        if (isPossessed)                                
+        if (isPossessed)
         {
             // INFO: Instantiates the demon and saves it to the game manager so it can be used elsewhere
             GameObject GO = Instantiate(NPCManager.Instance.ChosenDemon.demonPrefab,
-                                        NPCManager.Instance.GetDemonInstantionLocation().transform.position, 
+                                        NPCManager.Instance.GetDemonInstantionLocation().transform.position,
                                         Quaternion.identity);
 
             GameManager.Instance.demon = GO;
@@ -139,6 +143,7 @@ public class PatientCharacter : AICharacter
             if (DistanceFromDemon < detectionRadius && currentState != PatientStates.Panic && currentState != PatientStates.Dead)
                 ChangePatientState(PatientStates.Panic);
         }
+        LocateNearestEvent();
     }
 
     /// <summary>
@@ -169,9 +174,6 @@ public class PatientCharacter : AICharacter
             animator.SetBool("isPraying", false);
             animator.SetBool("reqMeds", false);
             animator.SetBool("inBed", false);
-            animator.SetBool("isRunning", false);
-            animator.SetBool("isTerrified", false);
-            animator.SetBool("isScared", false);
 
             // INFO: Set the current state of the patient to the new state
             currentState = newState;
@@ -189,6 +191,7 @@ public class PatientCharacter : AICharacter
                 PatientStates.Hungry => transform.AddComponent<HungryState>(),
                 PatientStates.ReqMeds => transform.AddComponent<RequestMedicationState>(),
                 PatientStates.Panic => transform.AddComponent<PanicState>(),
+                PatientStates.Scared => transform.AddComponent<ScaredState>(),
                 PatientStates.None => null,
                 _ => null,
             };
@@ -197,5 +200,28 @@ public class PatientCharacter : AICharacter
             if (patientStateScript != null)
                 patientStateScript.character = this;
         }
+    }
+
+    private void LocateNearestEvent()
+    {
+        if (HorrorEventManager.Instance == null)
+            return;
+
+        if (HorrorEventManager.Instance.Events.Count > 0)
+        {
+            foreach (var item in HorrorEventManager.Instance.Events)
+            {
+                if ((item.transform.position - transform.position).sqrMagnitude < detectionRadius && currentState != PatientStates.Panic && currentState != PatientStates.Scared )
+                {
+                    ChangePatientState(GameManager.Instance.currentHour < 7 ? PatientStates.Scared : PatientStates.Panic);
+                    
+                }
+
+                
+
+            }
+           
+        }
+
     }
 }

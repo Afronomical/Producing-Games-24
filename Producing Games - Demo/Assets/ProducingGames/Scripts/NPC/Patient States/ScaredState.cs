@@ -14,7 +14,8 @@ public class ScaredState : PatientStateBaseClass
     //need reference to current horror events happening 
     private float currentEventDistance;
     private Vector3 safetyLocation;
-    private Transform closestEvent;
+    private bool detectedBed = false;
+
 
     public enum Choices
     {
@@ -56,10 +57,41 @@ public class ScaredState : PatientStateBaseClass
     public override void UpdateLogic()
     {
 
-        character.agent.SetDestination(safetyLocation); 
-        currentEventDistance = Vector3.Distance(character.transform.position, closestEvent.position);
-        LocateNearestEvent();
+        character.agent.SetDestination(safetyLocation);
+        if (CheckBedInRange())
+        {
+            // INFO: Prevents unnecessary set destination calls
+            if (!detectedBed)
+            {
+                detectedBed = true;
+                character.agent.SetDestination(character.BedDestination.position);
+            }
+
+           
+            transform.LookAt(new Vector3(character.BedDestination.position.x, transform.position.y, character.BedDestination.position.z));
+
+            // INFO: Switches to bed state once patient gets close enough to the bed
+            if (character.agent.remainingDistance < 0.1f)
+                character.ChangePatientState(PatientCharacter.PatientStates.Bed);
+        }
+
     }
+    /// <summary>
+    /// Function that handles the detection of the bed belonging to a specific patient
+    /// </summary>
+    /// <returns></returns>
+    bool CheckBedInRange()
+    {
+        Collider[] colliders = Physics.OverlapSphere(character.transform.position, character.detectionRadius);
+
+        foreach (Collider collider in colliders)
+        {
+            if (collider.gameObject == character.bed)
+                return true;
+        }
+        return false;
+    }
+
 
     private T GetRandomEnum<T>()
     {
@@ -68,22 +100,5 @@ public class ScaredState : PatientStateBaseClass
         return randomEnumMember;
     }
 
-    private void LocateNearestEvent()
-    {
-        if(HorrorEventManager.Instance != null)
-        {
-            if(HorrorEventManager.Instance.Events .Count > 0)
-            {
-                foreach(var item in HorrorEventManager.Instance.Events)
-                {
-                    if(Vector3.Distance(item.transform.position, character.transform.position) < character.detectionRadius)
-                    {
-                        closestEvent = item.transform;
-                        ///have npc react here 
-                    }
-                }
-                    
-            }
-        }
-    }
+   
 }
