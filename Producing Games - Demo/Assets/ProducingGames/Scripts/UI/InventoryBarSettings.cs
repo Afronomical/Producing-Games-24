@@ -22,7 +22,7 @@ public class InventoryBarSettings : MonoBehaviour
         }
 
       
-        settingsManager.inventoryPanelCanvasGroup.alpha = 0.5f;
+        settingsManager.inventoryPanelCanvasGroup.alpha = 0.0f;
 
         InventoryHotbar.instance.OnItemPickedUp += StartSizeEffect;
         InventoryHotbar.instance.OnItemSelected += StartSizeEffect;
@@ -53,7 +53,7 @@ public class InventoryBarSettings : MonoBehaviour
         while (elapsedTimeForInvEffect < 1f)
         {
             settingsManager.inventoryPanel.localScale = Vector3.Lerp(settingsManager.originalInventorySize, targetInventorySize, elapsedTimeForInvEffect);
-            settingsManager.inventoryPanelCanvasGroup.alpha = Mathf.Lerp(0.5f, 1f, elapsedTimeForInvEffect); //Increase alpha
+            settingsManager.inventoryPanelCanvasGroup.alpha = Mathf.Lerp(0.0f, 1f, elapsedTimeForInvEffect); //Increase alpha
             elapsedTimeForInvEffect += Time.deltaTime * settingsManager.increaseEffectSpeed;
             yield return null;
         }
@@ -63,7 +63,7 @@ public class InventoryBarSettings : MonoBehaviour
         float timer = 0f;
         while (timer < settingsManager.effectWaitDuration)
         {
-            if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.mouseScrollDelta.y != 0)
             {
                 timer = 0f;
             }
@@ -76,13 +76,13 @@ public class InventoryBarSettings : MonoBehaviour
         while (elapsedTimeForInvEffect < 1f)
         {
             settingsManager.inventoryPanel.localScale = Vector3.Lerp(targetInventorySize, settingsManager.originalInventorySize, elapsedTimeForInvEffect);
-            settingsManager.inventoryPanelCanvasGroup.alpha = Mathf.Lerp(1f, 0.5f, elapsedTimeForInvEffect); //Decrease alpha
+            settingsManager.inventoryPanelCanvasGroup.alpha = Mathf.Lerp(1f, 0.0f, elapsedTimeForInvEffect); //Decrease alpha
             elapsedTimeForInvEffect += Time.deltaTime * settingsManager.decreaseEffectSpeed;
             yield return null;
         }
 
         settingsManager.inventoryPanel.localScale = settingsManager.originalInventorySize;
-        settingsManager.inventoryPanelCanvasGroup.alpha = 0.5f; 
+        settingsManager.inventoryPanelCanvasGroup.alpha = 0.0f; 
 
         settingsManager.isInventoryIncreasing = false;
     }

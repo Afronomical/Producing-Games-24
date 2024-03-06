@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.LowLevel;
+using UnityEngine.Rendering;
 
 /// <summary>
 /// spawns a shadow man at a point randomly selected out of the array.
@@ -26,13 +27,16 @@ public class DistantShadowEvent : MonoBehaviour
     private bool shouldMove;
     private bool startMove;
     private float moveTime;
-
+    private Camera playerCam;
+    private float origFOV;
+    [Range(-30f, 30f)] public float fovLeniency = 0;
 
 
     void Start()
     {
         playerObj = GameManager.Instance.player;
-        
+        playerCam = Camera.main;
+        origFOV = playerCam.fieldOfView;
     }
 
     
@@ -42,17 +46,20 @@ public class DistantShadowEvent : MonoBehaviour
         {
             
             float distance = Vector3.Distance(shadowManObj.transform.position, playerObj.transform.position);
-            if (distance < moveAwayDistance) //moves shadow man if player is within specified distance
+            Vector3 camRelY = shadowManObj.transform.position;
+            camRelY.y = playerCam.transform.position.y;
+            Vector3 camRelLoc = (camRelY - playerCam.transform.position).normalized;
+            if (Vector3.Angle(playerCam.transform.forward, camRelLoc) < (origFOV + fovLeniency)) //moves shadow man if player is within specified distance
             {
                 startMove = true;
             }
             if (startMove)
             {
-                Vector3 move = (shadowManObj.transform.position - playerObj.transform.position).normalized * moveAwaySpeed * Time.deltaTime;
-                move.y = 0;
-                shadowManObj.transform.position += move;
+                Vector3 move = Vector3.Lerp(shadowManObj.transform.position, playerObj.transform.position, Time.deltaTime * moveAwaySpeed);
+                move.y = shadowManObj.transform.position.y;
+                shadowManObj.transform.position = move;
                 moveTime += Time.deltaTime;
-                if (moveTime > 5) //end the event, reset everything suuuuuurely
+                if (distance < 3) //end the event, reset everything suuuuuurely
                 {
                     shadowManObj.SetActive(false);
                     startMove = false;
@@ -67,7 +74,7 @@ public class DistantShadowEvent : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if ((Random.Range(1, eventChance) == 1) && canPlay)
+            if (canPlay) //(Random.Range(1, 100) <= GameManager.Instance.eventChance) && 
             {
                 ShadowSpawnEvent();
                 canPlay = false;

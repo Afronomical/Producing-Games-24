@@ -9,6 +9,7 @@ public class Flashlight : MonoBehaviour
 {
     public GameObject flashlight;
     public Light light;
+    public SoundEffect toggleSound;
 
     public float[] intensities;
     
@@ -30,12 +31,12 @@ public class Flashlight : MonoBehaviour
     private float oldIntensity;
 
 
-    private void Awake()
+    private void Start()
     {
         CommandConsole.Instance.ToggleFlashlight += UnlimitedBatteryToggle;
+        maxBatteryCharge = batteryCharge; //This will be used to make sure when you pickup a battery, your flashlight isn't Max Charge
     }
-    private void Start() => maxBatteryCharge = batteryCharge; //This will be used to make sure when you pickup a battery, your flashlight isn't Max Charge
-    
+
     void Update()
     {
         //Debug.Log(light.intensity);
@@ -72,6 +73,7 @@ public class Flashlight : MonoBehaviour
         {
             flashlight.SetActive(true);
             light.intensity = intensities[intensityIndex];
+            AudioManager.instance.PlaySound(toggleSound, null);
         }
 
         oldIntensity = light.intensity;

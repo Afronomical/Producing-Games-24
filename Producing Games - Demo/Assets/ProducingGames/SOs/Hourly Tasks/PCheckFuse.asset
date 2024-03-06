@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: PCheckFuse
   m_EditorClassIdentifier: 
   taskType: 9
-  chanceToHappen: 10
+  chanceToHappen: 1
   BlockingTasks: []
-  taskName: Check Fuse
+  taskName: Change Fuse
   taskDescription: Check the fuse box
   location: 0
   itemToGive: {fileID: 0}

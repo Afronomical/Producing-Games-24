@@ -15,7 +15,10 @@ public class RHidingTask : Task
         taskTarget.transform.position = NPCManager.Instance.RandomHidingLocation();
 
         if (taskTarget && taskTarget.TryGetComponent(out PatientCharacter character))
+        {
             character.ChangePatientState(PatientCharacter.PatientStates.Hiding);
+            character.hasBeenHiding = true;
+        }
 
         initialized = true;
         base.TaskStart();

@@ -3,25 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Steamworks;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class ConsumeItem : MonoBehaviour
 {
+    protected Callback<UserAchievementStored_t> m_UserAchievementStored;
+
+
     public void OnConsumeItem(InputAction.CallbackContext context)
     {
-        /*if (context.performed)
+        if (context.performed)
         {
             //steam achievement for consuming first pill
             if (SteamManager.Initialized)
             {
-                SteamUserStats.GetAchievement("ACH_WIN_ONE_GAME", out bool completed);
+                SteamUserStats.GetAchievement("NEW_ACHIEVEMENT_0_4", out bool completed);
 
                 if (!completed)
                 {
-                    SteamUserStats.SetAchievement("ACH_WIN_ONE_GAME");
+                    m_UserAchievementStored = Callback<UserAchievementStored_t>.Create(OnAchievementStored);
+                    
+                    SteamUserStats.SetAchievement("NEW_ACHIEVEMENT_0_4");
                     SteamUserStats.StoreStats();
                 }
-            }*/
-        
+            }
+
             if (PlayerInteractor.instance.consumable != null)
             {
 
@@ -32,4 +38,10 @@ public class ConsumeItem : MonoBehaviour
 
         }
     }
-//}
+
+
+    void OnAchievementStored(UserAchievementStored_t pCallback)
+    {
+
+    }
+}

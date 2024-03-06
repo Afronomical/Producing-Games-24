@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 /// <summary>
 /// Written by: Matej Cincibus
@@ -40,6 +41,12 @@ public class PatientCharacter : AICharacter
     public float calmingDuration = 5.0f;
     public float distanceFromDestination = 3.0f;
 
+    [Header("Tasks")]
+    [HideInInspector] public bool hungry = false;
+    [HideInInspector] public bool hasBeenHiding = false;
+    [HideInInspector] public bool hasBeenHungry = false;
+    [HideInInspector] public bool hasBeenGreedy = false;
+
     [Header("Components")]
     public PatientStateBaseClass patientStateScript;
     public DemonItemsSO demonSO;
@@ -48,6 +55,15 @@ public class PatientCharacter : AICharacter
 
     public float DistanceFromDemon { get; private set; }
     private DemonCharacter demonCharacter;
+
+    private void Awake()
+    {
+        player = FindFirstObjectByType<PlayerMovement>().gameObject;
+        rb = GetComponent<Rigidbody>();
+        agent = GetComponent<NavMeshAgent>();
+        raycastToPlayer = GetComponent<RaycastToPlayer>();
+        animator = GetComponent<Animator>();
+    }
 
     public override void Start()
     {
@@ -103,26 +119,27 @@ public class PatientCharacter : AICharacter
 
     public void ChangePatientState(PatientStates newState)  // Will destroy the old state script and create a new one
     {
-
         if (currentState != newState || patientStateScript == null)
         {
             // INFO: If the previous state had the patient remain stationary, we will need to grant the patient
             // movement again for the new state that they're going to go into
             if (currentState == PatientStates.Bed || currentState == PatientStates.ReqMeds || currentState == PatientStates.Prayer)
             {
-                rb.useGravity = true;
-                agent.enabled = true;
+                if (rb) rb.useGravity = true;
+                if (agent.isOnNavMesh) agent.enabled = true;
             }
 
             if (patientStateScript != null)
                 Destroy(patientStateScript); // destroy current script attached to AI character
 
             //remove all animations
-            animator.SetBool("isHungry", false);
-            animator.SetBool("isPraying", false);
-            animator.SetBool("reqMeds", false);
-            animator.SetBool("inBed", false);
-
+            if (animator != null)
+            {
+                animator.SetBool("isHungry", false);
+                animator.SetBool("isPraying", false);
+                animator.SetBool("reqMeds", false);
+                animator.SetBool("inBed", false);
+            }
 
             //set the current state of AI character to the new state
             currentState = newState;

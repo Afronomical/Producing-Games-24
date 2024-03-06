@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class HRM : MonoBehaviour
 {
-    public HRM instance;
+    public static HRM instance;
     public TMP_Text hRateText;
     private int bPM;
-    public AnimationCurve heartRate;
+    //public AnimationCurve heartRate;
 
     // Start is called before the first frame update
     void Start()
@@ -19,13 +19,13 @@ public class HRM : MonoBehaviour
         //heartRate = GetComponent<AnimationCurve>();
 
         //Initialise HR Graph
-        heartRate.AddKey(0, 0);
-        heartRate.AddKey(0.1f, 0);
-        heartRate.AddKey(0.2f, 0.5f);
-        heartRate.AddKey(0.4f, -0.5f);
-        heartRate.AddKey(0.6f, 0.5f);
-        heartRate.AddKey(0.8f, 0);
-        heartRate.AddKey(1, 0);
+        //heartRate.AddKey(0, 0);
+        //heartRate.AddKey(0.1f, 0);
+        //heartRate.AddKey(0.2f, 0.5f);
+        //heartRate.AddKey(0.4f, -0.5f);
+        //heartRate.AddKey(0.6f, 0.5f);
+        //heartRate.AddKey(0.8f, 0);
+        //heartRate.AddKey(1, 0);
 
         //Display HR Graph
 
@@ -46,13 +46,24 @@ public class HRM : MonoBehaviour
     //Function for heart attack task
     public void FlatLine()
     {
-        heartRate.ClearKeys();
+        //heartRate.ClearKeys();
 
-        //Set up
-        heartRate.AddKey(0, 0);
-        heartRate.AddKey(1, 0);
+        ////Set up
+        //heartRate.AddKey(0, 0);
+        //heartRate.AddKey(1, 0);
 
         //Draw
 
+    }
+
+    public void TurnOn()
+    {
+        gameObject.GetComponent<ParticleSystem>().Play();
+    }
+
+    public void TurnOff()
+    {
+        gameObject.GetComponent<ParticleSystem>().Stop();
+        gameObject.GetComponent<ParticleSystem>().Clear();
     }
 }

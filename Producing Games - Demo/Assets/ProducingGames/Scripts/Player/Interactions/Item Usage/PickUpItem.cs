@@ -52,8 +52,9 @@ public class PickUpItem : MonoBehaviour
 
                             if (PlayerInteractor.instance.currentObject != null)
                             {
-                                Debug.Log("Interact");
-                                StartCoroutine(arms.GrabObject());
+                                //Debug.Log("Interact");
+
+                                StartCoroutine(arms.GrabObject(interactableTemplate.collectible));
                             }
                         }
                     }

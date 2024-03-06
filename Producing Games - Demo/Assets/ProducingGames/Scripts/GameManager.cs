@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Diagnostics.Tracing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -46,21 +47,30 @@ public class GameManager : MonoBehaviour
     public GameObject altar;
     public GameObject jug;
     public bool playerHasJug = false;
+
+    [Header("Dynamic Event Chances")] //Chance of dynamic event activating based on player sanity
+    [Range(0,100)] public int eventChance = 100;
+    public int saneChance;
+    public int deleriousChance;
+    public int derrangedChance;
+    public int hystericalChance;
+    public int madnessChance;
+    //public bool eventTriggered;
+    [Space]
     public GameObject captureBox;
     private CapturedBox captureBoxScript;
+    private DynamicEventBool DynamicEventBool;
+
 
     private void Awake()
     {
         if (Instance != null && Instance != this) Destroy(gameObject);
         else Instance = this;
-
-        
     }
 
 
     private void Start()
     {
-
         StartGame();
     }
 
@@ -68,21 +78,22 @@ public class GameManager : MonoBehaviour
     private void LateUpdate()
     {
         UpdateTime();
+        DynamicEventChance();
     }
 
 
     public void StartGame()
-    {
-        
+    {        
         currentSanity = startingSanity;
         currentHour = startingHour;
-        StartCoroutine(StartHour());
+        StartHour();
+
         sanityEvents = GetComponent<SanityEventTracker>();
         patientCount = NPCManager.Instance.patientList.Count;
         altar = FindFirstObjectByType<ExorcismTable>().gameObject;
         captureBoxScript = captureBox.GetComponent<CapturedBox>();
         //jug = FindFirstObjectByType<PickUpJug>().gameObject;
-       CommandConsole.Instance.IncrementTime += IncrementTimeBy5;
+        CommandConsole.Instance.IncrementTime += IncrementTimeBy5;
         CommandConsole.Instance.EndHour += EndHourCommand;
     }
 
@@ -97,7 +108,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private IEnumerator StartHour()
+    private void StartHour()
     {
         player.GetComponent<PlayerInput>().enabled = true;
         FadeIn();
@@ -122,7 +133,8 @@ public class GameManager : MonoBehaviour
         PatientTaskManager.instance.SetPlayerTask();
         PatientTaskManager.instance.SetRandomTasks();
 
-        yield return new WaitForSeconds(0);
+        if (DynamicEventBool)
+            DynamicEventBool.resetDynamicEventBool();
     }
 
     public void InitializeCheats()
@@ -168,12 +180,22 @@ public class GameManager : MonoBehaviour
             FadeOut();
             yield return new WaitForSeconds(3);
             //if(EconomyManager.instance.boughtItems.Count > 0) EconomyManager.instance.SpawnItem();
-            StartCoroutine(StartHour());  // Move to the next hour
+            StartHour();  // Move to the next hour
         }
         else  // If the final hour just ended
         {
             EndGame(false);  // Lose the game
         }
+    }
+
+
+    public void OpenDoor(Transform startShiftPosition)
+    {
+        StartCoroutine(StartShift(startShiftPosition));
+    }
+    public void CloseDoor()
+    {
+        StartCoroutine(EndHour());
     }
 
 
@@ -189,8 +211,8 @@ public class GameManager : MonoBehaviour
         FadeIn();
         player.GetComponent<PlayerInput>().enabled = true;
         player.GetComponent<CharacterController>().enabled = false;
-        GameManager.Instance.player.transform.position = startShiftPosition.position;
-        GameManager.Instance.player.transform.rotation = startShiftPosition.rotation;
+        player.transform.position = startShiftPosition.position;
+        player.transform.rotation = startShiftPosition.rotation;
         player.GetComponent<CharacterController>().enabled = true;
     }
 
@@ -247,8 +269,23 @@ public class GameManager : MonoBehaviour
         fadeAnim.Play("FadeOut");
     }
 
+    public void DynamicEventChance()
+    {
+        if (sanityLevel == SanityEventTracker.SanityLevels.Sane)
+           eventChance = saneChance;
+        else if (sanityLevel == SanityEventTracker.SanityLevels.Delirious)
+            eventChance = deleriousChance;
+        else if (sanityLevel == SanityEventTracker.SanityLevels.Derranged)
+            eventChance = derrangedChance;
+        else if (sanityLevel == SanityEventTracker.SanityLevels.Hysterical)
+            eventChance = hystericalChance;
+        else if (sanityLevel == SanityEventTracker.SanityLevels.Madness)
+            eventChance = madnessChance;
+    }
+
     public void DemonCaptureEvent()
     {
         StartCoroutine(captureBoxScript.MainEvent());
+
     }
 }

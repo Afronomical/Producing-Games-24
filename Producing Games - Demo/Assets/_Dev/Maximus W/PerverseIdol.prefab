@@ -120,7 +120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7216f8fa4f582fb4d934af10f850b815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  perverseIdolsObject: {fileID: 0}
-  duration: 20
-  idolMusic: {fileID: 0}
-  musicVolume: 0.5
+  musicTracks: []
+  maxDistance: 30
+  minInterval: 60
+  musicSource: {fileID: 0}
+  idolObject: {fileID: 0}
+  eventTriggered: 0

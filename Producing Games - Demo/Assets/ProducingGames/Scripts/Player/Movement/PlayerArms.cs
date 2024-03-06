@@ -108,6 +108,10 @@ public class PlayerArms : MonoBehaviour
 
     private void SetHeldObjects()  // Change the items visible in your hands
     {
+        if (flashlight.activeSelf && playerBody.GetComponent<Flashlight>().intensityIndex != 0) 
+            AudioManager.instance.PlaySound(playerBody.GetComponent<Flashlight>().toggleSound, null);
+
+
         switch(leftArmState)
         {
             case leftArmStates.Clipboard:
@@ -142,11 +146,15 @@ public class PlayerArms : MonoBehaviour
                 heldItem.SetActive(false);
                 break;
         }
+
+
+        if (flashlight.activeSelf && playerBody.GetComponent<Flashlight>().intensityIndex != 0)
+            AudioManager.instance.PlaySound(playerBody.GetComponent<Flashlight>().toggleSound, null);
     }
 
 
 
-    public IEnumerator GrabObject()
+    public IEnumerator GrabObject(InteractiveObject obj)
     {
         rightAnimator.SetTrigger("Grab");  // Play the animation
         heldItem.SetActive(false);  // Hide the item in your hand
@@ -155,6 +163,8 @@ public class PlayerArms : MonoBehaviour
         yield return new WaitForSeconds(grabItemTime);  // Wait until the hand reaches the object
 
         heldItem.SetActive(true);  // Show the item in your hand
+        if (obj.interactSound != null)
+            AudioManager.instance.PlaySound(obj.interactSound, null);
         PlayerInteractor.instance.currentObject.Interact();  // Pick up the object in front of you
         pickUpItem.canPickUp = true;
     }
