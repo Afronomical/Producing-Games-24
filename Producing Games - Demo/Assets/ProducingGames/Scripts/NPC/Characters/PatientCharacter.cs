@@ -1,6 +1,5 @@
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
 
 /// <summary>
 /// Written by: Matej Cincibus
@@ -10,7 +9,6 @@ using UnityEngine.AI;
 /// </summary>
 
 [RequireComponent(typeof(PatientInteractor))]
-
 public class PatientCharacter : AICharacter
 {
     public enum PatientStates
@@ -30,16 +28,36 @@ public class PatientCharacter : AICharacter
         Panic
     }
 
-    [Header("Patient Settings")]
+    [Header("Patient Settings:")]
     public PatientStates currentState;
+    public bool isPossessed = false;
+
+    [Space(10)]
+
     public int startingHealth = 100;
     public int currentHealth;
+
+    [Space(10)]
+
     public float startingSanity = 100;
     public float currentSanity;
-    public bool isPossessed = false;
+
+    [Space(10)]
+
     [Min(0)] public float cowerRadius = 2.0f;
-    public float calmingDuration = 5.0f;
-    public float distanceFromDestination = 3.0f;
+    [Min(0)] public float distanceFromDestination = 3.0f;
+    [Tooltip("The distance at which the patient stops from the player when being escorted")]
+    [Min(0)] public float distanceFromPlayer = 3.0f;
+
+    [Space(10)]
+
+    [Header("Timer Durations:")]
+    [Min(0)] public float calmingDuration = 5.0f;
+    [Min(0)] public float abandonedDuration = 5.0f;
+    [Tooltip("The length of time the patient remains in the escorted state after having lost visibility of the player")]
+    [Min(0)] public float aloneEscortedDuration = 5.0f;
+
+    [Space(10)]
 
     [Header("Tasks")]
     [HideInInspector] public bool hungry = false;
@@ -49,11 +67,12 @@ public class PatientCharacter : AICharacter
 
     [Header("Components")]
     public PatientStateBaseClass patientStateScript;
-    public DemonItemsSO demonSO;
-    public GameObject demon;
     public GameObject bed;
 
     public float DistanceFromDemon { get; private set; }
+    public Transform BedDestination { get; private set; }
+
+    private GameObject demonGO;
     private DemonCharacter demonCharacter;
 
     private void Awake()
@@ -74,41 +93,44 @@ public class PatientCharacter : AICharacter
         currentHealth = startingHealth;
         currentSanity = startingSanity;
 
+        BedDestination = bed.transform.Find("PatientPosition");
+
         if (isPossessed)                                
         {
-            // INFO: Retrieves the scriptable object of the chosen demon                       
-            demonSO = NPCManager.Instance.ChosenDemon;
-            InitialiseDemonStats();
+            // INFO: Instantiates the demon and saves it to the game manager so it can be used elsewhere
+            GameObject GO = Instantiate(NPCManager.Instance.ChosenDemon.demonPrefab,
+                                        NPCManager.Instance.GetDemonInstantionLocation().transform.position, 
+                                        Quaternion.identity);
 
-            // INFO: Instantiates the demon and saves it on the game manager so it can be used elsewhere
-            GameObject GO = Instantiate(demonSO.demonPrefab, NPCManager.Instance.GetDemonInstantionLocation().transform.position, Quaternion.identity);
             GameManager.Instance.demon = GO;
         }
 
-        ChangePatientState(PatientStates.Abandoned); //INFO: Starting State
+        //INFO: Starting State
+        ChangePatientState(PatientStates.Abandoned);
     }
 
     private void Update()
     {
-        // INFO: Assign a reference to the demon for each patient
-        if (GameManager.Instance.demon != null && demon == null)
-        {
-            demon = GameManager.Instance.demon;
-            demonCharacter = demon.GetComponent<DemonCharacter>();
-        }
-
+        // INFO:  Calls the virtual function for whatever state scripts
         if (patientStateScript != null)
-            patientStateScript.UpdateLogic();  // Calls the virtual function for whatever state scripts
+            patientStateScript.UpdateLogic();
+
+        // INFO: Assign a reference to the demon for each patient
+        if (GameManager.Instance.demon != null && demonGO == null)
+        {
+            demonGO = GameManager.Instance.demon;
+            demonCharacter = demonGO.GetComponent<DemonCharacter>();
+        }
 
         // INFO: Monitors health to check whether patient has died
         if (currentHealth <= 0 && currentState != PatientStates.Dead)
             ChangePatientState(PatientStates.Dead);
 
-        if (demon != null && (demonCharacter.currentState != DemonCharacter.DemonStates.Inactive ||
-                              demonCharacter.currentState != DemonCharacter.DemonStates.Exorcised))
+        if (demonGO != null && (demonCharacter.currentState != DemonCharacter.DemonStates.Inactive &&
+                                demonCharacter.currentState != DemonCharacter.DemonStates.Exorcised))
         {
             // INFO: Logic for detecting how far away the demon is from the patient and what state to enter
-            DistanceFromDemon = Vector3.Distance(transform.position, demon.transform.position);
+            DistanceFromDemon = (transform.position - demonGO.transform.position).sqrMagnitude;
 
             // INFO: So long as the demon is active and hasn't been exorcised he can scare
             // patients and cause them to go into the panic state
@@ -117,7 +139,11 @@ public class PatientCharacter : AICharacter
         }
     }
 
-    public void ChangePatientState(PatientStates newState)  // Will destroy the old state script and create a new one
+    /// <summary>
+    /// Will destroy the old state script and create a new one
+    /// </summary>
+    /// <param name="newState"></param>
+    public void ChangePatientState(PatientStates newState)
     {
         if (currentState != newState || patientStateScript == null)
         {
@@ -129,19 +155,20 @@ public class PatientCharacter : AICharacter
                 if (agent.isOnNavMesh) agent.enabled = true;
             }
 
+            // INFO: If the patient has a path set from a previous state, this will get rid of it
+            if (agent.hasPath)
+                agent.ResetPath();
+
             if (patientStateScript != null)
                 Destroy(patientStateScript); // destroy current script attached to AI character
 
-            //remove all animations
-            if (animator != null)
-            {
-                animator.SetBool("isHungry", false);
-                animator.SetBool("isPraying", false);
-                animator.SetBool("reqMeds", false);
-                animator.SetBool("inBed", false);
-            }
+            // INFO: Remove all animations
+            animator.SetBool("isHungry", false);
+            animator.SetBool("isPraying", false);
+            animator.SetBool("reqMeds", false);
+            animator.SetBool("inBed", false);
 
-            //set the current state of AI character to the new state
+            // INFO: Set the current state of the patient to the new state
             currentState = newState;
 
             patientStateScript = newState switch
@@ -161,14 +188,9 @@ public class PatientCharacter : AICharacter
                 _ => null,
             };
 
+            // INFO: Set the reference that state scripts will use
             if (patientStateScript != null)
-                patientStateScript.character = this;  // Set the reference that state scripts will use
+                patientStateScript.character = this;
         }
-    }
-
-    private void InitialiseDemonStats()
-    {
-        //Debug.Log(demonSO.demonName + " stats initialised");
-        // INFO: Initialise further demon stats here?
     }
 }

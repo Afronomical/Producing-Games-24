@@ -10,22 +10,19 @@ using UnityEngine;
 
 public class EscortedState : PatientStateBaseClass
 {
-    private Vector3 targetPos;
+    private Vector3 playerPos;
     private Vector3 lastPlayerPos;
 
     private bool shouldFollow = true;
-    private bool hasPickedUpPatient = false;
-    private readonly float stoppingDistance = 3.0f;
+    private bool beenPickedUp = false;
 
-    private float timeAlone = 0;
-    private readonly float maxTimeAlone = 5f;
+    private bool detectedBed = false;
+    private bool lostPlayer = true;
 
+    private float escortedAloneTime = 0;
 
     private void Start()
     {
-        if (character.agent.hasPath)
-            character.agent.ResetPath();
-
         character.agent.speed = character.runSpeed;
     }
 
@@ -33,50 +30,76 @@ public class EscortedState : PatientStateBaseClass
     {
         character.animator.SetFloat("movement", character.agent.velocity.magnitude);
 
-        targetPos = character.player.transform.position;
-        
-        if (character.raycastToPlayer.PlayerDetected()) //player is detected. following player function is called. 
+        playerPos = character.player.transform.position;
+
+        // INFO: Player is detected and following player function is called
+        if (character.raycastToPlayer.PlayerDetected())
         {
-            if (timeAlone != 0)
-                timeAlone = 0.0f;
+            if (escortedAloneTime != 0)
+                escortedAloneTime = 0.0f;
 
-            hasPickedUpPatient = true;
-
+            beenPickedUp = true;
+            lostPlayer = false;
             lastPlayerPos = character.player.transform.position;
 
             MoveTowardsPlayer();
         }
-        else if (hasPickedUpPatient && !character.raycastToPlayer.PlayerDetected()) //if patient previously picked up but currently not detecting player 
+        // INFO: If patient previously picked up but currently not detecting player 
+        else if (beenPickedUp && !character.raycastToPlayer.PlayerDetected())
         {
-            character.agent.SetDestination(lastPlayerPos); //Patient moves to player last known position to check whether they are still in range 
+            // INFO: Patient goes to the last known player location
+            // Prevents running set destination call multiple times
+            if (!lostPlayer)
+            {
+                lostPlayer = true;
+                character.agent.SetDestination(lastPlayerPos);
+            }
 
             // INFO: Given that the patient has arrived at their destination, start a countdown for the abandoned transition
-            if (Vector3.Distance(transform.position, lastPlayerPos) < stoppingDistance)
+            if ((transform.position - lastPlayerPos).sqrMagnitude < character.distanceFromPlayer)
             {
-                timeAlone += Time.deltaTime;
+                escortedAloneTime += Time.deltaTime;
                 character.animator.SetBool("isAbandoned", true);
 
-                if (timeAlone >= maxTimeAlone) //gives player 3 seconds to recollect patient before they enter wandering state again 
+                // INFO: Gives player n seconds to re-collect patient before they enter abandoned state
+                if (escortedAloneTime > character.aloneEscortedDuration) 
                 {
-                    timeAlone = 0.0f;
-                    character.ChangePatientState(PatientCharacter.PatientStates.Abandoned); //changes state to abandoned
+                    escortedAloneTime = 0.0f;
+                    character.ChangePatientState(PatientCharacter.PatientStates.Abandoned);
                 }
             }
         }
 
-        if (hasPickedUpPatient)
+        if (beenPickedUp)
         {
-            if (CheckBedInRange()) //checking whether bed is in range 
+            // INFO: Checks whether bed is in range and goes to it if it is
+            if (CheckBedInRange())
             {
+                // INFO: Prevents unnecessary set destination calls
+                if (!detectedBed)
+                {
+                    detectedBed = true;
+                    character.agent.SetDestination(character.BedDestination.position);
+                }
+
                 shouldFollow = false;
-                character.ChangePatientState(PatientCharacter.PatientStates.Bed);
+                transform.LookAt(new Vector3(character.BedDestination.position.x, transform.position.y, character.BedDestination.position.z));
+
+                // INFO: Switches to bed state once patient gets close enough to the bed
+                if (character.agent.remainingDistance < 0.1f)
+                    character.ChangePatientState(PatientCharacter.PatientStates.Bed);
             }
         }
     }
 
-    bool CheckBedInRange() /*only perform if player has picked NPC up */ //function to check whether bed in range 
+    /// <summary>
+    /// Function that handles the detection of the bed belonging to a specific patient
+    /// </summary>
+    /// <returns></returns>
+    bool CheckBedInRange()
     {
         Collider[] colliders = Physics.OverlapSphere(character.transform.position, character.detectionRadius);
+
         foreach (Collider collider in colliders)
         {
             if (collider.gameObject == character.bed)
@@ -92,20 +115,22 @@ public class EscortedState : PatientStateBaseClass
     void MoveTowardsPlayer()
     {
         // INFO: Ensures the patient only rotates on the y-axis
-        Vector3 playerPosition = new(character.player.transform.position.x, transform.position.y, character.player.transform.position.z);
+        Vector3 playerPosition = new(character.player.transform.position.x, 
+                                     transform.position.y, 
+                                     character.player.transform.position.z);
+
         transform.LookAt(playerPosition);
 
         if (shouldFollow)
-            character.agent.SetDestination(targetPos); // sets target position to player last pos 
+            character.agent.SetDestination(playerPos);
 
-        if (character.raycastToPlayer.playerDistance < stoppingDistance)  //stops patient moving any closer than 3 units 
+        // INFO: Stops patient from moving closer to the player
+        if (character.raycastToPlayer.playerDistance < character.distanceFromPlayer)
         {
             shouldFollow = false;
 
             character.rb.velocity = Vector3.zero;
             character.agent.ResetPath();
-
-            //character.animator.SetBool("isMoving", false);
         }
         else
             shouldFollow = true;
