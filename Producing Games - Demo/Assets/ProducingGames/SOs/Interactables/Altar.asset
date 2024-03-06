@@ -15,5 +15,7 @@ MonoBehaviour:
   objectName: Altar
   obj: {fileID: 5295095957175499233, guid: 7677589460d37f2479784fa06e02ad45, type: 3}
   prefab: {fileID: 5295095957175499233, guid: 7677589460d37f2479784fa06e02ad45, type: 3}
+  interactSound: {fileID: 0}
   objectImage: {fileID: 0}
   tooltipText: 
+  tooltipImage: {fileID: 21300000, guid: 7d6bd34a12f5d504f83c99126b4f4a2d, type: 3}
