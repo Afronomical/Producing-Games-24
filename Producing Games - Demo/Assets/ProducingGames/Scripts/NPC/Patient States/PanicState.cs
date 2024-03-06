@@ -64,6 +64,7 @@ public class PanicState : PatientStateBaseClass
             character.agent.isStopped = false;
 
             // STOP COWERING ANIMATION + STOP CRYING SOUNDS -> PLAY WALKING ANIMATION
+            character.animator.SetBool("isRunning", true);
         }
 
         character.animator.SetBool("isTerrified", isCowering);

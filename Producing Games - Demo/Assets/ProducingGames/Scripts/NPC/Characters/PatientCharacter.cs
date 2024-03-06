@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.TextCore.Text;
 
 /// <summary>
 /// Written by: Matej Cincibus
@@ -168,6 +169,9 @@ public class PatientCharacter : AICharacter
             animator.SetBool("isPraying", false);
             animator.SetBool("reqMeds", false);
             animator.SetBool("inBed", false);
+            animator.SetBool("isRunning", false);
+            animator.SetBool("isTerrified", false);
+            animator.SetBool("isScared", false);
 
             // INFO: Set the current state of the patient to the new state
             currentState = newState;
