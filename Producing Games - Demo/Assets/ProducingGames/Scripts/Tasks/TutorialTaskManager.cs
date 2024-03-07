@@ -77,6 +77,10 @@ public class TutorialTaskManager : MonoBehaviour
                             newTask = transform.AddComponent<HComfortTask>();
                             newTask.hTask = PatientTaskManager.instance.hourlyTasks[3];
                             break;
+                        case PatientTaskManager.HourlyTasks.Cardiogram:
+                            newTask = transform.AddComponent<HCardiogramTask>();
+                            newTask.hTask = PatientTaskManager.instance.hourlyTasks[4];
+                            break;
                     }
 
 
@@ -157,6 +161,10 @@ public class TutorialTaskManager : MonoBehaviour
                         case PatientTaskManager.RandomTasks.Medication:
                             newTask = transform.AddComponent<RMedicationTask>();
                             newTask.rTask = PatientTaskManager.instance.randomTasks[6];
+                            break;
+                        case PatientTaskManager.RandomTasks.Cardiogram:
+                            newTask = transform.AddComponent<RCardiogramTask>();
+                            newTask.rTask = PatientTaskManager.instance.randomTasks[7];
                             break;
                         default:
                             break;
