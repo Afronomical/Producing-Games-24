@@ -55,6 +55,19 @@ public class SanityEventTracker : MonoBehaviour
     }
 
 
+    // Play heartbeat sound when sanity is low
+    //Major apologies if this doesn't work/gives you an aneurysm, I am but a humble Narrative Designer with no idea how to code
+    public void SanityAudio()
+    {
+        if (GameManager.Instance.sanityLevel == SanityEventTracker.SanityLevels.Madness) ;
+        AudioManager.instance.PlaySound(SoundEffect, SoundPosition);
+    }
+
+
+
+
+
+
     public void CompleteHourlyTask()
     {
         // Task complete

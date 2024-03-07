@@ -16,7 +16,7 @@ MonoBehaviour:
   volume: 0.75
   pitch: 1
   priority: 128
-  loop: 0
+  loop: 1
   isMusic: 0
   spacialAudio: 1
   followObject: 0
