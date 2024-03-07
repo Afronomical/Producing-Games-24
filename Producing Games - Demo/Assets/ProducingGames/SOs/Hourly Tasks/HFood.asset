@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdfcf11202b697448b0dcdc743394992, type: 3}
   m_Name: HFood
   m_EditorClassIdentifier: 
-  taskType: 3
+  taskType: 4
   chanceToHappen: 70
   BlockingTasks: []
   taskName: Food

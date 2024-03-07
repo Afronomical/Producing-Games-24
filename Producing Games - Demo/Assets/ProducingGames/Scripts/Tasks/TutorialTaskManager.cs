@@ -166,6 +166,7 @@ public class TutorialTaskManager : MonoBehaviour
                     if (newTask != null)
                     {
                         PatientTaskManager.instance.currentTasks.Add(newTask);
+                        newTask.taskTarget = patients[i].patient;
                         newTask.isHourlyTask = false;
                         newTask.TaskStart();
                     }

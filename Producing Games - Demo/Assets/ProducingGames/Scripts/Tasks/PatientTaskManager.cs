@@ -75,7 +75,7 @@ public class PatientTaskManager : MonoBehaviour
                     currentTasks[i].CheckTaskConditions(interactedObject);
             }
             //If it is a random task
-            else if (!currentTasks[i].isHourlyTask)
+            else if (!currentTasks[i].isHourlyTask && !currentTasks[i].taskCompleted)
                 currentTasks[i].CheckTaskConditions(interactedObject);
 
         }
