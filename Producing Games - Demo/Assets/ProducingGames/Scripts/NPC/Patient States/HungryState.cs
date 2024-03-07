@@ -2,7 +2,7 @@ using UnityEngine;
 
 /// <summary>
 /// Written By: Matt Brake
-/// <para> Moderated By: ...... </para>
+/// <para> Moderated By: Matej Cincibus </para>
 /// <para> Determines functionality for Patients when they are hungry</para>
 /// </summary>
 
@@ -28,7 +28,7 @@ public class HungryState : PatientStateBaseClass
         // INFO: If there are no kitchen locations in the list then end
         if (NPCManager.Instance.GetKitchenLocationsCount() == 0)
         {
-            Debug.LogError("There are no kitchen locations setup in the hiding location list.");
+            Debug.LogError("There are no kitchen locations setup in the kitchen location list.");
             return;
         }
 

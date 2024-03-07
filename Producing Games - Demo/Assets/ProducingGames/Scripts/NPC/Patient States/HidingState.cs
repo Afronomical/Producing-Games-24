@@ -14,7 +14,7 @@ public class HidingState : PatientStateBaseClass
 
     private void Start()
     {
-        ChooseLocation();
+        ChooseHidingLocation();
 
         character.agent.transform.position = hidingLocation;
         character.agent.Warp(hidingLocation);
@@ -25,7 +25,7 @@ public class HidingState : PatientStateBaseClass
     /// <summary>
     /// Chooses a hiding location from an available list of hiding locations held in the NPC manager
     /// </summary>
-    private void ChooseLocation()
+    private void ChooseHidingLocation()
     {
         // INFO: If there are no hiding locations in the list then end
         if (NPCManager.Instance.GetHidingLocationsCount() == 0)

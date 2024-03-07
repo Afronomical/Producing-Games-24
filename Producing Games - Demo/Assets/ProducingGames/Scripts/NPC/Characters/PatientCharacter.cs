@@ -10,6 +10,12 @@ using UnityEngine.TextCore.Text;
 /// Handles all the functionality specific to patient NPCs
 /// </summary>
 
+public enum SafetyChoices
+{
+    HidingSpot,
+    Bedroom
+}
+
 [RequireComponent(typeof(PatientInteractor))]
 public class PatientCharacter : AICharacter
 {
@@ -33,6 +39,7 @@ public class PatientCharacter : AICharacter
 
     [Header("Patient Settings:")]
     public PatientStates currentState;
+    public SafetyChoices safetyChoice;
     public bool isPossessed = false;
 
     [Space(10)]
@@ -59,6 +66,8 @@ public class PatientCharacter : AICharacter
     [Min(0)] public float abandonedDuration = 5.0f;
     [Tooltip("The length of time the patient remains in the escorted state after having lost visibility of the player")]
     [Min(0)] public float aloneEscortedDuration = 5.0f;
+    [Tooltip("The length of time the patient remains idling once they've arrived at their wandering location")]
+    [Min(0)] public float wanderingIdleDuration = 3.0f;
 
     [Space(10)]
 
@@ -79,7 +88,6 @@ public class PatientCharacter : AICharacter
     private GameObject demonGO;
     private DemonCharacter demonCharacter;
 
-   
 
     private void Awake()
     {
@@ -111,7 +119,7 @@ public class PatientCharacter : AICharacter
             GameManager.Instance.demon = GO;
         }
 
-        //INFO: Starting State
+        // INFO: Starting State
         ChangePatientState(PatientStates.Abandoned);
     }
 
@@ -132,18 +140,13 @@ public class PatientCharacter : AICharacter
         if (currentHealth <= 0 && currentState != PatientStates.Dead)
             ChangePatientState(PatientStates.Dead);
 
-        if (demonGO != null && (demonCharacter.currentState != DemonCharacter.DemonStates.Inactive &&
-                                demonCharacter.currentState != DemonCharacter.DemonStates.Exorcised))
-        {
-            // INFO: Logic for detecting how far away the demon is from the patient and what state to enter
-            DistanceFromDemon = (transform.position - demonGO.transform.position).sqrMagnitude;
+        // INFO: Causes the patient to go into panic/scared if a horror
+        // event occurs near them
+        LocateNearestHorrorEvent();
 
-            // INFO: So long as the demon is active and hasn't been exorcised he can scare
-            // alive patients and cause them to go into the panic state 
-            if (DistanceFromDemon < detectionRadius && currentState != PatientStates.Panic && currentState != PatientStates.Dead)
-                ChangePatientState(PatientStates.Panic);
-        }
-        LocateNearestEvent();
+        // INFO: Causes the patient to go into panic/scared if the demon
+        // is near them
+        LocateDemon();
     }
 
     /// <summary>
@@ -205,26 +208,98 @@ public class PatientCharacter : AICharacter
         }
     }
 
-    private void LocateNearestEvent()
+    /// <summary>
+    /// Detects horror events near the patient
+    /// </summary>
+    private void LocateNearestHorrorEvent()
     {
-        if (HorrorEventManager.Instance == null)
+        // INFO: Given that horror events aren't happening/can't happen we exit
+        if (HorrorEventManager.Instance == null || HorrorEventManager.Instance.Events.Count < 1)
             return;
 
-        if (HorrorEventManager.Instance.Events.Count > 0)
+        // INFO: Goes through all horror events currently happening
+        foreach (GameObject item in HorrorEventManager.Instance.Events)
         {
-            foreach (var item in HorrorEventManager.Instance.Events)
-            {
-                if ((item.transform.position - transform.position).sqrMagnitude < detectionRadius && currentState != PatientStates.Panic && currentState != PatientStates.Scared )
-                {
-                    ChangePatientState(GameManager.Instance.currentHour < 7 ? PatientStates.Scared : PatientStates.Panic);
-                    
-                }
+            float distanceFromHorrorEvent = (item.transform.position - transform.position).sqrMagnitude;
 
-                
+            // INFO: Given that the event is too far from the patient we continue
+            if (distanceFromHorrorEvent > detectionRadius)
+                continue;
 
-            }
-           
+            PanicOrScaredDecider();
+        }
+    }
+
+    /// <summary>
+    /// Detects how close the demon is near the patient
+    /// </summary>
+    private void LocateDemon()
+    {
+        // INFO: If there is no demon or the demon is inactive/has been exorcised
+        // we exit
+        if (demonGO == null || demonCharacter.currentState == DemonCharacter.DemonStates.Inactive
+                            || demonCharacter.currentState == DemonCharacter.DemonStates.Exorcised) 
+            return;
+
+        // INFO: Logic for detecting how far away the demon is from the patient and what state to enter
+        DistanceFromDemon = (transform.position - demonGO.transform.position).sqrMagnitude;
+
+        // INFO: Given that the demon is too far from the patient we return
+        if (DistanceFromDemon > detectionRadius)
+            return;
+
+        PanicOrScaredDecider();
+    }
+
+    /// <summary>
+    /// Decides between the panic or scared patient states
+    /// based on the in-game hour
+    /// </summary>
+    private void PanicOrScaredDecider()
+    {
+        // INFO: If the patient is already panicking/scared or they are dead
+        // we can return
+        if (currentState == PatientStates.Panic ||
+            currentState == PatientStates.Scared ||
+            currentState == PatientStates.Dead)
+            return;
+
+        ChangePatientState(GameManager.Instance.currentHour < 7 ? PatientStates.Scared : PatientStates.Panic);
+    }
+
+    /// <summary>
+    /// The patient chooses to either hide or run back to their bedroom when
+    /// they enter the panicked/scared state
+    /// </summary>
+    public Vector3 SafetyChooser()
+    {
+        switch (safetyChoice)
+        {
+            case SafetyChoices.HidingSpot:
+                return NPCManager.Instance.RandomHidingLocation();
+            case SafetyChoices.Bedroom:
+                return bed.transform.position;
+            default:
+                break;
         }
 
+        Debug.LogError("Unable to choose a safety location for the patient!");
+        return Vector3.zero;
+    }
+
+    /// <summary>
+    /// Function that handles the detection of the bed belonging to a specific patient
+    /// </summary>
+    /// <returns></returns>
+    public bool CheckBedInRange()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius);
+
+        foreach (Collider collider in colliders)
+        {
+            if (collider.gameObject == bed)
+                return true;
+        }
+        return false;
     }
 }

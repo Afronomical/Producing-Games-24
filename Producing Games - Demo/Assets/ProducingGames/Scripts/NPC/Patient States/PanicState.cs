@@ -12,13 +12,6 @@ using UnityEngine;
 
 public class PanicState : PatientStateBaseClass
 {
-    public enum Choices
-    {
-        HidingSpot,
-        Bedroom
-    }
-
-    private Choices currentChoice;
     private bool isCowering = false;
     private Vector3 safetyLocation;
     private float calmingTime;
@@ -27,22 +20,11 @@ public class PanicState : PatientStateBaseClass
     {
         character.agent.speed = character.runSpeed;
 
-        currentChoice = GetRandomEnum<Choices>();
+        character.safetyChoice = character.GetRandomEnum<SafetyChoices>();
 
-        // INFO: Randomly chooses between going to a random hiding spot or going
-        // to their bedroom to hide
-        switch (currentChoice)
-        {
-            case Choices.HidingSpot:
-                safetyLocation = NPCManager.Instance.RandomHidingLocation();
-                break;
-            case Choices.Bedroom:
-                safetyLocation = character.bed.transform.position;
-                break;
-            default:
-                Debug.LogWarning("Unable to choose a suitable safety location to go to!");
-                break;
-        }
+        // INFO: Randomly chooses a safety location based on the chosen
+        // enum member
+        safetyLocation = character.SafetyChooser();
 
         character.agent.SetDestination(safetyLocation);
     }
@@ -81,17 +63,5 @@ public class PanicState : PatientStateBaseClass
                 character.ChangePatientState(PatientCharacter.PatientStates.Wandering);
             }
         }
-    }
-
-    /// <summary>
-    /// Returns a random enum member
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
-    private T GetRandomEnum<T>()
-    {
-        System.Array enumArray = System.Enum.GetValues(typeof(T));
-        T randomEnumMember = (T)enumArray.GetValue(Random.Range(0, enumArray.Length));
-        return randomEnumMember;
     }
 }

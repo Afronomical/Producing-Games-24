@@ -67,4 +67,16 @@ public class AICharacter : MonoBehaviour
     {
         characterType = type;
     }
+
+    /// <summary>
+    /// Returns a random enum member
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public T GetRandomEnum<T>()
+    {
+        System.Array enumArray = System.Enum.GetValues(typeof(T));
+        T randomEnumMember = (T)enumArray.GetValue(Random.Range(0, enumArray.Length));
+        return randomEnumMember;
+    }
 }

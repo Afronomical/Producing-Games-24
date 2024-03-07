@@ -62,7 +62,7 @@ public class EscortedState : PatientStateBaseClass
                 character.animator.SetBool("isAbandoned", true);
 
                 // INFO: Gives player n seconds to re-collect patient before they enter abandoned state
-                if (escortedAloneTime > character.aloneEscortedDuration) 
+                if (escortedAloneTime > character.aloneEscortedDuration)
                 {
                     escortedAloneTime = 0.0f;
                     character.ChangePatientState(PatientCharacter.PatientStates.Abandoned);
@@ -73,7 +73,7 @@ public class EscortedState : PatientStateBaseClass
         if (beenPickedUp)
         {
             // INFO: Checks whether bed is in range and goes to it if it is
-            if (CheckBedInRange())
+            if (character.CheckBedInRange())
             {
                 // INFO: Prevents unnecessary set destination calls
                 if (!detectedBed)
@@ -93,30 +93,14 @@ public class EscortedState : PatientStateBaseClass
     }
 
     /// <summary>
-    /// Function that handles the detection of the bed belonging to a specific patient
-    /// </summary>
-    /// <returns></returns>
-    bool CheckBedInRange()
-    {
-        Collider[] colliders = Physics.OverlapSphere(character.transform.position, character.detectionRadius);
-
-        foreach (Collider collider in colliders)
-        {
-            if (collider.gameObject == character.bed)
-                return true;
-        }
-        return false;
-    }
-
-    /// <summary>
     /// <para>Primary Function in escorting state.</para>
     /// <para>Checks if player is within range and follows them if true.</para>
     /// </summary>
-    void MoveTowardsPlayer()
+    private void MoveTowardsPlayer()
     {
         // INFO: Ensures the patient only rotates on the y-axis
-        Vector3 playerPosition = new(character.player.transform.position.x, 
-                                     transform.position.y, 
+        Vector3 playerPosition = new(character.player.transform.position.x,
+                                     transform.position.y,
                                      character.player.transform.position.z);
 
         transform.LookAt(playerPosition);

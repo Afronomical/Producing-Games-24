@@ -11,20 +11,10 @@ public class RequestMedicationState : PatientStateBaseClass
 {
     private void Start()
     {
-        if (character.agent.hasPath)
-            character.agent.ResetPath();
-
-        character.agent.enabled = false;
-
-        Transform pos = character.bed.transform.Find("PatientPosition");
-        transform.position = pos.position;
-
         Debug.Log(gameObject.name + ": requests medication.");
+
+        transform.SetPositionAndRotation(character.BedDestination.position, character.BedDestination.rotation);
 
         character.animator.SetBool("reqMeds", true);
     }
-
-    /*public override void UpdateLogic()
-    {
-    }*/
 }
