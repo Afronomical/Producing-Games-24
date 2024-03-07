@@ -7,6 +7,8 @@ public class DoorCheck : MonoBehaviour
     private GameObject Door;
     private GameObject FakeDoor;
     private GameObject TaskManager;
+    private GameObject Altar;
+    private GameObject FakeAltar;
     public Transform demonRage;
     public int stage = 0;
 
@@ -15,6 +17,10 @@ public class DoorCheck : MonoBehaviour
         Door = transform.Find("Study Door").gameObject;
         FakeDoor = transform.Find("Fake Door").gameObject;
         Door.SetActive(false);
+        Altar = GameObject.Find("AltarObjects");
+        FakeAltar = Altar.transform.Find("FakeAltar").gameObject;
+        Altar = Altar.transform.Find("Altar").gameObject;
+        Altar.SetActive(false);
         TaskManager = GameObject.Find("TaskManager");
     }
 
@@ -79,6 +85,8 @@ public class DoorCheck : MonoBehaviour
         if(stage == 6 && GameManager.Instance.currentHour == 3)
         {
             GameManager.Instance.demon.SetActive(false);
+            Altar.SetActive(true);
+            FakeAltar.SetActive(false);
             stage++;
         }
     }
