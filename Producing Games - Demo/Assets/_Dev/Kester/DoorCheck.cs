@@ -7,6 +7,7 @@ public class DoorCheck : MonoBehaviour
     private GameObject Door;
     private GameObject FakeDoor;
     private GameObject TaskManager;
+    public Transform demonRage;
     public int stage = 0;
 
     private void Start()
@@ -27,7 +28,7 @@ public class DoorCheck : MonoBehaviour
             stage++;
         }
 
-        if(stage == 1 && GameManager.Instance.currentTime > 0.07f && GameManager.Instance.currentHour == 1)
+        if(stage == 1 && GameManager.Instance.currentTime > 0.06f)
         {
             Door.SetActive(false);
             FakeDoor.SetActive(true);
@@ -51,11 +52,27 @@ public class DoorCheck : MonoBehaviour
             }
         }
         
-        if (stage == 3)
+        if (stage == 3 && GameManager.Instance.currentTime == 0)
         {
             Door.SetActive(false);
             FakeDoor.SetActive(true);
             stage++;
         }
+
+        if (stage == 4 && GameManager.Instance.gameObject.GetComponent<EconomyManager>().boughtItems.Count > 0)
+        {
+            Door.SetActive(true);
+            FakeDoor.SetActive(false);
+            stage++;
+        }
+
+        /*
+        if(stage == 5 && GameManager.Instance.currentTime > 0.6f)
+        {
+            GameManager.Instance.demon.SetActive(true);
+            GameManager.Instance.demon.transform.position = demonRage.position;
+            stage++;
+        }
+        */
     }
 }
