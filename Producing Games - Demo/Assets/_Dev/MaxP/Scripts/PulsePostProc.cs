@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
+/// <summary>
+/// This script allows a post process volumes effect to pulsate between a set maximum and minimum within a set amount of time 
+/// </summary>
+
 public class PulsePostProc : MonoBehaviour
 {
 
-    private Volume vol;
+    //private Volume vol;
     private float elapsedTime;
     private float timePerPulse;
     private bool toMax;
@@ -31,7 +35,7 @@ public class PulsePostProc : MonoBehaviour
 
         if (goToPlayer)
         {
-            gameObject.transform.position = Camera.main.transform.position;
+            gameObject.transform.position = Camera.main.transform.position; //places the volume on the players head. Should make this as an option later
         }
     }
 
@@ -46,7 +50,7 @@ public class PulsePostProc : MonoBehaviour
         goToPlayer = true;
         timePerPulse = pulseTotLength / pulses;
         
-        for (int i = 0; i < pulses; i++)
+        for (int i = 0; i < pulses; i++) //the main pulse loop
         {
             firstWeight = GetComponent<Volume>().weight;
             toMax = !toMax;
@@ -64,7 +68,7 @@ public class PulsePostProc : MonoBehaviour
         }
         yield return new WaitForSeconds(0.3f);
         elapsedTime = 0f;
-        while (elapsedTime < timePerPulse)
+        while (elapsedTime < timePerPulse) //lerping back to 0 post process strength
         {
             GetComponent<Volume>().weight = Mathf.Lerp(firstWeight, 0, elapsedTime / timePerPulse);
             elapsedTime += Time.deltaTime;

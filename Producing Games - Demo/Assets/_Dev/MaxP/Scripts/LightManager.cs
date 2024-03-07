@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Simple script that adds all gameobjects with the "Light" tag to a list. And a function any other script can call to turn all lights on or off, with a check to make sure we actually want them to do this.
+/// </summary>
+
 public class LightManager : MonoBehaviour
 {
     public static LightManager Instance;
@@ -12,7 +16,7 @@ public class LightManager : MonoBehaviour
     {
         foreach(GameObject lightObj in GameObject.FindGameObjectsWithTag("Light"))
         {
-            lightList.Add(lightObj);
+            lightList.Add(lightObj); //is there a more optimised way of doing this?
         }
     }
 
@@ -33,12 +37,9 @@ public class LightManager : MonoBehaviour
     {
         foreach (GameObject lightObj in lightList)
         {
-            if (lightObj.GetComponent<InteriorLampFlicker>() != null)
+            if (lightObj.GetComponent<InteriorLampFlicker>() != null && lightObj.GetComponent<InteriorLampFlicker>().dontPowerOff == false) // could i do the null check in start to make it more optimised?
             {
-                if (lightObj.GetComponent<InteriorLampFlicker>().dontPowerOff == false)
-                {
-                    lightObj.SetActive(lightOn);
-                }
+                lightObj.SetActive(lightOn);
             }
         }
     }
