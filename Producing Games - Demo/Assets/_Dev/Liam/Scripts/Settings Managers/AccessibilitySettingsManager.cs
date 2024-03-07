@@ -21,6 +21,8 @@ public class AccessibilitySettingsManager : MonoBehaviour
     [HideInInspector] public bool isInventoryIncreasing = false;
     [HideInInspector] public CanvasGroup inventoryPanelCanvasGroup;
     [HideInInspector] public float originalInventoryAspect;
+    public GameObject demonBook;
+    public GameObject checkList;
 
     [Header("Colour Blindness Elements")]
     public Volume colorBlindnessVolume;

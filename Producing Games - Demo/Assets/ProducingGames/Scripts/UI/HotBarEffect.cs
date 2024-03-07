@@ -65,7 +65,18 @@ public class HotBarEffect : MonoBehaviour
         {
             if (Input.mouseScrollDelta.y != 0)
             {
-                timer = 0f;
+                if (AccessibilitySettings.demonBook.activeSelf == true || AccessibilitySettings.checkList.activeSelf == true )
+                {
+                    yield return null;
+                }
+
+                else
+                {
+
+                     timer = 0f;
+
+                }
+                
             }
 
             timer += Time.deltaTime;
@@ -91,8 +102,18 @@ public class HotBarEffect : MonoBehaviour
     {
         if (!AccessibilitySettings.isInventoryIncreasing)
         {
-            AccessibilitySettings.isInventoryIncreasing = true;
-            StartCoroutine(SizeEffectCoroutine());
+            if (AccessibilitySettings.demonBook.activeSelf == true || AccessibilitySettings.checkList.activeSelf == true)
+            {
+                return;
+
+            }
+            else
+            {
+                AccessibilitySettings.isInventoryIncreasing = true;
+                StartCoroutine(SizeEffectCoroutine());
+
+            }
+          
         }
     }
 }
