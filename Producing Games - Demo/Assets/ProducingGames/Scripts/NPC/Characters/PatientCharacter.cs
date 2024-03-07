@@ -84,6 +84,7 @@ public class PatientCharacter : AICharacter
 
     public float DistanceFromDemon { get; private set; }
     public Transform BedDestination { get; private set; }
+    public PatientStates PreviousState { get; private set; }
 
     private GameObject demonGO;
     private DemonCharacter demonCharacter;
@@ -161,8 +162,8 @@ public class PatientCharacter : AICharacter
             // movement again for the new state that they're going to go into
             if (currentState == PatientStates.Bed || currentState == PatientStates.ReqMeds || currentState == PatientStates.Prayer)
             {
-                if (rb) rb.useGravity = true;
-                if (agent.isOnNavMesh) agent.enabled = true;
+                rb.useGravity = true;
+                agent.enabled = true;
             }
 
             // INFO: If the patient has a path set from a previous state, this will get rid of it
@@ -180,6 +181,9 @@ public class PatientCharacter : AICharacter
             animator.SetBool("isRunning", false);
             animator.SetBool("isTerrified", false);
             animator.SetBool("isScared", false);
+
+            // INFO: Set the previous state of the patient to the current state
+            PreviousState = currentState;
 
             // INFO: Set the current state of the patient to the new state
             currentState = newState;

@@ -16,8 +16,13 @@ public class HidingState : PatientStateBaseClass
     {
         ChooseHidingLocation();
 
-        character.agent.transform.position = hidingLocation;
-        character.agent.Warp(hidingLocation);
+        // INFO: Given that the previous was panicked or scared we will have
+        // the patient walk back to their hiding spot
+        if (character.PreviousState == PatientCharacter.PatientStates.Panic ||
+            character.PreviousState == PatientCharacter.PatientStates.Scared)
+            WalkToHidingSpot();
+        else
+            TeleportToHidingSpot();
 
         // PLAY HIDING ANIMATION HERE
     }
@@ -36,6 +41,24 @@ public class HidingState : PatientStateBaseClass
 
         // INFO: Chooses a location to hide at
         hidingLocation = NPCManager.Instance.RandomHidingLocation();
+    }
+
+    /// <summary>
+    /// Rather than having the patient walk to their hiding spot, we
+    /// will have them teleport to it
+    /// </summary>
+    private void TeleportToHidingSpot()
+    {
+        character.agent.Warp(hidingLocation);
+    }
+
+    /// <summary>
+    /// Rather than teleporting the patient, this will have the patient
+    /// walk back to their hiding spot
+    /// </summary>
+    private void WalkToHidingSpot()
+    {
+        character.agent.SetDestination(hidingLocation);
     }
 
     /// <summary>

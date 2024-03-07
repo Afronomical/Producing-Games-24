@@ -79,4 +79,16 @@ public class AICharacter : MonoBehaviour
         T randomEnumMember = (T)enumArray.GetValue(Random.Range(0, enumArray.Length));
         return randomEnumMember;
     }
+
+    /// <summary>
+    /// Finds the nearest point on the navmesh that the NPC is then teleported to
+    /// to prevent errors with setting destination when NPC isn't on a navmesh
+    /// </summary>
+    public void NearestNavMeshPoint()
+    {
+        if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, Mathf.Infinity, NavMesh.AllAreas))
+            agent.Warp(hit.position);
+        else
+            Debug.LogWarning("Could not find suitable location.");
+    }
 }

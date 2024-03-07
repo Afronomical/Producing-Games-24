@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 /// <summary>
 /// Written by: Matej Cincibus
@@ -18,9 +19,20 @@ public class PanicState : PatientStateBaseClass
 
     private void Start()
     {
+        // INFO: If the previous state was the bed state, we firstly need to
+        // teleport the agent to the closest point on the navmesh before assigning
+        // their destination location
+        character.NearestNavMeshPoint();
+
         character.agent.speed = character.runSpeed;
 
-        character.safetyChoice = character.GetRandomEnum<SafetyChoices>();
+        // INFO: If the previous patient state was the bed state, we don't
+        // want the safety choice to be their bed, as they wouldn't go anywhere
+        // so we need to choose the other (hiding location)
+        if (character.PreviousState == PatientCharacter.PatientStates.Bed)
+            character.safetyChoice = SafetyChoices.HidingSpot;
+        else
+            character.safetyChoice = character.GetRandomEnum<SafetyChoices>();
 
         // INFO: Randomly chooses a safety location based on the chosen
         // enum member
@@ -59,8 +71,9 @@ public class PanicState : PatientStateBaseClass
 
             if (calmingTime > character.calmingDuration)
             {
-                // TEMP FOR NOW, WILL LIKELY BE CHANGED WITH THE INTRODUCTION OF NEW STATES
-                character.ChangePatientState(PatientCharacter.PatientStates.Wandering);
+                // INFO: Returns to the previous state before the patient became scared, to
+                // ensure the task system does not break
+                character.ChangePatientState(character.PreviousState);
             }
         }
     }

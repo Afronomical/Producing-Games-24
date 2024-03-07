@@ -24,6 +24,11 @@ public class EscortedState : PatientStateBaseClass
     private void Start()
     {
         character.agent.speed = character.runSpeed;
+
+        // INFO: Find player position as soon as the state is entered
+        // so that patients don't get stuck in the escorted state
+        playerPos = character.player.transform.position;
+        character.agent.SetDestination(playerPos);
     }
 
     public override void UpdateLogic()

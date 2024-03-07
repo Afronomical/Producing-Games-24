@@ -14,8 +14,13 @@ public class HungryState : PatientStateBaseClass
     {
         ChooseKitchenDestination();
 
-        character.agent.transform.position = hungryLocation;
-        character.agent.Warp(hungryLocation);
+        // INFO: Given that the previous was panicked or scared we will have
+        // the patient walk back to their hungry spot
+        if (character.PreviousState == PatientCharacter.PatientStates.Panic ||
+            character.PreviousState == PatientCharacter.PatientStates.Scared)
+            WalkToHungrySpot();
+        else
+            TeleportToHungrySpot();
 
         character.animator.SetBool("isHungry", true);
     }
@@ -34,6 +39,24 @@ public class HungryState : PatientStateBaseClass
 
         // INFO: Chooses a location to be hungry at
         hungryLocation = NPCManager.Instance.RandomKitchenPosition();
+    }
+
+    /// <summary>
+    /// Rather than having the patient walk to their hiding spot, we
+    /// will have them teleport to it
+    /// </summary>
+    private void TeleportToHungrySpot()
+    {
+        character.agent.Warp(hungryLocation);
+    }
+
+    /// <summary>
+    /// Rather than teleporting the patient, this will have the patient
+    /// walk back to their hiding spot
+    /// </summary>
+    private void WalkToHungrySpot()
+    {
+        character.agent.SetDestination(hungryLocation);
     }
 
     /// <summary>
