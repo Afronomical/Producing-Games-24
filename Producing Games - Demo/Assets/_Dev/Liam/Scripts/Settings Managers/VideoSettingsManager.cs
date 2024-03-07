@@ -128,8 +128,15 @@ public class VideoSettingsManager : MonoBehaviour
     public void OnToggleVSyncButtonClicked()
     {
         vsyncEnabled = !vsyncEnabled;
+        ApplyVSyncSetting();
         UpdateVSyncButtonText();
         Debug.Log("VSync Setting Changed: " + vsyncEnabled);
+    }
+
+    private void ApplyVSyncSetting()
+    {
+        QualitySettings.vSyncCount = vsyncEnabled ? 1 : 0;
+        Debug.Log("VSync Setting Applied: " + (vsyncEnabled ? "On" : "Off"));
     }
 
     private void OnFOVChanged(float value)
@@ -153,23 +160,28 @@ public class VideoSettingsManager : MonoBehaviour
         overlayImage.color = adjustedColor;
 
         tempBrightnessValue = value;
+        Debug.Log("Brightness Setting Changed: " + value);
     }
 
     private void OnMaxFPSChanged(int index)
     {
         selectedMaxFPS = availableMaxFPSOptions[index];
+        ApplyMaxFPSSetting();
+        Debug.Log("Max FPS Setting Changed: " + selectedMaxFPS);
     }
 
     private void OnResolutionChanged(int index)
     {
-        string selectedResolution = resolutionDropdown.options[index].text;
-        SetResolution(selectedResolution);
+        tempSelectedResolution = resolutionDropdown.options[index].text;
+        SetResolution(tempSelectedResolution);
+        Debug.Log("Resolution Setting Changed: " + tempSelectedResolution);
     }
 
     private void OnDisplayModeChanged(int index)
     {
         string selectedDisplayMode = displayModeOptions[index];
         SetDisplayMode(selectedDisplayMode);
+        Debug.Log("Display Mode Setting Changed: " + selectedDisplayMode);
     }
 
     private void SetResolution(string resolution)
