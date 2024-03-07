@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taskType: 2
   chanceToHappen: 1
-  taskName: Heart Attack
+  taskName: "Restart the dying patient\u2019s heartbeat"
   taskDescription: Reach them before they have a heart attack!
   location: 0
   itemToGive: {fileID: 0}

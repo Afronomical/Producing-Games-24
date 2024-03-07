@@ -15,7 +15,7 @@ MonoBehaviour:
   taskType: 4
   chanceToHappen: 70
   BlockingTasks: []
-  taskName: Food
+  taskName: Serve the patient with their food
   taskDescription: Give the patient their food
   location: 0
   itemToGive: {fileID: 11400000, guid: 82fdb7ac93408ac4cb14bc17b6a3204b, type: 2}

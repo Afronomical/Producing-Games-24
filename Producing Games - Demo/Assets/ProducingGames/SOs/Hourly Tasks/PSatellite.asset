@@ -15,7 +15,7 @@ MonoBehaviour:
   taskType: 11
   chanceToHappen: 50
   BlockingTasks: []
-  taskName: Fix Satellite
+  taskName: 'Perform maintenance on the satellite '
   taskDescription: Fix the satellite
   location: 0
   itemToGive: {fileID: 0}

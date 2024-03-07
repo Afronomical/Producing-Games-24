@@ -15,7 +15,7 @@ MonoBehaviour:
   taskType: 3
   chanceToHappen: 80
   BlockingTasks: []
-  taskName: Check Cardiogram
+  taskName: Check on the condition of the cardiogram
   taskDescription: Check the patient's cardiogram
   location: 0
   itemToGive: {fileID: 0}

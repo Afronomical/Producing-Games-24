@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taskType: 4
   chanceToHappen: 5
-  taskName: Fix Cardiogram
+  taskName: Repair the broken cardiogram
   taskDescription: Fix the patient's cardiogram
   location: 0
   itemToGive: {fileID: 0}
