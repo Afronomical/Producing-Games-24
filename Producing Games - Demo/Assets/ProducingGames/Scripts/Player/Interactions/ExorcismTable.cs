@@ -125,6 +125,7 @@ public class ExorcismTable : MonoBehaviour
             {
                 if (collider.gameObject.GetComponent<InteractableTemplate>().isExorcismObject)
                 {
+
                     if(collider.gameObject.GetComponent<InteractableTemplate>().hasBeenPlaced == false)
                     {
                         //play sound showing that this item is an exorcism object 
