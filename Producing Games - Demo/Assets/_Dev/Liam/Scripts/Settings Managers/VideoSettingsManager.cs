@@ -46,6 +46,15 @@ public class VideoSettingsManager : MonoBehaviour
     private string selectedResolution;
     private string tempSelectedResolution;
 
+    // Default values
+    [SerializeField] private Button resetButton;
+    private bool defaultVSyncEnabled = true;
+    private bool defaultFPSDisplayEnabled = true;
+    private string defaultResolution = "1920x1080";
+    private int defaultFPS = 60;
+    private float defaultFOV = 60f;
+    private float defaultBrightness = 0f;
+
     private static VideoSettingsManager _instance;
 
     public static VideoSettingsManager Instance
@@ -87,9 +96,20 @@ public class VideoSettingsManager : MonoBehaviour
             return;
         }
 
+        if (resetButton != null)
+        {
+            resetButton.onClick.AddListener(OnResetToDefaultButtonClicked);
+        }
+        else
+        {
+            Debug.LogError("Reset button reference not assigned in the Unity Editor.");
+        }
+
         PopulateResolutions();
         PopulateMaxFPSDropdown();
         PopulateDisplayModeDropdown();
+        // Populate UI elements with default values on start
+        SetDefaultValues();
 
         resolutionDropdown.onValueChanged.AddListener(OnResolutionChanged);
         maxFPSDropdown.onValueChanged.AddListener(OnMaxFPSChanged);
@@ -128,8 +148,15 @@ public class VideoSettingsManager : MonoBehaviour
     public void OnToggleVSyncButtonClicked()
     {
         vsyncEnabled = !vsyncEnabled;
+        ApplyVSyncSetting();
         UpdateVSyncButtonText();
         Debug.Log("VSync Setting Changed: " + vsyncEnabled);
+    }
+
+    private void ApplyVSyncSetting()
+    {
+        QualitySettings.vSyncCount = vsyncEnabled ? 1 : 0;
+        Debug.Log("VSync Setting Applied: " + (vsyncEnabled ? "On" : "Off"));
     }
 
     private void OnFOVChanged(float value)
@@ -153,23 +180,28 @@ public class VideoSettingsManager : MonoBehaviour
         overlayImage.color = adjustedColor;
 
         tempBrightnessValue = value;
+        Debug.Log("Brightness Setting Changed: " + value);
     }
 
     private void OnMaxFPSChanged(int index)
     {
         selectedMaxFPS = availableMaxFPSOptions[index];
+        ApplyMaxFPSSetting();
+        Debug.Log("Max FPS Setting Changed: " + selectedMaxFPS);
     }
 
     private void OnResolutionChanged(int index)
     {
-        string selectedResolution = resolutionDropdown.options[index].text;
-        SetResolution(selectedResolution);
+        tempSelectedResolution = resolutionDropdown.options[index].text;
+        SetResolution(tempSelectedResolution);
+        Debug.Log("Resolution Setting Changed: " + tempSelectedResolution);
     }
 
     private void OnDisplayModeChanged(int index)
     {
         string selectedDisplayMode = displayModeOptions[index];
         SetDisplayMode(selectedDisplayMode);
+        Debug.Log("Display Mode Setting Changed: " + selectedDisplayMode);
     }
 
     private void SetResolution(string resolution)
@@ -362,5 +394,31 @@ public class VideoSettingsManager : MonoBehaviour
         {
             Debug.LogError("TextMeshPro Text component not found on the VSync Button.");
         }
+    }
+
+    public void OnResetToDefaultButtonClicked()
+    {
+        SetDefaultValues();
+        Debug.Log("Settings Reset to Default Values");
+    }
+
+    private void SetDefaultValues()
+    {
+        // Set default values for video settings
+        vsyncEnabled = defaultVSyncEnabled;
+        ApplyVSyncSetting();
+        ToggleFPSDisplay();
+        SetResolution(defaultResolution);
+        selectedMaxFPS = defaultFPS;
+        ApplyMaxFPSSetting();
+        fovSlider.value = defaultFOV;
+        OnFOVChanged(defaultFOV);
+        brightnessSlider.value = defaultBrightness;
+        OnBrightnessChanged(defaultBrightness);
+
+        // Update UI elements
+        SetDropdownToCurrentResolution();
+        SetDropdownToCurrentMaxFPS();
+        UpdateVSyncButtonText();
     }
 }
