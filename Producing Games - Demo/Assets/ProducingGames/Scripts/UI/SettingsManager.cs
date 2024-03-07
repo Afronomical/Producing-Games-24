@@ -533,6 +533,7 @@ public class SettingsManager : MonoBehaviour
 }
 
 
+
 //private void ScaleUIElements(Transform parent)
 //{
 //    foreach (Transform child in parent)
