@@ -44,8 +44,13 @@ public class ComputerCursor : InspectableObject
             time += "0";
         }
         time += (int)GameManager.Instance.currentTime;
-        time += "AM";
+        time += " AM";
 
         clock.text = time.ToUpper();
+    }
+
+    private void OnMouseDown()
+    {
+        
     }
 }
