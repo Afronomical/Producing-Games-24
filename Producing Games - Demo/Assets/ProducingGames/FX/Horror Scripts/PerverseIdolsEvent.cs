@@ -1,10 +1,9 @@
 using UnityEngine;
-using System.Collections;
 
 public class PerverseIdolEvent : MonoBehaviour
 {
     public AudioClip[] musicTracks;
-    public float maxDistance = 30f; // Maximum distance for hearing the music
+    public float maxDistanceSquared = 900f; // Maximum distance squared for hearing the music
     public float minInterval = 60f; // Minimum interval between music tracks
 
     public AudioSource musicSource; // Expose AudioSource field for manual assignment in the editor
@@ -12,12 +11,13 @@ public class PerverseIdolEvent : MonoBehaviour
 
     private bool isPlayerInside = false;
     private GameManager gM;
-    [HideInInspector] public bool eventTriggered;
-
+    private bool eventTriggered;
+    private Transform playerCameraTransform;
 
     private void Start()
     {
         gM = GameManager.Instance;
+        playerCameraTransform = Camera.main.transform;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -41,8 +41,7 @@ public class PerverseIdolEvent : MonoBehaviour
 
     private void Update()
     {
-        int randChance = Random.Range(0, 101);
-        if (isPlayerInside && !IsPlayerLookingAtIdol() && randChance <= gM.eventChance && !eventTriggered)
+        if (isPlayerInside && !IsPlayerLookingAtIdol() && Random.Range(0, 101) <= gM.eventChance && !eventTriggered)
         {
             HideIdol();
             StopMusic(); // Stop the music when the player is inside the trigger but not looking at the idol
@@ -55,8 +54,12 @@ public class PerverseIdolEvent : MonoBehaviour
         if (idolObject == null)
             return false;
 
-        Vector3 directionToIdol = idolObject.transform.position - Camera.main.transform.position;
-        float angle = Vector3.Angle(Camera.main.transform.forward, directionToIdol);
+        Vector3 directionToIdol = idolObject.transform.position - playerCameraTransform.position;
+        Vector3 forwardDirection = playerCameraTransform.forward;
+
+        // Optimized angle calculation
+        float dotProduct = Vector3.Dot(directionToIdol.normalized, forwardDirection);
+        float angle = Mathf.Acos(dotProduct) * Mathf.Rad2Deg;
 
         // Check if the angle between the player's forward direction and the direction to the idol is within a certain threshold
         return angle < 55f; // Adjust the threshold as needed
@@ -84,9 +87,7 @@ public class PerverseIdolEvent : MonoBehaviour
     private void StopMusic()
     {
         if (musicSource.isPlaying)
-        {
             musicSource.Stop();
-        }
     }
 }
 
