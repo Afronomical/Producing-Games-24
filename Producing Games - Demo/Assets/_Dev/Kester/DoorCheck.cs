@@ -66,13 +66,20 @@ public class DoorCheck : MonoBehaviour
             stage++;
         }
 
-        /*
-        if(stage == 5 && GameManager.Instance.currentTime > 0.6f)
+        
+        if(stage == 5)
         {
+            Debug.Log("Attempting");
             GameManager.Instance.demon.SetActive(true);
-            GameManager.Instance.demon.transform.position = demonRage.position;
+            Debug.Log(GameManager.Instance.demon.activeInHierarchy);
+            GameManager.Instance.demon.GetComponent<DemonCharacter>().ChangeDemonState(DemonCharacter.DemonStates.Patrol);
             stage++;
         }
-        */
+        
+        if(stage == 6 && GameManager.Instance.currentHour == 3)
+        {
+            GameManager.Instance.demon.SetActive(false);
+            stage++;
+        }
     }
 }
