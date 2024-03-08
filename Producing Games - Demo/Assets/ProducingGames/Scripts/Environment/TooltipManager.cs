@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class TooltipManager : MonoBehaviour
 {
     public static TooltipManager Instance;
 
     public TextMeshProUGUI tooltipText;
+    public Image tooltipImage;
+
     private void Awake()
     {
         if(Instance != null && Instance != this)
@@ -27,15 +30,18 @@ public class TooltipManager : MonoBehaviour
         transform.position = Input.mousePosition;
     }
 
-    public void ShowTooltip(string text)
+    public void ShowTooltip(string text, Sprite image)
     {
         gameObject.SetActive(true);
         tooltipText.text = text;
+
+        tooltipImage.sprite = image;
     }
 
     public void HideTooltip()
     {
         gameObject.SetActive(false);
         tooltipText.text = string.Empty;
+        tooltipImage.sprite = null;
     }
 }

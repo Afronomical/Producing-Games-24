@@ -38,8 +38,7 @@ public class HolyWaterFountain : MonoBehaviour
                 Debug.Log("Jug detected"); 
                 if(timesUsedThisHour < maxUsesPerHour && !isJugFull && !placed && FountainCapacity >= fillDrain)
                 {
-                    //TooltipManager.Instance.ShowTooltip("Press H to confirm Jug fill");
-                    collider.gameObject.GetComponent<InteractableTemplate>().collectible.tooltipText = ("Press H to confirm Jug Fill");
+                    TooltipManager.Instance.ShowTooltip("Press H to confirm Jug fill", null);
                     if (Input.GetKeyDown(KeyCode.H))
                     {
                         TooltipManager.Instance.HideTooltip();
