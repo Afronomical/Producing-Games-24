@@ -96,10 +96,10 @@ MonoBehaviour:
   active: 1
   postExposure:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: 5.16
   contrast:
     m_OverrideState: 1
-    m_Value: -25
+    m_Value: -20
   colorFilter:
     m_OverrideState: 0
     m_Value: {r: 1, g: 1, b: 1, a: 1}
@@ -210,7 +210,7 @@ MonoBehaviour:
   active: 1
   quality:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 2
   enabled:
     m_OverrideState: 1
     m_Value: 1
@@ -276,10 +276,10 @@ MonoBehaviour:
     m_Value: 64
   m_VolumetricFogBudget:
     m_OverrideState: 1
-    m_Value: 0.33
+    m_Value: 0.666
   m_ResolutionDepthRatio:
     m_OverrideState: 1
-    m_Value: 0.666
+    m_Value: 0.5
   directionalLightsOnly:
     m_OverrideState: 0
     m_Value: 0
@@ -471,19 +471,19 @@ MonoBehaviour:
     m_Value: 0
   meteringMode:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 0
   luminanceSource:
     m_OverrideState: 0
     m_Value: 1
   fixedExposure:
     m_OverrideState: 1
-    m_Value: 10.624073
+    m_Value: 4.25
   compensation:
     m_OverrideState: 0
     m_Value: 1
   limitMin:
     m_OverrideState: 1
-    m_Value: 4
+    m_Value: 4.2500005
   limitMax:
     m_OverrideState: 1
     m_Value: 15
