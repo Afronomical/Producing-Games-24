@@ -56,6 +56,7 @@ public class PickUpItem : MonoBehaviour
 
                                 StartCoroutine(arms.GrabObject(interactableTemplate.collectible));
                             }
+                            
                         }
                     }
                 }

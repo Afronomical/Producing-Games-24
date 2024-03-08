@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7218581570350672456
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3677882020956813164, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_Name
+      value: Blessed Oil Exo Variant 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.47851
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.47851
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.47851
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 80.63908
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -8.206
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 46.897648
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3677882020956813164, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2592534019514977965}
+  m_SourcePrefab: {fileID: 100100000, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+--- !u!1 &6280264764543458596 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3677882020956813164, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+  m_PrefabInstance: {fileID: 7218581570350672456}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2592534019514977965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6280264764543458596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 221865555ae7bb34a8997ed66df77fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectIcon: {fileID: 0}
+  collectible: {fileID: 0}
+  isExorcismObject: 1
+  hasBeenPlaced: 0

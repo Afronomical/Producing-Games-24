@@ -84,6 +84,7 @@ public class InteractableSpawner : MonoBehaviour
                     else
                     {
                         Debug.Log("Not enough possible locations entered");
+                       
                     }
                 }
 
