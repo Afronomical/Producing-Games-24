@@ -25,6 +25,7 @@ public class HidingState : PatientStateBaseClass
             TeleportToHidingSpot();
 
         // PLAY HIDING ANIMATION HERE
+        character.animator.SetBool("isTerrified", true);
     }
 
     /// <summary>

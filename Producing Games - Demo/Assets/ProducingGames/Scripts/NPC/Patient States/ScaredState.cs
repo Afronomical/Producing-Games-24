@@ -28,7 +28,7 @@ public class ScaredState : PatientStateBaseClass
             AudioManager.instance.PlaySound(character.scaredNPC, character.transform);
 
         // INFO: Set the animation
-        character.animator.SetBool("isScared", true);
+        character.animator.SetBool("isRunning", true);
 
         // INFO: If the previous patient state was the bed state, we don't
         // want the safety choice to be their bed, as they wouldn't go anywhere

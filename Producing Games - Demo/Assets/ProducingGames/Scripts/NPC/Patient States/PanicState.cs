@@ -73,6 +73,8 @@ public class PanicState : PatientStateBaseClass
             {
                 // INFO: Returns to the previous state before the patient became scared, to
                 // ensure the task system does not break
+                character.animator.SetBool("isRunning", false);
+                character.animator.SetBool("isTerrified", true);
                 character.ChangePatientState(character.PreviousState);
             }
         }

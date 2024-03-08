@@ -156,6 +156,15 @@ public class PatientCharacter : AICharacter
     /// <param name="newState"></param>
     public void ChangePatientState(PatientStates newState)
     {
+        // INFO: Remove all animations
+        animator.SetBool("isHungry", false);
+        animator.SetBool("isPraying", false);
+        animator.SetBool("reqMeds", false);
+        animator.SetBool("inBed", false);
+        animator.SetBool("isRunning", false);
+        animator.SetBool("isTerrified", false);
+        animator.SetBool("isScared", false);
+
         if (currentState != newState || patientStateScript == null)
         {
             // INFO: If the previous state had the patient remain stationary, we will need to grant the patient
@@ -173,14 +182,7 @@ public class PatientCharacter : AICharacter
             if (patientStateScript != null)
                 Destroy(patientStateScript); // destroy current script attached to AI character
 
-            // INFO: Remove all animations
-            animator.SetBool("isHungry", false);
-            animator.SetBool("isPraying", false);
-            animator.SetBool("reqMeds", false);
-            animator.SetBool("inBed", false);
-            animator.SetBool("isRunning", false);
-            animator.SetBool("isTerrified", false);
-            animator.SetBool("isScared", false);
+           
 
             // INFO: Set the previous state of the patient to the current state
             PreviousState = currentState;

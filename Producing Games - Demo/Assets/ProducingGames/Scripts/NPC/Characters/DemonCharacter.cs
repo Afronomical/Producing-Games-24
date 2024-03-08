@@ -1,6 +1,7 @@
 using Steamworks;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 /// <summary>
 /// Written by: Matej Cincibus
@@ -36,7 +37,7 @@ public class DemonCharacter : AICharacter, IHear
 
     [Header("Components")]
     public DemonStateBaseClass demonStateScript;
-    public Transform soundDestination;
+    public Transform soundDestination = null;
 
     [Header("Sound Effects")]
     public SoundEffect ghostRoaming;
@@ -53,6 +54,7 @@ public class DemonCharacter : AICharacter, IHear
         base.Start();
 
         characterType = CharacterTypes.Demon;
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -79,6 +81,12 @@ public class DemonCharacter : AICharacter, IHear
 
             if (demonStateScript != null)
                 Destroy(demonStateScript); // destroy current script attached to AI character
+
+            //animator.SetBool("isConfused", false);
+            //animator.SetBool("isAttacking", false);
+            //animator.SetBool("isChasing", false);
+            //animator.SetBool("isConfused", false);
+
 
             //set the current state of AI character to the new state
             currentState = newState;
