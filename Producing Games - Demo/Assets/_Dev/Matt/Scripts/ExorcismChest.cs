@@ -97,13 +97,10 @@ public class ExorcismChest : InteractableTemplate
             foreach (Collider collider in colliders)
             {
                 //check they are interactable objects e.g water, cross, before adding to the count 
-                if (collider.gameObject.TryGetComponent(out IInteractable interactable))
+                if (collider.gameObject.TryGetComponent(out IInteractable interactable) && collider.gameObject.GetComponent<InteractableTemplate>().isExorcismObject && collider.gameObject.GetComponent<InteractableTemplate>().hasBeenPlaced == false)
                 {
-                    if (collider.gameObject.GetComponent<InteractableTemplate>().isExorcismObject)
-                    {
-                        Debug.Log("is an exorcism item");
-                        if (collider.gameObject.GetComponent<InteractableTemplate>().hasBeenPlaced == false)
-                        {
+                   
+                        
                             currentItems.Add(collider.gameObject);
                             --availableSlots;
                             int dropLoc = Random.Range(0, dropPoints.Count);
@@ -111,10 +108,10 @@ public class ExorcismChest : InteractableTemplate
                             collider.gameObject.transform.rotation = Quaternion.identity;
                             dropPoints.RemoveAt(dropLoc);
                             Debug.Log("added: " + collider.gameObject.name);
-                        }
+                        
 
 
-                    }
+                    
                 }
             }
         }
