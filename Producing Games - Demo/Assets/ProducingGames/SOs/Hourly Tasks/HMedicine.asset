@@ -15,7 +15,7 @@ MonoBehaviour:
   taskType: 0
   chanceToHappen: 70
   BlockingTasks: []
-  taskName: Pills
+  taskName: Provide patients with their prescribed medication
   taskDescription: Give the patient their pills
   location: 0
   itemToGive: {fileID: 11400000, guid: 466d28f252da7d14ea55f7cc9ffeb6fe, type: 2}

@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.GraphicsBuffer;
-using static UnityEngine.UI.Image;
 
 public class CameraLook : MonoBehaviour
 {
@@ -11,6 +9,7 @@ public class CameraLook : MonoBehaviour
 
     [Header("Camera Properties")]
     [Range(0, 1)] public float mouseSensitivity = 0.5f;
+    [Range(0, 10)] public float controllerSensitivity = 5f;
     private Vector2 currentInput;
     [Range(-100, 0)] public float downClampAngle = -50;
     [Range(0, 100)] public float upClampAngle = 50;
@@ -18,6 +17,7 @@ public class CameraLook : MonoBehaviour
     public Transform playerBody;
     private PlayerMovement playerMovement;
     private CharacterController playerController;
+    private PlayerInput playerInput;
 
 
     [Header("Head Bobbing")]
@@ -39,14 +39,15 @@ public class CameraLook : MonoBehaviour
         camStartPos = transform.localPosition;
         playerMovement = playerBody.GetComponent<PlayerMovement>();
         playerController = playerBody.GetComponent<CharacterController>();
+        playerInput = playerBody.GetComponent <PlayerInput>();
     }
 
 
 
     void Update()
     {
-        float mouseX = currentInput.x / 5 * mouseSensitivity;
-        float mouseY = currentInput.y / 5 * mouseSensitivity;
+        float mouseX = currentInput.x / 5;
+        float mouseY = currentInput.y / 5;
 
         xRot -= mouseY;
         xRot = Mathf.Clamp(xRot, downClampAngle, upClampAngle);
@@ -79,7 +80,10 @@ public class CameraLook : MonoBehaviour
 
     public void OnLookInput(InputAction.CallbackContext context)
     {
-        currentInput = context.ReadValue<Vector2>();
+        if (playerInput.currentControlScheme == "Gamepad")
+            currentInput = context.ReadValue<Vector2>() * controllerSensitivity;
+        else
+            currentInput = context.ReadValue<Vector2>() * mouseSensitivity;
     }
 
     private void Leaning()

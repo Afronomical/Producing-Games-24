@@ -15,7 +15,7 @@ MonoBehaviour:
   taskType: 10
   chanceToHappen: 1
   BlockingTasks: []
-  taskName: Fix Water
+  taskName: Perform maintenance on the water pipes
   taskDescription: Check the water pipes
   location: 0
   itemToGive: {fileID: 0}

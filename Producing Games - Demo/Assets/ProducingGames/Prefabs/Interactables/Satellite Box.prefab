@@ -130,7 +130,6 @@ MonoBehaviour:
   followingMouse: 0
   connected: 0
   colour: 0
-  line: {fileID: 0}
   wireEnd: {fileID: 8502167805618909434}
   pointA: {fileID: 2652955160413721856}
   pointB: {fileID: 240211943462888898}
@@ -138,6 +137,9 @@ MonoBehaviour:
   pointD: {fileID: 5232055662719970536}
   lineRenderer: {fileID: 1051993935739125142}
   pointCount: 15
+  pointList:
+  - {x: 90.68071, y: -9.441999, z: 16.308392}
+  - {x: 90.68, y: -9.441999, z: 15.854}
 --- !u!120 &1051993935739125142
 LineRenderer:
   serializedVersion: 2
@@ -181,8 +183,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_Positions:
-  - {x: 91.439995, y: -9.44, z: 28.195608}
-  - {x: 91.439995, y: -9.44, z: 28.6}
+  - {x: 90.68071, y: -9.441999, z: 16.308392}
+  - {x: 90.68, y: -9.441999, z: 15.854}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -461,14 +463,16 @@ MonoBehaviour:
   followingMouse: 0
   connected: 0
   colour: 0
-  line: {fileID: 0}
-  wireEnd: {fileID: 9015227784495901125}
+  wireEnd: {fileID: 7374503857442883442}
   pointA: {fileID: 7620284210972220210}
   pointB: {fileID: 6993886809136221223}
   pointC: {fileID: 5218553296501358668}
   pointD: {fileID: 3117977508144355074}
   lineRenderer: {fileID: 3858213838888323777}
   pointCount: 15
+  pointList:
+  - {x: 90.6793, y: -9.141999, z: 16.308392}
+  - {x: 90.68, y: -9.141999, z: 15.854}
 --- !u!120 &3858213838888323777
 LineRenderer:
   serializedVersion: 2
@@ -512,8 +516,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 91.439995, y: -9.14, z: 28.195608}
-  - {x: 91.439995, y: -9.14, z: 28.6}
+  - {x: 90.6793, y: -9.141999, z: 16.308392}
+  - {x: 90.68, y: -9.141999, z: 15.854}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -1199,14 +1203,16 @@ MonoBehaviour:
   followingMouse: 0
   connected: 0
   colour: 0
-  line: {fileID: 0}
-  wireEnd: {fileID: 7374503857442883442}
+  wireEnd: {fileID: 6986748724691164416}
   pointA: {fileID: 327442000738579088}
   pointB: {fileID: 5632640755238586315}
   pointC: {fileID: 7125800611608437358}
   pointD: {fileID: 7266098490452585778}
   lineRenderer: {fileID: 4024113941091390238}
   pointCount: 15
+  pointList:
+  - {x: 90.68, y: -9.591999, z: 16.308392}
+  - {x: 90.68, y: -9.591999, z: 15.854001}
 --- !u!120 &4024113941091390238
 LineRenderer:
   serializedVersion: 2
@@ -1250,8 +1256,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Positions:
-  - {x: 91.439995, y: -9.59, z: 28.195608}
-  - {x: 91.439995, y: -9.59, z: 28.6}
+  - {x: 90.68, y: -9.591999, z: 16.308392}
+  - {x: 90.68, y: -9.591999, z: 15.854001}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -1744,8 +1750,6 @@ MonoBehaviour:
   camRotation: {x: 0, y: 0, z: 0}
   camMoveTransform: {fileID: 6285782415214022091}
   camPosition: {x: 0, y: 0, z: 0}
-  monitor: {fileID: 0}
-  cameraScreens: []
   cursor: {fileID: 7645961081409837977}
   wires:
   - {fileID: 1095713249982429945}
@@ -1976,14 +1980,16 @@ MonoBehaviour:
   followingMouse: 0
   connected: 0
   colour: 0
-  line: {fileID: 0}
-  wireEnd: {fileID: 6986748724691164416}
+  wireEnd: {fileID: 9015227784495901125}
   pointA: {fileID: 1962620439983212737}
   pointB: {fileID: 1339925040732095723}
   pointC: {fileID: 1704216413041152591}
   pointD: {fileID: 2128916985018933347}
   lineRenderer: {fileID: 6359414649952556194}
   pointCount: 15
+  pointList:
+  - {x: 90.67859, y: -9.291999, z: 16.308392}
+  - {x: 90.68, y: -9.291999, z: 15.854001}
 --- !u!120 &6359414649952556194
 LineRenderer:
   serializedVersion: 2
@@ -2027,8 +2033,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Positions:
-  - {x: 91.439995, y: -9.29, z: 28.195608}
-  - {x: 91.439995, y: -9.29, z: 28.6}
+  - {x: 90.67859, y: -9.291999, z: 16.308392}
+  - {x: 90.68, y: -9.291999, z: 15.854001}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -3303,6 +3309,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   collidingObjects: []
+  sensitivity: 0.4
+  cursorMovementArea: {x: 3, y: 0.4}
 --- !u!54 &8908934252725527337
 Rigidbody:
   m_ObjectHideFlags: 0

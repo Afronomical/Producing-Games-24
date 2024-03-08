@@ -1076,6 +1076,7 @@ MonoBehaviour:
   - {fileID: 4295102004166771097}
   - {fileID: 7730349064791503984}
   turnPageDelay: 0.2
+  pageSound: {fileID: 0}
   arms: {fileID: 2397263937806965464}
 --- !u!1 &1079686810079229914
 GameObject:
@@ -8229,6 +8230,7 @@ MonoBehaviour:
   - {fileID: 1621245991306379749}
   - {fileID: 6156755021051889892}
   turnPageDelay: 0.2
+  pageSound: {fileID: 0}
 --- !u!1 &3568462782054155981
 GameObject:
   m_ObjectHideFlags: 0
@@ -9609,9 +9611,9 @@ MonoBehaviour:
   dimmedEffectDuration: 5
   panel: {fileID: 0}
   timeBetweenWalkingFootsteps: 0.5
-  walkingSound: {fileID: 11400000, guid: 97b7edab1706ac54384b1d42ec44583c, type: 2}
+  walkingSound: {fileID: 11400000, guid: 618361e51ec060f40bf39dad09cc8fe7, type: 2}
   timeBetweenSprintingFootsteps: 0.3
-  sprintingSound: {fileID: 11400000, guid: 97b7edab1706ac54384b1d42ec44583c, type: 2}
+  sprintingSound: {fileID: 11400000, guid: 618361e51ec060f40bf39dad09cc8fe7, type: 2}
   timeBetweenCrouchingFootsteps: 0.7
   crouchingSound: {fileID: 11400000, guid: 9befc63620fbd4e40b0c278fff90ce3f, type: 2}
   cameraShake: {fileID: 3769672194398167182}

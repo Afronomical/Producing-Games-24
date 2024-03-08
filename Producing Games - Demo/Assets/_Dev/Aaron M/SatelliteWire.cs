@@ -8,7 +8,6 @@ public class SatelliteWire : MonoBehaviour
     public bool followingMouse;
     public bool connected;
     public SatelliteBox.Colours colour;
-    public GameObject line;
     public GameObject wireEnd;
 
     public Transform pointA;
@@ -24,7 +23,7 @@ public class SatelliteWire : MonoBehaviour
     private Vector3 LineAB_BC;
     private Vector3 LineBC_CD;
     private Vector3 bezierPoint;
-    private List<Vector3> pointList = new List<Vector3>();
+    [HideInInspector] public List<Vector3> pointList = new List<Vector3>();
 
     public void InitializeWire()
     {

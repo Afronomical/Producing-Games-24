@@ -15,7 +15,7 @@ MonoBehaviour:
   taskType: 8
   chanceToHappen: 20
   BlockingTasks: []
-  taskName: Clean
+  taskName: 'Clean up the table '
   taskDescription: Clean the table
   location: 0
   itemToGive: {fileID: 0}
