@@ -33,9 +33,17 @@ public class TooltipManager : MonoBehaviour
     public void ShowTooltip(string text, Sprite image)
     {
         gameObject.SetActive(true);
-        tooltipText.text = text;
 
-        tooltipImage.sprite = image;
+        if(tooltipText != null)
+        {
+            tooltipText.text = text;
+        }
+        
+        if(tooltipImage!= null)
+        {
+            tooltipImage.sprite = image;
+        }
+        
     }
 
     public void HideTooltip()
