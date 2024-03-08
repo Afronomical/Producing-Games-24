@@ -9,11 +9,9 @@ public class CrossTrigger : MonoBehaviour
     GameManager gM;  
 
     private void Start()
-    {
-        //transform.parent.GetComponent<CrossBehaviour>();
+    { 
         cross.eventTriggered = false;
-        gM = GameManager.Instance;
-        
+        gM = GameManager.Instance;        
     }
 
     private void OnTriggerEnter(Collider other)

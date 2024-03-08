@@ -1,39 +1,31 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.EventSystems;
 
 public class DistantScreamsEvent : MonoBehaviour
 {
-    public AudioClip[] screamSounds;
-    public float maxDistance = 30f; // Maximum distance for hearing the distant screams
+    public SoundEffect[] screamSounds;
+    public float maxDistanceSquared = 900f; // Maximum distance squared for hearing the distant screams
     public float minInterval = 60f; // Minimum interval between distant screams
 
-    public AudioSource audioSource; // Expose AudioSource field for manual assignment in the editor
 
     private float lastScreamTime;
-    private GameObject player;
+    private Transform playerTransform;
     private GameManager gM;
-    [HideInInspector] public bool eventTriggered;
-
+    private bool eventTriggered;
 
     private void Start()
     {
         lastScreamTime = Time.time - minInterval; // Initialize lastScreamTime to ensure immediate playback
 
-        // Set the 'player' reference to the actual player GameObject
-        player = GameObject.FindGameObjectWithTag("Player");
-
+        // Set the 'playerTransform' reference to the actual player transform
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player == null)
         {
             Debug.LogError("Player not found in the scene.");
             return;
         }
+        playerTransform = player.transform;
 
-        if (audioSource == null)
-        {
-            Debug.LogError("Audio source not assigned. Please assign an audio source in the editor.");
-            return;
-        }
 
         gM = GameManager.Instance;
 
@@ -49,20 +41,19 @@ public class DistantScreamsEvent : MonoBehaviour
     {
         while (true)
         {
-            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+            float sqrDistanceToPlayer = (transform.position - playerTransform.position).sqrMagnitude;
             int randChance = Random.Range(0, 101);
 
-
-            if (distanceToPlayer <= maxDistance && Time.time - lastScreamTime >= minInterval && randChance <= gM.eventChance && !eventTriggered)
+            if (sqrDistanceToPlayer <= maxDistanceSquared && Time.time - lastScreamTime >= minInterval && randChance <= gM.eventChance && !eventTriggered)
             {
                 lastScreamTime = Time.time;
 
                 // Choose a random scream sound
-                AudioClip screamSound = screamSounds[Random.Range(0, screamSounds.Length)];
+                SoundEffect screamSound = screamSounds[Random.Range(0, screamSounds.Length)];
 
                 // Play the scream sound through the assigned audio source
-                audioSource.PlayOneShot(screamSound);
-                
+                AudioManager.instance.PlaySound(screamSound, playerTransform.transform);
+
                 eventTriggered = true;
             }
 

@@ -9,6 +9,9 @@ TagManager:
   - NPC
   - HolyWater
   - Light
+  - Stone Floor
+  - Carpet
+  - Crypt Floor
   layers:
   - Default
   - TransparentFX

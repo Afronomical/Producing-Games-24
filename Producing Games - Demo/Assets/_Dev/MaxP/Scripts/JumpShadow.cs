@@ -133,15 +133,19 @@ public class JumpShadow : MonoBehaviour
 
     private IEnumerator AfterEvent() //resetting shit after jumpscare
     {
-        yield return new WaitForSeconds(1f);
         postProcVolRef.SetActive(true);
         StartCoroutine(pulseProcScript.Pulsate());
+        
+        yield return new WaitForSeconds(0.7f);
+        shadowBaseObj.SetActive(false);
+        //yield return new WaitForSeconds(0.5f);
+
         fovTime = 0;
         reverseFOV = true;
         yield return new WaitForSeconds(0.6f);
         playerCam.fieldOfView = origFOV;
         shadowBaseObj.transform.localPosition = Vector3.zero;
-        shadowBaseObj.SetActive(false);
+        
         playEvent = false;
         jumpScareOnce = true;
     }
