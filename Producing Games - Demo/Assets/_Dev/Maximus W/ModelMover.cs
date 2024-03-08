@@ -1,19 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
+
 
 public class ModelMover : MonoBehaviour
 {
     public Transform objectToMove;
     public Vector3 direction;
     public float distance = 1f;
-    public AudioClip audioClip;
 
-    private AudioSource audioSource;
+    public SoundEffect Soundeffect;
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        
     }
 
     public void MoveObject()
@@ -21,10 +24,9 @@ public class ModelMover : MonoBehaviour
         if (objectToMove != null)
         {
             objectToMove.Translate(direction.normalized * distance);
-            if (audioClip != null && audioSource != null)
-            {
-                audioSource.PlayOneShot(audioClip);
-            }
+            
+            AudioManager.instance.PlaySound(Soundeffect, objectToMove.transform);
+            
         }
         else
         {
