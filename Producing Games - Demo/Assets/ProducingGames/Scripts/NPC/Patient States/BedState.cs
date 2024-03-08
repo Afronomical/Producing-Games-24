@@ -8,15 +8,57 @@ using UnityEngine;
 
 public class BedState : PatientStateBaseClass
 {
+    private bool isWalkingToBed = false;
+
     private void Start()
     {
+        // INFO: Given that the previous was panicked or scared we will have
+        // the patient walk back to their bed
+        if (character.PreviousState == PatientCharacter.PatientStates.Panic ||
+            character.PreviousState == PatientCharacter.PatientStates.Scared)
+            WalkToBed();
+        else
+            PutInBed();
+    }
+
+    public override void UpdateLogic()
+    {
+        if (isWalkingToBed)
+        {
+            // INFO: Puts the patient into bed once they get close enough to it
+            if (character.agent.remainingDistance < 0.1f)
+            {
+                isWalkingToBed = false;
+                PutInBed();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Function that handles putting the patient into the actual bed
+    /// </summary>
+    private void PutInBed()
+    {
+        // INFO: Prevents the patient from moving
         character.agent.enabled = false;
         character.rb.velocity = Vector3.zero;
         character.rb.useGravity = false;
 
-        Transform pos = character.bed.transform.Find("PatientPosition");
-        transform.SetPositionAndRotation(pos.position, pos.rotation);
+        transform.SetPositionAndRotation(character.BedDestination.position, character.BedDestination.rotation);
 
         character.animator.SetBool("inBed", true);
+    }
+
+    /// <summary>
+    /// Function used when the patients previous state was either panicked/scared
+    /// This is done so that the patient doesn't just teleport to their bed once
+    /// they leave the panicked/scared state
+    /// </summary>
+    private void WalkToBed()
+    {
+        isWalkingToBed = true;
+
+        character.agent.speed = character.walkSpeed;
+        character.agent.SetDestination(character.BedDestination.position);
     }
 }

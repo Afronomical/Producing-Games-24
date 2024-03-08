@@ -11,55 +11,38 @@ using UnityEngine;
 public class WanderingState : PatientStateBaseClass
 {
     private Vector3 wanderDestination;
-
-    // INFO: Timer variables used to define the duration that an NPC waits at a location
-    private float currentIdleTime = 0.0f;
-    private readonly float maxIdleTime = 3.0f;
+    private float wanderingIdleTime = 0.0f;
 
     private void Start()
     {
-        if (character.agent.hasPath)
-            character.agent.ResetPath();
+        character.agent.speed = character.walkSpeed;
 
-        character.agent.speed = character.walkSpeed;  
-
-        ChooseDestination();
-
-        //character.animator.SetBool("inBed", false);
-        //character.animator.SetBool("isPraying", false);
+        ChooseWanderingDestination();
     }
 
     public override void UpdateLogic()
     {
         character.animator.SetFloat("movement", character.agent.velocity.magnitude);
-        
-        character.agent.SetDestination(wanderDestination);
 
         // INFO: Given that the patient is near to the destination location a timer is started
-        if (Vector3.Distance(character.transform.position, wanderDestination) < character.distanceFromDestination)
+        if ((character.transform.position - wanderDestination).sqrMagnitude < character.distanceFromDestination)
         {
-            currentIdleTime += Time.deltaTime;
+            wanderingIdleTime += Time.deltaTime;
 
             // INFO: After the patient has waited at its destination location for a specified
             // time it will then choose a different location to move towards
-            if (currentIdleTime > maxIdleTime)
+            if (wanderingIdleTime > character.wanderingIdleDuration)
             {
-                currentIdleTime = 0.0f;
-                ChooseDestination();
+                wanderingIdleTime = 0.0f;
+                ChooseWanderingDestination();
             }
         }
-
-
-        //if (character.agent.velocity.magnitude > 0)
-        //    character.animator.SetBool("isMoving", true);
-        //else
-        //    character.animator.SetBool("isMoving", false);
     }
 
     /// <summary>
     /// Chooses a destination from an available list of destination locations held in the NPC manager 
     /// </summary>
-    private void ChooseDestination()
+    private void ChooseWanderingDestination()
     {
         // INFO: If there are no wandering destinations in the list then end
         if (NPCManager.Instance.GetWanderingDestinationsCount() == 0)
@@ -74,5 +57,16 @@ public class WanderingState : PatientStateBaseClass
 
         // INFO: Chooses a new destination to wander to
         wanderDestination = NPCManager.Instance.RandomWanderingDestination();
+
+        character.agent.SetDestination(wanderDestination);
+    }
+
+    /// <summary>
+    /// When the script is destroyed (changes state) it will free up the wandering
+    /// spot location ready for when the next wandering task is set for a patient
+    /// </summary>
+    private void OnDestroy()
+    {
+        NPCManager.Instance.SetWanderingDestinationFree(wanderDestination);
     }
 }

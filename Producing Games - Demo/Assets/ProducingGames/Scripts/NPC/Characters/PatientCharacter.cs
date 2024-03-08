@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.TextCore.Text;
 
 /// <summary>
 /// Written by: Matej Cincibus
@@ -9,8 +10,13 @@ using UnityEngine.AI;
 /// Handles all the functionality specific to patient NPCs
 /// </summary>
 
-[RequireComponent(typeof(PatientInteractor))]
+public enum SafetyChoices
+{
+    HidingSpot,
+    Bedroom
+}
 
+[RequireComponent(typeof(PatientInteractor))]
 public class PatientCharacter : AICharacter
 {
     public enum PatientStates
@@ -27,19 +33,43 @@ public class PatientCharacter : AICharacter
         Hiding,
         Hungry,
         ReqMeds,
-        Panic
+        Panic,
+        Scared
     }
 
-    [Header("Patient Settings")]
+    [Header("Patient Settings:")]
     public PatientStates currentState;
+    public SafetyChoices safetyChoice;
+    public bool isPossessed = false;
+
+    [Space(10)]
+
     public int startingHealth = 100;
     public int currentHealth;
+
+    [Space(10)]
+
     public float startingSanity = 100;
     public float currentSanity;
-    public bool isPossessed = false;
+
+    [Space(10)]
+
     [Min(0)] public float cowerRadius = 2.0f;
-    public float calmingDuration = 5.0f;
-    public float distanceFromDestination = 3.0f;
+    [Min(0)] public float distanceFromDestination = 3.0f;
+    [Tooltip("The distance at which the patient stops from the player when being escorted")]
+    [Min(0)] public float distanceFromPlayer = 3.0f;
+
+    [Space(10)]
+
+    [Header("Timer Durations:")]
+    [Min(0)] public float calmingDuration = 5.0f;
+    [Min(0)] public float abandonedDuration = 5.0f;
+    [Tooltip("The length of time the patient remains in the escorted state after having lost visibility of the player")]
+    [Min(0)] public float aloneEscortedDuration = 5.0f;
+    [Tooltip("The length of time the patient remains idling once they've arrived at their wandering location")]
+    [Min(0)] public float wanderingIdleDuration = 3.0f;
+
+    [Space(10)]
 
     [Header("Tasks")]
     [HideInInspector] public bool hungry = false;
@@ -50,12 +80,16 @@ public class PatientCharacter : AICharacter
 
     [Header("Components")]
     public PatientStateBaseClass patientStateScript;
-    public DemonItemsSO demonSO;
-    public GameObject demon;
     public GameObject bed;
+    public SoundEffect scaredNPC; 
 
     public float DistanceFromDemon { get; private set; }
+    public Transform BedDestination { get; private set; }
+    public PatientStates PreviousState { get; private set; }
+
+    private GameObject demonGO;
     private DemonCharacter demonCharacter;
+
 
     private void Awake()
     {
@@ -75,50 +109,53 @@ public class PatientCharacter : AICharacter
         currentHealth = startingHealth;
         currentSanity = startingSanity;
 
-        if (isPossessed)                                
-        {
-            // INFO: Retrieves the scriptable object of the chosen demon                       
-            demonSO = NPCManager.Instance.ChosenDemon;
-            InitialiseDemonStats();
+        BedDestination = bed.transform.Find("PatientPosition");
 
-            // INFO: Instantiates the demon and saves it on the game manager so it can be used elsewhere
-            GameObject GO = Instantiate(demonSO.demonPrefab, NPCManager.Instance.GetDemonInstantionLocation().transform.position, Quaternion.identity);
+        if (isPossessed)
+        {
+            // INFO: Instantiates the demon and saves it to the game manager so it can be used elsewhere
+            GameObject GO = Instantiate(NPCManager.Instance.ChosenDemon.demonPrefab,
+                                        NPCManager.Instance.GetDemonInstantionLocation().transform.position,
+                                        Quaternion.identity);
+
             GameManager.Instance.demon = GO;
         }
 
-        ChangePatientState(PatientStates.Abandoned); //INFO: Starting State
+        // INFO: Starting State
+        ChangePatientState(PatientStates.Abandoned);
     }
 
     private void Update()
     {
-        // INFO: Assign a reference to the demon for each patient
-        if (GameManager.Instance.demon != null && demon == null)
-        {
-            demon = GameManager.Instance.demon;
-            demonCharacter = demon.GetComponent<DemonCharacter>();
-        }
-
+        // INFO:  Calls the virtual function for whatever state scripts
         if (patientStateScript != null)
-            patientStateScript.UpdateLogic();  // Calls the virtual function for whatever state scripts
+            patientStateScript.UpdateLogic();
+
+        // INFO: Assign a reference to the demon for each patient
+        if (GameManager.Instance.demon != null && demonGO == null)
+        {
+            demonGO = GameManager.Instance.demon;
+            demonCharacter = demonGO.GetComponent<DemonCharacter>();
+        }
 
         // INFO: Monitors health to check whether patient has died
         if (currentHealth <= 0 && currentState != PatientStates.Dead)
             ChangePatientState(PatientStates.Dead);
 
-        if (demon != null && (demonCharacter.currentState != DemonCharacter.DemonStates.Inactive ||
-                              demonCharacter.currentState != DemonCharacter.DemonStates.Exorcised))
-        {
-            // INFO: Logic for detecting how far away the demon is from the patient and what state to enter
-            DistanceFromDemon = Vector3.Distance(transform.position, demon.transform.position);
+        // INFO: Causes the patient to go into panic/scared if a horror
+        // event occurs near them
+        LocateNearestHorrorEvent();
 
-            // INFO: So long as the demon is active and hasn't been exorcised he can scare
-            // patients and cause them to go into the panic state
-            if (DistanceFromDemon < detectionRadius && currentState != PatientStates.Panic)
-                ChangePatientState(PatientStates.Panic);
-        }
+        // INFO: Causes the patient to go into panic/scared if the demon
+        // is near them
+        LocateDemon();
     }
 
-    public void ChangePatientState(PatientStates newState)  // Will destroy the old state script and create a new one
+    /// <summary>
+    /// Will destroy the old state script and create a new one
+    /// </summary>
+    /// <param name="newState"></param>
+    public void ChangePatientState(PatientStates newState)
     {
         if (currentState != newState || patientStateScript == null)
         {
@@ -126,23 +163,30 @@ public class PatientCharacter : AICharacter
             // movement again for the new state that they're going to go into
             if (currentState == PatientStates.Bed || currentState == PatientStates.ReqMeds || currentState == PatientStates.Prayer)
             {
-                if (rb) rb.useGravity = true;
-                if (agent.isOnNavMesh) agent.enabled = true;
+                rb.useGravity = true;
+                agent.enabled = true;
             }
+
+            // INFO: If the patient has a path set from a previous state, this will get rid of it
+            if (agent.hasPath)
+                agent.ResetPath();
 
             if (patientStateScript != null)
                 Destroy(patientStateScript); // destroy current script attached to AI character
 
-            //remove all animations
-            if (animator != null)
-            {
-                animator.SetBool("isHungry", false);
-                animator.SetBool("isPraying", false);
-                animator.SetBool("reqMeds", false);
-                animator.SetBool("inBed", false);
-            }
+            // INFO: Remove all animations
+            animator.SetBool("isHungry", false);
+            animator.SetBool("isPraying", false);
+            animator.SetBool("reqMeds", false);
+            animator.SetBool("inBed", false);
+            animator.SetBool("isRunning", false);
+            animator.SetBool("isTerrified", false);
+            animator.SetBool("isScared", false);
 
-            //set the current state of AI character to the new state
+            // INFO: Set the previous state of the patient to the current state
+            PreviousState = currentState;
+
+            // INFO: Set the current state of the patient to the new state
             currentState = newState;
 
             patientStateScript = newState switch
@@ -158,18 +202,109 @@ public class PatientCharacter : AICharacter
                 PatientStates.Hungry => transform.AddComponent<HungryState>(),
                 PatientStates.ReqMeds => transform.AddComponent<RequestMedicationState>(),
                 PatientStates.Panic => transform.AddComponent<PanicState>(),
+                PatientStates.Scared => transform.AddComponent<ScaredState>(),
                 PatientStates.None => null,
                 _ => null,
             };
 
+            // INFO: Set the reference that state scripts will use
             if (patientStateScript != null)
-                patientStateScript.character = this;  // Set the reference that state scripts will use
+                patientStateScript.character = this;
         }
     }
 
-    private void InitialiseDemonStats()
+    /// <summary>
+    /// Detects horror events near the patient
+    /// </summary>
+    private void LocateNearestHorrorEvent()
     {
-        //Debug.Log(demonSO.demonName + " stats initialised");
-        // INFO: Initialise further demon stats here?
+        // INFO: Given that horror events aren't happening/can't happen we exit
+        if (HorrorEventManager.Instance == null || HorrorEventManager.Instance.Events.Count < 1)
+            return;
+
+        // INFO: Goes through all horror events currently happening
+        foreach (GameObject item in HorrorEventManager.Instance.Events)
+        {
+            float distanceFromHorrorEvent = (item.transform.position - transform.position).sqrMagnitude;
+
+            // INFO: Given that the event is too far from the patient we continue
+            if (distanceFromHorrorEvent > detectionRadius)
+                continue;
+
+            PanicOrScaredDecider();
+        }
+    }
+
+    /// <summary>
+    /// Detects how close the demon is near the patient
+    /// </summary>
+    private void LocateDemon()
+    {
+        // INFO: If there is no demon or the demon is inactive/has been exorcised
+        // we exit
+        if (demonGO == null || demonCharacter.currentState == DemonCharacter.DemonStates.Inactive
+                            || demonCharacter.currentState == DemonCharacter.DemonStates.Exorcised) 
+            return;
+
+        // INFO: Logic for detecting how far away the demon is from the patient and what state to enter
+        DistanceFromDemon = (transform.position - demonGO.transform.position).sqrMagnitude;
+
+        // INFO: Given that the demon is too far from the patient we return
+        if (DistanceFromDemon > detectionRadius)
+            return;
+
+        PanicOrScaredDecider();
+    }
+
+    /// <summary>
+    /// Decides between the panic or scared patient states
+    /// based on the in-game hour
+    /// </summary>
+    private void PanicOrScaredDecider()
+    {
+        // INFO: If the patient is already panicking/scared or they are dead
+        // we can return
+        if (currentState == PatientStates.Panic ||
+            currentState == PatientStates.Scared ||
+            currentState == PatientStates.Dead)
+            return;
+
+        ChangePatientState(GameManager.Instance.currentHour < 7 ? PatientStates.Scared : PatientStates.Panic);
+    }
+
+    /// <summary>
+    /// The patient chooses to either hide or run back to their bedroom when
+    /// they enter the panicked/scared state
+    /// </summary>
+    public Vector3 SafetyChooser()
+    {
+        switch (safetyChoice)
+        {
+            case SafetyChoices.HidingSpot:
+                return NPCManager.Instance.RandomHidingLocation();
+            case SafetyChoices.Bedroom:
+                return bed.transform.position;
+            default:
+                break;
+        }
+
+        Debug.LogError("Unable to choose a safety location for the patient!");
+        return Vector3.zero;
+    }
+
+    /// <summary>
+    /// Function that handles the detection of the bed belonging to a specific patient
+    /// </summary>
+    /// <returns></returns>
+    public bool CheckBedInRange()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius);
+
+        foreach (Collider collider in colliders)
+        {
+            if (collider.gameObject == bed)
+                return true;
+        }
+        return false;
     }
 }

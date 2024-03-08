@@ -1,5 +1,3 @@
-using UnityEngine;
-
 /// <summary>
 /// Written By: Matt Brake
 /// <para> Moderated By: Matej Cincibus</para>
@@ -8,17 +6,16 @@ using UnityEngine;
 
 public class AbandonedState : PatientStateBaseClass
 {
-    private readonly float maxTimeAbandoned = 5f;
-    private float timeAbandoned = 0;
-
-    public override void UpdateLogic()
+    private void Start()
     {
-        timeAbandoned += Time.deltaTime; //logs the time the patient has been abandoned for.
+        Invoke(nameof(Abandoned), character.abandonedDuration);
+    }
 
-        if (timeAbandoned > maxTimeAbandoned)
-        {
-            character.animator.SetBool("isAbandoned", false);
-            character.ChangePatientState(PatientCharacter.PatientStates.Wandering); // once the max time for abandonment is reached, patient goes wandering. 
-        }
+    private void Abandoned()
+    {
+        character.animator.SetBool("isAbandoned", false);
+
+        // INFO: Patient goes back to wandering once completely abandoned
+        character.ChangePatientState(PatientCharacter.PatientStates.Wandering); 
     }
 }

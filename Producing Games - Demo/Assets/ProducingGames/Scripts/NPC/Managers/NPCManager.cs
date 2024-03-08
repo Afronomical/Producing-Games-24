@@ -31,7 +31,6 @@ public class NPCManager : MonoBehaviour
     public List<GameObject> patientList = new();
     [HideInInspector] public readonly List<GameObject> patientBeds = new();
 
-
     // INFO: The key represents the location that the NPC should move to
     // the value represents whether the location has been taken by an NPC
     private readonly Dictionary<Vector3, bool> wanderingLib = new();
@@ -120,6 +119,17 @@ public class NPCManager : MonoBehaviour
 
         GameObject chosenNPC = patientList[npcChoice];
         ChosenDemon = demonTypes[demonChoice];
+
+        // INFO: Look through all patients to see if there is already a possessed patient
+        // if there is, then don't possess another
+        foreach (GameObject patient in patientList)
+        {
+            if (patient.GetComponent<PatientCharacter>().isPossessed)
+            {
+                Debug.Log(patient.name + " is already possessed by: " + ChosenDemon.demonName);
+                return;
+            }
+        }
 
         chosenNPC.GetComponent<PatientCharacter>().isPossessed = true;
 
