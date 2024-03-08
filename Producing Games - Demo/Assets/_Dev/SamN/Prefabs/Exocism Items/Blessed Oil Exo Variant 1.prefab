@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2891471058160452202, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3677882020956813164, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
       propertyPath: m_Name
       value: Blessed Oil Exo Variant 1
