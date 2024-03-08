@@ -4,61 +4,35 @@ using System.Collections;
 public class DistantScreamsEvent : MonoBehaviour
 {
     public SoundEffect[] screamSounds;
-    public float maxDistanceSquared = 900f; // Maximum distance squared for hearing the distant screams
     public float minInterval = 60f; // Minimum interval between distant screams
 
+    private GameObject player;
 
     private float lastScreamTime;
-    private Transform playerTransform;
     private GameManager gM;
-    private bool eventTriggered;
+    [HideInInspector] public bool eventTriggered;
 
     private void Start()
     {
         lastScreamTime = Time.time - minInterval; // Initialize lastScreamTime to ensure immediate playback
 
-        // Set the 'playerTransform' reference to the actual player transform
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player == null)
-        {
-            Debug.LogError("Player not found in the scene.");
-            return;
-        }
-        playerTransform = player.transform;
-
-
+        player = GameManager.Instance.player;
         gM = GameManager.Instance;
-
-        TriggerDistantScreams();
     }
 
-    public void TriggerDistantScreams()
+    private void OnTriggerEnter(Collider other)
     {
-        StartCoroutine(DistantScreamsCoroutine());
-    }
-
-    private IEnumerator DistantScreamsCoroutine()
-    {
-        while (true)
+        if (other.CompareTag("Player") && Time.time - lastScreamTime >= minInterval && !eventTriggered)
         {
-            float sqrDistanceToPlayer = (transform.position - playerTransform.position).sqrMagnitude;
-            int randChance = Random.Range(0, 101);
+            lastScreamTime = Time.time;
 
-            if (sqrDistanceToPlayer <= maxDistanceSquared && Time.time - lastScreamTime >= minInterval && randChance <= gM.eventChance && !eventTriggered)
-            {
-                lastScreamTime = Time.time;
+            // Choose a random scream sound
+            SoundEffect screamSound = screamSounds[Random.Range(0, screamSounds.Length)];
 
-                // Choose a random scream sound
-                SoundEffect screamSound = screamSounds[Random.Range(0, screamSounds.Length)];
+            // Play the scream sound through the assigned audio source
+            AudioManager.instance.PlaySound(screamSound, player.transform);
 
-                // Play the scream sound through the assigned audio source
-                AudioManager.instance.PlaySound(screamSound, playerTransform.transform);
-
-                eventTriggered = true;
-            }
-
-            yield return null;
+            eventTriggered = true;
         }
     }
 }
-
