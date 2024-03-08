@@ -9,15 +9,18 @@ using UnityEngine;
 public class LightManager : MonoBehaviour
 {
     public static LightManager Instance;
-    public List<GameObject> lightList = new List<GameObject>();
+    //public List<GameObject> lightList = new List<GameObject>();
+    public InteriorLampFlicker[] lightList;
 
     // Start is called before the first frame update
     void Start()
     {
-        foreach(GameObject lightObj in GameObject.FindGameObjectsWithTag("Light"))
-        {
-            lightList.Add(lightObj); //is there a more optimised way of doing this?
-        }
+        //foreach(GameObject lightObj in GameObject.FindObjectOfType<InteriorLampFlicker>())
+        //{
+        //    lightList.Add(lightObj); //is there a more optimised way of doing this?
+        //}
+
+        lightList = FindObjectsByType<InteriorLampFlicker>(FindObjectsSortMode.None);
     }
 
     // Update is called once per frame
@@ -35,11 +38,11 @@ public class LightManager : MonoBehaviour
 
     void AllLightToggle(bool lightOn)
     {
-        foreach (GameObject lightObj in lightList)
+        foreach (InteriorLampFlicker lightObj in lightList)
         {
-            if (lightObj.GetComponent<InteriorLampFlicker>() != null && lightObj.GetComponent<InteriorLampFlicker>().dontPowerOff == false) // could i do the null check in start to make it more optimised?
+            if (lightObj.dontPowerOff == false) // could i do the null check in start to make it more optimised?        lightObj.GetComponent<InteriorLampFlicker>() != null && 
             {
-                lightObj.SetActive(lightOn);
+                lightObj.transform.gameObject.SetActive(lightOn);
             }
         }
     }

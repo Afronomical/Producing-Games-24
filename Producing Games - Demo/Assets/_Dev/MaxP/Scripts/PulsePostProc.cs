@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 /// <summary>
-/// This script allows a post process volumes effect to pulsate between a set maximum and minimum within a set amount of time 
+/// This script allows a post process volumes effect to pulsate between a set maximum and minimum within a set amount of time.
+/// The while loops are timers to update the lerps every frame
 /// </summary>
 
 public class PulsePostProc : MonoBehaviour
@@ -15,6 +16,7 @@ public class PulsePostProc : MonoBehaviour
     private float timePerPulse;
     private bool toMax;
     private float firstWeight;
+    //private static Volume vol;
 
     bool goToPlayer;
 
@@ -39,22 +41,18 @@ public class PulsePostProc : MonoBehaviour
         }
     }
 
-    //private void OnEnable()
-    //{
-    //    StartCoroutine(Pulsate());
-    //    Debug.Log("rereeeeeee");
-    //}
+    
 
     public IEnumerator Pulsate()
     {
         goToPlayer = true;
         timePerPulse = pulseTotLength / pulses;
         
-        for (int i = 0; i < pulses; i++) //the main pulse loop
+        for (int i = 0; i < pulses; i++) //the main pulse loop, loops for each pulse
         {
             firstWeight = GetComponent<Volume>().weight;
-            toMax = !toMax;
-            while (elapsedTime < timePerPulse)
+            toMax = !toMax; //"toMax" swaps every loop
+            while (elapsedTime < timePerPulse) //lerps post processing weight to min or max depending on if "toMax" is true or false
             {
                 GetComponent<Volume>().weight = Mathf.Lerp(firstWeight, toMax ? maxWeight : minWeight, elapsedTime / timePerPulse);
                 elapsedTime += Time.deltaTime;
@@ -62,13 +60,13 @@ public class PulsePostProc : MonoBehaviour
                 
             }
             elapsedTime = 0f;
-            firstWeight = GetComponent<Volume>().weight;
-            yield return new WaitForSeconds(0.1f);
+            
             
         }
-        yield return new WaitForSeconds(0.3f);
+        
+        firstWeight = GetComponent<Volume>().weight;
         elapsedTime = 0f;
-        while (elapsedTime < timePerPulse) //lerping back to 0 post process strength
+        while (elapsedTime < timePerPulse) //lerping back to 0 post process weight
         {
             GetComponent<Volume>().weight = Mathf.Lerp(firstWeight, 0, elapsedTime / timePerPulse);
             elapsedTime += Time.deltaTime;

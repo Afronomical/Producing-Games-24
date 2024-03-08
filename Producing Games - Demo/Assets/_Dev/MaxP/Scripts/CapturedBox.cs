@@ -14,6 +14,8 @@ public class CapturedBox : MonoBehaviour
 {
     
     private GameObject playerObj;
+    private CharacterController playerCont;
+    private PlayerInput playerInp;
     public float beforeTpDelay;
     public GameObject tpLoc;
     public GameObject demon1;
@@ -45,7 +47,10 @@ public class CapturedBox : MonoBehaviour
         playerObj = GameManager.Instance.player;
         camScript = FindAnyObjectByType<CameraLook>(); //there may be a better way to do this?
         lightScript = FindAnyObjectByType<Flashlight>();
-        
+
+        playerCont = playerObj.GetComponent<CharacterController>();
+        playerInp = playerObj.GetComponent<PlayerInput>();
+
 
         origPosDemon1 = demon1.transform.position;
         origPosDemon2 = demon2.transform.position;
@@ -55,50 +60,63 @@ public class CapturedBox : MonoBehaviour
     void Update()
     {
 
+        //if (Input.GetKey(KeyCode.M))
+        //{
+        //    StartCoroutine(MainEvent());
+        //}
 
 
-       
     }
 
     public IEnumerator MainEvent()
     {
         yield return new WaitForSeconds(beforeTpDelay); //delay before teleported, so demon attack animation has a chance to play... could put this after turning off input...
 
-        playerObj.GetComponent<CharacterController>().enabled = false;
-        playerObj.GetComponent<PlayerInput>().enabled = false;
+        playerCont.enabled = false;
+        playerInp.enabled = false;
+
         lightScript.intensityIndex = 0;
         lightScript.IntensityChange();
+
         playerObj.transform.position = tpLoc.transform.position;
-        Debug.Log("kdfugsdiughasoilg");
         LookAtTarg(demon1.transform.position);
 
         yield return new WaitForSeconds(waitForStage1); //stage 1: demon moving into light
         AudioManager.instance.PlaySound(mainAmbienceSound, moveto1.transform);
+
         float elapsedTime = 0;
         float waitTime = stage1;
+
         while (elapsedTime < waitTime)
         {
             demon1.transform.position = Vector3.Lerp(origPosDemon1, moveto1.transform.position, Mathf.SmoothStep(0.0f, 1.0f, (elapsedTime / waitTime)));
             elapsedTime += Time.deltaTime;
             yield return new WaitForSeconds(Time.deltaTime);
         }
+
         AudioManager.instance.PlaySound(mainAmbienceSound, moveto1.transform);
 
         yield return new WaitForSeconds(waitForStage2); //stage 2: demon moving back out of light
+
         elapsedTime = 0;
         waitTime = stage2;
+
         while (elapsedTime < waitTime)
         {
             demon1.transform.position = Vector3.Lerp(moveto1.transform.position, origPosDemon1, Mathf.SmoothStep(0.0f, 1.0f, (elapsedTime / waitTime)));
             elapsedTime += Time.deltaTime;
             yield return new WaitForSeconds(Time.deltaTime);
         }
+
         eyes.SetActive(false);
 
         yield return new WaitForSeconds(waitForStage3); //stage 3: jumpscare demon
+
         AudioManager.instance.PlaySound(jumpScareSound, playerObj.transform);
+
         elapsedTime = 0;
         waitTime = stage3;
+
         while (elapsedTime < waitTime)
         {
             demon2.transform.position = Vector3.Lerp(origPosDemon2, moveto2.transform.position, Mathf.SmoothStep(0.0f, 1.0f, (elapsedTime / waitTime)));
@@ -108,11 +126,15 @@ public class CapturedBox : MonoBehaviour
         
 
         yield return new WaitForSeconds(1f);
+
         eyes.SetActive(true);
+
         demon1.transform.position = origPosDemon1;
         demon2.transform.position = origPosDemon2;
-        playerObj.GetComponent<PlayerInput>().enabled = true;
-        playerObj.GetComponent<CharacterController>().enabled = true;
+
+        playerInp.enabled = true;
+        playerCont.enabled = true;
+
         StartCoroutine(GameManager.Instance.EndHour());
         //GameManager.Instance.EndHour();
     }
