@@ -45,6 +45,7 @@ public class PatientTaskManager : MonoBehaviour
     public GameObject fuse;
     public GameObject pipes;
     public GameObject satellite;
+    public GameObject fuseBox;
     public GameObject[] tables;
 
 
@@ -394,6 +395,10 @@ public class PatientTaskManager : MonoBehaviour
             case HourlyTasks.Satellite:
                 newTask = transform.AddComponent<PSatelliteTask>();
                 newTask.taskTarget = satellite;
+                break;
+            case HourlyTasks.Clean:
+                newTask = transform.AddComponent<PCleanTask>();
+                newTask.taskTarget = tables[Random.Range(0, tables.Length)];
                 break;
         }
 
