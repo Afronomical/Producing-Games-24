@@ -9,9 +9,14 @@ public class NPCDoorTrigger : MonoBehaviour
     private DoorNPC door;
     private int agentsInRange = 0;
 
+    public AnimationClip animation;
+
     private void OnTriggerEnter(Collider other)
     {
-        if(other.TryGetComponent<NavMeshAgent>(out NavMeshAgent agent))
+        other.GetComponent<Animator>().SetBool("hasOpenedDoor", false);
+        other.GetComponent<Animator>().Play("OpenDoorOutwards", 0, 0.0f);
+
+        if (other.TryGetComponent<NavMeshAgent>(out NavMeshAgent agent))
         {
             agentsInRange++;
             if (!door.isOpen)
@@ -23,12 +28,14 @@ public class NPCDoorTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        other.GetComponent<Animator>().SetBool("hasOpenedDoor", true);
         if (other.TryGetComponent<NavMeshAgent>(out NavMeshAgent agent))
         {
             agentsInRange--;
             if (door.isOpen && agentsInRange == 0)
             {
                 door.CloseDoor();
+                //other.GetComponent<Animator>().SetBool("hasOpenedDoor", false);
             }
         }
     }
