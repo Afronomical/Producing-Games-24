@@ -10,6 +10,7 @@ using UnityEngine;
 public class PrayerState : PatientStateBaseClass
 {
     private Vector3 prayingDestination;
+    private bool isWalkingToPrayingDest = false;
 
     private void Start()
     {
@@ -22,8 +23,22 @@ public class PrayerState : PatientStateBaseClass
             WalkToPrayingSpot();
         else
             TeleportToPrayingSpot();
+    }
 
-        character.animator.SetBool("isPraying", true);
+    public override void UpdateLogic()
+    {
+        if (isWalkingToPrayingDest)
+        {
+            // INFO: Stops the walking animation and transitions to the praying animation
+            if (character.agent.remainingDistance < 0.1f)
+            {
+                isWalkingToPrayingDest = false;
+
+                // STOP PLAYING WALKING ANIMATION
+
+                character.animator.SetBool("isPraying", true);
+            }
+        }
     }
 
     /// <summary>
@@ -49,6 +64,8 @@ public class PrayerState : PatientStateBaseClass
     private void TeleportToPrayingSpot()
     {
         character.agent.Warp(prayingDestination);
+
+        character.animator.SetBool("isPraying", true);
     }
 
     /// <summary>
@@ -57,6 +74,11 @@ public class PrayerState : PatientStateBaseClass
     /// </summary>
     private void WalkToPrayingSpot()
     {
+        // PLAY WALKING ANIMATION HERE
+
+        isWalkingToPrayingDest = true;
+
+        character.agent.speed = character.walkSpeed;
         character.agent.SetDestination(prayingDestination);
     }
 

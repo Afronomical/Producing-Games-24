@@ -11,6 +11,7 @@ using UnityEngine;
 public class HidingState : PatientStateBaseClass
 {
     private Vector3 hidingLocation;
+    private bool isWalkingToHidingDest = false;
 
     private void Start()
     {
@@ -23,9 +24,22 @@ public class HidingState : PatientStateBaseClass
             WalkToHidingSpot();
         else
             TeleportToHidingSpot();
+    }
 
-        // PLAY HIDING ANIMATION HERE
-        character.animator.SetBool("isTerrified", true);
+    public override void UpdateLogic()
+    {
+        if (isWalkingToHidingDest)
+        {
+            // INFO: Stops the walking animation and transitions to the praying animation
+            if (character.agent.remainingDistance < 0.1f)
+            {
+                isWalkingToHidingDest = false;
+
+                // STOP PLAYING WALKING ANIMATION
+
+                character.animator.SetBool("isTerrified", true);
+            }
+        }
     }
 
     /// <summary>
@@ -51,6 +65,8 @@ public class HidingState : PatientStateBaseClass
     private void TeleportToHidingSpot()
     {
         character.agent.Warp(hidingLocation);
+
+        character.animator.SetBool("isTerrified", true);
     }
 
     /// <summary>
@@ -59,6 +75,11 @@ public class HidingState : PatientStateBaseClass
     /// </summary>
     private void WalkToHidingSpot()
     {
+        // PLAY WALKING ANIMATION HERE
+
+        isWalkingToHidingDest = true;
+
+        character.agent.speed = character.walkSpeed;
         character.agent.SetDestination(hidingLocation);
     }
 

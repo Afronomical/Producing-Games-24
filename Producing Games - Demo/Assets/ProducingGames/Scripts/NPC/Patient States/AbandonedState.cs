@@ -8,6 +8,8 @@ public class AbandonedState : PatientStateBaseClass
 {
     private void Start()
     {
+        // PLAY ABANDONED ANIMATION HERE
+
         Invoke(nameof(Abandoned), character.abandonedDuration);
     }
 

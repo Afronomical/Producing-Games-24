@@ -39,6 +39,8 @@ public class BedState : PatientStateBaseClass
     /// </summary>
     private void PutInBed()
     {
+        // STOP PLAYING WALKING ANIMATION HERE
+
         // INFO: Prevents the patient from moving
         character.agent.enabled = false;
         character.rb.velocity = Vector3.zero;
@@ -56,6 +58,8 @@ public class BedState : PatientStateBaseClass
     /// </summary>
     private void WalkToBed()
     {
+        // PLAY WALKING ANIMATION HERE
+
         isWalkingToBed = true;
 
         character.agent.speed = character.walkSpeed;

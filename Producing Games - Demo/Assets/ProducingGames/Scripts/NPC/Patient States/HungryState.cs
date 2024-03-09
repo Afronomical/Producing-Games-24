@@ -9,6 +9,7 @@ using UnityEngine;
 public class HungryState : PatientStateBaseClass
 {
     private Vector3 hungryLocation;
+    private bool isWalkingToHungryDest = false;
 
     private void Start()
     {
@@ -21,8 +22,22 @@ public class HungryState : PatientStateBaseClass
             WalkToHungrySpot();
         else
             TeleportToHungrySpot();
+    }
 
-        character.animator.SetBool("isHungry", true);
+    public override void UpdateLogic()
+    {
+        if (isWalkingToHungryDest)
+        {
+            // INFO: Stops the walking animation and transitions to the praying animation
+            if (character.agent.remainingDistance < 0.1f)
+            {
+                isWalkingToHungryDest = false;
+
+                // STOP PLAYING WALKING ANIMATION
+
+                character.animator.SetBool("isHungry", true);
+            }
+        }
     }
 
     /// <summary>
@@ -48,6 +63,8 @@ public class HungryState : PatientStateBaseClass
     private void TeleportToHungrySpot()
     {
         character.agent.Warp(hungryLocation);
+
+        character.animator.SetBool("isHungry", true);
     }
 
     /// <summary>
@@ -56,6 +73,11 @@ public class HungryState : PatientStateBaseClass
     /// </summary>
     private void WalkToHungrySpot()
     {
+        // PLAY WALKING ANIMATION HERE
+
+        isWalkingToHungryDest = true;
+
+        character.agent.speed = character.walkSpeed;
         character.agent.SetDestination(hungryLocation);
     }
 

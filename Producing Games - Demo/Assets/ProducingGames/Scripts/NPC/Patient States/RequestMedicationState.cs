@@ -9,6 +9,8 @@ using UnityEngine;
 
 public class RequestMedicationState : PatientStateBaseClass
 {
+    private bool isWalkingToReqMeds = false;
+
     private void Start()
     {
         Debug.Log(gameObject.name + ": requests medication.");
@@ -20,8 +22,22 @@ public class RequestMedicationState : PatientStateBaseClass
             WalkToReqMedSpot();
         else
             TeleportToReqMedSpot();
+    }
 
-        character.animator.SetBool("reqMeds", true);
+    public override void UpdateLogic()
+    {
+        if (isWalkingToReqMeds)
+        {
+            // INFO: Stops the walking animation and transitions to the req meds animation
+            if (character.agent.remainingDistance < 0.1f)
+            {
+                isWalkingToReqMeds = false;
+
+                // STOP PLAYING WALKING ANIMATION
+
+                character.animator.SetBool("reqMeds", true);
+            }
+        }
     }
 
     /// <summary>
@@ -31,6 +47,8 @@ public class RequestMedicationState : PatientStateBaseClass
     private void TeleportToReqMedSpot()
     {
         character.agent.Warp(character.BedDestination.position);
+
+        character.animator.SetBool("reqMeds", true);
     }
 
     /// <summary>
@@ -39,6 +57,11 @@ public class RequestMedicationState : PatientStateBaseClass
     /// </summary>
     private void WalkToReqMedSpot()
     {
+        // PLAY WALKING ANIMATION HERE
+
+        isWalkingToReqMeds = true;
+
+        character.agent.speed = character.walkSpeed;
         character.agent.SetDestination(character.BedDestination.position);
     }
 }
