@@ -15,6 +15,7 @@ public class LightManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Instance = this;
         //foreach(GameObject lightObj in GameObject.FindObjectOfType<InteriorLampFlicker>())
         //{
         //    lightList.Add(lightObj); //is there a more optimised way of doing this?
@@ -36,7 +37,7 @@ public class LightManager : MonoBehaviour
         //}
     }
 
-    void AllLightToggle(bool lightOn)
+    public void AllLightToggle(bool lightOn)
     {
         foreach (InteriorLampFlicker lightObj in lightList)
         {
