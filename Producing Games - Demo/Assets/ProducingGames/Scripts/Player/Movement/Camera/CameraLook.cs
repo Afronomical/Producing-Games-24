@@ -18,6 +18,13 @@ public class CameraLook : MonoBehaviour
     private PlayerMovement playerMovement;
     private CharacterController playerController;
     private PlayerInput playerInput;
+    public Transform playerArms;
+
+    [Header("Arm Offset")]
+    public Vector2 armOffsetDistance;
+    public Vector2 armOffsetLimit;
+    [Range(0f, 1f)] public float armCatchUpSpeed;
+    private Vector2 armOffset;
 
 
     [Header("Head Bobbing")]
@@ -56,6 +63,11 @@ public class CameraLook : MonoBehaviour
         playerBody.Rotate(Vector3.up * mouseX);  // Rotate the player left and right
         Leaning();
 
+        armOffset.x = Mathf.Clamp(armOffset.x, -armOffsetLimit.x, armOffsetLimit.x);
+        armOffset.y = Mathf.Clamp(armOffset.y, -armOffsetLimit.y, armOffsetLimit.y);
+        armOffset = Vector2.Lerp(armOffset, Vector2.zero, armCatchUpSpeed);
+        playerArms.localRotation = Quaternion.Euler(armOffset.y, -armOffset.x, 0);
+
 
         GameObject[] allNPCs = GameObject.FindGameObjectsWithTag("NPC");
         foreach (GameObject npc in allNPCs)
@@ -81,9 +93,15 @@ public class CameraLook : MonoBehaviour
     public void OnLookInput(InputAction.CallbackContext context)
     {
         if (playerInput.currentControlScheme == "Gamepad")
+        {
             currentInput = context.ReadValue<Vector2>() * controllerSensitivity;
+            armOffset += context.ReadValue<Vector2>() * controllerSensitivity * armOffsetDistance;
+        }
         else
+        {
             currentInput = context.ReadValue<Vector2>() * mouseSensitivity;
+            armOffset += context.ReadValue<Vector2>() * mouseSensitivity * armOffsetDistance;
+        }
     }
 
     private void Leaning()

@@ -39,6 +39,7 @@ public class PSatelliteTask : Task
     {
         taskTarget.GetComponent<SatelliteBox>().enabled = false;
         taskTarget.GetComponent<BoxCollider>().enabled = false;
+        PatientTaskManager.instance.satelliteHasBroken = true;
         GameManager.Instance.AddSanity(-4);
         base.FailTask();
     }

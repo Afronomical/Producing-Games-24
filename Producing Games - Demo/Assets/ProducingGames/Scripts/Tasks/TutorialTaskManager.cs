@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 
 using UnityEngine;
+using static PatientTaskManager;
+using static UnityEngine.Rendering.DebugUI;
 
 
 public class TutorialTaskManager : MonoBehaviour
@@ -230,6 +232,15 @@ public class TutorialTaskManager : MonoBehaviour
                     newTask = transform.AddComponent<PSatelliteTask>();
                     newTask.hTask = PatientTaskManager.instance.playerTasks[2];
                     newTask.taskTarget = PatientTaskManager.instance.satellite;
+                    break;
+                case PatientTaskManager.HourlyTasks.CheckWater:
+                    newTask = transform.AddComponent<PPipeTask>();
+                    newTask.hTask = PatientTaskManager.instance.playerTasks[3];
+                    newTask.taskTarget = PatientTaskManager.instance.pipes;
+                    break;
+                case HourlyTasks.Clean:
+                    newTask = transform.AddComponent<PCleanTask>();
+                    newTask.taskTarget = PatientTaskManager.instance.tables[Random.Range(0, PatientTaskManager.instance.tables.Length)];
                     break;
             }
 

@@ -50,6 +50,6 @@ public class TooltipManager : MonoBehaviour
     {
         gameObject.SetActive(false);
         tooltipText.text = string.Empty;
-        tooltipImage.sprite = null;
+        if (tooltipImage) tooltipImage.sprite = null;
     }
 }

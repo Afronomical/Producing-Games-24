@@ -34,9 +34,9 @@ public class PatientTaskManager : MonoBehaviour
 
     public InteractiveObject noTaskPrompt;
 
-    private bool fuseHasBroken = false;
-    private bool waterHasBroken = false;
-    private bool satelliteHasBroken = false;
+    [HideInInspector] public bool fuseHasBroken = false;
+    [HideInInspector] public bool waterHasBroken = false;
+    [HideInInspector] public bool satelliteHasBroken = false;
 
     public SoundEffect writingSound, completeSound;
 
@@ -395,6 +395,10 @@ public class PatientTaskManager : MonoBehaviour
             case HourlyTasks.Satellite:
                 newTask = transform.AddComponent<PSatelliteTask>();
                 newTask.taskTarget = satellite;
+                break;
+            case HourlyTasks.CheckWater:
+                newTask = transform.AddComponent<PPipeTask>();
+                newTask.taskTarget = pipes;
                 break;
             case HourlyTasks.Clean:
                 newTask = transform.AddComponent<PCleanTask>();
