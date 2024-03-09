@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PCheckFuse
   m_EditorClassIdentifier: 
   taskType: 9
-  chanceToHappen: 1
+  chanceToHappen: 10
   BlockingTasks: []
   taskName: Perform maintenance on the fuse box
   taskDescription: Check the fuse box

@@ -13,17 +13,26 @@ public class Fuse : MonoBehaviour
 
     [HideInInspector] public List<Vector3> pointList = new List<Vector3>();
 
+    private void Start()
+    {
+        Transform transform = gameObject.transform;
+    }
     private void Update()
     {
-        if (followingMouse)
+        if (followingMouse == true)
         {
-            gameObject.transform.position = box.cursor.transform.position;
+            transform.position = box.cursor.transform.position;
+        }
+        if(connected == true)
+        {
+            transform.position = fuseSlot.transform.position;
         }
 
     }
     public void InitializeFuse()
     {
-        box = transform.parent.GetComponent<FuseBox>();
+        box = GameObject.Find("FuseBox").GetComponent<FuseBox>();
+        transform.position = returnPosition.position;
     }
 
 
@@ -37,15 +46,11 @@ public class Fuse : MonoBehaviour
     {
         followingMouse = false;
 
-        gameObject.transform.position = returnPosition.position; 
-        /*List<GameObject> correctSlot = new List<GameObject>(box.fuseSlots);
-        foreach (GameObject slot in correctSlot) 
+        if(connected == false)
         {
-            if(slot.GetComponent<Renderer>().material == gameObject.GetComponent<Renderer>().material)
-            {
-                gameObject.transform.position = slot.transform.position;
-            }
-        }*/
+            transform.position = returnPosition.position; 
+        }
+       
     }
 
     public void Connect()
