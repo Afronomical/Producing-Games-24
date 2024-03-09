@@ -7,20 +7,23 @@ using UnityEngine;
 public class FuseBox : InspectableObject
 {
     public enum Colours { Red, Blue, Yellow, Purple };
-
+     
     public GameObject cursor;
     
-    public List<GameObject> fuses, fuseSlots;
-    public Material[] materials;
-    private int activeFuses;
-    public bool complete;
+    
+    public List<GameObject> fuses, fuseSlots;//Fuses/FuseSlots references
+    public Material[] materials;//All the Colour Materials
+    private int activeFuses;//Correct Fuses
+    public bool complete;//If this minigame is completed
 
+    //Materials for the lights
     [Header("Correct/Incorrect Config")]
     public Material correctMaterial;
     public Material incorrectMaterial;
     public Material correctOffMaterial;
     public Material incorrectOffMaterial;
     
+    //Lights Object Reference
     public GameObject correctObject;
     public GameObject incorrectObject;
 
@@ -45,7 +48,7 @@ public class FuseBox : InspectableObject
         if (stopLooking) StopUsing();
     }
 
-
+    //This will randomly swap the colours that the fuses will need to go into, and take the fuses out and put them onto the side
     public void InitializeBox()
     {
         complete = false;
@@ -76,6 +79,7 @@ public class FuseBox : InspectableObject
         }
     }
 
+    //If the fuse isn't connected to it's correct slot, you can hold onto the fuse and move it around
     public void Select()
     {
         foreach (GameObject obj in cursor.GetComponent<MinigameCursor>().collidingObjects)
@@ -92,6 +96,7 @@ public class FuseBox : InspectableObject
         }
     }
 
+    //If the fuse is over the correct slot, connect the fuse to that slot, if all 4 fuses are connected, the task is complete
     public void Release()
     {
         if (activeFuses != -1)
@@ -112,9 +117,9 @@ public class FuseBox : InspectableObject
                         activeFuses = -1;
 
                         int connectedFuses = 0;
-                        foreach (GameObject wire in fuses)  // Check all fuses
+                        foreach (GameObject fuse in fuses)  // Check all fuses
                         {
-                            if (wire.GetComponent<Fuse>().connected) ++connectedFuses;  // If they are all connected
+                            if (fuse.GetComponent<Fuse>().connected) ++connectedFuses;  // If they are all connected
                         }
 
                         if (connectedFuses >= 4)
@@ -139,6 +144,8 @@ public class FuseBox : InspectableObject
             }
         }
     }
+
+    //Exits the player out of the minigame
     private void StopUsing()
     {
         Cursor.lockState = CursorLockMode.Locked;

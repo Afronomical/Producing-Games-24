@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PFuseBoxTask : Task
 {
+    //Sets up the fusebox to be "broken"
     public override void TaskStart()
     {
         taskTarget.GetComponent<FuseBox>().enabled = true;
@@ -12,6 +13,7 @@ public class PFuseBoxTask : Task
         base.TaskStart();
     }
 
+    //If all 4 fuses are correctly placed, the task is complete
     public override void CheckTaskConditions(GameObject interactedObject)
     {
         if (interactedObject == taskTarget && taskTarget.GetComponent<FuseBox>().complete)
@@ -27,14 +29,14 @@ public class PFuseBoxTask : Task
         }
     }
 
-
+    //Adds 8 Sanity to the player and completes the task
     public override void CompleteTask()
     {
         GameManager.Instance.AddSanity(8);
         base.CompleteTask();
     }
 
-
+    //Task has failed
     public override void FailTask()
     {
         taskTarget.GetComponent<FuseBox>().enabled = false;
