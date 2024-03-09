@@ -104,9 +104,7 @@ public class EscortedState : PatientStateBaseClass
     private void MoveTowardsPlayer()
     {
         // INFO: Ensures the patient only rotates on the y-axis
-        Vector3 playerPosition = new(character.player.transform.position.x,
-                                     transform.position.y,
-                                     character.player.transform.position.z);
+        Vector3 playerPosition = new(playerPos.x, transform.position.y, playerPos.z);
 
         transform.LookAt(playerPosition);
 

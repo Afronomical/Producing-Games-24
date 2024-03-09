@@ -2,6 +2,7 @@ using Steamworks;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
+using static PatientCharacter;
 
 /// <summary>
 /// Written by: Matej Cincibus
@@ -30,16 +31,29 @@ public class DemonCharacter : AICharacter, IHear
         Distracted
     }
 
-    [Header("Demon Settings")]
+    [Header("Demon Settings:")]
     public DemonStates currentState;
-    public float attackRadius = 2.0f;
 
+    [Space(10)]
 
-    [Header("Components")]
+    [Min(0)] public float attackRadius = 2.0f;
+    [Min(0)] public float distanceFromDestination = 3.0f;
+
+    [Space(10)]
+
+    [Header("Timer Durations:")]
+    [Tooltip("The length of time the demon remains idling once they've arrived at their patrol location")]
+    [Min(0)] public float patrolIdleDuration = 3.0f;
+    [Tooltip("The length of time the demon remains in the chase state after having lost visibility of the player")]
+    [Min(0)] public float chaseAloneDuration = 5.0f;
+
+    [Header("Components:")]
     public DemonStateBaseClass demonStateScript;
     public Transform soundDestination = null;
 
-    [Header("Sound Effects")]
+    [Space(10)]
+
+    [Header("Sound Effects:")]
     public SoundEffect ghostRoaming;
     public SoundEffect impStage1Grunt;
     public SoundEffect impRoaming;
@@ -47,22 +61,23 @@ public class DemonCharacter : AICharacter, IHear
 
     protected Callback<UserAchievementStored_t> m_UserAchievementStored;
 
-    bool exorcised = false;
+    public DemonStates PreviousState { get; private set; }
 
     public override void Start()
     {
         base.Start();
 
         characterType = CharacterTypes.Demon;
-        animator = GetComponent<Animator>();
+
+        // INFO: Starting State
+        ChangeDemonState(DemonStates.Patrol);
     }
 
     private void Update()
-    { 
-
-
+    {
+        // INFO: Calls the virtual function for whatever state scripts
         if (demonStateScript != null)
-            demonStateScript.UpdateLogic();  // Calls the virtual function for whatever state scripts
+            demonStateScript.UpdateLogic();
 
         // INFO: Will go into the chase state whenever it sees the player, so long as its not already
         // attacking the player or is not exorcised
@@ -70,8 +85,17 @@ public class DemonCharacter : AICharacter, IHear
             ChangeDemonState(DemonStates.Chase);
     }
 
-    public void ChangeDemonState(DemonStates newState)  // Will destroy the old state script and create a new one
+    /// <summary>
+    /// Will destroy the old state script and create a new one
+    /// </summary>
+    /// <param name="newState"></param>
+    public void ChangeDemonState(DemonStates newState)
     {
+        // INFO: Remove all animations
+        //animator.SetBool("isConfused", false);
+        //animator.SetBool("isAttacking", false);
+        //animator.SetBool("isChasing", false);
+        //animator.SetBool("isConfused", false);
 
         if (currentState != newState || demonStateScript == null)
         {
@@ -79,16 +103,18 @@ public class DemonCharacter : AICharacter, IHear
             // ready for its new state
             if (currentState == DemonStates.Inactive) gameObject.SetActive(true);
 
+            // INFO: If the demon has a path set from a previous state, this will get rid of it
+            if (agent != null && agent.hasPath)
+                agent.ResetPath();
+
+            // INFO: Destroy current script attached to demon character
             if (demonStateScript != null)
-                Destroy(demonStateScript); // destroy current script attached to AI character
+                Destroy(demonStateScript);
 
-            //animator.SetBool("isConfused", false);
-            //animator.SetBool("isAttacking", false);
-            //animator.SetBool("isChasing", false);
-            //animator.SetBool("isConfused", false);
+            // INFO: Set the previous state of the patient to the current state
+            PreviousState = currentState;
 
-
-            //set the current state of AI character to the new state
+            // INFO: Set the current state of the demon to the new state
             currentState = newState;
 
             demonStateScript = newState switch
@@ -103,12 +129,11 @@ public class DemonCharacter : AICharacter, IHear
                 _ => null,
             };
 
-
+            // INFO: Set the reference that state scripts will use
             if (demonStateScript != null)
-                demonStateScript.character = this;  // Set the reference that state scripts will use
+                demonStateScript.character = this;
         }
     }
-
     
     private void OnCollisionEnter(Collision collision)
     {
@@ -116,7 +141,7 @@ public class DemonCharacter : AICharacter, IHear
         {
                 SteamAPI.Init();
 
-            //steam achievement for banishing demon
+            // INFO: Steam achievement for banishing demon
             if (!SteamManager.Initialized)
             {
                 Debug.LogWarning("Steam Manager doesn't exist!");
@@ -140,10 +165,14 @@ public class DemonCharacter : AICharacter, IHear
 
             Destroy(collision.gameObject);
             ChangeDemonState(DemonStates.Exorcised);
-
         }
     }
 
+    /// <summary>
+    /// Causes the demon to become distracted by the sound that has occured
+    /// and will make it walk over to it
+    /// </summary>
+    /// <param name="pos"></param>
     public void ReactToSound(Transform pos)
     {
         soundDestination = pos;

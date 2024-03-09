@@ -89,16 +89,6 @@ public class PatientCharacter : AICharacter
     private GameObject demonGO;
     private DemonCharacter demonCharacter;
 
-
-    private void Awake()
-    {
-        player = FindFirstObjectByType<PlayerMovement>().gameObject;
-        rb = GetComponent<Rigidbody>();
-        agent = GetComponent<NavMeshAgent>();
-        raycastToPlayer = GetComponent<RaycastToPlayer>();
-        animator = GetComponent<Animator>();
-    }
-
     public override void Start()
     {
         base.Start();
@@ -126,7 +116,7 @@ public class PatientCharacter : AICharacter
 
     private void Update()
     {
-        // INFO:  Calls the virtual function for whatever state scripts
+        // INFO: Calls the virtual function for whatever state scripts
         if (patientStateScript != null)
             patientStateScript.UpdateLogic();
 
@@ -179,10 +169,9 @@ public class PatientCharacter : AICharacter
             if (agent.hasPath)
                 agent.ResetPath();
 
+            // INFO: Destroy current script attached to patient character
             if (patientStateScript != null)
-                Destroy(patientStateScript); // destroy current script attached to AI character
-
-           
+                Destroy(patientStateScript);
 
             // INFO: Set the previous state of the patient to the current state
             PreviousState = currentState;

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -11,14 +9,10 @@ using UnityEngine;
 
 public class InactiveState : DemonStateBaseClass
 {
-    // INFO: Need to implement logic for demon to go into inactive state
-    // If ragemode doesn't occur we can set the demon to inactive
     private void Awake()
     {
         gameObject.SetActive(false);
-    }
 
-    /*public override void UpdateLogic()
-    {
-    }*/
+        Debug.LogWarning("Demon is inactive.");
+    }
 }
