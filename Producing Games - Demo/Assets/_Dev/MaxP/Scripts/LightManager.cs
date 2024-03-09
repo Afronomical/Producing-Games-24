@@ -10,6 +10,7 @@ public class LightManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Instance = this;
         foreach(GameObject lightObj in GameObject.FindGameObjectsWithTag("Light"))
         {
             lightList.Add(lightObj);
@@ -29,7 +30,7 @@ public class LightManager : MonoBehaviour
         //}
     }
 
-    void AllLightToggle(bool lightOn)
+    public void AllLightToggle(bool lightOn)
     {
         foreach (GameObject lightObj in lightList)
         {
