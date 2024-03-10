@@ -22,6 +22,11 @@ public class MainMenuController_Matej : MonoBehaviour
        
     }
 
+    public void PlayTutorial()
+    {
+        LevelManager.LoadScene(LevelManager.Scenes.Tutorial);
+    }
+
     public void QuitGame()
     {
         Application.Quit(); // Quit the application
