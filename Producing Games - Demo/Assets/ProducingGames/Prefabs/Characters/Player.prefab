@@ -1527,9 +1527,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: 0.5
+  controllerSensitivity: 5
   downClampAngle: -70
   upClampAngle: 70
   playerBody: {fileID: 2604761008673467045}
+  playerArms: {fileID: 0}
+  armOffsetDistance: {x: 0, y: 0}
+  armOffsetLimit: {x: 0, y: 0}
+  armCatchUpSpeed: 0
   canHeadBob: 1
   bobAmplitude: 0.5
   bobFrequency: 10
@@ -9601,6 +9606,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   isGrounded: 0
+  isSprinting: 0
+  isCrouching: 0
+  currentInput: {x: 0, y: 0}
   boostedEffect: 0
   slowedEffect: 0
   stoppedEffect: 0
@@ -13364,8 +13372,8 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 1, g: 0.9702797, b: 0.75, a: 1}
-  m_Intensity: 1583.4374
+  m_Color: {r: 0.01886791, g: 0.01877891, b: 0.01877891, a: 0.99215686}
+  m_Intensity: 0
   m_Range: 50
   m_SpotAngle: 63.5
   m_InnerSpotAngle: 4
@@ -13407,8 +13415,8 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
+  m_BounceIntensity: 0
+  m_ColorTemperature: 100
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -13427,7 +13435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Intensity: 1583.4374
+  m_Intensity: 0
   m_EnableSpotReflector: 1
   m_LuxAtDistance: 1
   m_InnerSpotPercent: 8.3
