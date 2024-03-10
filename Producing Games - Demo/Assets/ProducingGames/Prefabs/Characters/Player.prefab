@@ -9686,11 +9686,11 @@ MonoBehaviour:
   toggleSound: {fileID: 11400000, guid: 7be9d1f5e6328f14c9e6d69c057bd125, type: 2}
   intensities:
   - 0
-  - 20000000
+  - 10000000
+  - 30000000
   - 50000000
-  - 100000000
-  batteryCharge: 200
-  batteryDrainRate: 1
+  batteryCharge: 100
+  batteryDrainRate: 0.08
   intensityIndex: 0
   randFlickerChance: 500
   avgFlickerCount: 20
@@ -13375,7 +13375,7 @@ Light:
   m_Color: {r: 0.01886791, g: 0.01877891, b: 0.01877891, a: 0.99215686}
   m_Intensity: 0
   m_Range: 50
-  m_SpotAngle: 63.5
+  m_SpotAngle: 110.3
   m_InnerSpotAngle: 4
   m_CookieSize: 10
   m_Shadows:
@@ -13416,7 +13416,7 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 0
-  m_ColorTemperature: 100
+  m_ColorTemperature: 5307
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
