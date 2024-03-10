@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   demonName: Beezlebub
   itemsForExorcism:
-  - {fileID: 7824952522015762862, guid: 3caa920475e4b7c4680fc1a94271a2c3, type: 3}
-  - {fileID: 7824952522015762862, guid: 3caa920475e4b7c4680fc1a94271a2c3, type: 3}
-  - {fileID: 7824952522015762862, guid: 3caa920475e4b7c4680fc1a94271a2c3, type: 3}
+  - {fileID: 5575245926669238249, guid: 7b0cd2b4c43787545ad5a20b44cec82c, type: 3}
+  - {fileID: 6280264764543458596, guid: b422ac3849782594792937cb44d8a147, type: 3}
+  - {fileID: 4805690446638902480, guid: fa2b59911e26d6c48ba33ed27493544a, type: 3}
   likelyStates: []
   battleCryAudio: {fileID: 0}
   defeatCryAudio: {fileID: 0}

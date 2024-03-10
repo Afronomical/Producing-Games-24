@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c76ba9bd6ee8d4491c07e1d1697379, type: 3}
   m_Name: Rosary
   m_EditorClassIdentifier: 
-  objectName: Cube
-  obj: {fileID: 933706298331125033, guid: 04e57311408efbf46bcce018bf93b2ea, type: 3}
-  prefab: {fileID: 933706298331125033, guid: 04e57311408efbf46bcce018bf93b2ea, type: 3}
+  objectName: Rosary
+  obj: {fileID: 4805690446638902480, guid: fa2b59911e26d6c48ba33ed27493544a, type: 3}
+  prefab: {fileID: 4805690446638902480, guid: fa2b59911e26d6c48ba33ed27493544a, type: 3}
   interactSound: {fileID: 0}
   objectImage: {fileID: 21300000, guid: ddf890230d4adc545ab5cf1002188f5b, type: 3}
   tooltipText: 
-  tooltipImage: {fileID: 21300000, guid: 8848a6de3be742a48b4e49dd9ea3ebce, type: 3}
+  tooltipImage: {fileID: 21300000, guid: 5f3341524a651f74089f3c9a503c826d, type: 3}
