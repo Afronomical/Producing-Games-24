@@ -6,10 +6,9 @@ using UnityEngine.Playables;
 public class CinematicMangerScript : MonoBehaviour
 {
     [Header("Cinematic Manager Script")]
-   
+
 
     [Header("Current Cinematic")]
-
 
     public PlayableDirector currentcinematic;
 
@@ -27,8 +26,7 @@ public class CinematicMangerScript : MonoBehaviour
     {
         print("play Jumpscare cutscene");
         currentcinematic.Play();
-         new WaitForSeconds(5f);
+        new WaitForSeconds(5f);
         StartCoroutine(GameManager.Instance.EndHour());
-
     }
 }
