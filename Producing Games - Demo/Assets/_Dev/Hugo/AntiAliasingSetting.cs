@@ -13,9 +13,9 @@ public class AntiAliasingSetting : MonoBehaviour
     private List<string> customNames = new List<string>
     {
         "None",
-        "Fast Approximate Antialiasing",
-        "Temporal Antialiasing",
-        "Subpixel Morphological Antialiasing"
+        "FXAA", //Fast Approximate Antialiasing
+        "TAA", //Temporal Antialiasing
+        "SMAA" //Subpixel Morphological Antialiasing
     };
 
     void Start()
