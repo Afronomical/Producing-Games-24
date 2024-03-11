@@ -19,11 +19,10 @@ public class HidingState : PatientStateBaseClass
 
         // INFO: Given that the previous was panicked or scared we will have
         // the patient walk back to their hiding spot
-        if (character.PreviousState == PatientCharacter.PatientStates.Panic ||
-            character.PreviousState == PatientCharacter.PatientStates.Scared)
-            WalkToHidingSpot();
-        else
+        if (character.PreviousState == PatientCharacter.PatientStates.Bed)
             TeleportToHidingSpot();
+        else
+            WalkToHidingSpot();
     }
 
     public override void UpdateLogic()

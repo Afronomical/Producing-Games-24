@@ -17,11 +17,10 @@ public class RequestMedicationState : PatientStateBaseClass
 
         // INFO: Given that the previous was panicked or scared we will have
         // the patient walk back to their hiding spot
-        if (character.PreviousState == PatientCharacter.PatientStates.Panic ||
-            character.PreviousState == PatientCharacter.PatientStates.Scared)
-            WalkToReqMedSpot();
-        else
+        if (character.PreviousState == PatientCharacter.PatientStates.Bed)
             TeleportToReqMedSpot();
+        else
+            WalkToReqMedSpot();
     }
 
     public override void UpdateLogic()

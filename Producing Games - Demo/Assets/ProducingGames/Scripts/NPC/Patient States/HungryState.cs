@@ -17,11 +17,10 @@ public class HungryState : PatientStateBaseClass
 
         // INFO: Given that the previous was panicked or scared we will have
         // the patient walk back to their hungry spot
-        if (character.PreviousState == PatientCharacter.PatientStates.Panic ||
-            character.PreviousState == PatientCharacter.PatientStates.Scared)
-            WalkToHungrySpot();
-        else
+        if (character.PreviousState == PatientCharacter.PatientStates.Bed)
             TeleportToHungrySpot();
+        else
+            WalkToHungrySpot();
     }
 
     public override void UpdateLogic()
