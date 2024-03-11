@@ -18,8 +18,8 @@ EditorBuildSettings:
     path: Assets/ProducingGames/Scenes/Settings.unity
     guid: 701d0968e58f93249a4f329983789692
   - enabled: 1
-    path: Assets/ProducingGames/Scenes/Main.unity
-    guid: f16973b2ee5b8274584b88724c6c51a7
+    path: Assets/ProducingGames/Scenes/MainUpdated.unity
+    guid: 9d95857e5d9f6bf4c91c411833e71096
   - enabled: 1
     path: Assets/ProducingGames/Scenes/WinScreen.unity
     guid: 5592c6ebf4702dd47acb566e2ddb2f82
