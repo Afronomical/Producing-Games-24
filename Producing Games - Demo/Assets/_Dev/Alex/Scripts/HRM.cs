@@ -8,6 +8,7 @@ public class HRM : MonoBehaviour
     public static HRM instance;
     public TMP_Text hRateText;
     private int bPM;
+    public GameObject staticEffect;
     //public AnimationCurve heartRate;
 
     // Start is called before the first frame update
@@ -59,11 +60,13 @@ public class HRM : MonoBehaviour
     public void TurnOn()
     {
         gameObject.GetComponent<ParticleSystem>().Play();
+        staticEffect.SetActive(false);
     }
 
     public void TurnOff()
     {
         gameObject.GetComponent<ParticleSystem>().Stop();
         gameObject.GetComponent<ParticleSystem>().Clear();
+        staticEffect.SetActive(true);
     }
 }

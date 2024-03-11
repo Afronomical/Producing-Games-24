@@ -15,9 +15,9 @@ MonoBehaviour:
   taskType: 10
   chanceToHappen: 1
   BlockingTasks: []
-  taskName: Fix Water
+  taskName: Perform maintenance on the water pipes
   taskDescription: Check the water pipes
   location: 0
   itemToGive: {fileID: 0}
-  tooltipPrompt: {fileID: 11400000, guid: 93b1ae5bb809c8b4696502995116cc4b, type: 2}
+  tooltipPrompt: {fileID: 11400000, guid: efb4947af39126e4186b20a06ed92c03, type: 2}
   genericTask: 1

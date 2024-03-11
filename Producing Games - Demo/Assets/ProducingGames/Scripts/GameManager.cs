@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Diagnostics.Tracing;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public GameObject player;
+    public bool tutorial;
     public Animation fadeAnim;
 
     [Header("Hour System")]
@@ -61,6 +63,10 @@ public class GameManager : MonoBehaviour
     private CapturedBox captureBoxScript;
     private DynamicEventBool DynamicEventBool;
 
+    public GameObject jumpscareTimelineGO;
+    private CinematicMangerScript cinematicManagerScript;
+    private int cineChance;
+   
 
     private void Awake()
     {
@@ -92,6 +98,7 @@ public class GameManager : MonoBehaviour
         patientCount = NPCManager.Instance.patientList.Count;
         altar = FindFirstObjectByType<ExorcismTable>().gameObject;
         captureBoxScript = captureBox.GetComponent<CapturedBox>();
+        cinematicManagerScript=jumpscareTimelineGO.GetComponent<CinematicMangerScript>();
         //jug = FindFirstObjectByType<PickUpJug>().gameObject;
         CommandConsole.Instance.IncrementTime += IncrementTimeBy5;
         CommandConsole.Instance.EndHour += EndHourCommand;
@@ -129,9 +136,18 @@ public class GameManager : MonoBehaviour
         inStudy = true;
         shiftEndActive = false;
 
-        PatientTaskManager.instance.SetHourlyTasks();
-        PatientTaskManager.instance.SetPlayerTask();
-        PatientTaskManager.instance.SetRandomTasks();
+        if (tutorial && TutorialTaskManager.instance != null)
+        {
+            TutorialTaskManager.instance.SetHourlyTasks();
+            TutorialTaskManager.instance.SetPlayerTask();
+            TutorialTaskManager.instance.SetRandomTasks();
+        }
+        else
+        {
+            PatientTaskManager.instance.SetHourlyTasks();
+            PatientTaskManager.instance.SetPlayerTask();
+            PatientTaskManager.instance.SetRandomTasks();
+        }
 
         if (DynamicEventBool)
             DynamicEventBool.resetDynamicEventBool();
@@ -285,7 +301,16 @@ public class GameManager : MonoBehaviour
 
     public void DemonCaptureEvent()
     {
+        cineChance=UnityEngine.Random.Range(0, 10);
+       if (cineChance<=5)
+       {
         StartCoroutine(captureBoxScript.MainEvent());
+        }
+        else
+        {
+           cinematicManagerScript.StartJumpscare();
+        }
+       
 
     }
 }

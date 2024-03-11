@@ -27,7 +27,7 @@ public static class LevelManager
         Loading,
         Tutorial,
         Settings,
-        Main,
+        MainUpdated,
         Credits,
         Menu,
         WinScreen,

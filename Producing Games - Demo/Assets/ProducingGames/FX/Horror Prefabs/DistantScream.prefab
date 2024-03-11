@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5413969822884483831}
   - component: {fileID: 1030235291684032287}
+  - component: {fileID: -5283156426020894493}
   m_Layer: 0
   m_Name: DistantScream
   m_TagString: Untagged
@@ -46,7 +47,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screamSounds:
   - {fileID: 8300000, guid: 72ef8f55b3e66ce40a4513ef07072024, type: 3}
-  maxDistance: 2.24
   minInterval: 120
-  audioSource: {fileID: 0}
   eventTriggered: 0
+--- !u!65 &-5283156426020894493
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406406210152850183}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}

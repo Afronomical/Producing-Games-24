@@ -29,7 +29,7 @@ public class RHungryTask : Task
     void Update()
     {
         // Check if the patient is in their bed
-        if (taskNoticed && initialized && taskTarget && taskTarget.TryGetComponent(out PatientCharacter character))
+        if (!taskCompleted && taskNoticed && initialized && taskTarget && taskTarget.TryGetComponent(out PatientCharacter character))
         {
             if (character.currentState == PatientCharacter.PatientStates.Bed)
             {

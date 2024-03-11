@@ -43,7 +43,7 @@ public class PickUpItem : MonoBehaviour
                     if (interactableTemplate.collectible != PatientTaskManager.instance.noTaskPrompt && interactableTemplate.collectible != null)
                     {
                         //shows tooltip on mouse hover
-                        TooltipManager.Instance.ShowTooltip(interactableTemplate.collectible.tooltipText);
+                        TooltipManager.Instance.ShowTooltip(interactableTemplate.collectible.tooltipText, interactableTemplate.collectible.tooltipImage);
 
                         if (c.performed && canPickUp)
                         {
@@ -56,6 +56,7 @@ public class PickUpItem : MonoBehaviour
 
                                 StartCoroutine(arms.GrabObject(interactableTemplate.collectible));
                             }
+                            
                         }
                     }
                 }

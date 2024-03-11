@@ -339,7 +339,7 @@ MonoBehaviour:
   xrRendering: 1
   fullscreenPassthrough: 0
   allowDynamicResolution: 0
-  customRenderingSettings: 0
+  customRenderingSettings: 1
   invertFaceCulling: 0
   probeLayerMask:
     serializedVersion: 2
@@ -359,7 +359,7 @@ MonoBehaviour:
   materialMipBias: 0
   m_RenderingPathCustomFrameSettings:
     bitDatas:
-      data1: 5770166122053453
+      data1: 5770165987835725
       data2: 13799030890350739480
     lodBias: 1
     lodBiasMode: 0
@@ -375,7 +375,7 @@ MonoBehaviour:
     materialQuality: 0
   renderingPathCustomFrameSettingsOverrideMask:
     mask:
-      data1: 0
+      data1: 134217728
       data2: 0
   defaultFrameSettings: 0
   m_Version: 9
@@ -1075,7 +1075,8 @@ MonoBehaviour:
   - {fileID: 3052069717093276548}
   - {fileID: 4295102004166771097}
   - {fileID: 7730349064791503984}
-  turnPageDelay: 0.2
+  turnPageDelay: 0.3
+  pageSound: {fileID: 11400000, guid: 8cb31542d5e97794e8367b32073cdf3e, type: 2}
   arms: {fileID: 2397263937806965464}
 --- !u!1 &1079686810079229914
 GameObject:
@@ -1526,9 +1527,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: 0.5
+  controllerSensitivity: 5
   downClampAngle: -70
   upClampAngle: 70
   playerBody: {fileID: 2604761008673467045}
+  playerArms: {fileID: 719788612285634055}
+  armOffsetDistance: {x: 0.02, y: 0.05}
+  armOffsetLimit: {x: 20, y: 40}
+  armCatchUpSpeed: 0.2
   canHeadBob: 1
   bobAmplitude: 0.5
   bobFrequency: 10
@@ -8228,7 +8234,8 @@ MonoBehaviour:
   - {fileID: 1206786223566344149}
   - {fileID: 1621245991306379749}
   - {fileID: 6156755021051889892}
-  turnPageDelay: 0.2
+  turnPageDelay: 0.3
+  pageSound: {fileID: 11400000, guid: 8cb31542d5e97794e8367b32073cdf3e, type: 2}
 --- !u!1 &3568462782054155981
 GameObject:
   m_ObjectHideFlags: 0
@@ -9494,6 +9501,7 @@ GameObject:
   - component: {fileID: 8169291835860693477}
   - component: {fileID: 975648811581934756}
   - component: {fileID: 5546704305577805030}
+  - component: {fileID: 5863319930419737407}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -9534,7 +9542,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5039208490668459519}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -9599,6 +9607,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   isGrounded: 0
+  isSprinting: 0
+  isCrouching: 0
+  currentInput: {x: 0, y: 0}
   boostedEffect: 0
   slowedEffect: 0
   stoppedEffect: 0
@@ -9609,9 +9620,9 @@ MonoBehaviour:
   dimmedEffectDuration: 5
   panel: {fileID: 0}
   timeBetweenWalkingFootsteps: 0.5
-  walkingSound: {fileID: 11400000, guid: 97b7edab1706ac54384b1d42ec44583c, type: 2}
+  walkingSound: {fileID: 11400000, guid: 618361e51ec060f40bf39dad09cc8fe7, type: 2}
   timeBetweenSprintingFootsteps: 0.3
-  sprintingSound: {fileID: 11400000, guid: 97b7edab1706ac54384b1d42ec44583c, type: 2}
+  sprintingSound: {fileID: 11400000, guid: 618361e51ec060f40bf39dad09cc8fe7, type: 2}
   timeBetweenCrouchingFootsteps: 0.7
   crouchingSound: {fileID: 11400000, guid: 9befc63620fbd4e40b0c278fff90ce3f, type: 2}
   cameraShake: {fileID: 3769672194398167182}
@@ -9676,11 +9687,11 @@ MonoBehaviour:
   toggleSound: {fileID: 11400000, guid: 7be9d1f5e6328f14c9e6d69c057bd125, type: 2}
   intensities:
   - 0
-  - 20000000
+  - 10000000
+  - 30000000
   - 50000000
-  - 100000000
-  batteryCharge: 200
-  batteryDrainRate: 1
+  batteryCharge: 100
+  batteryDrainRate: 0.08
   intensityIndex: 0
   randFlickerChance: 500
   avgFlickerCount: 20
@@ -9863,8 +9874,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ComputerCursor, Assembly-CSharp
-        m_MethodName: OnClickInput
+        m_TargetAssemblyTypeName: MinigameCursor, Assembly-CSharp
+        m_MethodName: OnSelectInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10055,6 +10066,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da2b6a360a5657344a34bfac56dc9211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5863319930419737407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5039208490668459519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33cad34ebe81bd942a92ed33af49080f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenWalkingFootsteps: 0.5
+  StoneFloorWalking: {fileID: 11400000, guid: 618361e51ec060f40bf39dad09cc8fe7, type: 2}
+  CryptWalking: {fileID: 11400000, guid: 618361e51ec060f40bf39dad09cc8fe7, type: 2}
+  CarpetWalking: {fileID: 11400000, guid: 618361e51ec060f40bf39dad09cc8fe7, type: 2}
+  timeBetweenSprintingFootsteps: 0.3
+  StoneFloorSprinting: {fileID: 11400000, guid: 618361e51ec060f40bf39dad09cc8fe7, type: 2}
+  CryptSprinting: {fileID: 11400000, guid: 618361e51ec060f40bf39dad09cc8fe7, type: 2}
+  CarpetSprinting: {fileID: 11400000, guid: 618361e51ec060f40bf39dad09cc8fe7, type: 2}
+  timeBetweenCrouchingFootsteps: 0.7
+  StoneFloorCrouching: {fileID: 11400000, guid: 9befc63620fbd4e40b0c278fff90ce3f, type: 2}
+  CryptCrouching: {fileID: 11400000, guid: 9befc63620fbd4e40b0c278fff90ce3f, type: 2}
+  CarpetCrouching: {fileID: 11400000, guid: 9befc63620fbd4e40b0c278fff90ce3f, type: 2}
+  RayStart: {fileID: 0}
+  range: 1
+  GroundLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &5071186367569005307
 GameObject:
   m_ObjectHideFlags: 0
@@ -10180,7 +10220,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Patient 5
+  m_text: My Tasks
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: aab64c1445f313243bc3493907a44169, type: 2}
   m_sharedMaterial: {fileID: -4367542782393052838, guid: aab64c1445f313243bc3493907a44169, type: 2}
@@ -13362,10 +13402,10 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 1, g: 0.9702797, b: 0.75, a: 1}
-  m_Intensity: 1583.4374
+  m_Color: {r: 0.01886791, g: 0.01877891, b: 0.01877891, a: 0.99215686}
+  m_Intensity: 64.448814
   m_Range: 50
-  m_SpotAngle: 63.5
+  m_SpotAngle: 110.3
   m_InnerSpotAngle: 4
   m_CookieSize: 10
   m_Shadows:
@@ -13405,8 +13445,8 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
+  m_BounceIntensity: 0
+  m_ColorTemperature: 5307
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -13425,7 +13465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Intensity: 1583.4374
+  m_Intensity: 64.448814
   m_EnableSpotReflector: 1
   m_LuxAtDistance: 1
   m_InnerSpotPercent: 8.3
@@ -13522,7 +13562,7 @@ MonoBehaviour:
   m_ShadowVariant: 0
   m_ShadowPrecision: 0
   useOldInspector: 0
-  useVolumetric: 1
+  useVolumetric: 0
   featuresFoldout: 1
   m_AreaLightEmissiveMeshShadowCastingMode: 0
   m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0

@@ -38,7 +38,7 @@ public class DemonLightFlicker : MonoBehaviour
                 Vector3 thisLoc = transform.position;
                 Vector3 lightLoc = light.transform.position;
                 float distance = Vector3.Distance(thisLoc, lightLoc);
-                Debug.Log(distance);
+                //Debug.Log(distance);
                 bool resetFlicker = false;
                 origFlickerLightPower = lightScript.flickerLightPower;
                 origFlickerCount = lightScript.avgFlickerCount;

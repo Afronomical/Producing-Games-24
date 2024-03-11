@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class LockerController : MonoBehaviour
 {
@@ -8,11 +7,10 @@ public class LockerController : MonoBehaviour
     public float animationDuration = 2f; // Duration for which the animation should play
 
     private Animator animator;
-    private bool isPlayerNear = false;
     private bool isAnimationPlaying = false;
     private float animationTimer = 0f;
     private GameManager gM;
-    [HideInInspector] public bool eventTriggered;
+    private bool eventTriggered;
 
     private void Start()
     {
@@ -20,22 +18,9 @@ public class LockerController : MonoBehaviour
         gM = GameManager.Instance;
     }
 
-    private void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        int randChance = Random.Range(0, 101);
-
-        // Check if the player is within the activation distance
-        if (Vector3.Distance(transform.position, player.position) <= activationDistance)
-        {
-            isPlayerNear = true;
-        }
-        else
-        {
-            isPlayerNear = false;
-        }
-
-        // If the player is near and the animation is not already playing
-        if (isPlayerNear && !isAnimationPlaying && randChance <= gM.eventChance && !eventTriggered)
+        if (other.CompareTag("Player") && !isAnimationPlaying && Random.Range(0, 101) <= gM.eventChance && !eventTriggered)
         {
             // Play the animation
             animator.SetTrigger("OpenCloseTrigger");
@@ -46,7 +31,10 @@ public class LockerController : MonoBehaviour
 
             eventTriggered = true;
         }
+    }
 
+    private void Update()
+    {
         // If the animation is currently playing and timer is greater than 0
         if (isAnimationPlaying && animationTimer > 0f)
         {
@@ -60,5 +48,3 @@ public class LockerController : MonoBehaviour
         }
     }
 }
-
-

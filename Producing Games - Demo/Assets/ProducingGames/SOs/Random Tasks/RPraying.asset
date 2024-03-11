@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taskType: 5
   chanceToHappen: 5
-  taskName: Praying
+  taskName: Guide the patient back to their room
   taskDescription: Escort the patient back to their bed
   location: 0
   itemToGive: {fileID: 0}

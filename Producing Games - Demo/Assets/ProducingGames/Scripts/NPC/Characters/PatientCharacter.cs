@@ -76,6 +76,7 @@ public class PatientCharacter : AICharacter
     [HideInInspector] public bool hasBeenHiding = false;
     [HideInInspector] public bool hasBeenHungry = false;
     [HideInInspector] public bool hasBeenGreedy = false;
+    [HideInInspector] public bool cardiogramNotChecked = false;
 
     [Header("Components")]
     public PatientStateBaseClass patientStateScript;

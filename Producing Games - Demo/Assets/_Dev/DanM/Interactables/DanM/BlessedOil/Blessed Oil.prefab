@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3055623866171921616}
   - component: {fileID: 2074149836733670853}
   - component: {fileID: 2891471058160452202}
-  - component: {fileID: 1875612582743389520}
   m_Layer: 0
   m_Name: Blessed Oil
   m_TagString: Untagged
@@ -116,21 +115,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.2, y: 0.35, z: 0.2}
   m_Center: {x: 0, y: 0.17, z: 0}
---- !u!114 &1875612582743389520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3677882020956813164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 221865555ae7bb34a8997ed66df77fcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectIcon: {fileID: 21300000, guid: 0b490c5996a0db142b1bd11d0507e087, type: 3}
-  collectible: {fileID: 11400000, guid: 51ff0633c039c0c47914973e9c319146, type: 2}
-  isExorcismObject: 1
 --- !u!1001 &279114128900196032
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taskType: 6
   chanceToHappen: 1
-  taskName: Hungry
+  taskName: Guide the patient back to their room
   taskDescription: Escort the patient back to their bed
   location: 0
   itemToGive: {fileID: 0}

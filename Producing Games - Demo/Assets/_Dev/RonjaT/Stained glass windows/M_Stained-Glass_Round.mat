@@ -26,12 +26,12 @@ Material:
   stringTagMap:
     RenderType: Transparent
   disabledShaderPasses:
-  - TransparentDepthPrepass
   - TransparentDepthPostpass
-  - TransparentBackface
-  - RayTracingPrepass
   - MOTIONVECTORS
-  m_LockedProperties: 
+  - TransparentDepthPrepass
+  - RayTracingPrepass
+  - TransparentBackface
+  m_LockedProperties: _MaskMap
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:

@@ -8,11 +8,13 @@ public class SatelliteBox : InspectableObject
 {
     public enum Colours { Red, Blue, Yellow, Purple};
 
-    public GameObject cursor;
-    public List<GameObject> wires, wireEnds;
-    public Material[] materials;
+    [SerializeField] public GameObject cursor;
+    [SerializeField] public List<GameObject> wires, wireEnds;
+    [SerializeField] public Material[] materials;
     private int activeWire;
-    public bool complete;
+    [SerializeField] public bool complete;
+
+
 
     public override void Interact()
     {

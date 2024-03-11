@@ -37,12 +37,12 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Current State")]
     [HideInInspector] public bool isGrounded;
-    private bool isSprinting, isCrouching;
+    [HideInInspector] public bool isSprinting, isCrouching;
     private float yVelocity;
 
     [Header("Inputs")]
     private bool jumpInput;
-    private Vector2 currentInput;
+    [HideInInspector] public Vector2 currentInput;
 
     [Header("Consumable Values")]
     public bool boostedEffect = false;
@@ -72,6 +72,8 @@ public class PlayerMovement : MonoBehaviour
     public float timeBetweenCrouchingFootsteps;
     public SoundEffect crouchingSound;
     private float footstepTimer;
+    private DynamicFootsteps Footsteps;
+
 
     public CameraShake cameraShake;
 
@@ -130,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
         else crouchObject.transform.SetLocalPositionAndRotation(new Vector3(0, 0, 0), crouchObject.transform.localRotation);
 
 
-        FootstepSounds();
+        //FootstepSounds();
         
         
         if (!isSprinting && stamina <= maxStamina)
@@ -174,7 +176,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    private void FootstepSounds()
+   /*private void FootstepSounds()
     {
         if ((currentInput.x != 0 || currentInput.y != 0) && isGrounded)
         {
@@ -186,18 +188,21 @@ public class PlayerMovement : MonoBehaviour
                 {
                     footstepTimer = timeBetweenCrouchingFootsteps;
                     AudioManager.instance.PlaySound(crouchingSound, gameObject.transform);
+                    //Footsteps.ChangeCrouchingFootSteps();
                 }
 
                 else if (isSprinting)
                 {
                     footstepTimer = timeBetweenSprintingFootsteps;
                     AudioManager.instance.PlaySound(sprintingSound, gameObject.transform);
+                    //Footsteps.ChangeSprintingFootSteps();
                 }
 
                 else
                 {
                     footstepTimer = timeBetweenWalkingFootsteps;
                     AudioManager.instance.PlaySound(walkingSound, gameObject.transform);
+                    //Footsteps.ChangeWalkingFootSteps();
                 }
             }
         }
@@ -210,7 +215,7 @@ public class PlayerMovement : MonoBehaviour
 
             else footstepTimer = timeBetweenWalkingFootsteps;
         }
-    }
+    }*/
 
 
     public void OnMoveInput(InputAction.CallbackContext context)

@@ -40,7 +40,7 @@ public class RPrayingTask : Task
     void Update()
     {
         // Check if the patient is in their bed
-        if (taskNoticed && taskTarget && taskTarget.TryGetComponent(out PatientCharacter character))
+        if (!taskCompleted && taskNoticed && taskTarget && taskTarget.TryGetComponent(out PatientCharacter character))
         {
             if (character.currentState == PatientCharacter.PatientStates.Bed)
             {
