@@ -7,29 +7,20 @@ public class LockerController : MonoBehaviour
     public float animationDuration = 2f; // Duration for which the animation should play
 
     private Animator animator;
-    private bool isPlayerNear = false;
     private bool isAnimationPlaying = false;
     private float animationTimer = 0f;
+    private GameManager gM;
+    private bool eventTriggered;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
+        gM = GameManager.Instance;
     }
 
-    private void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        // Check if the player is within the activation distance
-        if (Vector3.Distance(transform.position, player.position) <= activationDistance)
-        {
-            isPlayerNear = true;
-        }
-        else
-        {
-            isPlayerNear = false;
-        }
-
-        // If the player is near and the animation is not already playing
-        if (isPlayerNear && !isAnimationPlaying)
+        if (other.CompareTag("Player") && !isAnimationPlaying && Random.Range(0, 101) <= gM.eventChance && !eventTriggered)
         {
             // Play the animation
             animator.SetTrigger("OpenCloseTrigger");
@@ -37,8 +28,13 @@ public class LockerController : MonoBehaviour
 
             // Start the timer for animation duration
             animationTimer = animationDuration;
-        }
 
+            eventTriggered = true;
+        }
+    }
+
+    private void Update()
+    {
         // If the animation is currently playing and timer is greater than 0
         if (isAnimationPlaying && animationTimer > 0f)
         {
@@ -52,5 +48,3 @@ public class LockerController : MonoBehaviour
         }
     }
 }
-
-

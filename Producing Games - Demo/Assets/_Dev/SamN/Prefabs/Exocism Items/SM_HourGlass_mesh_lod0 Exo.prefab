@@ -10,27 +10,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 83e72f196da266d42a946760eacc8d6b, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.06165445
+      value: 0.105792865
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 83e72f196da266d42a946760eacc8d6b, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.06165445
+      value: 0.105792865
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 83e72f196da266d42a946760eacc8d6b, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.06165445
+      value: 0.105792865
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 83e72f196da266d42a946760eacc8d6b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 80.17446
+      value: 306.86884
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 83e72f196da266d42a946760eacc8d6b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8.198
+      value: 2.052
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 83e72f196da266d42a946760eacc8d6b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 46.81
+      value: 37.70158
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 83e72f196da266d42a946760eacc8d6b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectIcon: {fileID: 0}
-  collectible: {fileID: 0}
+  collectible: {fileID: 11400000, guid: bae85ec1867fe854bb28336219e09e1e, type: 2}
   isExorcismObject: 1
   hasBeenPlaced: 0
 --- !u!54 &-1293342843162648476

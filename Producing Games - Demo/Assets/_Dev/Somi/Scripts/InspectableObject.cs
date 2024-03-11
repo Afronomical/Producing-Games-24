@@ -20,15 +20,12 @@ public class InspectableObject : InteractableTemplate
     protected bool playerCanMove = true;
     protected bool stopLooking = false;
 
-    [Header("Camera Values")]
-    public GameObject monitor;
-    public Material[] cameraScreens;
+    //[Header("Camera Values")]
+    //public GameObject monitor;
+    //public Material[] cameraScreens;
 
-    private Material currentMaterial;
-    private int index = 0;
-
-    Vector2 defaultScreenSize;
-    Dictionary<Material, bool> zoomedScreens = new Dictionary<Material, bool>();
+    //Vector2 defaultScreenSize;
+    //Dictionary<Material, bool> zoomedScreens = new Dictionary<Material, bool>();
     protected Callback<UserAchievementStored_t> m_UserAchievementStored;
     protected virtual void Start()
     {
@@ -37,57 +34,57 @@ public class InspectableObject : InteractableTemplate
         camPosition = camMoveTransform.position;
         camRotation = camMoveTransform.rotation.eulerAngles;
 
-        defaultScreenSize = cameraScreens[0].mainTextureScale;
+        //defaultScreenSize = cameraScreens[0].mainTextureScale;
 
-        foreach (var m in cameraScreens)
-        {
-            zoomedScreens.Add(m, false);
-        }
+        //foreach (var m in cameraScreens)
+        //{
+        //    zoomedScreens.Add(m, false);
+        //}
     }
 
     protected virtual void Update()
     {
 
 
-        currentMaterial = cameraScreens[index];
-        monitor.GetComponent<MeshRenderer>().material = currentMaterial;
+        //currentMaterial = cameraScreens[index];
+        //monitor.GetComponent<MeshRenderer>().material = currentMaterial;
 
-        //this code will check if the current screen is already zoomed in and will either allow or not allow zooming in/out based on position
-        bool isZoomedIn = false;
-        zoomedScreens.TryGetValue(cameraScreens[index], out isZoomedIn);
+        ////this code will check if the current screen is already zoomed in and will either allow or not allow zooming in/out based on position
+        //bool isZoomedIn = false;
+        //zoomedScreens.TryGetValue(cameraScreens[index], out isZoomedIn);
 
-        if (Input.GetKeyDown(KeyCode.X) && looking && isZoomedIn)
-        {
-            zoomedScreens.Remove(cameraScreens[index]);
-            zoomedScreens.Add(cameraScreens[index], false);
-            cameraScreens[index].mainTextureScale = cameraScreens[index].mainTextureScale * new Vector2(2, 2);
-        }
-        else if (Input.GetKeyDown(KeyCode.Z) && looking && !isZoomedIn)
-        {
-            zoomedScreens.Remove(cameraScreens[index]);
-            zoomedScreens.Add(cameraScreens[index], true);
-            cameraScreens[index].mainTextureScale = cameraScreens[index].mainTextureScale / new Vector2(2, 2)/* - cameraScreens[index].mainTextureScale / 2*/;
-        }
+        //if (Input.GetKeyDown(KeyCode.X) && looking && isZoomedIn)
+        //{
+        //    zoomedScreens.Remove(cameraScreens[index]);
+        //    zoomedScreens.Add(cameraScreens[index], false);
+        //    cameraScreens[index].mainTextureScale = cameraScreens[index].mainTextureScale * new Vector2(2, 2);
+        //}
+        //else if (Input.GetKeyDown(KeyCode.Z) && looking && !isZoomedIn)
+        //{
+        //    zoomedScreens.Remove(cameraScreens[index]);
+        //    zoomedScreens.Add(cameraScreens[index], true);
+        //    cameraScreens[index].mainTextureScale = cameraScreens[index].mainTextureScale / new Vector2(2, 2)/* - cameraScreens[index].mainTextureScale / 2*/;
+        //}
 
 
-        if (Input.GetKeyDown(KeyCode.RightArrow) && looking)
-        {
-            if (index == cameraScreens.Length - 1)
-            {
-                index = 0;
-                return;
-            }
-            index++;
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow) && looking)
-        {
-            if (index == 0)
-            {
-                index = cameraScreens.Length - 1;
-                return;
-            }
-            index--;
-        }
+        //if (Input.GetKeyDown(KeyCode.RightArrow) && looking)
+        //{
+        //    if (index == cameraScreens.Length - 1)
+        //    {
+        //        index = 0;
+        //        return;
+        //    }
+        //    index++;
+        //}
+        //else if (Input.GetKeyDown(KeyCode.LeftArrow) && looking)
+        //{
+        //    if (index == 0)
+        //    {
+        //        index = cameraScreens.Length - 1;
+        //        return;
+        //    }
+        //    index--;
+        //}
 
         if (Input.GetKeyDown(KeyCode.C) && looking)
         {
@@ -98,10 +95,10 @@ public class InspectableObject : InteractableTemplate
             //re-enable interaction ability
             this.gameObject.GetComponent<BoxCollider>().enabled = true;
 
-            foreach(var m in cameraScreens)
-            {
-                m.mainTextureScale = defaultScreenSize;
-            }
+            //foreach(var m in cameraScreens)
+            //{
+            //    m.mainTextureScale = defaultScreenSize;
+            //}
         }
         //move camera to glass panel if door is interacted with
         if (looking)
@@ -116,13 +113,13 @@ public class InspectableObject : InteractableTemplate
             mainCam.transform.position = Vector3.MoveTowards(mainCam.transform.position, oldCamPosition, 2.5f * Time.deltaTime);
             mainCam.transform.rotation = Quaternion.Lerp(mainCam.transform.rotation, oldCamRotation, 2.5f * Time.deltaTime);
 
-            mainCam.transform.parent = GameObject.Find("Player").transform;
+            mainCam.transform.parent = GameManager.Instance.player.transform;
 
             if (mainCam.transform.position == oldCamPosition)
             {
                 //re-enable player and door interaction when leaving the door
                 stopLooking = false;
-                GameObject.Find("Player").GetComponent<PlayerMovement>().enabled = true;
+                GameManager.Instance.player.GetComponent<PlayerMovement>().enabled = true;
                 Camera.main.GetComponent<CameraLook>().canHeadBob = true;
                 camLookScript.enabled = true;
             }
@@ -132,7 +129,7 @@ public class InspectableObject : InteractableTemplate
         //we would need the state manager at this point to be able to freeze player movement and interaction
         if (!playerCanMove)
         {
-            GameObject.Find("Player").GetComponent<PlayerMovement>().enabled = false;
+            GameManager.Instance.player.GetComponent<PlayerMovement>().enabled = false;
             this.gameObject.GetComponent<BoxCollider>().enabled = false;
 
         }
@@ -153,29 +150,29 @@ public class InspectableObject : InteractableTemplate
         Camera.main.GetComponent<CameraLook>().canHeadBob = false;
 
 
+        //TODO Move into the steam manager or somewhere not here
+        //SteamAPI.Init();
 
-        SteamAPI.Init();
-
-        //steam achievement for banishing demon
-        if (!SteamManager.Initialized)
-        {
-            Debug.LogWarning("Steam Manager doesn't exist!");
-
-            //return;
-
-        }
-        //else
+        ////steam achievement for banishing demon
+        //if (!SteamManager.Initialized)
         //{
-        //SteamUserStats.GetAchievement("ACH_WIN_100_GAMES", out bool completed);
+        //    Debug.LogWarning("Steam Manager doesn't exist!");
 
-        //if (!completed)
-        //{
-        m_UserAchievementStored = Callback<UserAchievementStored_t>.Create(OnAchievementStored);
+        //    //return;
 
-        SteamUserStats.SetAchievement("ACH_TRAVEL_FAR_ACCUM");
-        SteamUserStats.StoreStats();
         //}
+        ////else
+        ////{
+        ////SteamUserStats.GetAchievement("ACH_WIN_100_GAMES", out bool completed);
 
+        ////if (!completed)
+        ////{
+        //m_UserAchievementStored = Callback<UserAchievementStored_t>.Create(OnAchievementStored);
+
+        //SteamUserStats.SetAchievement("ACH_TRAVEL_FAR_ACCUM");
+        //SteamUserStats.StoreStats();
+        //}
+        
         //}
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using static UnityEngine.GraphicsBuffer;
 
 
@@ -13,12 +14,14 @@ using static UnityEngine.GraphicsBuffer;
 public class JumpShadow : MonoBehaviour
 {
     [Header("Event Time Vars")]
-    public int eventChance = 15;
+    public bool playTest;
     public float successResetSecTime = 100;
     public float failResetSecTime = 40;
     [Header("Refs")]
     public GameObject shadowBaseObj;
     public GameObject shadowBodyObj;
+    public GameObject postProcVolRef;
+    private PulsePostProc pulseProcScript;
     [Header("Shadow Settings")]
     public float shadowRotSpeed = 1f;
     [Range(-30f, 30f)] public float fovLeniency = 0;
@@ -44,6 +47,7 @@ public class JumpShadow : MonoBehaviour
         characterController = playerObj.GetComponent<CharacterController>();
         playerCam = Camera.main; //playerObj.GetComponent<Camera>();
         origFOV = playerCam.fieldOfView;
+        pulseProcScript = postProcVolRef.GetComponent<PulsePostProc>();
     }
 
     
@@ -59,7 +63,8 @@ public class JumpShadow : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if ((Random.Range(1, eventChance) == 1) && canPlay) //play event if chance hits, else event starts after delay
+
+            if (((Random.Range(1, 100) <= GameManager.Instance.eventChance) || playTest) && canPlay) //play event if chance hits, else event starts after delay
             {
                 playEvent = true;
                 shadowBaseObj.SetActive(true);
@@ -128,14 +133,26 @@ public class JumpShadow : MonoBehaviour
 
     private IEnumerator AfterEvent() //resetting shit after jumpscare
     {
-        yield return new WaitForSeconds(1f);
+        postProcVolRef.SetActive(true);
+        StartCoroutine(pulseProcScript.Pulsate());
+        
+        yield return new WaitForSeconds(0.7f);
+        shadowBaseObj.SetActive(false);
+        //yield return new WaitForSeconds(0.5f);
+
         fovTime = 0;
         reverseFOV = true;
         yield return new WaitForSeconds(0.6f);
         playerCam.fieldOfView = origFOV;
         shadowBaseObj.transform.localPosition = Vector3.zero;
-        shadowBaseObj.SetActive(false);
+        
         playEvent = false;
         jumpScareOnce = true;
+    }
+
+    private void postProcVol()
+    {
+        postProcVolRef.transform.position = Camera.main.transform.position;
+        postProcVolRef.SetActive(true);
     }
 }

@@ -12,7 +12,7 @@ using UnityEngine;
 
 public interface IHear
 {
-    void ReactToSound(SoundEffect effect);
+    void ReactToSound(Transform pos);
 }
 
 public class DemonCharacter : AICharacter, IHear
@@ -37,6 +37,12 @@ public class DemonCharacter : AICharacter, IHear
     [Header("Components")]
     public DemonStateBaseClass demonStateScript;
     public Transform soundDestination;
+
+    [Header("Sound Effects")]
+    public SoundEffect ghostRoaming;
+    public SoundEffect impStage1Grunt;
+    public SoundEffect impRoaming;
+    public SoundEffect impWalking;
 
     protected Callback<UserAchievementStored_t> m_UserAchievementStored;
 
@@ -130,10 +136,9 @@ public class DemonCharacter : AICharacter, IHear
         }
     }
 
-    public void ReactToSound(SoundEffect effect)
+    public void ReactToSound(Transform pos)
     {
-
-        soundDestination = effect.soundPos;
+        soundDestination = pos;
         ChangeDemonState(DemonStates.Distracted);
     }
 

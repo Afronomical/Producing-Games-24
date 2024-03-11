@@ -9,8 +9,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2891471058160452202, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
+      propertyPath: m_Size.x
+      value: 0.2823598
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891471058160452202, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_Size.y
+      value: 0.54754245
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891471058160452202, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_Size.z
+      value: 0.3548694
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891471058160452202, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_Center.x
+      value: 0.003931592
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891471058160452202, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_Center.y
+      value: 0.26877126
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891471058160452202, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_Center.z
+      value: -0.0066718445
       objectReference: {fileID: 0}
     - target: {fileID: 3677882020956813164, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
       propertyPath: m_Name
@@ -18,27 +38,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.47851
+      value: 1.1526781
       objectReference: {fileID: 0}
     - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.47851
+      value: 1.1526781
       objectReference: {fileID: 0}
     - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.47851
+      value: 1.1526781
       objectReference: {fileID: 0}
     - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 80.63908
+      value: 284.75525
       objectReference: {fileID: 0}
     - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8.206
+      value: 1.262
       objectReference: {fileID: 0}
     - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 46.897648
+      value: 36.003666
       objectReference: {fileID: 0}
     - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -94,6 +114,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectIcon: {fileID: 0}
-  collectible: {fileID: 0}
+  collectible: {fileID: 11400000, guid: 51ff0633c039c0c47914973e9c319146, type: 2}
   isExorcismObject: 1
   hasBeenPlaced: 0

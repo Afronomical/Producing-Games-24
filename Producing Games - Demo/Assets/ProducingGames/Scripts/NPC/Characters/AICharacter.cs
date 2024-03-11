@@ -30,6 +30,9 @@ public class AICharacter : MonoBehaviour
     public RaycastToPlayer raycastToPlayer;
     public Animator animator;
 
+
+   
+
     [Header("Debugging Tools")]
     public Color detectionRadiusColor = Color.white;
 
@@ -63,5 +66,29 @@ public class AICharacter : MonoBehaviour
     public void ChangeCharacterType(CharacterTypes type)
     {
         characterType = type;
+    }
+
+    /// <summary>
+    /// Returns a random enum member
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public T GetRandomEnum<T>()
+    {
+        System.Array enumArray = System.Enum.GetValues(typeof(T));
+        T randomEnumMember = (T)enumArray.GetValue(Random.Range(0, enumArray.Length));
+        return randomEnumMember;
+    }
+
+    /// <summary>
+    /// Finds the nearest point on the navmesh that the NPC is then teleported to
+    /// to prevent errors with setting destination when NPC isn't on a navmesh
+    /// </summary>
+    public void NearestNavMeshPoint()
+    {
+        if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, Mathf.Infinity, NavMesh.AllAreas))
+            agent.Warp(hit.position);
+        else
+            Debug.LogWarning("Could not find suitable location.");
     }
 }

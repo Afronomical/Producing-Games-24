@@ -7,8 +7,11 @@ using UnityEngine;
 
 public class PatientTaskManager : MonoBehaviour
 {
-    public enum HourlyTasks { Medicine, Injection, Cardiogram, Food, Board, Comfort,  // Hourly
-        NoTask, Pray, Clean, CheckFuse, CheckWater, SetClock };  // Player
+    public enum HourlyTasks
+    {
+        NoTask, Medicine, Injection, Cardiogram, Food, Board, Comfort,  // Hourly
+        Pray, Clean, CheckFuse, CheckWater, Satellite
+    };  // Player
     public enum RandomTasks { NoTask, Wandering, HeartAttack, Hiding, Cardiogram, Prayer, Hungry, Medication };
     public enum TaskLocation { Bed, Bedside, Board, Altar };
 
@@ -21,17 +24,27 @@ public class PatientTaskManager : MonoBehaviour
     public HourlyTask[] playerTasks;
     public RandomTask[] randomTasks;
 
+    [SerializeField] private DemonTellChance environmentDemonTells = new DemonTellChance();
+    [SerializeField] private DemonTellChance patientDemonTells = new DemonTellChance();
+
+    [Space(10f)]
     [HideInInspector] public List<Task> currentTasks = new List<Task>();
 
     public int tasksPerPatient = 1;
 
     public InteractiveObject noTaskPrompt;
 
+    [HideInInspector] public bool fuseHasBroken = false;
+    [HideInInspector] public bool waterHasBroken = false;
+    [HideInInspector] public bool satelliteHasBroken = false;
+
+    public SoundEffect writingSound, completeSound;
+
     [Header("Task Objects")]
     public GameObject altar;
     public GameObject fuse;
     public GameObject pipes;
-    public GameObject clock;
+    public GameObject satellite;
     public GameObject[] tables;
 
 
@@ -62,9 +75,9 @@ public class PatientTaskManager : MonoBehaviour
                     currentTasks[i].CheckTaskConditions(interactedObject);
             }
             //If it is a random task
-            else if (!currentTasks[i].isHourlyTask)
+            else if (!currentTasks[i].isHourlyTask && !currentTasks[i].taskCompleted)
                 currentTasks[i].CheckTaskConditions(interactedObject);
-                
+
         }
     }
 
@@ -73,7 +86,7 @@ public class PatientTaskManager : MonoBehaviour
     {
         for (int i = currentTasks.Count - 1; i >= 0; i--)
         {
-            if(!currentTasks[i].taskCompleted)
+            if (!currentTasks[i].taskCompleted)
                 currentTasks[i].CheckDetectTask(interactedObject);
         }
     }
@@ -85,7 +98,7 @@ public class PatientTaskManager : MonoBehaviour
         {
             if (patients[i].GetComponent<PatientCharacter>().currentHealth > 0)
             {
-                List <HourlyTask> tasksSetForThisPatient = new List <HourlyTask>();
+                List<HourlyTask> tasksSetForThisPatient = new List<HourlyTask>();
 
                 for (int j = 0; j < tasksPerPatient; j++)
                 {
@@ -136,6 +149,9 @@ public class PatientTaskManager : MonoBehaviour
                         case HourlyTasks.Comfort:
                             newTask = transform.AddComponent<HComfortTask>();
                             break;
+                        case HourlyTasks.Cardiogram:
+                            newTask = transform.AddComponent<HCardiogramTask>();
+                            break;
                     }
 
 
@@ -150,7 +166,7 @@ public class PatientTaskManager : MonoBehaviour
                     }
                 }
 
-                
+
             }
         }
     }
@@ -167,13 +183,8 @@ public class PatientTaskManager : MonoBehaviour
                 int totalChance = 0;
                 foreach (RandomTask t in randomTasks)  // Check for invalid tasks and calculate total chance
                 {
-                    // Check for blocking tasks here
 
-                    totalChance += t.chanceToHappen;
-                    choiceOfTasks.Add(t);
-
-
-                    if (t.taskName == "Heart Attack")  // Heart attack chance increase
+                    if (t.taskType == RandomTasks.HeartAttack)  // Heart attack chance increase
                     {
                         PatientCharacter patient = patients[i].GetComponent<PatientCharacter>();
                         int heartAttackChance = patient.startingHealth - patient.currentHealth;
@@ -182,6 +193,63 @@ public class PatientTaskManager : MonoBehaviour
                             totalChance += t.chanceToHappen;
                             choiceOfTasks.Add(t);
                         }
+                    }
+
+                    else if (t.taskType == RandomTasks.Cardiogram)  // Heart attack chance increase
+                    {
+                        totalChance += t.chanceToHappen;
+                        choiceOfTasks.Add(t);
+
+                        if (patients[i].GetComponent<PatientCharacter>().cardiogramNotChecked)  // Double the chance if it wasn't checked
+                        {
+                            totalChance += t.chanceToHappen;
+                            choiceOfTasks.Add(t);
+                        }
+                    }
+
+                    else if (t.taskType == RandomTasks.Hiding)
+                    {
+                        if (NPCManager.Instance.ChosenDemon.demonName == "Leviathan" || NPCManager.Instance.ChosenDemon.demonName == "Beezlebub")
+                        {
+                            int hidingChance = GetDemonTellTaskChance(patientDemonTells, patients[i].GetComponent<PatientCharacter>().hasBeenHiding);
+                            for (int j = 0; j < hidingChance; j++)
+                            {
+                                totalChance += t.chanceToHappen;
+                                choiceOfTasks.Add(t);
+                            }
+                        }
+                    }
+
+                    else if (t.taskType == RandomTasks.Medication)
+                    {
+                        if (NPCManager.Instance.ChosenDemon.demonName == "Leviathan" || NPCManager.Instance.ChosenDemon.demonName == "Mammon")
+                        {
+                            int greedChance = GetDemonTellTaskChance(patientDemonTells, patients[i].GetComponent<PatientCharacter>().hasBeenGreedy);
+                            for (int j = 0; j < greedChance; j++)
+                            {
+                                totalChance += t.chanceToHappen;
+                                choiceOfTasks.Add(t);
+                            }
+                        }
+                    }
+
+                    else if (t.taskType == RandomTasks.Hungry)
+                    {
+                        if (NPCManager.Instance.ChosenDemon.demonName == "Mammon" || NPCManager.Instance.ChosenDemon.demonName == "Beezlebub")
+                        {
+                            int hungryChance = GetDemonTellTaskChance(patientDemonTells, patients[i].GetComponent<PatientCharacter>().hasBeenHungry);
+                            for (int j = 0; j < hungryChance; j++)
+                            {
+                                totalChance += t.chanceToHappen;
+                                choiceOfTasks.Add(t);
+                            }
+                        }
+                    }
+
+                    else
+                    {
+                        totalChance += t.chanceToHappen;
+                        choiceOfTasks.Add(t);
                     }
                 }
 
@@ -224,6 +292,9 @@ public class PatientTaskManager : MonoBehaviour
                     case RandomTasks.Medication:
                         newTask = transform.AddComponent<RMedicationTask>();
                         break;
+                    case RandomTasks.Cardiogram:
+                        newTask = transform.AddComponent<RCardiogramTask>();
+                        break;
                     default:
                         break;
                 }
@@ -249,8 +320,50 @@ public class PatientTaskManager : MonoBehaviour
         int totalChance = 0;
         foreach (HourlyTask t in playerTasks)  // Check for invalid tasks and calculate total chance
         {
-            totalChance += t.chanceToHappen;
-            choiceOfTasks.Add(t);  // Add it to the list of tasks to pick from
+            if (t.taskType == HourlyTasks.Satellite)
+            {
+                if (NPCManager.Instance.ChosenDemon.demonName == "Leviathan" || NPCManager.Instance.ChosenDemon.demonName == "Beezlebub")
+                {
+                    int satelliteChance = GetDemonTellTaskChance(patientDemonTells, satelliteHasBroken, true);
+                    for (int j = 0; j < satelliteChance; j++)
+                    {
+                        totalChance += t.chanceToHappen;
+                        choiceOfTasks.Add(t);
+                    }
+                }
+            }
+
+            else if (t.taskType == HourlyTasks.CheckWater)
+            {
+                if (NPCManager.Instance.ChosenDemon.demonName == "Leviathan" || NPCManager.Instance.ChosenDemon.demonName == "Mammon")
+                {
+                    int waterChance = GetDemonTellTaskChance(patientDemonTells, waterHasBroken, true);
+                    for (int j = 0; j < waterChance; j++)
+                    {
+                        totalChance += t.chanceToHappen;
+                        choiceOfTasks.Add(t);
+                    }
+                }
+            }
+
+            else if (t.taskType == HourlyTasks.CheckFuse)
+            {
+                if (NPCManager.Instance.ChosenDemon.demonName == "Mammon" || NPCManager.Instance.ChosenDemon.demonName == "Beezlebub")
+                {
+                    int fuseChance = GetDemonTellTaskChance(patientDemonTells, fuseHasBroken, true);
+                    for (int j = 0; j < fuseChance; j++)
+                    {
+                        totalChance += t.chanceToHappen;
+                        choiceOfTasks.Add(t);
+                    }
+                }
+            }
+
+            else
+            {
+                totalChance += t.chanceToHappen;
+                choiceOfTasks.Add(t);  // Add it to the list of tasks to pick from
+            }
         }
 
         int rand = Random.Range(0, totalChance);
@@ -278,6 +391,22 @@ public class PatientTaskManager : MonoBehaviour
                 newTask = transform.AddComponent<PPrayTask>();
                 newTask.taskTarget = altar;
                 break;
+            case HourlyTasks.Satellite:
+                newTask = transform.AddComponent<PSatelliteTask>();
+                newTask.taskTarget = satellite;
+                break;
+            case HourlyTasks.CheckWater:
+                newTask = transform.AddComponent<PPipeTask>();
+                newTask.taskTarget = pipes;
+                break;
+            case HourlyTasks.Clean:
+                newTask = transform.AddComponent<PCleanTask>();
+                newTask.taskTarget = tables[Random.Range(0, tables.Length)];
+                break;
+            case HourlyTasks.CheckFuse:
+                newTask = transform.AddComponent<PFuseBoxTask>();
+                newTask.taskTarget = fuse;
+                break;
         }
 
 
@@ -295,6 +424,7 @@ public class PatientTaskManager : MonoBehaviour
     public void CompleteTask(Task task)
     {
         CheckList.instance.CompleteTask(task);
+        AudioManager.instance.PlaySound(completeSound, null);
 
         if (!task.isHourlyTask)  // Is not hourly task
         {
@@ -317,9 +447,80 @@ public class PatientTaskManager : MonoBehaviour
                 if (!currentTasks[i].taskCompleted)
                     currentTasks[i].FailTask();
             }
-            CheckList.instance.RemoveTask(currentTasks[i]);
+            if (currentTasks[i].checkList != null) CheckList.instance.RemoveTask(currentTasks[i]);
             Destroy(currentTasks[i]);
             currentTasks.RemoveAt(i);
+        }
+    }
+
+
+    private int GetDemonTellTaskChance(DemonTellChance chances, bool repeating, bool Environment = false)
+    {
+        int sanityEffect = GameManager.Instance.startingSanity - GameManager.Instance.GetSanity();
+
+        switch(GameManager.Instance.currentHour)
+        {
+            case 1:
+                return chances.hour1Chance;
+            case 2:
+                if (!repeating) return chances.hour2Chance;
+                else return (chances.hour2RepeatChance + sanityEffect);
+            case 3:
+                if (!repeating) return chances.hour3Chance;
+                else return (chances.hour3RepeatChance + sanityEffect);
+            case 4:
+                if (!repeating) return chances.hour4Chance;
+                else return (chances.hour4RepeatChance + sanityEffect);
+            case 5:
+                if (!repeating) return chances.hour5Chance;
+                else return (chances.hour5RepeatChance + sanityEffect);
+            case 6:
+                if (!Environment) return chances.hour6Chance;
+                else return (chances.hour6Chance + sanityEffect);
+            case 7:
+                if (!Environment) return chances.hour7Chance;
+                else return (chances.hour7Chance + sanityEffect);
+            case 8:
+                if (!Environment) return chances.hour8Chance;
+                else return (chances.hour8Chance + sanityEffect);
+            default:
+                Debug.LogError("GetDemonTellChance in PatientTaskManager failed");
+                return 0;
+        }
+    }
+
+
+
+    [System.Serializable]
+    private struct DemonTellChance
+    {
+        [Range(0, 100)] public int hour1Chance;
+        [Range(0, 100)] public int hour2Chance;
+        [Range(0, 100)] public int hour2RepeatChance;
+        [Range(0, 100)] public int hour3Chance;
+        [Range(0, 100)] public int hour3RepeatChance;
+        [Range(0, 100)] public int hour4Chance;
+        [Range(0, 100)] public int hour4RepeatChance;
+        [Range(0, 100)] public int hour5Chance;
+        [Range(0, 100)] public int hour5RepeatChance;
+        [Range(0, 100)] public int hour6Chance;
+        [Range(0, 100)] public int hour7Chance;
+        [Range(0, 100)] public int hour8Chance;
+
+        public DemonTellChance(int _hour1Chance, int _hour2Chance, int _hour2RepeatChance, int _hour3Chance, int _hour3RepeatChance, int _hour4Chance, int _hour4RepeatChance, int _hour5Chance, int _hour5RepeatChance, int _hour6Chance, int _hour7Chance, int _hour8Chance)
+        {
+            hour1Chance = _hour1Chance;
+            hour2Chance = _hour2Chance;
+            hour2RepeatChance = _hour2RepeatChance;
+            hour3Chance = _hour3Chance;
+            hour3RepeatChance = _hour3RepeatChance;
+            hour4Chance = _hour4Chance;
+            hour4RepeatChance = _hour4RepeatChance;
+            hour5Chance = _hour5Chance;
+            hour5RepeatChance = _hour5RepeatChance;
+            hour6Chance = _hour6Chance;
+            hour7Chance = _hour7Chance;
+            hour8Chance = _hour8Chance;
         }
     }
 }

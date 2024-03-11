@@ -7,6 +7,7 @@ public class RHeartAttackTask : Task
 {
     public float timeTillHeartAttack = 90;
     public float timeRemaining = 10;
+    private bool soundPlaying;
 
     public override void TaskStart()
     {
@@ -25,6 +26,11 @@ public class RHeartAttackTask : Task
         if (!taskCompleted && timeRemaining > 0)
         {
             timeRemaining -= Time.deltaTime;
+            if (timeRemaining <= 17 && !soundPlaying)
+            {
+                soundPlaying = true;
+                AudioManager.instance.PlaySound(NPCManager.Instance.heartAttackSound, taskTarget.transform);
+            }
             if (timeRemaining <= 0)
             {
                 FailTask();

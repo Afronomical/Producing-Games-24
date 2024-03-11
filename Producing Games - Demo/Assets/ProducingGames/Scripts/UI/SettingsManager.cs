@@ -281,17 +281,49 @@ public class SettingsManager : MonoBehaviour
     {
         resolutionDropdown.ClearOptions();
 
-        List<string> resolutions = new List<string>();
+        List<string> preferredResolutions = new List<string>
+    {
+        "1920x1080", "1280x720", "2560x1440", "3840x2160", "1680x1050",
+        "1600x900", "1366x768", "1280x800", "1024x768", "800x600"
+    };
 
-        foreach (var resolution in Screen.resolutions)
+        List<string> supportedResolutions = new List<string>();
+
+        foreach (var resolution in preferredResolutions)
         {
-            resolutions.Add($"{resolution.width}x{resolution.height}");
+            int width, height;
+            ParseResolution(resolution, out width, out height);
+
+            // Check if the current system supports the resolution.
+            if (IsResolutionSupported(width, height))
+            {
+                supportedResolutions.Add(resolution);
+            }
         }
 
-        resolutionDropdown.AddOptions(resolutions);
+        resolutionDropdown.AddOptions(supportedResolutions);
     }
 
-    private void OnResolutionChanged(int index)
+    private void ParseResolution(string resolution, out int width, out int height)
+    {
+        string[] parts = resolution.Split('x');
+        width = int.Parse(parts[0]);
+        height = int.Parse(parts[1]);
+    }
+
+    private bool IsResolutionSupported(int width, int height)
+    {
+        foreach (var systemResolution in Screen.resolutions)
+        {
+            if (systemResolution.width == width && systemResolution.height == height)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void OnResolutionChanged(int index)
     {
         string selectedResolution = resolutionDropdown.options[index].text;
         SetResolution(selectedResolution);
@@ -499,6 +531,7 @@ public class SettingsManager : MonoBehaviour
         applyDisplayModeClicked = true;
     }
 }
+
 
 
 //private void ScaleUIElements(Transform parent)

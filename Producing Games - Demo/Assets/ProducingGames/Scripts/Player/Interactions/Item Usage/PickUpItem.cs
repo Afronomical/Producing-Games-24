@@ -43,7 +43,7 @@ public class PickUpItem : MonoBehaviour
                     if (interactableTemplate.collectible != PatientTaskManager.instance.noTaskPrompt && interactableTemplate.collectible != null)
                     {
                         //shows tooltip on mouse hover
-                        TooltipManager.Instance.ShowTooltip(interactableTemplate.collectible.tooltipText);
+                        TooltipManager.Instance.ShowTooltip(interactableTemplate.collectible.tooltipText, interactableTemplate.collectible.tooltipImage);
 
                         if (c.performed && canPickUp)
                         {
@@ -52,8 +52,9 @@ public class PickUpItem : MonoBehaviour
 
                             if (PlayerInteractor.instance.currentObject != null)
                             {
-                                Debug.Log("Interact");
-                                StartCoroutine(arms.GrabObject());
+                                //Debug.Log("Interact");
+
+                                StartCoroutine(arms.GrabObject(interactableTemplate.collectible));
                             }
                             
                         }
@@ -68,17 +69,19 @@ public class PickUpItem : MonoBehaviour
                 PlayerInteractor.instance.currentNPC = NPCInteractable;
                 if (NPCInteractable is NPCInteractableTemplate NPCTemplate)
                 {
-                    if (NPCTemplate.character.currentState != PatientCharacter.PatientStates.Bed &&  // If not in any of these states
-                        NPCTemplate.character.currentState != PatientCharacter.PatientStates.Dead &&
-                        NPCTemplate.character.currentState != PatientCharacter.PatientStates.Escorted &&
-                        NPCTemplate.character.currentState != PatientCharacter.PatientStates.Possessed &&
-                        NPCTemplate.character.currentState != PatientCharacter.PatientStates.ReqMeds)
+                    // INFO: If not in any of the states that allow the patient to be escorted
+                    // then we will return
+                    if (NPCTemplate.character.currentState is 
+                        not PatientCharacter.PatientStates.Abandoned and
+                        not PatientCharacter.PatientStates.Hiding and
+                        not PatientCharacter.PatientStates.Wandering and
+                        not PatientCharacter.PatientStates.Hungry and
+                        not PatientCharacter.PatientStates.Prayer)
+                        return;
+
+                    if (c.performed)
                     {
-                        if (c.performed)
-                        {
-                            NPCTemplate.character.ChangePatientState(PatientCharacter.PatientStates.Escorted);
-                            //currentNPC.Escort();
-                        }
+                        NPCTemplate.character.ChangePatientState(PatientCharacter.PatientStates.Escorted);
                     }
                 }
                

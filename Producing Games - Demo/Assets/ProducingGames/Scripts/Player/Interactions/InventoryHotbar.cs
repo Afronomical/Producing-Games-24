@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class InventoryHotbar : MonoBehaviour
 {
@@ -11,8 +12,11 @@ public class InventoryHotbar : MonoBehaviour
     public int currentIndex;
     public InteractiveObject emptySlot;
 
+    public GameObject itemSlotParent;
     public List<GameObject> itemSlots = new List<GameObject>();
     private int centerSlotIndex = 2;
+
+    public TMP_Text itemName;
 
     public float changeSlotDelay;
     private float changeSlotTimer;
@@ -35,7 +39,7 @@ public class InventoryHotbar : MonoBehaviour
         if (instance == null)
             instance = this;
 
-        foreach (Transform child in transform)
+        foreach (Transform child in itemSlotParent.transform)
         {
             itemSlots.Add(child.gameObject);
         }
@@ -111,6 +115,7 @@ public class InventoryHotbar : MonoBehaviour
         if (inventory.Count != 0)
         {
             Debug.Log("Currently holding " + inventory[currentIndex].objectName);
+            itemName.text = inventory[currentIndex].objectName;
             if (!holding)
             {
                 //instantiate the object currently held
@@ -160,8 +165,8 @@ public class InventoryHotbar : MonoBehaviour
             }
             go.layer = 9;
         }
-            
-        
+        else
+        itemName.text = "";
     }
 
     InteractiveObject GetItemFromInventory(int itemIndex)

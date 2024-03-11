@@ -15,7 +15,7 @@ MonoBehaviour:
   taskType: 9
   chanceToHappen: 10
   BlockingTasks: []
-  taskName: Check Fuse
+  taskName: Perform maintenance on the fuse box
   taskDescription: Check the fuse box
   location: 0
   itemToGive: {fileID: 0}

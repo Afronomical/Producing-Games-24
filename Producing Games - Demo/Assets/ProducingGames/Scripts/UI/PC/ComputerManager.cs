@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ComputerManager : MonoBehaviour
 {
@@ -58,4 +59,5 @@ public class ComputerManager : MonoBehaviour
 
         clock.text = time;
     }
+
 }

@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db92280e6d78bce46b3708c9af45f26d, type: 3}
   m_Name: Reading3
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: be0e01d90eca67c4196788a4e56336ca, type: 3}
+  audioClip: {fileID: 8300000, guid: 8edbe80fa6f04784a812db4fd4a3acf0, type: 3}
   volume: 0.75
   pitch: 1
   priority: 128
   loop: 0
   isMusic: 0
-  canEcho: 0
   spacialAudio: 1
   followObject: 0
   travelDistance: 30
@@ -26,5 +25,3 @@ MonoBehaviour:
   font: {fileID: 0}
   typingSpeed: 0.15
   waitTillHide: 4
-  soundPos: {fileID: 0}
-  isReactionSound: 0

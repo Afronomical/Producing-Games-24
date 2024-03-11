@@ -7,7 +7,7 @@ public class MainMenuController_Matej : MonoBehaviour
     
     public void PlayGame()
     {
-        LevelManager.LoadScene(LevelManager.Scenes.Main); 
+        LevelManager.LoadScene(LevelManager.Scenes.MainUpdated); 
     }
 
     public void OpenCredits()
@@ -20,6 +20,11 @@ public class MainMenuController_Matej : MonoBehaviour
     {
         LevelManager.LoadScene(LevelManager.Scenes.Settings);
        
+    }
+
+    public void PlayTutorial()
+    {
+        LevelManager.LoadScene(LevelManager.Scenes.Tutorial);
     }
 
     public void QuitGame()

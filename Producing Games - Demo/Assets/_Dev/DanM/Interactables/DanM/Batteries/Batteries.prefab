@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3649013889677226318}
   - component: {fileID: 7988286780129253239}
+  - component: {fileID: 6244833510308736636}
+  - component: {fileID: 168635504377529243}
   m_Layer: 0
   m_Name: Batteries
   m_TagString: Untagged
@@ -25,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8959941918418024460}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.7105987, w: 0.7035976}
+  m_LocalRotation: {x: 0, y: 0, z: -0.71059686, w: 0.7035994}
   m_LocalPosition: {x: -0.0444, y: 0.0158, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -61,6 +63,44 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers: []
   m_Enabled: 1
+--- !u!114 &6244833510308736636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8959941918418024460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5cb0ec18ebcb274cac2489efe40ada1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectIcon: {fileID: 0}
+  collectible: {fileID: 11400000, guid: 11e02707f1e1a524d826abd91d46a9bf, type: 2}
+  isExorcismObject: 0
+  hasBeenPlaced: 0
+  chargeGainAmount: 150
+--- !u!65 &168635504377529243
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8959941918418024460}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.11757645, y: 0.3600944, z: 0.30247688}
+  m_Center: {x: -0.09141216, y: 0.13469611, z: -0.012936592}
 --- !u!1001 &1173768002738056204
 PrefabInstance:
   m_ObjectHideFlags: 0

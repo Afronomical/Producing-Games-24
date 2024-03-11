@@ -9,6 +9,7 @@ public class Flashlight : MonoBehaviour
 {
     public GameObject flashlight;
     public Light light;
+    public SoundEffect toggleSound;
 
     public float[] intensities;
     
@@ -18,7 +19,7 @@ public class Flashlight : MonoBehaviour
     [Range(0, 10)] public float batteryDrainRate;
     [NonSerialized] public float maxBatteryCharge;
     private bool unlimitedBatteryActivated;
-    private int intensityIndex = 0;
+    [HideInInspector] public int intensityIndex = 0;
 
     [Header("Flashlight Flickering Settings")]
     public int randFlickerChance = 500;
@@ -29,8 +30,13 @@ public class Flashlight : MonoBehaviour
     private bool isFlickering;
     private float oldIntensity;
 
-    private void Start() => maxBatteryCharge = batteryCharge; //This will be used to make sure when you pickup a battery, your flashlight isn't Max Charge
-    
+
+    private void Start()
+    {
+        CommandConsole.Instance.ToggleFlashlight += UnlimitedBatteryToggle;
+        maxBatteryCharge = batteryCharge; //This will be used to make sure when you pickup a battery, your flashlight isn't Max Charge
+    }
+
     void Update()
     {
         //Debug.Log(light.intensity);
@@ -61,12 +67,13 @@ public class Flashlight : MonoBehaviour
         }
     }
 
-    private void IntensityChange()
+    public void IntensityChange()
     {
         if (light.intensity != intensities[intensityIndex])
         {
             flashlight.SetActive(true);
             light.intensity = intensities[intensityIndex];
+            AudioManager.instance.PlaySound(toggleSound, null);
         }
 
         oldIntensity = light.intensity;

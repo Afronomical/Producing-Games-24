@@ -57,6 +57,7 @@ public class Task : MonoBehaviour
         {
             taskNoticed = true;
             CheckList.instance.AddTask(this);
+            AudioManager.instance.PlaySound(PatientTaskManager.instance.writingSound, null);
         }
     }
 

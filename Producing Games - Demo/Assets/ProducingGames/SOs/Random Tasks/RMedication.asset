@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RMedication
   m_EditorClassIdentifier: 
   taskType: 7
-  chanceToHappen: 5
-  taskName: Medication
+  chanceToHappen: 1
+  taskName: Bring the patient their requested medication
   taskDescription: Give the patient their mediaction
   location: 0
   itemToGive: {fileID: 11400000, guid: 466d28f252da7d14ea55f7cc9ffeb6fe, type: 2}

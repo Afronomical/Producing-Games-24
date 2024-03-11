@@ -28,7 +28,9 @@ public class AttackState : DemonStateBaseClass
     /// </summary>
     private void Reset()
     {
-        StartCoroutine(GameManager.Instance.EndHour());
+        GameManager.Instance.DemonCaptureEvent(); //replaced EndHour with the captured event. Captured event has EndHour within it after the scene
+
+        //StartCoroutine(GameManager.Instance.EndHour());
 
         //this is where animation will go before moving player back to start pos
         //GetComponent<Animator>().SetBool("isAttacking", false);

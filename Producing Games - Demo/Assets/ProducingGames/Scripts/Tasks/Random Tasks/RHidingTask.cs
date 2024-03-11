@@ -15,7 +15,10 @@ public class RHidingTask : Task
         taskTarget.transform.position = NPCManager.Instance.RandomHidingLocation();
 
         if (taskTarget && taskTarget.TryGetComponent(out PatientCharacter character))
+        {
             character.ChangePatientState(PatientCharacter.PatientStates.Hiding);
+            character.hasBeenHiding = true;
+        }
 
         initialized = true;
         base.TaskStart();
@@ -25,7 +28,7 @@ public class RHidingTask : Task
     void Update()
     {
         // Check if the patient is in their bed
-        if (taskNoticed && initialized && taskTarget && taskTarget.TryGetComponent(out PatientCharacter character))
+        if (!taskCompleted && taskNoticed && initialized && taskTarget && taskTarget.TryGetComponent(out PatientCharacter character))
         {
             if (character.currentState == PatientCharacter.PatientStates.Bed)
                 CompleteTask();
