@@ -132,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
         else crouchObject.transform.SetLocalPositionAndRotation(new Vector3(0, 0, 0), crouchObject.transform.localRotation);
 
 
-        FootstepSounds();
+        //FootstepSounds();
         
         
         if (!isSprinting && stamina <= maxStamina)
@@ -176,7 +176,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    private void FootstepSounds()
+   /*private void FootstepSounds()
     {
         if ((currentInput.x != 0 || currentInput.y != 0) && isGrounded)
         {
@@ -215,7 +215,7 @@ public class PlayerMovement : MonoBehaviour
 
             else footstepTimer = timeBetweenWalkingFootsteps;
         }
-    }
+    }*/
 
 
     public void OnMoveInput(InputAction.CallbackContext context)
