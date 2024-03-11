@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -9,10 +10,13 @@ using UnityEngine;
 public class ParanoiaSound : MonoBehaviour
 {
     public SoundEffect[] sounds;
-    public int chanceOfActive = 100;
-    public float distanceMax;
     public float distanceMin;
+    public float distanceMax;
     public bool shouldPlay = true;
+    public int minChance;
+    public int maxChance;
+    public float cooldownTime;
+    private bool cooldown;
     private int chance;
     private float mainDistance;
     private float distanceDelta;
@@ -38,15 +42,16 @@ public class ParanoiaSound : MonoBehaviour
         {
             ChanceForEvent();
         }
-        
+
     }
 
     void ChanceForEvent()
     {
-        chance = Random.Range(0, chanceOfActive);
-        if (chance == 1)
+        chance = (int)Random.Range(0, Mathf.Lerp(maxChance, minChance, GameManager.Instance.eventChance / 100)); //(Random.Range(1, 100) <= GameManager.Instance.eventChance)
+        if (chance == 1 && !cooldown)
         {
             PlaySoundAtRandLoc();
+            StartCoroutine(Cooldown());
         }
     }
 
@@ -60,5 +65,12 @@ public class ParanoiaSound : MonoBehaviour
 
         transform.position = new Vector3(randX, 0, randZ) + playerObj.transform.position;
         AudioManager.instance.PlaySound(sounds[Random.Range(0, sounds.Length)], transform);
+    }
+
+    private IEnumerator Cooldown()
+    {
+        cooldown = true;
+        yield return new WaitForSeconds(cooldownTime);
+        cooldown = false;
     }
 }
