@@ -35,7 +35,7 @@ public class DynamicFootsteps : MonoBehaviour
     public float range;
     public LayerMask GroundLayer;
 
-    PlayerMovement PlMove;
+    public PlayerMovement PlMove;
     RaycastHit FootStepRay;
     private float footstepTimer;
 
