@@ -8,33 +8,57 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2891471058160452202, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_Size.x
+      value: 0.2823598
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891471058160452202, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_Size.y
+      value: 0.54754245
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891471058160452202, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_Size.z
+      value: 0.3548694
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891471058160452202, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_Center.x
+      value: 0.003931592
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891471058160452202, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_Center.y
+      value: 0.26877126
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891471058160452202, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
+      propertyPath: m_Center.z
+      value: -0.0066718445
+      objectReference: {fileID: 0}
     - target: {fileID: 3677882020956813164, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
       propertyPath: m_Name
       value: Blessed Oil Exo Variant 1
       objectReference: {fileID: 0}
     - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.0333006
+      value: 1.1526781
       objectReference: {fileID: 0}
     - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.0333006
+      value: 1.1526781
       objectReference: {fileID: 0}
     - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.0333006
+      value: 1.1526781
       objectReference: {fileID: 0}
     - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 307.9135
+      value: 284.75525
       objectReference: {fileID: 0}
     - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.149
+      value: 1.262
       objectReference: {fileID: 0}
     - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 36.81582
+      value: 36.003666
       objectReference: {fileID: 0}
     - target: {fileID: 8609694180144790868, guid: 23e3edc51081f394abca7284388e04b8, type: 3}
       propertyPath: m_LocalRotation.w
