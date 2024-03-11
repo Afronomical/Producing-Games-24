@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.GraphicsBuffer;
-using static UnityEngine.UI.Image;
 
 public class CameraLook : MonoBehaviour
 {
@@ -11,6 +9,7 @@ public class CameraLook : MonoBehaviour
 
     [Header("Camera Properties")]
     [Range(0, 1)] public float mouseSensitivity = 0.5f;
+    [Range(0, 10)] public float controllerSensitivity = 5f;
     private Vector2 currentInput;
     [Range(-100, 0)] public float downClampAngle = -50;
     [Range(0, 100)] public float upClampAngle = 50;
@@ -18,6 +17,14 @@ public class CameraLook : MonoBehaviour
     public Transform playerBody;
     private PlayerMovement playerMovement;
     private CharacterController playerController;
+    private PlayerInput playerInput;
+    public Transform playerArms;
+
+    [Header("Arm Offset")]
+    public Vector2 armOffsetDistance;
+    public Vector2 armOffsetLimit;
+    [Range(0f, 1f)] public float armCatchUpSpeed;
+    private Vector2 armOffset;
 
 
     [Header("Head Bobbing")]
@@ -39,14 +46,15 @@ public class CameraLook : MonoBehaviour
         camStartPos = transform.localPosition;
         playerMovement = playerBody.GetComponent<PlayerMovement>();
         playerController = playerBody.GetComponent<CharacterController>();
+        playerInput = playerBody.GetComponent <PlayerInput>();
     }
 
 
 
     void Update()
     {
-        float mouseX = currentInput.x / 5 * mouseSensitivity;
-        float mouseY = currentInput.y / 5 * mouseSensitivity;
+        float mouseX = currentInput.x / 5;
+        float mouseY = currentInput.y / 5;
 
         xRot -= mouseY;
         xRot = Mathf.Clamp(xRot, downClampAngle, upClampAngle);
@@ -54,6 +62,11 @@ public class CameraLook : MonoBehaviour
         transform.localRotation = Quaternion.Euler(xRot, 0f, 0f);  // Rotate the camera
         playerBody.Rotate(Vector3.up * mouseX);  // Rotate the player left and right
         Leaning();
+
+        armOffset.x = Mathf.Clamp(armOffset.x, -armOffsetLimit.x, armOffsetLimit.x);
+        armOffset.y = Mathf.Clamp(armOffset.y, -armOffsetLimit.y, armOffsetLimit.y);
+        armOffset = Vector2.Lerp(armOffset, Vector2.zero, armCatchUpSpeed);
+        playerArms.localRotation = Quaternion.Euler(armOffset.y, -armOffset.x, 0);
 
 
         GameObject[] allNPCs = GameObject.FindGameObjectsWithTag("NPC");
@@ -79,7 +92,16 @@ public class CameraLook : MonoBehaviour
 
     public void OnLookInput(InputAction.CallbackContext context)
     {
-        currentInput = context.ReadValue<Vector2>();
+        if (playerInput.currentControlScheme == "Gamepad")
+        {
+            currentInput = context.ReadValue<Vector2>() * controllerSensitivity;
+            armOffset += context.ReadValue<Vector2>() * controllerSensitivity * armOffsetDistance;
+        }
+        else
+        {
+            currentInput = context.ReadValue<Vector2>() * mouseSensitivity;
+            armOffset += context.ReadValue<Vector2>() * mouseSensitivity * armOffsetDistance;
+        }
     }
 
     private void Leaning()

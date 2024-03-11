@@ -15,7 +15,7 @@ MonoBehaviour:
   taskType: 7
   chanceToHappen: 25
   BlockingTasks: []
-  taskName: Pray
+  taskName: Recite your prayers at the altar
   taskDescription: Pray at the altar
   location: 0
   itemToGive: {fileID: 0}

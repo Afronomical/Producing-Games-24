@@ -2,7 +2,7 @@ using UnityEngine;
 
 /// <summary>
 /// Written By: Matt Brake
-/// <para> Moderated By: .....</para>
+/// <para> Moderated By: Matej Cincibus</para>
 /// <para> This State carries out behaviour of the NPCs when they are praying. They will run to a prayer point 
 /// and carry out a prayer until the player interacts with them.</para>
 /// </summary>
@@ -10,29 +10,66 @@ using UnityEngine;
 public class PrayerState : PatientStateBaseClass
 {
     private Vector3 prayingDestination;
-    private readonly float distanceFromPrayerPoint = 3.0f; 
 
     private void Start()
     {
+        ChoosePrayingDestination();
+
+        // INFO: Given that the previous was panicked or scared we will have
+        // the patient walk back to their praying spot
+        if (character.PreviousState == PatientCharacter.PatientStates.Panic ||
+            character.PreviousState == PatientCharacter.PatientStates.Scared)
+            WalkToPrayingSpot();
+        else
+            TeleportToPrayingSpot();
+
         character.animator.SetBool("isPraying", true);
-        
-        if (character.agent.hasPath)
-            character.agent.ResetPath();
-
-        character.agent.enabled = false;
-
-        prayingDestination = NPCManager.Instance.RandomPrayingDestination();
-
-        //maybe some sound effects to signify the praying? panic sounds or speech 
-        character.agent.transform.position = prayingDestination;
-        character.agent.Warp(prayingDestination);
-
     }
 
-    /*public override void UpdateLogic()
+    /// <summary>
+    /// Chooses a praying location from an available list of praying locations held in the NPC manager
+    /// </summary>
+    public void ChoosePrayingDestination()
     {
-    }*/
+        // INFO: If there are no praying locations in the list then end
+        if (NPCManager.Instance.GetPrayerLocationsCount() == 0)
+        {
+            Debug.LogError("There are no praying locations setup in the praying location list.");
+            return;
+        }
 
+        // INFO: Chooses a location to be praying at
+        prayingDestination = NPCManager.Instance.RandomPrayingDestination();
+    }
+
+    /// <summary>
+    /// Rather than having the patient walk to their hiding spot, we
+    /// will have them teleport to it
+    /// </summary>
+    private void TeleportToPrayingSpot()
+    {
+        character.agent.Warp(prayingDestination);
+    }
+
+    /// <summary>
+    /// Rather than teleporting the patient, this will have the patient
+    /// walk back to their hiding spot
+    /// </summary>
+    private void WalkToPrayingSpot()
+    {
+        character.agent.SetDestination(prayingDestination);
+    }
+
+    /// <summary>
+    /// When the script is destroyed (changes state) it will free up the praying
+    /// spot location ready for when the next pray task is set for a patient
+    /// </summary>
+    private void OnDestroy()
+    {
+        NPCManager.Instance.SetHidingLocationFree(prayingDestination);
+    }
+
+    /*
     /// <summary>
     /// The main function which carries out the praying logic. 
     /// </summary>
@@ -52,4 +89,5 @@ public class PrayerState : PatientStateBaseClass
             return true;
         return false;     
     }
+    */
 }

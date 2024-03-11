@@ -5,6 +5,19 @@ using UnityEngine;
 public class HorrorEventManager : MonoBehaviour
 {
     public static HorrorEventManager Instance;
+
+    private void Awake()
+    {
+        if(Instance != null)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+    
     public List<GameObject> Events = new List<GameObject>();
     void Start()
     {

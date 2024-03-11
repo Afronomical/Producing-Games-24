@@ -15,5 +15,7 @@ MonoBehaviour:
   objectName: 
   obj: {fileID: 733333763478795650, guid: 7eaf822a9448cbe43a42cd71cccad5eb, type: 3}
   prefab: {fileID: 733333763478795650, guid: 7eaf822a9448cbe43a42cd71cccad5eb, type: 3}
+  interactSound: {fileID: 0}
   objectImage: {fileID: 0}
-  tooltipText: Interact
+  tooltipText: 
+  tooltipImage: {fileID: 21300000, guid: 694b5c93fd640754e9bf73e94c9dc345, type: 3}

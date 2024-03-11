@@ -13,6 +13,7 @@ public class InteractableTemplate : MonoBehaviour, IInteractable
     [SerializeField] public InteractiveObject collectible;
     [SerializeField] public bool isExorcismObject;
     [SerializeField] public bool hasBeenPlaced = false;
+    
     //public bool canBeInteractedWith = true;
 
     public string Name => throw new System.NotImplementedException();

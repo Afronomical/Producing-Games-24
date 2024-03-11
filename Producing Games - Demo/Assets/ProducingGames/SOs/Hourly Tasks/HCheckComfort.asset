@@ -15,7 +15,7 @@ MonoBehaviour:
   taskType: 5
   chanceToHappen: 50
   BlockingTasks: []
-  taskName: Check Comfort
+  taskName: Perform checks on the patients comfort
   taskDescription: Check that the patient is confy
   location: 0
   itemToGive: {fileID: 0}

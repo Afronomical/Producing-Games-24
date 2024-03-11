@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db92280e6d78bce46b3708c9af45f26d, type: 3}
   m_Name: Sight1
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: 8cb2b7c79ab066e4fb037509789694b4, type: 3}
+  audioClip: {fileID: 8300000, guid: 59ec2cbecfca08747bee731b65c87b38, type: 3}
   volume: 0.75
   pitch: 1
   priority: 128

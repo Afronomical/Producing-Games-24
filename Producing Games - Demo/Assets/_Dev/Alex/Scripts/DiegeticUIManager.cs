@@ -10,6 +10,7 @@ public class DiegeticUIManager : MonoBehaviour
     public bool hasChecklist = false;
     public bool hasDemonBook = false;
     public bool hasPager = false;
+    public bool pagerBroken = false;
 
     private void Awake()
     {

@@ -38,6 +38,12 @@ public class DemonCharacter : AICharacter, IHear
     public DemonStateBaseClass demonStateScript;
     public Transform soundDestination;
 
+    [Header("Sound Effects")]
+    public SoundEffect ghostRoaming;
+    public SoundEffect impStage1Grunt;
+    public SoundEffect impRoaming;
+    public SoundEffect impWalking;
+
     protected Callback<UserAchievementStored_t> m_UserAchievementStored;
 
     bool exorcised = false;

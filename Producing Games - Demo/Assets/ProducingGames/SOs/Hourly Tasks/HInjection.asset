@@ -15,7 +15,7 @@ MonoBehaviour:
   taskType: 1
   chanceToHappen: 60
   BlockingTasks: []
-  taskName: Injection
+  taskName: Provide patients with their prescribed injections
   taskDescription: Give the patient their injection
   location: 0
   itemToGive: {fileID: 11400000, guid: 79dfcdceaf598a444973567781c3cfe5, type: 2}

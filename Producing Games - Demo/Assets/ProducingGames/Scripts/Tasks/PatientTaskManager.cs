@@ -9,8 +9,8 @@ public class PatientTaskManager : MonoBehaviour
 {
     public enum HourlyTasks
     {
-        Medicine, Injection, Cardiogram, Food, Board, Comfort,  // Hourly
-        NoTask, Pray, Clean, CheckFuse, CheckWater, Satellite
+        NoTask, Medicine, Injection, Cardiogram, Food, Board, Comfort,  // Hourly
+        Pray, Clean, CheckFuse, CheckWater, Satellite
     };  // Player
     public enum RandomTasks { NoTask, Wandering, HeartAttack, Hiding, Cardiogram, Prayer, Hungry, Medication };
     public enum TaskLocation { Bed, Bedside, Board, Altar };
@@ -34,9 +34,9 @@ public class PatientTaskManager : MonoBehaviour
 
     public InteractiveObject noTaskPrompt;
 
-    private bool fuseHasBroken = false;
-    private bool waterHasBroken = false;
-    private bool satelliteHasBroken = false;
+    [HideInInspector] public bool fuseHasBroken = false;
+    [HideInInspector] public bool waterHasBroken = false;
+    [HideInInspector] public bool satelliteHasBroken = false;
 
     public SoundEffect writingSound, completeSound;
 
@@ -75,7 +75,7 @@ public class PatientTaskManager : MonoBehaviour
                     currentTasks[i].CheckTaskConditions(interactedObject);
             }
             //If it is a random task
-            else if (!currentTasks[i].isHourlyTask)
+            else if (!currentTasks[i].isHourlyTask && !currentTasks[i].taskCompleted)
                 currentTasks[i].CheckTaskConditions(interactedObject);
 
         }
@@ -149,6 +149,9 @@ public class PatientTaskManager : MonoBehaviour
                         case HourlyTasks.Comfort:
                             newTask = transform.AddComponent<HComfortTask>();
                             break;
+                        case HourlyTasks.Cardiogram:
+                            newTask = transform.AddComponent<HCardiogramTask>();
+                            break;
                     }
 
 
@@ -181,7 +184,7 @@ public class PatientTaskManager : MonoBehaviour
                 foreach (RandomTask t in randomTasks)  // Check for invalid tasks and calculate total chance
                 {
 
-                    if (t.taskName == "Heart Attack")  // Heart attack chance increase
+                    if (t.taskType == RandomTasks.HeartAttack)  // Heart attack chance increase
                     {
                         PatientCharacter patient = patients[i].GetComponent<PatientCharacter>();
                         int heartAttackChance = patient.startingHealth - patient.currentHealth;
@@ -192,7 +195,19 @@ public class PatientTaskManager : MonoBehaviour
                         }
                     }
 
-                    else if (t.taskName == "Hiding")
+                    else if (t.taskType == RandomTasks.Cardiogram)  // Heart attack chance increase
+                    {
+                        totalChance += t.chanceToHappen;
+                        choiceOfTasks.Add(t);
+
+                        if (patients[i].GetComponent<PatientCharacter>().cardiogramNotChecked)  // Double the chance if it wasn't checked
+                        {
+                            totalChance += t.chanceToHappen;
+                            choiceOfTasks.Add(t);
+                        }
+                    }
+
+                    else if (t.taskType == RandomTasks.Hiding)
                     {
                         if (NPCManager.Instance.ChosenDemon.demonName == "Leviathan" || NPCManager.Instance.ChosenDemon.demonName == "Beezlebub")
                         {
@@ -205,7 +220,7 @@ public class PatientTaskManager : MonoBehaviour
                         }
                     }
 
-                    else if (t.taskName == "Medication")
+                    else if (t.taskType == RandomTasks.Medication)
                     {
                         if (NPCManager.Instance.ChosenDemon.demonName == "Leviathan" || NPCManager.Instance.ChosenDemon.demonName == "Mammon")
                         {
@@ -218,7 +233,7 @@ public class PatientTaskManager : MonoBehaviour
                         }
                     }
 
-                    else if (t.taskName == "Hungry")
+                    else if (t.taskType == RandomTasks.Hungry)
                     {
                         if (NPCManager.Instance.ChosenDemon.demonName == "Mammon" || NPCManager.Instance.ChosenDemon.demonName == "Beezlebub")
                         {
@@ -277,6 +292,9 @@ public class PatientTaskManager : MonoBehaviour
                     case RandomTasks.Medication:
                         newTask = transform.AddComponent<RMedicationTask>();
                         break;
+                    case RandomTasks.Cardiogram:
+                        newTask = transform.AddComponent<RCardiogramTask>();
+                        break;
                     default:
                         break;
                 }
@@ -302,7 +320,7 @@ public class PatientTaskManager : MonoBehaviour
         int totalChance = 0;
         foreach (HourlyTask t in playerTasks)  // Check for invalid tasks and calculate total chance
         {
-            if (t.taskName == "Fix Satellite")
+            if (t.taskType == HourlyTasks.Satellite)
             {
                 if (NPCManager.Instance.ChosenDemon.demonName == "Leviathan" || NPCManager.Instance.ChosenDemon.demonName == "Beezlebub")
                 {
@@ -315,7 +333,7 @@ public class PatientTaskManager : MonoBehaviour
                 }
             }
 
-            else if (t.taskName == "Fix Water")
+            else if (t.taskType == HourlyTasks.CheckWater)
             {
                 if (NPCManager.Instance.ChosenDemon.demonName == "Leviathan" || NPCManager.Instance.ChosenDemon.demonName == "Mammon")
                 {
@@ -328,7 +346,7 @@ public class PatientTaskManager : MonoBehaviour
                 }
             }
 
-            else if (t.taskName == "Change Fuse")
+            else if (t.taskType == HourlyTasks.CheckFuse)
             {
                 if (NPCManager.Instance.ChosenDemon.demonName == "Mammon" || NPCManager.Instance.ChosenDemon.demonName == "Beezlebub")
                 {
@@ -376,6 +394,18 @@ public class PatientTaskManager : MonoBehaviour
             case HourlyTasks.Satellite:
                 newTask = transform.AddComponent<PSatelliteTask>();
                 newTask.taskTarget = satellite;
+                break;
+            case HourlyTasks.CheckWater:
+                newTask = transform.AddComponent<PPipeTask>();
+                newTask.taskTarget = pipes;
+                break;
+            case HourlyTasks.Clean:
+                newTask = transform.AddComponent<PCleanTask>();
+                newTask.taskTarget = tables[Random.Range(0, tables.Length)];
+                break;
+            case HourlyTasks.CheckFuse:
+                newTask = transform.AddComponent<PFuseBoxTask>();
+                newTask.taskTarget = fuse;
                 break;
         }
 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 /// <summary>
 /// Written by: Matej Cincibus
@@ -12,46 +13,36 @@ using UnityEngine;
 
 public class PanicState : PatientStateBaseClass
 {
-    public enum Choices
-    {
-        HidingSpot,
-        Bedroom
-    }
-
-    private Choices currentChoice;
     private bool isCowering = false;
     private Vector3 safetyLocation;
     private float calmingTime;
 
     private void Start()
     {
-        if (character.agent.hasPath)
-            character.agent.ResetPath();
+        // INFO: If the previous state was the bed state, we firstly need to
+        // teleport the agent to the closest point on the navmesh before assigning
+        // their destination location
+        character.NearestNavMeshPoint();
 
         character.agent.speed = character.runSpeed;
 
-        currentChoice = GetRandomEnum<Choices>();
+        // INFO: If the previous patient state was the bed state, we don't
+        // want the safety choice to be their bed, as they wouldn't go anywhere
+        // so we need to choose the other (hiding location)
+        if (character.PreviousState == PatientCharacter.PatientStates.Bed)
+            character.safetyChoice = SafetyChoices.HidingSpot;
+        else
+            character.safetyChoice = character.GetRandomEnum<SafetyChoices>();
 
-        // INFO: Randomly chooses between going to a random hiding spot or going
-        // to their bedroom to hide
-        switch (currentChoice)
-        {
-            case Choices.HidingSpot:
-                safetyLocation = NPCManager.Instance.RandomHidingLocation();
-                break;
-            case Choices.Bedroom:
-                safetyLocation = character.bed.transform.position;
-                break;
-            default:
-                Debug.LogWarning("Unable to choose a suitable safety location to go to!");
-                break;
-        }
+        // INFO: Randomly chooses a safety location based on the chosen
+        // enum member
+        safetyLocation = character.SafetyChooser();
+
+        character.agent.SetDestination(safetyLocation);
     }
 
     public override void UpdateLogic()
     {
-        character.agent.SetDestination(safetyLocation);
-
         // INFO: Goes into cower state which is where the patient stops
         // moving and goes into a fetal position
         if (character.DistanceFromDemon < character.cowerRadius && !isCowering)
@@ -67,31 +58,23 @@ public class PanicState : PatientStateBaseClass
             character.agent.isStopped = false;
 
             // STOP COWERING ANIMATION + STOP CRYING SOUNDS -> PLAY WALKING ANIMATION
+            character.animator.SetBool("isRunning", true);
         }
+
+        character.animator.SetBool("isTerrified", isCowering);
 
         // INFO: Given that the patient reaches their hiding location and the demon is no longer near them
         // they will then wait for a while before going into another state as they are no longer panicked
-        if (Vector3.Distance(character.transform.position, safetyLocation) < character.distanceFromDestination && !isCowering)
+        if (character.agent.remainingDistance < 0.1f && !isCowering)
         {
             calmingTime += Time.deltaTime;
 
             if (calmingTime > character.calmingDuration)
             {
-                // TEMP FOR NOW, WILL LIKELY BE CHANGED WITH THE INTRODUCTION OF NEW STATES
-                character.ChangePatientState(PatientCharacter.PatientStates.Wandering);
+                // INFO: Returns to the previous state before the patient became scared, to
+                // ensure the task system does not break
+                character.ChangePatientState(character.PreviousState);
             }
         }
-    }
-
-    /// <summary>
-    /// Returns a random enum member
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
-    private T GetRandomEnum<T>()
-    {
-        System.Array enumArray = System.Enum.GetValues(typeof(T));
-        T randomEnumMember = (T)enumArray.GetValue(Random.Range(0, enumArray.Length));
-        return randomEnumMember;
     }
 }

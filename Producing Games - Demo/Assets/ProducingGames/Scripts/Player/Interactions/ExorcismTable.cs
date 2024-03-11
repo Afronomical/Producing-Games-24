@@ -125,10 +125,11 @@ public class ExorcismTable : MonoBehaviour
             {
                 if (collider.gameObject.GetComponent<InteractableTemplate>().isExorcismObject)
                 {
+
                     if(collider.gameObject.GetComponent<InteractableTemplate>().hasBeenPlaced == false)
                     {
                         //play sound showing that this item is an exorcism object 
-                        TooltipManager.Instance.ShowTooltip("Press C to confirm drop");
+                        TooltipManager.Instance.ShowTooltip("Press C to confirm drop", null);
                         if (Input.GetKeyUp(KeyCode.C))
                         {
                             collider.gameObject.GetComponent<InteractableTemplate>().hasBeenPlaced = true;

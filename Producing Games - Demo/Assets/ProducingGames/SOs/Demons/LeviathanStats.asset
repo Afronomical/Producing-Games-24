@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   demonName: Leviathan
   itemsForExorcism:
-  - {fileID: 7824952522015762862, guid: 3caa920475e4b7c4680fc1a94271a2c3, type: 3}
-  - {fileID: 11759742422874786, guid: 3b11e73bf287ef54e952367a56355f26, type: 3}
-  - {fileID: 11759742422874786, guid: 3b11e73bf287ef54e952367a56355f26, type: 3}
+  - {fileID: 5315861791349507470, guid: 84c49b269b6dcfc46a79243aaf350a78, type: 3}
+  - {fileID: 7038516228746814899, guid: 98b5eedef250feb43993370ef904f047, type: 3}
+  - {fileID: 7218715939089751833, guid: fc3c779ea2ad15c4182951e8571c6471, type: 3}
   likelyStates: []
   battleCryAudio: {fileID: 0}
   defeatCryAudio: {fileID: 0}

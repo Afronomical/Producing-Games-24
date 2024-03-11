@@ -11,17 +11,20 @@ using UnityEngine;
 
 public class DynamicFootsteps : MonoBehaviour
 {
-    [Header("Walking Foot Step Sounds")]   
+    [Header("Walking Foot Step Sounds")]
+    public float timeBetweenWalkingFootsteps;
     public SoundEffect StoneFloorWalking;
     public SoundEffect CryptWalking;
     public SoundEffect CarpetWalking;
     [Space(10)]
     [Header("Sprinting Foot Step Sounds")]
+    public float timeBetweenSprintingFootsteps;
     public SoundEffect StoneFloorSprinting;
     public SoundEffect CryptSprinting;
     public SoundEffect CarpetSprinting;
     [Space(10)]
     [Header("Crouching Foot Step Sounds")]
+    public float timeBetweenCrouchingFootsteps;
     public SoundEffect StoneFloorCrouching;
     public SoundEffect CryptCrouching;
     public SoundEffect CarpetCrouching;
@@ -55,19 +58,19 @@ public class DynamicFootsteps : MonoBehaviour
             {
                 if (PlMove.isCrouching)
                 {
-                    footstepTimer = PlMove.timeBetweenCrouchingFootsteps;
+                    footstepTimer = timeBetweenCrouchingFootsteps;
                     //AudioManager.instance.PlaySound(crouchingSound, gameObject.transform);
                     ChangeCrouchingFootSteps();
                 }
                 else if (PlMove.isSprinting)
                 {
-                    footstepTimer = PlMove.timeBetweenSprintingFootsteps;
+                    footstepTimer = timeBetweenSprintingFootsteps;
                     //AudioManager.instance.PlaySound(sprintingSound, gameObject.transform);
                     ChangeSprintingFootSteps();
                 }
                 else
                 {
-                    footstepTimer = PlMove.timeBetweenWalkingFootsteps;
+                    footstepTimer = timeBetweenWalkingFootsteps;
                     //AudioManager.instance.PlaySound(walkingSound, gameObject.transform);
                     ChangeWalkingFootSteps();
                 }
@@ -76,11 +79,11 @@ public class DynamicFootsteps : MonoBehaviour
 
         else
         {
-            if (PlMove.isCrouching) footstepTimer = PlMove.timeBetweenCrouchingFootsteps;
+            if (PlMove.isCrouching) footstepTimer = timeBetweenCrouchingFootsteps;
 
-            else if (PlMove.isSprinting) footstepTimer = PlMove.timeBetweenSprintingFootsteps;
+            else if (PlMove.isSprinting) footstepTimer = timeBetweenSprintingFootsteps;
 
-            else footstepTimer = PlMove.timeBetweenWalkingFootsteps;
+            else footstepTimer = timeBetweenWalkingFootsteps;
         }
     }
 
@@ -91,21 +94,23 @@ public class DynamicFootsteps : MonoBehaviour
         if(Physics.Raycast(RayStart.position, RayStart.transform.up * -1, out FootStepRay, range, GroundLayer))
         {
             //Debug.Log(FootStepRay);
-            if(FootStepRay.collider.CompareTag("Stone Floor"))
-            {
-                //Debug.Log("Walking on Stone Floor");
-                AudioManager.instance.PlaySound(StoneFloorWalking, gameObject.transform);
-            }
+            
             if (FootStepRay.collider.CompareTag("Crypt Floor"))
             {
                 //Debug.Log("Walking on Crypt");
-                AudioManager.instance.PlaySound(CryptWalking, gameObject.transform);                
+                AudioManager.instance.PlaySound(CryptWalking, gameObject.transform);
             }
-            if (FootStepRay.collider.CompareTag("Carpet"))
+            else if (FootStepRay.collider.CompareTag("Carpet"))
             {
                 //Debug.Log("Walking on Carpet");
                 AudioManager.instance.PlaySound(CarpetWalking, gameObject.transform);
             }
+            else
+            {
+                //Debug.Log("Walking on Stone Floor");
+                AudioManager.instance.PlaySound(StoneFloorWalking, gameObject.transform);
+            }
+
         }   
     }
 
@@ -113,20 +118,20 @@ public class DynamicFootsteps : MonoBehaviour
     {
         if (Physics.Raycast(RayStart.position, RayStart.transform.up * -1, out FootStepRay, range, GroundLayer))
         {
-            if (FootStepRay.collider.CompareTag("Stone Floor"))
+            if(FootStepRay.collider.CompareTag("Crypt Floor"))
             {
-                //Debug.Log("Sprinting on Stone Floor");
-                AudioManager.instance.PlaySound(StoneFloorSprinting, gameObject.transform);
-            }
-            if (FootStepRay.collider.CompareTag("Crypt Floor"))
-            {
-                //Debug.Log("Sprinting on Crypt Floor");
+                //Debug.Log("Walking on Crypt");
                 AudioManager.instance.PlaySound(CryptSprinting, gameObject.transform);
             }
-            if (FootStepRay.collider.CompareTag("Carpet"))
+            else if (FootStepRay.collider.CompareTag("Carpet"))
             {
-                //Debug.Log("Sprinting on Carpet");
+                //Debug.Log("Walking on Carpet");
                 AudioManager.instance.PlaySound(CarpetSprinting, gameObject.transform);
+            }
+            else
+            {
+                //Debug.Log("Walking on Stone Floor");
+                AudioManager.instance.PlaySound(StoneFloorSprinting, gameObject.transform);
             }
         }
     }
@@ -135,20 +140,20 @@ public class DynamicFootsteps : MonoBehaviour
     {
         if (Physics.Raycast(RayStart.position, RayStart.transform.up * -1, out FootStepRay, range, GroundLayer))
         {
-            if (FootStepRay.collider.CompareTag("Stone Floor"))
-            {
-                //Debug.Log("Crouching on Stone Floor");
-                AudioManager.instance.PlaySound(StoneFloorCrouching, gameObject.transform);
-            }
             if (FootStepRay.collider.CompareTag("Crypt Floor"))
             {
-                //Debug.Log("Crouching on Crypt Floor");
-                AudioManager.instance.PlaySound(CryptCrouching, gameObject.transform);               
+                //Debug.Log("Walking on Crypt");
+                AudioManager.instance.PlaySound(CryptCrouching, gameObject.transform);
             }
-            if (FootStepRay.collider.CompareTag("Carpet"))
+            else if (FootStepRay.collider.CompareTag("Carpet"))
             {
-                //Debug.Log("Crouching on Carpet");                
+                //Debug.Log("Walking on Carpet");
                 AudioManager.instance.PlaySound(CarpetCrouching, gameObject.transform);
+            }
+            else
+            {
+                //Debug.Log("Walking on Stone Floor");
+                AudioManager.instance.PlaySound(StoneFloorCrouching, gameObject.transform);
             }
         }
     }

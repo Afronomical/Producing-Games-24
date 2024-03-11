@@ -9,7 +9,7 @@ public class SceneLoader : MonoBehaviour
 
     public void PlayGame()
     {
-        LevelManager.LoadScene(LevelManager.Scenes.Main); 
+        LevelManager.LoadScene(LevelManager.Scenes.MainUpdated); 
     }
 
     public void OpenCredits()
