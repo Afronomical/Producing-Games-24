@@ -125,9 +125,15 @@ public class GameManager : MonoBehaviour
         player.transform.rotation = playerStartPosition.rotation;
         player.GetComponent<CharacterController>().enabled = true;
 
-        foreach (GameObject AI in NPCManager.Instance.patientList)  // Put all NPCs in bed
+        foreach (GameObject AI in NPCManager.Instance.patientList)
         {
-            AI.GetComponent<PatientCharacter>().ChangePatientState(PatientCharacter.PatientStates.Bed);
+            PatientCharacter patientCharacter = AI.GetComponent<PatientCharacter>();
+
+            // INFO: Set the current states to none ready for the next hour
+            patientCharacter.currentState = PatientCharacter.PatientStates.None;
+
+            // Put all NPCs in bed
+            patientCharacter.ChangePatientState(PatientCharacter.PatientStates.Bed);
         }
 
         if (demon) demon.GetComponent<DemonCharacter>().ChangeDemonState(DemonCharacter.DemonStates.Inactive);

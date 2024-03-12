@@ -2,6 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.TextCore.Text;
+using static DemonCharacter;
 
 /// <summary>
 /// Written by: Matej Cincibus
@@ -110,9 +111,6 @@ public class PatientCharacter : AICharacter
 
             GameManager.Instance.demon = GO;
         }
-
-        // INFO: Starting State
-        ChangePatientState(PatientStates.Abandoned);
     }
 
     private void Update()

@@ -14,10 +14,17 @@ public class BedState : PatientStateBaseClass
     {
         // INFO: Given that the previous was panicked or scared we will have
         // the patient walk back to their bed  
-        if(character.PreviousState == PatientCharacter.PatientStates.Bed)
-            PutInBed();
-        else
+        if (character.PreviousState == PatientCharacter.PatientStates.Panic ||
+            character.PreviousState == PatientCharacter.PatientStates.Scared ||
+            character.PreviousState != PatientCharacter.PatientStates.None)
             WalkToBed();
+        else
+            PutInBed();
+
+        //if(character.PreviousState == PatientCharacter.PatientStates.Bed)
+        //    PutInBed();
+        //else
+        //    WalkToBed();
     }
 
     public override void UpdateLogic()

@@ -68,9 +68,6 @@ public class DemonCharacter : AICharacter, IHear
         base.Start();
 
         characterType = CharacterTypes.Demon;
-
-        // INFO: Starting State
-        ChangeDemonState(DemonStates.Patrol);
     }
 
     private void Update()

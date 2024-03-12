@@ -17,6 +17,10 @@ public class WanderingState : PatientStateBaseClass
     {
         character.agent.speed = character.walkSpeed;
 
+        // INFO: Places the patient on the navmesh if they aren't already on it
+        if (!character.agent.isOnNavMesh)
+            character.NearestNavMeshPoint();
+
         ChooseWanderingDestination();
     }
 

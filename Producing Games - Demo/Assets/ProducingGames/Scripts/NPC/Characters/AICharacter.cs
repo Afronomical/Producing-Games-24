@@ -30,11 +30,17 @@ public class AICharacter : MonoBehaviour
     public RaycastToPlayer raycastToPlayer;
     public Animator animator;
 
-
-   
-
     [Header("Debugging Tools")]
     public Color detectionRadiusColor = Color.white;
+
+    private void Awake()
+    {
+        player = FindFirstObjectByType<PlayerMovement>().gameObject;
+        rb = GetComponent<Rigidbody>();
+        agent = GetComponent<NavMeshAgent>();
+        raycastToPlayer = GetComponent<RaycastToPlayer>();
+        animator = GetComponent<Animator>();
+    }
 
     public virtual void Start()
     {   
@@ -49,12 +55,6 @@ public class AICharacter : MonoBehaviour
                 _ => Color.yellow,
             };
         }
-
-        player = FindFirstObjectByType<PlayerMovement>().gameObject;
-        rb = GetComponent<Rigidbody>();
-        agent = GetComponent<NavMeshAgent>();
-        raycastToPlayer = GetComponent<RaycastToPlayer>();
-        animator = GetComponent<Animator>();
     }
 
     private void OnDrawGizmos()
