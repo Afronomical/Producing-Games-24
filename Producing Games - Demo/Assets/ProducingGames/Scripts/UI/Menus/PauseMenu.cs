@@ -35,7 +35,6 @@ public class PauseMenu : MonoBehaviour
         isPaused = false;
 
         // Show and lock the cursor
-        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
         // Enable the CameraLook script when resuming
@@ -51,7 +50,6 @@ public class PauseMenu : MonoBehaviour
         isPaused = true;
 
         // Show and unlock the cursor
-        Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
         // Disable the CameraLook script when pausing
