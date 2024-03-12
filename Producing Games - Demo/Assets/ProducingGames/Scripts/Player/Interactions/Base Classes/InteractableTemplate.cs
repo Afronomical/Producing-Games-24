@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,6 +14,7 @@ public class InteractableTemplate : MonoBehaviour, IInteractable
     [SerializeField] public InteractiveObject collectible;
     [SerializeField] public bool isExorcismObject;
     [SerializeField] public bool hasBeenPlaced = false;
+    public TMP_Text actionTooltip;
     
     //public bool canBeInteractedWith = true;
 
