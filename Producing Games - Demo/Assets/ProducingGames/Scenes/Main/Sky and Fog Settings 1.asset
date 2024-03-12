@@ -15,7 +15,7 @@ MonoBehaviour:
   active: 1
   quality:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 3
   enable:
     m_OverrideState: 1
     m_Value: 1
@@ -117,13 +117,13 @@ MonoBehaviour:
     m_Value: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.55
+    m_Value: 2
   directLightingStrength:
     m_OverrideState: 1
-    m_Value: 0.504
+    m_Value: 0
   radius:
-    m_OverrideState: 0
-    m_Value: 2
+    m_OverrideState: 1
+    m_Value: 1
   spatialBilateralAggressiveness:
     m_OverrideState: 0
     m_Value: 0.15
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_DenoiserRadius:
     m_OverrideState: 0
     m_Value: 0.5
---- !u!114 &-4997228364643004502
+--- !u!114 &-6736868498573263181
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,11 +191,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   postExposure:
-    m_OverrideState: 0
-    m_Value: 5.16
-  contrast:
     m_OverrideState: 1
-    m_Value: -20
+    m_Value: 0.5
+  contrast:
+    m_OverrideState: 0
+    m_Value: 25
   colorFilter:
     m_OverrideState: 0
     m_Value: {r: 1, g: 1, b: 1, a: 1}
@@ -205,6 +205,25 @@ MonoBehaviour:
   saturation:
     m_OverrideState: 1
     m_Value: -10
+--- !u!114 &-6123328841174020543
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b51a78e223a2e504bb88a059b55229ea, type: 3}
+  m_Name: WhiteBalance
+  m_EditorClassIdentifier: 
+  active: 1
+  temperature:
+    m_OverrideState: 1
+    m_Value: 20
+  tint:
+    m_OverrideState: 1
+    m_Value: -12
 --- !u!114 &-4570406020683281336
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -266,10 +285,10 @@ MonoBehaviour:
     m_Value: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.25
+    m_Value: 0.339
   scatter:
-    m_OverrideState: 0
-    m_Value: 0.7
+    m_OverrideState: 1
+    m_Value: 0.726
   tint:
     m_OverrideState: 0
     m_Value: {r: 1, g: 1, b: 1, a: 1}
@@ -317,10 +336,10 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   tint:
-    m_OverrideState: 1
-    m_Value: {r: 0.03071345, g: 0.029556843, b: 0.042311423, a: 1}
-  maxFogDistance:
     m_OverrideState: 0
+    m_Value: {r: 1, g: 0.4325924, b: 0, a: 1}
+  maxFogDistance:
+    m_OverrideState: 1
     m_Value: 5000
   mipFogMaxMip:
     m_OverrideState: 0
@@ -339,13 +358,13 @@ MonoBehaviour:
     m_Value: 102.33
   meanFreePath:
     m_OverrideState: 1
-    m_Value: 30
+    m_Value: 20
   enableVolumetricFog:
     m_OverrideState: 1
     m_Value: 1
   albedo:
     m_OverrideState: 1
-    m_Value: {r: 0.19348523, g: 0.18689926, b: 0.2264151, a: 1}
+    m_Value: {r: 0.11320752, g: 0.10493056, b: 0.09665359, a: 1}
   globalLightProbeDimmer:
     m_OverrideState: 1
     m_Value: 1
@@ -394,7 +413,7 @@ MonoBehaviour:
   active: 1
   quality:
     m_OverrideState: 0
-    m_Value: 1
+    m_Value: 3
   spectralLut:
     m_OverrideState: 0
     m_Value: {fileID: 0}
@@ -427,9 +446,10 @@ MonoBehaviour:
   - {fileID: -6903231430505073417}
   - {fileID: -2775667166803076113}
   - {fileID: 214298394396948364}
-  - {fileID: -4997228364643004502}
   - {fileID: -8820829361881358292}
   - {fileID: 488005792475747229}
+  - {fileID: -6123328841174020543}
+  - {fileID: -6736868498573263181}
 --- !u!114 &101630712996190132
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -442,7 +462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b6606ef2548734bb6d11b9d160bc7e, type: 3}
   m_Name: HDRISky
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   rotation:
     m_OverrideState: 0
     m_Value: 0
@@ -566,7 +586,7 @@ MonoBehaviour:
   active: 1
   mode:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 4
   meteringMode:
     m_OverrideState: 1
     m_Value: 0
@@ -575,16 +595,16 @@ MonoBehaviour:
     m_Value: 1
   fixedExposure:
     m_OverrideState: 1
-    m_Value: 4.25
+    m_Value: 2.6
   compensation:
-    m_OverrideState: 0
-    m_Value: 1
+    m_OverrideState: 1
+    m_Value: -31.52
   limitMin:
     m_OverrideState: 1
-    m_Value: 4.2500005
+    m_Value: -0.51724106
   limitMax:
     m_OverrideState: 1
-    m_Value: 15
+    m_Value: 1.7586212
   curveMap:
     m_OverrideState: 0
     m_Value:
@@ -617,10 +637,10 @@ MonoBehaviour:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: -10
-        value: -12
+        time: -10.5
+        value: -1.3867826
         inSlope: 0
-        outSlope: 1
+        outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
@@ -629,7 +649,7 @@ MonoBehaviour:
         time: 20
         value: 18
         inSlope: 1
-        outSlope: 0
+        outSlope: 1
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
@@ -646,16 +666,16 @@ MonoBehaviour:
         time: -10
         value: -8
         inSlope: 0
-        outSlope: 1
+        outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 20
-        value: 22
+        time: 19.625
+        value: 30.207546
         inSlope: 1
-        outSlope: 0
+        outSlope: 1
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
@@ -745,7 +765,7 @@ MonoBehaviour:
   active: 1
   skyType:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 4
   cloudType:
     m_OverrideState: 1
     m_Value: 0
@@ -776,15 +796,15 @@ MonoBehaviour:
   active: 1
   type:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.3
+    m_Value: 0.6
   response:
     m_OverrideState: 1
     m_Value: 1
   texture:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: {fileID: 0}
 --- !u!114 &8802494884659286016
 MonoBehaviour:
