@@ -12,19 +12,12 @@ public class BedState : PatientStateBaseClass
 
     private void Start()
     {
-        // INFO: Given that the previous was panicked or scared we will have
-        // the patient walk back to their bed  
-        if (character.PreviousState == PatientCharacter.PatientStates.Panic ||
-            character.PreviousState == PatientCharacter.PatientStates.Scared ||
-            character.PreviousState != PatientCharacter.PatientStates.None)
-            WalkToBed();
-        else
+        // INFO: Given that the previous was none we will have the patient
+        // teleport, otherwise we have them walk to their destination
+        if (character.PreviousState == PatientCharacter.PatientStates.None)
             PutInBed();
-
-        //if(character.PreviousState == PatientCharacter.PatientStates.Bed)
-        //    PutInBed();
-        //else
-        //    WalkToBed();
+        else
+            WalkToBed();
     }
 
     public override void UpdateLogic()
@@ -50,7 +43,6 @@ public class BedState : PatientStateBaseClass
         // INFO: Prevents the patient from moving
         character.agent.enabled = false;
         character.rb.velocity = Vector3.zero;
-        character.rb.useGravity = false;
 
         transform.SetPositionAndRotation(character.BedDestination.position, character.BedDestination.rotation);
 

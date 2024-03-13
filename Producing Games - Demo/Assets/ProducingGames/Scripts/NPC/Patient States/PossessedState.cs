@@ -1,10 +1,12 @@
+using UnityEngine;
+using System.Diagnostics;
+
 /// <summary>
 /// Written By: Matej Cincibus
 /// Moderated By: ...
 /// 
 /// Handles the logic of the possessed patient
 /// </summary>
-
 public class PossessedState : PatientStateBaseClass
 {
     private readonly float possessedDuration = 5.0f;
@@ -13,15 +15,8 @@ public class PossessedState : PatientStateBaseClass
     {
         DemonCharacter demonCharacter = GameManager.Instance.demon.GetComponent<DemonCharacter>();
 
-        // INFO: Given that the patient isn't the possessed patient or
-        // that the demon is already active, we can return
-        if (!character.isPossessed || demonCharacter.currentState != DemonCharacter.DemonStates.Inactive
-                                   || demonCharacter.currentState != DemonCharacter.DemonStates.Exorcised)
-            return;
-
-
         // INFO: Makes the demon start patrolling and spawns it at the possessed patients bed
-        demonCharacter.ChangeDemonState(DemonCharacter.DemonStates.Patrol);
+        demonCharacter.gameObject.SetActive(true);
         demonCharacter.agent.Warp(character.bed.transform.position);
 
         // PLAY POSSESSED ANIMATION HERE
@@ -31,7 +26,7 @@ public class PossessedState : PatientStateBaseClass
 
     private void LeavePossessedState()
     {
-        // TEMPORARY MAY BE CHANGED BASED ON SPECIFICATION
-        character.ChangePatientState(PatientCharacter.PatientStates.Wandering);
+        UnityEngine.Debug.Log("Left possessed state");
+        character.ChangePatientState(character.PreviousState);
     }
 }

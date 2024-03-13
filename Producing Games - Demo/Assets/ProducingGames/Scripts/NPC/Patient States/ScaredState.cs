@@ -10,17 +10,11 @@ using UnityEngine;
 public class ScaredState : PatientStateBaseClass
 {
     // INFO: Need reference to current horror events happening 
-    private bool detectedBed = false;
     private Vector3 safetyLocation;
     private float calmingTime;
 
     private void Start()
     {
-        // INFO: If the previous state was the bed state, we firstly need to
-        // teleport the agent to the closest point on the navmesh before assigning
-        // their destination location
-        character.NearestNavMeshPoint();
-
         character.agent.speed = character.runSpeed;
 
         // INFO: Plays the scared SFX
@@ -34,7 +28,11 @@ public class ScaredState : PatientStateBaseClass
         // want the safety choice to be their bed, as they wouldn't go anywhere
         // so we need to choose the other (hiding location)
         if (character.PreviousState == PatientCharacter.PatientStates.Bed)
+        {
+            // INFO: Teleports to closest point of navmesh as beds aren't on the navmesh
+            character.NearestNavMeshPoint();
             character.safetyChoice = SafetyChoices.HidingSpot;
+        }
         else
             character.safetyChoice = character.GetRandomEnum<SafetyChoices>();
 
