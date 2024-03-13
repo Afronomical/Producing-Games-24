@@ -9,6 +9,8 @@ using UnityEngine;
 
 public class ParanoiaSound : MonoBehaviour
 {
+    public SoundEffect soundTest;
+    
     public SoundEffect[] sounds;
     public float distanceMin;
     public float distanceMax;
@@ -34,10 +36,10 @@ public class ParanoiaSound : MonoBehaviour
     void Update()
     {
 
-        //if (Input.GetKey(KeyCode.M))
-        //{
-        //    ChanceForEvent();
-        //}
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            AudioManager.instance.PlaySound(soundTest, transform);
+        }
         if (shouldPlay)
         {
             ChanceForEvent();
