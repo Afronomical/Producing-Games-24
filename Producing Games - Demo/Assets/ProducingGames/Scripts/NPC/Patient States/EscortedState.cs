@@ -114,12 +114,30 @@ public class EscortedState : PatientStateBaseClass
         // INFO: Stops patient from moving closer to the player
         if (character.raycastToPlayer.playerDistance < character.distanceFromPlayer)
         {
-            shouldFollow = false;
 
+            shouldFollow = false;
             character.rb.velocity = Vector3.zero;
             character.agent.ResetPath();
+            if(character.raycastToPlayer.playerDistance < character.distanceFromPlayer /2)
+            {
+                float moveDistance = character.distanceFromPlayer - character.raycastToPlayer.playerDistance;
+                BackAwayFromPlayer(moveDistance);
+            }
+            
+
         }
+        
         else
             shouldFollow = true;
+    }
+
+    private void BackAwayFromPlayer(float moveDistance)
+    {
+        Vector3 moveDirection = transform.position - playerPos;
+
+        moveDirection.Normalize();
+        moveDirection *= moveDistance;
+
+        character.agent.SetDestination(transform.position + moveDirection);
     }
 }
