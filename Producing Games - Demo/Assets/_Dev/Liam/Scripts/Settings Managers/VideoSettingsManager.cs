@@ -235,7 +235,9 @@ public class VideoSettingsManager : MonoBehaviour
         List<string> preferredResolutions = new List<string>
         {
             "1920x1080", "1280x720", "2560x1440", "3840x2160", "1680x1050",
-            "1600x900", "1366x768", "1280x800", "1024x768", "800x600"
+            "1600x900", "1366x768", "1280x800", "1024x768", "800x600",
+            "3440x1440", "2560x1080", "2560x1600", "1920x1200","3840x2160"
+
         };
 
         List<string> supportedResolutions = new List<string>();
