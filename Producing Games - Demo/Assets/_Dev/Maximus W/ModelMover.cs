@@ -1,36 +1,53 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.Tracing;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
-
 
 public class ModelMover : MonoBehaviour
 {
-    public Transform objectToMove;
-    public Vector3 direction;
-    public float distance = 1f;
+    public Vector3 movementDirection = Vector3.forward; // Direction of movement
+    public float movementDistance = 5.0f; // Distance of movement
+    public float movementSpeed = 1.0f; // Speed of movement
 
-    public SoundEffect Soundeffect;
+    private Vector3 initialPosition; // Initial position of the object
+    private Vector3 targetPosition; // Target position of the movement
+    private bool isMoving = false; // Flag to check if the object is currently moving
 
+    public SoundEffect movementNoise;
+    private GameObject player;
+
+    // Start is called before the first frame update
     void Start()
     {
-        
+        initialPosition = transform.position;
+        player = GameManager.Instance.player;
     }
 
-    public void MoveObject()
+    // Update is called once per frame
+    void Update()
     {
-        if (objectToMove != null)
+        if (isMoving)
         {
-            objectToMove.Translate(direction.normalized * distance);
-            
-            AudioManager.instance.PlaySound(Soundeffect, objectToMove.transform);
-            
-        }
-        else
-        {
-            Debug.LogWarning("Object to move is not assigned.");
+            MoveTowardsTarget();
         }
     }
+
+    // Function to start the movement towards the target
+    public void StartMoving()
+    {
+        targetPosition = initialPosition + movementDirection.normalized * movementDistance;
+        isMoving = true;
+    }
+
+    // Function to stop the movement
+    public void StopMoving()
+    {
+        isMoving = false;
+    }
+
+    // Function to move the object towards the target position
+    private void MoveTowardsTarget()
+    {
+        float step = movementSpeed * Time.deltaTime;
+        transform.position = Vector3.Lerp(transform.position, targetPosition, step);
+        AudioManager.instance.PlaySound(movementNoise, player.transform);
+    }
 }
+
