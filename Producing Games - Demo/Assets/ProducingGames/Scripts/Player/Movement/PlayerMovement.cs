@@ -120,7 +120,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 move = Movement();
 
         if (isGrounded && yVelocity < 0) yVelocity = -2;
-        Jump();
+        //Jump();
         yVelocity += gravity * Time.deltaTime;  // Add gravity to the vertical velocity
 
 
