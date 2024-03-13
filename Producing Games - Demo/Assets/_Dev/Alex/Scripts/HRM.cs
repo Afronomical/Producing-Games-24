@@ -37,8 +37,9 @@ public class HRM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Update bPM to mimic heart beats
         timer++;
-        //Display heart rate with the curve
+        
         if(timer >= timerInterval)
         {
             timer = 0;
@@ -70,7 +71,6 @@ public class HRM : MonoBehaviour
     {
         gameObject.GetComponent<ParticleSystem>().Play();
         staticEffect.SetActive(false);
-        Debug.Log("On!");
     }
 
     public void TurnOff()
@@ -78,6 +78,5 @@ public class HRM : MonoBehaviour
         gameObject.GetComponent<ParticleSystem>().Stop();
         gameObject.GetComponent<ParticleSystem>().Clear();
         staticEffect.SetActive(true);
-        Debug.Log("Off!");
     }
 }
