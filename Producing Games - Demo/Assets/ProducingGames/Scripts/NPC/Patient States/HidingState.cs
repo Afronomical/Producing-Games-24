@@ -32,11 +32,26 @@ public class HidingState : PatientStateBaseClass
             // INFO: Stops the walking animation and transitions to the praying animation
             if (character.agent.remainingDistance < 0.1f)
             {
+                // INFO: Check whether selected hiding spot is being occupied by player
+                NPCManager.Instance.HidingCutsceneLib.TryGetValue(hidingLocation, out HidingCutScene value);
+
+                // INFO: If it isn't being occupied by the player we can break, otherwise
+                // we find another hiding location
+                if (value.playerIsOccupying)
+                {
+                    ChooseHidingLocation();
+                    return;
+                }
+
+                // INFO: Occupy the hiding spot with the patient
+                value.patient = character;
+
                 isWalkingToHidingDest = false;
+                TeleportToHidingSpot();
 
                 // STOP PLAYING WALKING ANIMATION
 
-                character.animator.SetBool("isTerrified", true);
+                //character.animator.SetBool("isTerrified", true);
             }
         }
     }
@@ -54,7 +69,19 @@ public class HidingState : PatientStateBaseClass
         }
 
         // INFO: Chooses a location to hide at
-        hidingLocation = NPCManager.Instance.RandomHidingLocation();
+        for (int i = 0; i < 100; i++)
+        {
+            hidingLocation = NPCManager.Instance.RandomHidingLocation();
+
+            // INFO: Check whether selected hiding spot is being occupied by player
+            NPCManager.Instance.HidingCutsceneLib.TryGetValue(hidingLocation, out HidingCutScene value);
+
+            // INFO: If it isn't being occupied by the player we can break, otherwise
+            // we find another hiding location
+            if (!value.playerIsOccupying)
+                break;
+        }
+        //hidingLocation = NPCManager.Instance.RandomHidingLocation();
     }
 
     /// <summary>
@@ -63,9 +90,14 @@ public class HidingState : PatientStateBaseClass
     /// </summary>
     private void TeleportToHidingSpot()
     {
-        character.agent.Warp(hidingLocation);
+        //character.agent.Warp(hidingLocation);
+        //character.animator.SetBool("isTerrified", true);
 
-        character.animator.SetBool("isTerrified", true);
+        character.agent.enabled = false;
+        character.rb.velocity = Vector3.zero;
+
+        //transform.position = new(hidingLocation.x, transform.position.y, hidingLocation.z);
+        transform.SetPositionAndRotation(new(hidingLocation.x, transform.position.y, hidingLocation.z), character.BedDestination.rotation);
     }
 
     /// <summary>

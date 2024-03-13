@@ -12,8 +12,8 @@ public class HidingCutScene : InteractableTemplate
     private Transform playerRef;
     private float originCamNearClippingPlane;
     private Animator playDoorAnimation;
-    public PatientCharacter character;
-    public bool isOccupied;
+    public PatientCharacter patient;
+    public bool playerIsOccupying;
    [Header("Hiding Animation Position Points")]
     public List<Transform> points;
 
@@ -78,7 +78,7 @@ public class HidingCutScene : InteractableTemplate
     //Logic handles the player entering the hiding spot
     public void GoIn()
     {
-        isOccupied = true;
+        playerIsOccupying = true;
         cam.transform.rotation = playerRef.rotation;
         cam.nearClipPlane = 0.01f;
         cam.GetComponent<CameraLook>().enabled = false;
@@ -144,7 +144,7 @@ public class HidingCutScene : InteractableTemplate
     //This will enable the player's controls again
     public void Outside()
     {
-        isOccupied = false;
+        playerIsOccupying = false;
         DoorAnim(false);
         PlayerControlsAccess(true);
         playerHidingStates = PlayerHidingStates.none;
@@ -166,22 +166,37 @@ public class HidingCutScene : InteractableTemplate
     public void DoorAnim(bool isEntering)
     {
         if(playDoorAnimation != null)
-        playDoorAnimation.SetBool("DoorState", isEntering);
+            playDoorAnimation.SetBool("DoorState", isEntering);
     }
 
     //When the Player interacts with the hiding spot, start entering
     public override void Interact()
     {
-        if(character != null)
+        if(patient != null)
         {
-            character.ChangePatientState(PatientCharacter.PatientStates.Escorted);
-            return;
+            // INFO: Opens door
+            DoorAnim(true);
+
+            // INFO: Kick patient out of hiding spot by accessing the last element held
+            // in the points list (Out)
+            patient.transform.position = new (points[^1].position.x, patient.transform.position.y, points[^1].position.z);
+
+            // INFO: Sets patient to escorted
+            patient.ChangePatientState(PatientCharacter.PatientStates.Escorted);
+            patient = null;
+
+            Invoke(nameof(InvokeCloseDoor), 2);
+        }
+        else
+        {
+            if (playerHidingStates == PlayerHidingStates.none)
+                playerHidingStates = PlayerHidingStates.goIn;
         }
 
-        if (playerHidingStates == PlayerHidingStates.none)
-            playerHidingStates = PlayerHidingStates.goIn;
+    }
 
-        
-        
+    private void InvokeCloseDoor()
+    {
+        DoorAnim(false);
     }
 }

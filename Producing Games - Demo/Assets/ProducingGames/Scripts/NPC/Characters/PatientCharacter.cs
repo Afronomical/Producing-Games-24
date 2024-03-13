@@ -158,7 +158,7 @@ public class PatientCharacter : AICharacter
         {
             // INFO: If the previous state had the patient remain stationary, we will need to grant the patient
             // movement again for the new state that they're going to go into
-            if (currentState == PatientStates.Bed)
+            if (currentState == PatientStates.Bed || currentState == PatientStates.Hiding)
                 agent.enabled = true;
 
             // INFO: If the patient has a path set from a previous state, this will get rid of it
@@ -253,7 +253,8 @@ public class PatientCharacter : AICharacter
         if (currentState == PatientStates.Panic ||
             currentState == PatientStates.Scared ||
             currentState == PatientStates.Dead  ||
-            currentState == PatientStates.Possessed)
+            currentState == PatientStates.Possessed ||
+            currentState == PatientStates.Hiding)
             return;
 
         ChangePatientState(GameManager.Instance.currentHour < 7 ? PatientStates.Scared : PatientStates.Panic);

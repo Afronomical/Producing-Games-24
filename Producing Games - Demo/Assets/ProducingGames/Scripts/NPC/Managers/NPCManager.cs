@@ -17,9 +17,9 @@ public class NPCManager : MonoBehaviour
 
     [Header("Patient Locations:")]
     [SerializeField] private List<Transform> wanderingDestinations = new();
-    [SerializeField] private List<Transform> hidingLocations = new();
     [SerializeField] private List<Transform> prayingLocations = new();
     [SerializeField] private List<Transform> kitchenLocations = new();
+    private List<Transform> hidingLocations = new();
 
     [Header("Demon Locations:")]
     [SerializeField] private Transform demonInstantiationLocation;
@@ -49,7 +49,7 @@ public class NPCManager : MonoBehaviour
 
     public SoundEffect heartAttackSound;
 
-
+    public Dictionary<Vector3, HidingCutScene> HidingCutsceneLib { get; private set; } = new();
 
     private void Awake()
     {
@@ -75,6 +75,25 @@ public class NPCManager : MonoBehaviour
         GameObject[] beds = GameObject.FindGameObjectsWithTag("Bed");
         foreach (var item in beds)
             patientBeds.Add(item);
+
+        GameObject[] hidingSpots = GameObject.FindGameObjectsWithTag("Hiding");
+
+        if (hidingSpots == null)
+            Debug.Log("Empty array");
+
+        foreach (GameObject hidingSpot in hidingSpots)
+        {
+            Transform insidePoint = hidingSpot.transform.Find("InsidePoint");
+
+            if (insidePoint == null)
+                Debug.Log("Empty inside point");
+
+            if (!hidingSpot.TryGetComponent(out HidingCutScene hidingScript))
+                Debug.Log("hiding script is null");
+
+            HidingCutsceneLib.Add(insidePoint.transform.position, hidingScript);
+            hidingLocations.Add(insidePoint);
+        }
 
         // INFO: Add all vector3 positions to the dictionary and initialise
         // their value as false (which states that the location hasn't been taken yet)
