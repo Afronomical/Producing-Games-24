@@ -11,10 +11,7 @@ public class HidingCutScene : InteractableTemplate
     private int pointIndex;
     private Transform playerRef;
     private float originCamNearClippingPlane;
-
-    [Header("Object Animation/Object Door Material (Leave empty if not required!)")]
-    public Animator playAnimation;
-    public Material doorMaterialRef;
+    private Animator playDoorAnimation;
 
    [Header("Hiding Animation Position Points")]
     public List<Transform> points;
@@ -37,6 +34,7 @@ public class HidingCutScene : InteractableTemplate
 
     private void Start()
     {
+        playDoorAnimation = gameObject.GetComponent<Animator>();
         cam = Camera.main;
         playerRef = GameManager.Instance.player.transform;
         hidingScare = Object.FindFirstObjectByType<HidingScare>();
@@ -82,7 +80,7 @@ public class HidingCutScene : InteractableTemplate
         cam.nearClipPlane = 0.01f;
         cam.GetComponent<CameraLook>().enabled = false;
         PlayerControlsAccess(false);
-        CupboardAnim(true);
+        DoorAnim(true);
         playerRef.position = Vector3.MoveTowards(playerRef.position, points[pointIndex].position, enterTransitionSpeed * Time.deltaTime);
                 
          if (Quaternion.Angle(playerRef.rotation, points[pointIndex].rotation) > 0.1)
@@ -103,21 +101,21 @@ public class HidingCutScene : InteractableTemplate
     //If the player is inside the cupboard, it allows the player to click "c" to exit (moves to the GoOut function)
     public void Inside()
     {
-        CupboardAnim(false);
+        DoorAnim(false);
         cam.GetComponent<CameraLook>().enabled = true;
         if ((Input.GetKeyDown(KeyCode.C)))
         {
-            CupboardAnim(true);
+            DoorAnim(true);
             playerHidingStates = PlayerHidingStates.goOut;
         }
 
         //Hold LMB to open the door to peek out, when the LMB is released, it will close the door again
         if (Input.GetMouseButton(0))
-            CupboardAnim(true);
+            DoorAnim(true);
             
         
         if(Input.GetMouseButtonUp(0))
-            CupboardAnim(false);
+            DoorAnim(false);
             
        
 
@@ -145,13 +143,13 @@ public class HidingCutScene : InteractableTemplate
     //This will enable the player's controls again
     public void Outside()
     {
-        CupboardAnim(false);
+        DoorAnim(false);
         PlayerControlsAccess(true);
         playerHidingStates = PlayerHidingStates.none;
         cam.nearClipPlane = originCamNearClippingPlane;
     }
 
-    //Logic handles the player entering the hiding spot
+    //Disables/Enables the Player's controls,colliders and mesh
     public void PlayerControlsAccess(bool canControl)
     {
         playerRef.GetComponent<PlayerMovement>().enabled = canControl;
@@ -163,10 +161,10 @@ public class HidingCutScene : InteractableTemplate
     }
 
     //This is where the animation will be called, allows if there is multiple steps with the animation (Currently just open/close doors for the cupboard)
-    public void CupboardAnim(bool isEntering)
+    public void DoorAnim(bool isEntering)
     {
-        if(playAnimation != null)
-        playAnimation.SetBool("DoorState", isEntering);
+        if(playDoorAnimation != null)
+        playDoorAnimation.SetBool("DoorState", isEntering);
     }
 
     //When the Player interacts with the hiding spot, start entering
