@@ -88,7 +88,7 @@ public class EscortedState : PatientStateBaseClass
                 }
 
                 shouldFollow = false;
-                transform.LookAt(new Vector3(character.BedDestination.position.x, transform.position.y, character.BedDestination.position.z));
+                //transform.LookAt(new Vector3(character.BedDestination.position.x, transform.position.y, character.BedDestination.position.z));
 
                 // INFO: Switches to bed state once patient gets close enough to the bed
                 if (character.agent.remainingDistance < 0.1f)

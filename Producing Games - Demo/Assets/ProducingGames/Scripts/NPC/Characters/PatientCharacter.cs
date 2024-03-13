@@ -158,11 +158,8 @@ public class PatientCharacter : AICharacter
         {
             // INFO: If the previous state had the patient remain stationary, we will need to grant the patient
             // movement again for the new state that they're going to go into
-            if (currentState == PatientStates.Bed || currentState == PatientStates.ReqMeds || currentState == PatientStates.Prayer)
-            {
-                rb.useGravity = true;
+            if (currentState == PatientStates.Bed)
                 agent.enabled = true;
-            }
 
             // INFO: If the patient has a path set from a previous state, this will get rid of it
             if (agent.hasPath)
@@ -252,10 +249,11 @@ public class PatientCharacter : AICharacter
     private void PanicOrScaredDecider()
     {
         // INFO: If the patient is already panicking/scared or they are dead
-        // we can return
+        // or are currently possessed we can return
         if (currentState == PatientStates.Panic ||
             currentState == PatientStates.Scared ||
-            currentState == PatientStates.Dead)
+            currentState == PatientStates.Dead  ||
+            currentState == PatientStates.Possessed)
             return;
 
         ChangePatientState(GameManager.Instance.currentHour < 7 ? PatientStates.Scared : PatientStates.Panic);

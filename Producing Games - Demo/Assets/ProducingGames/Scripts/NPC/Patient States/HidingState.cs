@@ -17,9 +17,9 @@ public class HidingState : PatientStateBaseClass
     {
         ChooseHidingLocation();
 
-        // INFO: Given that the previous was panicked or scared we will have
-        // the patient walk back to their hiding spot
-        if (character.PreviousState == PatientCharacter.PatientStates.Bed)
+        // INFO: Given that the previous was none we will have the patient
+        // teleport, otherwise we have them walk to their destination
+        if (character.PreviousState == PatientCharacter.PatientStates.None)
             TeleportToHidingSpot();
         else
             WalkToHidingSpot();
