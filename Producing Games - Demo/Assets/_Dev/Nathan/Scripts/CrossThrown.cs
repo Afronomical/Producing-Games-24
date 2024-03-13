@@ -5,6 +5,7 @@ using UnityEngine;
 public class CrossThrown : InteractableTemplate
 {
     [Header("Cross Variables")]
+    public GameObject Cross;
     public float throwingForce;
     [Space]
     [Header("SFX")]
@@ -18,11 +19,16 @@ public class CrossThrown : InteractableTemplate
     private float startYpos;
     private float startZpos;
     private GameManager gM;
+    private CrossRotation CrossRot;
+    private Vector3 startPos;
+    private Vector3 startRot;
     
 
     void Start()
     {
         gM = GameManager.Instance;
+        //startPos = Cross.transform.position;
+        //startRot = Cross.transform.eulerAngles;
         CrossStartPos();       
     }
     void CrossStartPos()
@@ -34,28 +40,24 @@ public class CrossThrown : InteractableTemplate
         startYEuAng = gameObject.transform.localEulerAngles.y;
         startZEuAng = gameObject.transform.localEulerAngles.z;
     }
-    public void restCrossPos()
-    {
-        Destroy(gameObject.GetComponent<Rigidbody>());
+    public void resetCrossPos()
+    {        
         gameObject.transform.position = new Vector3(startXpos, startYpos, startZpos);
         gameObject.transform.localEulerAngles = new Vector3(startXEuAng, startYEuAng, startZEuAng);
-    }
-   
-    void EnterInteractableState()
-    {
-        
-    }
+    }   
+    
     public void FallingCross()
-    {       
+    {
+        //CrossRot.isInverting = false;      
         gameObject.AddComponent<Rigidbody>();
         Rigidbody rb = gameObject.GetComponent<Rigidbody>();
         rb.AddRelativeForce(Vector3.back * throwingForce, ForceMode.Impulse);
-        AudioManager.instance.PlaySound(CrossThrownSound, gameObject.transform); 
-        EnterInteractableState();
+        AudioManager.instance.PlaySound(CrossThrownSound, gameObject.transform);         
     }
 
     public override void Interact()
     {
-        restCrossPos();    
+        Destroy(gameObject.GetComponent<Rigidbody>());
+        resetCrossPos();  
     }
 }

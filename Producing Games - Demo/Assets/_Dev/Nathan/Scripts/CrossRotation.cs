@@ -23,9 +23,8 @@ public class CrossRotation : InteractableTemplate
     [HideInInspector] public bool isInverted;
     private float startXEuAng;
     private float startYEuAng;
-    private float startZEuAng;
+    private float startZEuAng;     
     
-
     private void Start()
     {
         isInverting = false;
@@ -40,41 +39,32 @@ public class CrossRotation : InteractableTemplate
     private void Update()
     {
         invertedCross();
-        ReInvertedCross();
-    }
-
-    void EnterInteractableState()
-    {
-        
+        RevertCross();
     }
 
     void invertedCross()
     {
         if (isInverting)
         {
-            EnterInteractableState();
             rotTime += (Time.deltaTime * rotationSpeed);
             gameObject.transform.localEulerAngles = new Vector3(startXEuAng, startYEuAng, Mathf.Lerp(0, 180, rotTime));
             AudioManager.instance.PlaySound(CrossSpinSound, gameObject.transform);
-            //isInverting = false;
         }
     }
 
-    void ReInvertedCross()
+    void RevertCross()
     {
         if (isInverted == true)
         {
             replaceTime += (Time.deltaTime * rotationSpeed);
             gameObject.transform.localEulerAngles = new Vector3(startXEuAng, startYEuAng, Mathf.Lerp(gameObject.transform.localEulerAngles.z, startZEuAng, replaceTime));
             AudioManager.instance.PlaySound(CrossSpinSound, gameObject.transform);
-            //isInverting = false;
         }
     }
 
     public override void Interact()
     {
         isInverting = false;
-        isInverted = true;
-        
+        isInverted = true;        
     }
 }
