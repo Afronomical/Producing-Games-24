@@ -13,14 +13,20 @@ public class ModelMover : MonoBehaviour
     public SoundEffect movementNoise;
     private GameObject player;
 
-    // Start is called before the first frame update
     void Start()
     {
         initialPosition = transform.position;
         player = GameManager.Instance.player;
     }
 
-    // Update is called once per frame
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            StartMoving();
+        }
+    }
+
     void Update()
     {
         if (isMoving)
@@ -29,20 +35,17 @@ public class ModelMover : MonoBehaviour
         }
     }
 
-    // Function to start the movement towards the target
     public void StartMoving()
     {
         targetPosition = initialPosition + movementDirection.normalized * movementDistance;
         isMoving = true;
     }
 
-    // Function to stop the movement
     public void StopMoving()
     {
         isMoving = false;
     }
 
-    // Function to move the object towards the target position
     private void MoveTowardsTarget()
     {
         float step = movementSpeed * Time.deltaTime;
@@ -50,4 +53,5 @@ public class ModelMover : MonoBehaviour
         AudioManager.instance.PlaySound(movementNoise, player.transform);
     }
 }
+
 
