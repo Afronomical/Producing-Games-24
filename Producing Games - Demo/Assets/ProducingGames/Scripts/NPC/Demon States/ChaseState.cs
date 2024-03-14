@@ -18,6 +18,7 @@ public class ChaseState : DemonStateBaseClass
     private bool isChasing = false;
 
     private float chaseAloneTime = 0;
+    private float campingTime = 0;
 
     private void Start()
     {
@@ -31,15 +32,23 @@ public class ChaseState : DemonStateBaseClass
 
         playerPos = character.player.transform.position;
 
-        
-          if (character.player.GetComponent<PlayerMovement>().isHiding)
-          {
-               character.ChangeDemonState(DemonCharacter.DemonStates.Patrol);
-          }
-         
+        // INFO: Checks whether the player is currently hiding
+        if (character.playerMovement.isHiding)
+        {
+            campingTime += Time.deltaTime;
+
+            // INFO: Once the camping duration is up the demon will go into patrol
+            if (campingTime > character.campingDuration)
+                character.ChangeDemonState(DemonCharacter.DemonStates.Patrol);
+        }
+        else
+        {
+            // INFO: Resets camping time if player leaves hiding spot prematurely
+            campingTime = 0;
+        }
 
         // INFO: If the player is detected, the following player function is called
-        if (character.raycastToPlayer.PlayerDetected())
+        if (character.raycastToPlayer.PlayerDetected() && !character.playerMovement.isHiding)
         {
             if (chaseAloneTime != 0)
                 chaseAloneTime = 0.0f;

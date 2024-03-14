@@ -9,8 +9,29 @@ public class AttackState : DemonStateBaseClass
 {
     private void Start()
     {
+        // INFO: Final check before attacking player so the demon doesn't
+        // get stuck in attacking state
+        if (character.playerMovement.isHiding)
+        {
+            character.animator.SetBool("isAttacking", false);
+            character.ChangeDemonState(DemonCharacter.DemonStates.Patrol);
+            return;
+        }
+
         character.animator.SetBool("isAttacking", true);
+        
         Reset();
+    }
+
+    public override void UpdateLogic()
+    {
+        // INFO: Final check before attacking player so the demon doesn't
+        // get stuck in attacking state
+        if (character.playerMovement.isHiding)
+        {
+            character.animator.SetBool("isAttacking", false);
+            character.ChangeDemonState(DemonCharacter.DemonStates.Patrol);
+        }
     }
 
     /// <summary>

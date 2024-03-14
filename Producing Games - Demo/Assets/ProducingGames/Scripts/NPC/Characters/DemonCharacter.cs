@@ -46,6 +46,8 @@ public class DemonCharacter : AICharacter, IHear
     [Min(0)] public float patrolIdleDuration = 3.0f;
     [Tooltip("The length of time the demon remains in the chase state after having lost visibility of the player")]
     [Min(0)] public float chaseAloneDuration = 5.0f;
+    [Tooltip("The length of time the demon camps the hiding spot that the player is currently at")]
+    [Min(0)] public float campingDuration = 3.0f;
 
     [Header("Components:")]
     public DemonStateBaseClass demonStateScript;
@@ -63,11 +65,16 @@ public class DemonCharacter : AICharacter, IHear
 
     public DemonStates PreviousState { get; private set; }
 
+    public PlayerMovement playerMovement;
+
     public override void Start()
     {
         base.Start();
 
         characterType = CharacterTypes.Demon;
+
+        // INFO: Get Local Reference to Player
+        playerMovement = GameManager.Instance.player.GetComponent<PlayerMovement>();
     }
 
     private void Update()
@@ -77,8 +84,11 @@ public class DemonCharacter : AICharacter, IHear
             demonStateScript.UpdateLogic();
 
         // INFO: Will go into the chase state whenever it sees the player, so long as its not already
-        // attacking the player or is not exorcised
-        if (raycastToPlayer.PlayerDetected() && currentState != DemonStates.Attack && currentState != DemonStates.Exorcised)
+        // attacking the player or is not exorcised or the player isn't currently hiding
+        if (raycastToPlayer.PlayerDetected() && 
+            currentState != DemonStates.Attack && 
+            currentState != DemonStates.Exorcised &&
+            !playerMovement.isHiding)
             ChangeDemonState(DemonStates.Chase);
     }
 

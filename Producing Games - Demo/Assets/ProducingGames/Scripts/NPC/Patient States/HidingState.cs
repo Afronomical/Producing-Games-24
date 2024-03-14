@@ -19,7 +19,8 @@ public class HidingState : PatientStateBaseClass
 
         // INFO: Given that the previous was none we will have the patient
         // teleport, otherwise we have them walk to their destination
-        if (character.PreviousState == PatientCharacter.PatientStates.None)
+        if (character.PreviousState == PatientCharacter.PatientStates.None ||
+            character.PreviousState == PatientCharacter.PatientStates.Bed)
             TeleportToHidingSpot();
         else
             WalkToHidingSpot();

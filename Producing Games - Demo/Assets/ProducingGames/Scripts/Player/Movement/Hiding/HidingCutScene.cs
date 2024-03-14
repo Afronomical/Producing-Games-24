@@ -21,6 +21,8 @@ public class HidingCutScene : InteractableTemplate
     public float enterTransitionSpeed = 3;
     public float exitTransitionSpeed = 3;
 
+    private PlayerMovement playerMovement;
+
     public enum PlayerHidingStates
     {
         none,
@@ -42,6 +44,9 @@ public class HidingCutScene : InteractableTemplate
         
 
         originCamNearClippingPlane = cam.nearClipPlane;
+
+        // INFO: Get Local Reference to Player
+        playerMovement = GameManager.Instance.player.GetComponent<PlayerMovement>();
     }
 
     private void Update()
@@ -78,7 +83,7 @@ public class HidingCutScene : InteractableTemplate
     //Logic handles the player entering the hiding spot
     public void GoIn()
     {
-        GameManager.Instance.player.GetComponent<PlayerMovement>().isHiding = true;
+        playerMovement.isHiding = true;
         playerIsOccupying = true;
         cam.transform.rotation = playerTransformRef.rotation;
         cam.nearClipPlane = 0.01f;
@@ -126,7 +131,7 @@ public class HidingCutScene : InteractableTemplate
     //Logic handles the player exiting the hiding spot
     public void GoOut()
     {
-        GameManager.Instance.player.GetComponent<PlayerMovement>().isHiding = false;
+        playerMovement.isHiding = false;
         playerTransformRef.position = Vector3.MoveTowards(playerTransformRef.position, points[pointIndex].position, exitTransitionSpeed * Time.deltaTime);
 
         //Checks when the camera can transition
@@ -161,7 +166,7 @@ public class HidingCutScene : InteractableTemplate
         playerTransformRef.GetComponent<CharacterController>().enabled = canControl;
         playerTransformRef.GetComponent<MeshRenderer>().enabled = canControl;
         gameObject.GetComponent<BoxCollider>().enabled = canControl;
-        
+        cam.GetComponent<CameraLook>().canHeadBob = canControl;
     }
 
     //This is where the animation will be called, allows if there is multiple steps with the animation (Currently just open/close doors for the cupboard)
