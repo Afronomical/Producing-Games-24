@@ -98,7 +98,7 @@ public class VideoSettingsManager : MonoBehaviour
 
         if (resetButton != null)
         {
-            resetButton.onClick.AddListener(OnResetToDefaultButtonClicked);
+            resetButton.onClick.AddListener(ResetVideoSettingsToDefaults);
         }
         else
         {
@@ -398,7 +398,7 @@ public class VideoSettingsManager : MonoBehaviour
         }
     }
 
-    public void OnResetToDefaultButtonClicked()
+    public void ResetVideoSettingsToDefaults()
     {
         SetDefaultValues();
         Debug.Log("Settings Reset to Default Values");
@@ -422,5 +422,16 @@ public class VideoSettingsManager : MonoBehaviour
         SetDropdownToCurrentResolution();
         SetDropdownToCurrentMaxFPS();
         UpdateVSyncButtonText();
+
+        // Update slider visuals
+       // fovSlider.GetComponentInChildren<TextMeshProUGUI>().text = defaultFOV.ToString(); // Update FOV slider text
+        //brightnessSlider.GetComponentInChildren<TextMeshProUGUI>().text = defaultBrightness.ToString(); // Update brightness slider text
+
+        Debug.Log("Settings Reset to Default Values:");
+        Debug.Log("VSync: " + (vsyncEnabled ? "On" : "Off"));
+        Debug.Log("Resolution: " + defaultResolution);
+        Debug.Log("Max FPS: " + defaultFPS);
+        Debug.Log("FOV: " + defaultFOV);
+        Debug.Log("Brightness: " + defaultBrightness);
     }
 }

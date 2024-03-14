@@ -29,6 +29,16 @@ public class AccessibilitySettingsManager : MonoBehaviour
     public TMP_Dropdown colorBlindnessDropdown;
     private ChannelMixer channelMixerSettings;
 
+
+    //Default values
+    private float defaultIncreaseEffectSpeed = 3f;
+    private float defaultDecreaseEffectSpeed = 3f;
+    private float defaultEffectWaitDuration = 1.5f;
+    private float defaultEffectScaleMultiplier = 1.2f;
+    private float defaultMotionBlurIntensity = 0.5f; // Assuming default intensity
+    private ColorBlindnessMode defaultColorBlindnessMode = ColorBlindnessMode.Normal;
+
+
     public enum ColorBlindnessMode
     {
         Normal,
@@ -249,6 +259,47 @@ private void OnMotionBlurSliderChanged(float value)
         }
     }
 
-#endregion 
+    #endregion
+
+
+    // Function to set default values for all settings
+    private void SetDefaultValues()
+    {
+        increaseEffectSpeed = defaultIncreaseEffectSpeed;
+        decreaseEffectSpeed = defaultDecreaseEffectSpeed;
+        effectWaitDuration = defaultEffectWaitDuration;
+        effectScaleMultiplier = defaultEffectScaleMultiplier;
+        motionBlurSlider.value = defaultMotionBlurIntensity;
+        colorBlindnessDropdown.value = (int)defaultColorBlindnessMode;
+        SetColorBlindnessMode(defaultColorBlindnessMode); // Update color blindness settings to match default mode
+    }
+
+    // Function to update visuals of menus, sliders, and buttons
+    private void UpdateVisuals()
+    {
+        // Update inventory scale slider
+        inventoryScaleSlider.value = CalculateSliderValue(increaseEffectSpeed);
+
+        // Update motion blur slider
+        motionBlurSlider.value = defaultMotionBlurIntensity;
+
+        // Update color blindness dropdown
+        colorBlindnessDropdown.value = (int)defaultColorBlindnessMode;
+    }
+
+    // Function to reset all settings to their defaults
+    public void ResetAccessibilitySettingsToDefaults()
+    {
+        SetDefaultValues();
+        UpdateVisuals();
+    }
+
+    private float CalculateSliderValue(float speed)
+    {
+        // Logic to convert speed to slider value based on some scaling factor
+        // Modify this according to your requirements
+        return speed / 10f;
+    }
+
 }
 
