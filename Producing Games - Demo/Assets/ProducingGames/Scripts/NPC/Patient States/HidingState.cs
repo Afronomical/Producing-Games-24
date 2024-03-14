@@ -28,6 +28,8 @@ public class HidingState : PatientStateBaseClass
 
     public override void UpdateLogic()
     {
+        character.animator.SetFloat("movement", character.agent.velocity.magnitude);
+
         if (isWalkingToHidingDest)
         {
             // INFO: Stops the walking animation and transitions to the praying animation
@@ -52,7 +54,7 @@ public class HidingState : PatientStateBaseClass
 
                 // STOP PLAYING WALKING ANIMATION
 
-                //character.animator.SetBool("isTerrified", true);
+                character.animator.SetBool("isTerrified", true);
             }
         }
     }
@@ -108,6 +110,8 @@ public class HidingState : PatientStateBaseClass
     private void WalkToHidingSpot()
     {
         // PLAY WALKING ANIMATION HERE
+        character.ResetAnimation();
+        
 
         isWalkingToHidingDest = true;
 

@@ -22,6 +22,8 @@ public class BedState : PatientStateBaseClass
 
     public override void UpdateLogic()
     {
+        character.animator.SetFloat("movement", character.agent.velocity.magnitude);
+
         if (isWalkingToBed)
         {
             // INFO: Puts the patient into bed once they get close enough to it
@@ -57,6 +59,7 @@ public class BedState : PatientStateBaseClass
     private void WalkToBed()
     {
         // PLAY WALKING ANIMATION HERE
+        character.ResetAnimation();
 
         isWalkingToBed = true;
 

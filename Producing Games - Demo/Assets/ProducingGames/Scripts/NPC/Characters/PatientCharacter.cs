@@ -146,13 +146,7 @@ public class PatientCharacter : AICharacter
     public void ChangePatientState(PatientStates newState)
     {
         // INFO: Remove all animations
-        animator.SetBool("isHungry", false);
-        animator.SetBool("isPraying", false);
-        animator.SetBool("reqMeds", false);
-        animator.SetBool("inBed", false);
-        animator.SetBool("isRunning", false);
-        animator.SetBool("isTerrified", false);
-        animator.SetBool("isScared", false);
+        ResetAnimation();
 
         if (currentState != newState || patientStateScript == null)
         {
@@ -294,5 +288,16 @@ public class PatientCharacter : AICharacter
                 return true;
         }
         return false;
+    }
+
+    public void ResetAnimation()
+    {
+        animator.SetBool("isHungry", false);
+        animator.SetBool("isPraying", false);
+        animator.SetBool("reqMeds", false);
+        animator.SetBool("inBed", false);
+        animator.SetBool("isRunning", false);
+        animator.SetBool("isTerrified", false);
+        animator.SetBool("isScared", false);
     }
 }

@@ -26,6 +26,8 @@ public class PrayerState : PatientStateBaseClass
 
     public override void UpdateLogic()
     {
+        character.animator.SetFloat("movement", character.agent.velocity.magnitude);
+
         if (isWalkingToPrayingDest)
         {
             // INFO: Stops the walking animation and transitions to the praying animation
@@ -74,6 +76,8 @@ public class PrayerState : PatientStateBaseClass
     private void WalkToPrayingSpot()
     {
         // PLAY WALKING ANIMATION HERE
+        character.ResetAnimation();
+        
 
         isWalkingToPrayingDest = true;
 
