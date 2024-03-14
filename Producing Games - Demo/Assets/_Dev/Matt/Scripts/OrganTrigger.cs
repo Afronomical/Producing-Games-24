@@ -9,52 +9,124 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class OrganTrigger : InteractableTemplate
 {
-    public Vector3 targetRot;
-    private Camera cam;
+   
     private float currentTime = 0f;
-    private float timeToMove = 3f;
+    private float timeToMove = 4f;
+    public float panToTableSpeed = 0.05f;
     private bool isPanning;
+    private bool enabledTable;
+    private bool needToInteract;
     private ExorcismTable exorcismTable;
+    private GameObject player;
+    private Camera mainCam;
+    private CameraLook cameraLook;
+    private Quaternion originalPlayerRot;
+    private float t;
+    private float returnT;
 
     private void Start()
     {
-       isPanning = false;
-       cam = Camera.main;
-        targetRot = GameManager.Instance.altar.transform.position;
+        player = FindFirstObjectByType<PlayerMovement>().gameObject;
+        isPanning = false;
+        enabledTable = false;
         exorcismTable = FindFirstObjectByType<ExorcismTable>(); 
+        mainCam = Camera.main;
+        cameraLook = mainCam.GetComponent<CameraLook>();
+        needToInteract = false;
+        
+
     }
 
     private void Update()
     {
-        if(isPanning)
+        t = currentTime / timeToMove;
+        
+        if (needToInteract)
         {
-            
-            Debug.Log("Panning"); ////gets here but does none of the after 
-           
+            currentTime += Time.deltaTime;
+            Debug.Log("Past need to interact");
+            if (isPanning)
+            {
+                
+                
+                cameraLook.enabled = false;
+                Debug.Log("Panning"); ////gets here but does none of the after 
+
+
+                Quaternion targetRot = Quaternion.LookRotation(exorcismTable.transform.position - player.transform.position);
+                Debug.Log("Target rot is: " + targetRot.eulerAngles);
+                player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRot, t * panToTableSpeed);
+               
+
+                if (currentTime >= timeToMove)
+                {
+                    isPanning = false;
+                    returnT = t;
+
+                    // player.transform.rotation = Quaternion.identity;
+                    currentTime = 0f;
+
+                }
+
+            }
+            else
+            {
+                Invoke(nameof(Return), 2f);
+               
+
+            }
         }
+
+       
+       
     }
 
     public override void Interact()
     {
         ///begin animation 
-        StartCoroutine(EnableExorcismDelay(3f/*until animation ends*/));
+        if(!enabledTable)
+        {
+            enabledTable = true;
+            needToInteract = true;
+            //StartCoroutine(EnableExorcismDelay(3f/*until animation ends*/));
+            // isPanning = true;
+            PanToTable();
+            originalPlayerRot = player.transform.rotation;
+            
+        }
+        
+        
         
     }
 
-    public IEnumerator EnableExorcismDelay(float seconds)
-    {
-        ///wait until animation finished before panning camera to the table for exorcism to take place 
-        //Debug.Log("beginning coroutine");
-        yield return new WaitForSeconds(seconds);
-        PanToTable();
-    }
 
 
     private void PanToTable()
     {
-        
+
         currentTime = 0;
-        isPanning=true;
+        isPanning = true;
         exorcismTable.tableAvailable = true;
+
     }
+
+    private void Return()
+    {
+        player.transform.rotation = Quaternion.Lerp(player.transform.rotation, originalPlayerRot, (t - returnT) * panToTableSpeed);
+        if (player.transform.rotation == originalPlayerRot)
+        {
+            cameraLook.enabled = true;
+            needToInteract = false;
+            
+        }
+    }
+    //private void OnMouseEnter()
+    //{
+    //    if(!needToInteract)
+    //    {
+    //        TooltipManager.Instance.HideTooltip();
+    //    }
+    //}
+
+    
 }
