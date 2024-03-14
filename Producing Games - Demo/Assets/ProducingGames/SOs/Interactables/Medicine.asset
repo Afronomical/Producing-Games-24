@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c76ba9bd6ee8d4491c07e1d1697379, type: 3}
   m_Name: Medicine
   m_EditorClassIdentifier: 
-  objectName: Medicine
+  objectName: Medicine Bottle
   obj: {fileID: 7824952522015762862, guid: 3caa920475e4b7c4680fc1a94271a2c3, type: 3}
   prefab: {fileID: 7824952522015762862, guid: 3caa920475e4b7c4680fc1a94271a2c3, type: 3}
   interactSound: {fileID: 11400000, guid: ef860c4b217a9b34ca86852da508fec3, type: 2}
-  objectImage: {fileID: 21300000, guid: ab7a5d1d6d5c6ec43a8c8a2862dcfb64, type: 3}
+  objectImage: {fileID: 21300000, guid: 736da0421a3f8f04fb590515659943b8, type: 3}
   tooltipText: 
   tooltipImage: {fileID: 21300000, guid: 8848a6de3be742a48b4e49dd9ea3ebce, type: 3}

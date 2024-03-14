@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c76ba9bd6ee8d4491c07e1d1697379, type: 3}
   m_Name: Cross
   m_EditorClassIdentifier: 
-  objectName: Cross
+  objectName: Wooden Cross
   obj: {fileID: 7661773188408393803, guid: 2983fc715414cdb4f81e123e2f4edb66, type: 3}
   prefab: {fileID: 7661773188408393803, guid: 2983fc715414cdb4f81e123e2f4edb66, type: 3}
   interactSound: {fileID: 0}

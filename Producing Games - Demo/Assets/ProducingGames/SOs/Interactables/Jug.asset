@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c76ba9bd6ee8d4491c07e1d1697379, type: 3}
   m_Name: Jug
   m_EditorClassIdentifier: 
-  objectName: Jug
+  objectName: Water Jug
   obj: {fileID: 6214054233053693275, guid: 37f9030e09727894e9b35b0d6720c52d, type: 3}
   prefab: {fileID: 6214054233053693275, guid: 37f9030e09727894e9b35b0d6720c52d, type: 3}
   interactSound: {fileID: 0}
-  objectImage: {fileID: 0}
+  objectImage: {fileID: 21300000, guid: 8d9ef3a5cfa5dc6448a9ca3ef1466428, type: 3}
   tooltipText: 
   tooltipImage: {fileID: 21300000, guid: 8848a6de3be742a48b4e49dd9ea3ebce, type: 3}

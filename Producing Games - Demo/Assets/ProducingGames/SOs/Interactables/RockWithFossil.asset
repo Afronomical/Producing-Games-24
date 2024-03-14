@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c76ba9bd6ee8d4491c07e1d1697379, type: 3}
   m_Name: RockWithFossil
   m_EditorClassIdentifier: 
-  objectName: Rock With Fossil
+  objectName: Fossilised Rock
   obj: {fileID: 5315861791349507470, guid: 84c49b269b6dcfc46a79243aaf350a78, type: 3}
   prefab: {fileID: 5315861791349507470, guid: 84c49b269b6dcfc46a79243aaf350a78, type: 3}
   interactSound: {fileID: 0}
