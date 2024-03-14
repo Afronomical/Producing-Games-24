@@ -59,7 +59,7 @@ public class FlashlightLEDs : MonoBehaviour
             case LEDState.Charged:
 
                 StopAllCoroutines();
-               
+                canFlicker = true;
                 meshRenderer.material = chargedMat;
 
                 break;
@@ -74,6 +74,7 @@ public class FlashlightLEDs : MonoBehaviour
 
             case LEDState.Dead:
                 StopAllCoroutines();
+                canFlicker = true;
                 meshRenderer.material = deadMat;
 
                 break;

@@ -15,7 +15,7 @@ public class Flashlight : MonoBehaviour
     
     
     [Header("Battery Settings")]
-    [Range(0, 200)] public float batteryCharge;
+    [Range(0, 100)] public float batteryCharge;
     [Range(0, 10)] public float batteryDrainRate;
     [NonSerialized] public float maxBatteryCharge;
     private bool unlimitedBatteryActivated;
