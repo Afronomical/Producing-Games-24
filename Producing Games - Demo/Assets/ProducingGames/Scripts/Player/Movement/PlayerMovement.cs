@@ -74,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
     private float footstepTimer;
     private DynamicFootsteps Footsteps;
 
+    public bool isHiding;
 
     public CameraShake cameraShake;
 

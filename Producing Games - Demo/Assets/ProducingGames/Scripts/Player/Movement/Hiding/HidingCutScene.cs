@@ -9,7 +9,7 @@ public class HidingCutScene : InteractableTemplate
 {
     private Camera cam;
     private int pointIndex;
-    private Transform playerRef;
+    private Transform playerTransformRef;
     private float originCamNearClippingPlane;
     private Animator playDoorAnimation;
     public PatientCharacter patient;
@@ -37,7 +37,7 @@ public class HidingCutScene : InteractableTemplate
     {
         playDoorAnimation = gameObject.GetComponent<Animator>();
         cam = Camera.main;
-        playerRef = GameManager.Instance.player.transform;
+        playerTransformRef = GameManager.Instance.player.transform;
         hidingScare = Object.FindFirstObjectByType<HidingScare>();
         
 
@@ -78,19 +78,20 @@ public class HidingCutScene : InteractableTemplate
     //Logic handles the player entering the hiding spot
     public void GoIn()
     {
+        GameManager.Instance.player.GetComponent<PlayerMovement>().isHiding = true;
         playerIsOccupying = true;
-        cam.transform.rotation = playerRef.rotation;
+        cam.transform.rotation = playerTransformRef.rotation;
         cam.nearClipPlane = 0.01f;
         cam.GetComponent<CameraLook>().enabled = false;
         PlayerControlsAccess(false);
         DoorAnim(true);
-        playerRef.position = Vector3.MoveTowards(playerRef.position, points[pointIndex].position, enterTransitionSpeed * Time.deltaTime);
+        playerTransformRef.position = Vector3.MoveTowards(playerTransformRef.position, points[pointIndex].position, enterTransitionSpeed * Time.deltaTime);
                 
-         if (Quaternion.Angle(playerRef.rotation, points[pointIndex].rotation) > 0.1)
-            playerRef.rotation = Quaternion.Lerp(playerRef.rotation, points[pointIndex].rotation, enterTransitionSpeed * Time.deltaTime);
+         if (Quaternion.Angle(playerTransformRef.rotation, points[pointIndex].rotation) > 0.1)
+            playerTransformRef.rotation = Quaternion.Lerp(playerTransformRef.rotation, points[pointIndex].rotation, enterTransitionSpeed * Time.deltaTime);
 
         //Checks when the camera can transition
-        if (Vector3.Distance(playerRef.position, points[pointIndex].position) <= 0.2 && Mathf.Approximately(Quaternion.Angle(playerRef.rotation, points[pointIndex].rotation), 0))
+        if (Vector3.Distance(playerTransformRef.position, points[pointIndex].position) <= 0.2 && Mathf.Approximately(Quaternion.Angle(playerTransformRef.rotation, points[pointIndex].rotation), 0))
         {
             pointIndex++;
             
@@ -125,15 +126,16 @@ public class HidingCutScene : InteractableTemplate
     //Logic handles the player exiting the hiding spot
     public void GoOut()
     {
-        playerRef.position = Vector3.MoveTowards(playerRef.position, points[pointIndex].position, exitTransitionSpeed * Time.deltaTime);
+        GameManager.Instance.player.GetComponent<PlayerMovement>().isHiding = false;
+        playerTransformRef.position = Vector3.MoveTowards(playerTransformRef.position, points[pointIndex].position, exitTransitionSpeed * Time.deltaTime);
 
         //Checks when the camera can transition
-        if (Vector3.Distance(playerRef.position, points[pointIndex].position) <= 0.2)
+        if (Vector3.Distance(playerTransformRef.position, points[pointIndex].position) <= 0.2)
         {
             pointIndex++;
             if (pointIndex == points.Count)
             {
-                playerRef.rotation = points[pointIndex - 1].rotation;
+                playerTransformRef.rotation = points[pointIndex - 1].rotation;
                 playerHidingStates = PlayerHidingStates.outside;
                 pointIndex = 0;
             }
@@ -154,10 +156,10 @@ public class HidingCutScene : InteractableTemplate
     //Disables/Enables the Player's controls,colliders and mesh
     public void PlayerControlsAccess(bool canControl)
     {
-        playerRef.GetComponent<PlayerMovement>().enabled = canControl;
-        playerRef.GetComponent<DropItem>().enabled = canControl;
-        playerRef.GetComponent<CharacterController>().enabled = canControl;
-        playerRef.GetComponent<MeshRenderer>().enabled = canControl;
+        playerTransformRef.GetComponent<PlayerMovement>().enabled = canControl;
+        playerTransformRef.GetComponent<DropItem>().enabled = canControl;
+        playerTransformRef.GetComponent<CharacterController>().enabled = canControl;
+        playerTransformRef.GetComponent<MeshRenderer>().enabled = canControl;
         gameObject.GetComponent<BoxCollider>().enabled = canControl;
         
     }

@@ -31,12 +31,12 @@ public class ChaseState : DemonStateBaseClass
 
         playerPos = character.player.transform.position;
 
-        /* THIS NEEDS TO BE IMPLEMENTED
-         * if (character.player.GetComponent<PlayerController>().GetIsHiding())
-         * {
-         *      character.ChangeDemonState(DemonCharacter.DemonStates.Patrol);
-         * }
-         */
+        
+          if (character.player.GetComponent<PlayerMovement>().isHiding)
+          {
+               character.ChangeDemonState(DemonCharacter.DemonStates.Patrol);
+          }
+         
 
         // INFO: If the player is detected, the following player function is called
         if (character.raycastToPlayer.PlayerDetected())
