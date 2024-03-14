@@ -24,6 +24,7 @@ public class ModelMover : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             StartMoving();
+            AudioManager.instance.PlaySound(movementNoise, player.transform);
         }
     }
 
@@ -50,7 +51,7 @@ public class ModelMover : MonoBehaviour
     {
         float step = movementSpeed * Time.deltaTime;
         transform.position = Vector3.Lerp(transform.position, targetPosition, step);
-        AudioManager.instance.PlaySound(movementNoise, player.transform);
+        
     }
 }
 
