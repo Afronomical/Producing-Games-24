@@ -28,7 +28,7 @@ public class Flashlight : MonoBehaviour
     [Range(0.0f, 1f)] public float flickerLightPower = 0.7f;
     [Range(0.0f, 1f)] public float flickerLightPowerDiff = 0.3f;
     private bool isFlickering;
-    private float oldIntensity;
+    private float oldIntensity; 
 
 
     private void Start()
