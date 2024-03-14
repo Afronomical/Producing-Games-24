@@ -198,13 +198,13 @@ MonoBehaviour:
     m_Value: 25
   colorFilter:
     m_OverrideState: 0
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_Value: {r: 0.7924528, g: 0.72765857, b: 0.6840513, a: 1}
   hueShift:
     m_OverrideState: 0
     m_Value: 0
   saturation:
     m_OverrideState: 1
-    m_Value: -10
+    m_Value: -36
 --- !u!114 &-6123328841174020543
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -220,7 +220,7 @@ MonoBehaviour:
   active: 1
   temperature:
     m_OverrideState: 1
-    m_Value: 20
+    m_Value: 39
   tint:
     m_OverrideState: 1
     m_Value: -12
@@ -248,10 +248,10 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.482
+    m_Value: 0.52
   smoothness:
     m_OverrideState: 1
-    m_Value: 0.195
+    m_Value: 0.12
   roundness:
     m_OverrideState: 1
     m_Value: 0.878
@@ -281,7 +281,7 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 1
   threshold:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   intensity:
     m_OverrideState: 1
@@ -293,11 +293,11 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: {r: 1, g: 1, b: 1, a: 1}
   dirtTexture:
-    m_OverrideState: 0
-    m_Value: {fileID: 0}
+    m_OverrideState: 1
+    m_Value: {fileID: 2800000, guid: de033210e4253cb47a566ebdc81df81b, type: 3}
   dirtIntensity:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 1
   anamorphic:
     m_OverrideState: 0
     m_Value: 1
@@ -818,7 +818,7 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 0
   skyAmbientMode:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
   windOrientation:
     m_OverrideState: 1
@@ -844,10 +844,10 @@ MonoBehaviour:
   active: 1
   type:
     m_OverrideState: 1
-    m_Value: 5
+    m_Value: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.683
+    m_Value: 0.45
   response:
     m_OverrideState: 1
     m_Value: 0
