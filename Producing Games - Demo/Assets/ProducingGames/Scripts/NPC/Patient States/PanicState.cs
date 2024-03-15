@@ -21,6 +21,17 @@ public class PanicState : PatientStateBaseClass
     {
         character.agent.speed = character.runSpeed;
 
+        // INFO: Plays the desired male voice line if the patient is a male
+        // otherwise plays the desirted female voice line
+        if (character.isMale)
+        {
+            NPCManager.Instance.PlayMaleVoiceLine(NPCManager.MaleVoiceLines.ManOneScream, transform);
+        }
+        else
+        {
+            NPCManager.Instance.PlayFemaleVoiceLine(NPCManager.FemaleVoiceLines.FemOneScreamOne, transform);
+        }
+
         // INFO: If the previous patient state was the bed state, we don't
         // want the safety choice to be their bed, as they wouldn't go anywhere
         // so we need to choose the other (hiding location)

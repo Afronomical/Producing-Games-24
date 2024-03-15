@@ -22,8 +22,22 @@ public class NPCManager : MonoBehaviour
         // Scream,
         // Shout
 
-        Scream,
-        Shout
+        FemOneMedicineOne,
+        FemOneMedicineTwo,
+        FemOneScreamOne,
+        FemOneScreamTwo,
+        FemOneShock,
+        FemOneWanderOne,
+        FemOneWanderTwo,
+        FemTwoMedicineOne,
+        FemTwoMedicineTwo,
+        FemTwoMedicineThree,
+        FemTwoScream,
+        FemTwoShock,
+        FemTwoWanderOne,
+        FemTwoWanderTwo,
+        FemTwoWanderThree,
+        FemLaugh,
     }
 
     public enum MaleVoiceLines
@@ -33,8 +47,26 @@ public class NPCManager : MonoBehaviour
         // Scream,
         // Shout
 
-        Scream,
-        Shout
+        ManOneGroanOne,
+        ManOneGroanTwo,
+        ManOneMedicineOne,
+        ManOneMedicineTwo,
+        ManOneMedicineThree,
+        ManOneWanderOne,
+        ManOneWanderTwo,
+        ManOneWanderThree,
+        ManOneScream,
+        ManTwoMedicineOne,
+        ManTwoMedicineTwo,
+        ManTwoMedicineThree,
+        ManTwoScreamOne,
+        ManTwoScreamTwo,
+        ManTwoWanderOne,
+        ManTwoWanderTwo,
+        ManTwoWanderThree,
+        ManTwoWanderFour,
+        ManLaughOne,
+        ManLaughTwo,
     }
 
     [Header("Female Patient Voice Lines:")]
