@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class CrossThrowTrigger : MonoBehaviour
 {
-    public CrossThrown crossThrow;
-
+    public CrossThrown cross;
     GameManager gM;
     [HideInInspector] public bool eventTriggered;
+    
+    
     private void Start()
     {
-        //crossThrow.eventTriggered = false;
-        gM = GameManager.Instance;
         eventTriggered = false;
+        gM = GameManager.Instance;
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -20,7 +21,7 @@ public class CrossThrowTrigger : MonoBehaviour
         int randChance = Random.Range(0, 101);
         if (other.CompareTag("Player") && randChance <= gM.eventChance && !eventTriggered)
         {
-            crossThrow.FallingCross();
+            cross.FallingCross();
             eventTriggered = true;
         }
     }
