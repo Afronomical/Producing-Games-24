@@ -66,7 +66,8 @@ public class GameManager : MonoBehaviour
     public GameObject jumpscareTimelineGO;
     private CinematicMangerScript cinematicManagerScript;
     private int cineChance;
-   
+
+    public int salary; //Money received after shift
 
     private void Awake()
     {
@@ -195,6 +196,7 @@ public class GameManager : MonoBehaviour
         studyDoor.collectible = studyDoor.startShiftSO;
         sanityEvents.EndHour();
         PatientTaskManager.instance.ClearTasks();
+        EconomyManager.instance.AddIncome(salary);
 
         if (currentHour <= finalHour)
         {
