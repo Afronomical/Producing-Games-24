@@ -5,13 +5,13 @@ using UnityEngine;
 public class CrossThrown : InteractableTemplate
 {
     [Header("Cross Variables")]
-    public GameObject Cross;
+    
     public float throwingForce;
     [Space]
     [Header("SFX")]
     public SoundEffect CrossThrownSound;
 
-
+    
     private float startXEuAng;
     private float startYEuAng;
     private float startZEuAng;
@@ -19,16 +19,13 @@ public class CrossThrown : InteractableTemplate
     private float startYpos;
     private float startZpos;
     private GameManager gM;
-    private CrossRotation CrossRot;
-    private Vector3 startPos;
-    private Vector3 startRot;
+    CrossThrowTrigger trigger;
+    
     
 
     void Start()
     {
-        gM = GameManager.Instance;
-        //startPos = Cross.transform.position;
-        //startRot = Cross.transform.eulerAngles;
+        gM = GameManager.Instance;       
         CrossStartPos();       
     }
     void CrossStartPos()
@@ -48,11 +45,10 @@ public class CrossThrown : InteractableTemplate
     
     public void FallingCross()
     {
-        //CrossRot.isInverting = false;      
         gameObject.AddComponent<Rigidbody>();
         Rigidbody rb = gameObject.GetComponent<Rigidbody>();
         rb.AddRelativeForce(Vector3.back * throwingForce, ForceMode.Impulse);
-        AudioManager.instance.PlaySound(CrossThrownSound, gameObject.transform);         
+        AudioManager.instance.PlaySound(CrossThrownSound, gameObject.transform);
     }
 
     public override void Interact()
