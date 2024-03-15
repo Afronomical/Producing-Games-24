@@ -595,7 +595,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 906
+  m_VersionIndex: 942
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -950,7 +950,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 685
+  m_VersionIndex: 712
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1712,7 +1712,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 532
+  m_VersionIndex: 568
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2176,7 +2176,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 576
+  m_VersionIndex: 603
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2305,8 +2305,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4930219052006996597}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.030384416, z: -0, w: 0.9995383}
-  m_LocalPosition: {x: -0.7637501, y: -0.15999985, z: 1.6288528}
+  m_LocalRotation: {x: -0.017159281, y: 0.029243194, z: -0.001584969, w: 0.9994238}
+  m_LocalPosition: {x: -0.7627926, y: -0.13661575, z: 1.6111374}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2332,7 +2332,7 @@ Transform:
   - {fileID: 5918759872906295884}
   - {fileID: 3076355472078990499}
   m_Father: {fileID: 5625483546682987153}
-  m_LocalEulerAnglesHint: {x: 0, y: 3.482, z: 0}
+  m_LocalEulerAnglesHint: {x: -1.96, y: 3.356, z: -0.239}
 --- !u!1 &4930957243575793211
 GameObject:
   m_ObjectHideFlags: 0
@@ -2654,8 +2654,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5625483546682987153}
-  - component: {fileID: 6022807333349518011}
-  - component: {fileID: 1037651743964852777}
+  - component: {fileID: 6298642880434870990}
+  - component: {fileID: 7555518776548868267}
   m_Layer: 0
   m_Name: Cutscene Jumpscare
   m_TagString: Untagged
@@ -2682,7 +2682,7 @@ Transform:
   - {fileID: 3833438264257287229}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!320 &6022807333349518011
+--- !u!320 &6298642880434870990
 PlayableDirector:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2719,11 +2719,11 @@ PlayableDirector:
     value: {fileID: 8330878629531839940}
   - key: {fileID: -4672710586584859577, guid: c3ae8d6f24856bc49a66bd6eda2c793f, type: 2}
     value: {fileID: 2389221986149722484}
-  - key: {fileID: -8421908522577919100, guid: c3ae8d6f24856bc49a66bd6eda2c793f, type: 2}
+  - key: {fileID: 8287500953799304182, guid: c3ae8d6f24856bc49a66bd6eda2c793f, type: 2}
     value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
---- !u!114 &1037651743964852777
+--- !u!114 &7555518776548868267
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2735,7 +2735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b94c60c7715b7bd4197b67947273fee1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentcinematic: {fileID: 6022807333349518011}
+  currentcinematic: {fileID: 6298642880434870990}
 --- !u!1 &6217809470408675089
 GameObject:
   m_ObjectHideFlags: 0
@@ -3195,7 +3195,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &196309227110087832
 Transform:
   m_ObjectHideFlags: 0
@@ -4274,6 +4274,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7536591545668058700}
     m_Modifications:
+    - target: {fileID: 2965292266815152965, guid: c77a6ecd3bcd016408542ca84dad0f81, type: 3}
+      propertyPath: priority
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2965292266815152965, guid: c77a6ecd3bcd016408542ca84dad0f81, type: 3}
       propertyPath: sharedProfile
       value: 

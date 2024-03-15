@@ -1,0 +1,152 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7816805237050286286
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 445c7460363d9cd41a79d588af10311e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 44.27404
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 445c7460363d9cd41a79d588af10311e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 44.274048
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 445c7460363d9cd41a79d588af10311e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 44.27404
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 445c7460363d9cd41a79d588af10311e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.6605614
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 445c7460363d9cd41a79d588af10311e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.017310917
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 445c7460363d9cd41a79d588af10311e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.158624
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 445c7460363d9cd41a79d588af10311e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 445c7460363d9cd41a79d588af10311e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 445c7460363d9cd41a79d588af10311e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 445c7460363d9cd41a79d588af10311e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 445c7460363d9cd41a79d588af10311e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 445c7460363d9cd41a79d588af10311e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 445c7460363d9cd41a79d588af10311e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 445c7460363d9cd41a79d588af10311e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 6109ee3945d2c2e4e9162d46d160615e, type: 2}
+    - target: {fileID: 919132149155446097, guid: 445c7460363d9cd41a79d588af10311e, type: 3}
+      propertyPath: m_Name
+      value: Wheelchair Horror Event
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 445c7460363d9cd41a79d588af10311e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 16
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 445c7460363d9cd41a79d588af10311e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1445997539967397654}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 445c7460363d9cd41a79d588af10311e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3022233604374969893}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 445c7460363d9cd41a79d588af10311e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8948904126626956460}
+  m_SourcePrefab: {fileID: 100100000, guid: 445c7460363d9cd41a79d588af10311e, type: 3}
+--- !u!1 &6970366210525797791 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 445c7460363d9cd41a79d588af10311e, type: 3}
+  m_PrefabInstance: {fileID: 7816805237050286286}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1445997539967397654
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6970366210525797791}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -125435165217083709, guid: 445c7460363d9cd41a79d588af10311e, type: 3}
+--- !u!114 &3022233604374969893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6970366210525797791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 060d98c585101e24c866113438657322, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementDirection: {x: 0, y: 0, z: 1}
+  movementDistance: 5
+  movementSpeed: 0.5
+  movementNoise: {fileID: 11400000, guid: f072fad786e37e94d9839b5ba6cdb4c1, type: 2}
+--- !u!65 &8948904126626956460
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6970366210525797791}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.2, y: 0.24, z: -0.12}
+  m_Center: {x: 0.0000013957949, y: -0.004470802, z: 0.012676164}
