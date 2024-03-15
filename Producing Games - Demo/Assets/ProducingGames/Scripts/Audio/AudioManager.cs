@@ -166,6 +166,30 @@ public class AudioManager : MonoBehaviour
 
 
 
+    public void ChangePitch(SoundEffect effect, float pitch)
+    {
+        for (int i = 0; i < effectSources.Count; i++)  // Check through all effect sources
+        {
+            if (effectSources[i].clip == effect.audioClip)  // Find the source playing this clip
+            {
+                effectSources[i].pitch = pitch;
+            }
+        }
+    }
+
+    public void ChangeVolume(SoundEffect effect, float volume)
+    {
+        for (int i = 0; i < effectSources.Count; i++)  // Check through all effect sources
+        {
+            if (effectSources[i].clip == effect.audioClip)  // Find the source playing this clip
+            {
+                volume *= globalVolume;
+                volume *= effect.isMusic ? musicVolume : soundEffectVolume;
+                effectSources[i].volume = volume;
+            }
+        }
+    }
+
     public void StopSound(SoundEffect effect)
     {
         for (int i = 0; i < effectSources.Count; i++)  // Check through all effect sources
