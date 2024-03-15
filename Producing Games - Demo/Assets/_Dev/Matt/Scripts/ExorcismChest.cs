@@ -19,9 +19,18 @@ public class ExorcismChest : InteractableTemplate
     private bool chestOpen = false;
     private bool canDrop = true;
     private bool isInspecting = false;
+    private bool isMoving = false;
+    private bool stopInspecing = false;
     public List<GameObject> currentItems = new();
     private bool isLocked = false;
-
+    private float t;
+    private float currentTime = 0f;
+    private float timeToMove = 5f;
+    public float panToChestSpeed = 0.05f;
+    private Camera mainCam;
+    public Transform inspectPoint;
+    private GameObject player;
+    private CameraLook cameraLook;
 
     [Tooltip("Define points inside the chest where tooltips can sit")]
     public List<Transform> dropPoints = new();
@@ -56,11 +65,36 @@ public class ExorcismChest : InteractableTemplate
         availableSlots = maxSlots;
         collectible.tooltipText = "Unlock Chest";
         animator = GetComponent<Animator>();
+        mainCam = Camera.main;
+        cameraLook = mainCam.GetComponent<CameraLook>();
+        player = FindFirstObjectByType<PlayerMovement>().gameObject;
     }
 
     private void Update()
     {
         AddtoChest();
+        t = currentTime / timeToMove;
+        currentTime += Time.deltaTime;
+        if (isInspecting)
+        {
+            if (isMoving)
+            {
+                Vector3 newPos = player.transform.position - inspectPoint.position;
+                player.transform.position = Vector3.Lerp(player.transform.position, inspectPoint.position, t * panToChestSpeed);  //works but no lerp 
+
+                Quaternion targetRot = Quaternion.LookRotation(transform.position - player.transform.position);  //works but angle is off 
+                player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRot, t * panToChestSpeed);
+                player.GetComponent<PlayerMovement>().enabled = false;
+                cameraLook.enabled = false;
+                if (player.transform.position == newPos)
+                {
+                    isMoving = false;
+                    return;
+                }
+            }
+             ////need to return to original position after stopped inspecting 
+            
+        }
     }
 
     public override void Interact()
@@ -78,6 +112,9 @@ public class ExorcismChest : InteractableTemplate
                 // Debug.Log("Chest opening");
                 chestOpen = true;
                 collectible.tooltipText = "Press C to Inspect Objects";
+                ///need to move to new input system to allow for inspection 
+                isInspecting = true;
+                isMoving = true;
             }
             else if (!isLocked && chestOpen)
             {
