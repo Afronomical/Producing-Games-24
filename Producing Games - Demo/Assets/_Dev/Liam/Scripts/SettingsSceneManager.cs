@@ -10,13 +10,21 @@ public class SettingsSceneManager : MonoBehaviour
     [SerializeField] private Button vsyncButton;
     [SerializeField] private TextMeshProUGUI vsyncButtonText;
 
-    private static bool vsyncEnabled = true; // Static variable to hold VSync state
+    private static bool vsyncEnabled; // Static variable to hold VSync state
 
     void Start()
     {
         // Initialize UI elements
         InitializeUI();
         Debug.Log("VSync is " + (vsyncEnabled ? "enabled." : "disabled."));
+    }
+
+
+
+    private void Update()
+    {
+        UpdateVSyncButton();
+        UpdateDisplayModeDropdown();
     }
 
     void InitializeUI()
@@ -147,4 +155,34 @@ public class SettingsSceneManager : MonoBehaviour
         // Set the screen resolution
         Screen.SetResolution(width, height, Screen.fullScreenMode);
     }
+
+    public void UpdateVSyncButton()
+    {
+        if (vsyncEnabled)
+        {
+            vsyncButtonText.text = "VSync: On";
+        }
+        else
+        {
+            vsyncButtonText.text = "VSync: Off";
+        }
+    }
+
+    void UpdateDisplayModeDropdown()
+    {
+        switch (Screen.fullScreenMode)
+        {
+            case FullScreenMode.ExclusiveFullScreen:
+                displayModeDropdown.value = 0;
+                break;
+            case FullScreenMode.Windowed:
+                displayModeDropdown.value = 1;
+                break;
+            case FullScreenMode.FullScreenWindow:
+                displayModeDropdown.value = 2;
+                break;
+        }
+    }
+
+
 }

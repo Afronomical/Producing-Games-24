@@ -144,6 +144,7 @@ public class VideoSettingsManager : MonoBehaviour
         }
 
         UpdateVSyncButton();
+        UpdateDisplayModeDropdown();
     }
 
     public void OnToggleFPSButtonClicked()
@@ -455,5 +456,18 @@ public class VideoSettingsManager : MonoBehaviour
         Debug.Log("Max FPS: " + defaultFPS);
         Debug.Log("FOV: " + defaultFOV);
         Debug.Log("Brightness: " + defaultBrightness);
+    }
+
+    private void UpdateDisplayModeDropdown()
+    {
+        FullScreenMode currentDisplayMode = Screen.fullScreenMode;
+        string currentDisplayModeString = GetDisplayModeString(currentDisplayMode);
+
+        int index = displayModeDropdown.options.FindIndex(option => option.text == currentDisplayModeString);
+        if (index != -1)
+        {
+            displayModeDropdown.value = index;
+            displayModeDropdown.RefreshShownValue();
+        }
     }
 }
