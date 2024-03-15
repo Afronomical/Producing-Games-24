@@ -109,7 +109,7 @@ public class VideoSettingsManager : MonoBehaviour
         PopulateMaxFPSDropdown();
         PopulateDisplayModeDropdown();
         // Populate UI elements with default values on start
-        SetDefaultValues();
+        //SetDefaultValues();
 
         resolutionDropdown.onValueChanged.AddListener(OnResolutionChanged);
         maxFPSDropdown.onValueChanged.AddListener(OnMaxFPSChanged);
@@ -126,6 +126,9 @@ public class VideoSettingsManager : MonoBehaviour
         SetDropdownToCurrentResolution();
         SetDropdownToCurrentMaxFPS();
         SetDropdownToCurrentDisplayMode();
+
+        mainCamera.fieldOfView = SettingsSceneValues.Instance.FovNew;
+        fovSlider.value = SettingsSceneValues.Instance.FovNew;
     }
 
     void Update()
@@ -162,6 +165,7 @@ public class VideoSettingsManager : MonoBehaviour
     private void OnFOVChanged(float value)
     {
         mainCamera.fieldOfView = value;
+        SettingsSceneValues.Instance.FovNew = value;
         // Add additional logic related to FOV setting
         Debug.Log("FOV Setting Changed: " + value);
     }

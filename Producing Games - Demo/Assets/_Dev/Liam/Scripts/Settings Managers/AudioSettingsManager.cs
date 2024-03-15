@@ -49,11 +49,21 @@ public class AudioSettingsManager : MonoBehaviour
         globalVolumeSlider.onValueChanged.AddListener(OnGlobalVolumeChanged);
         soundEffectVolumeSlider.onValueChanged.AddListener(OnSoundEffectVolumeChanged);
         musicVolumeSlider.onValueChanged.AddListener(OnMusicVolumeChanged);
+
+        globalVolumeSlider.value = SettingsSceneValues.Instance.volumeNew;
+        soundEffectVolumeSlider.value = SettingsSceneValues.Instance.volumeNew;
+        musicVolumeSlider.value = SettingsSceneValues.Instance.volumeNew;
+
+        audioManager.globalVolume = SettingsSceneValues.Instance.volumeNew;
+        audioManager.soundEffectVolume = SettingsSceneValues.Instance.volumeNew;
+        audioManager.musicVolume = SettingsSceneValues.Instance.volumeNew;
+
     }
 
     private void OnGlobalVolumeChanged(float value)
     {
         audioManager.globalVolume = value;
+        SettingsSceneValues.Instance.volumeNew = value;
         // Add additional logic related to global volume setting
     }
 

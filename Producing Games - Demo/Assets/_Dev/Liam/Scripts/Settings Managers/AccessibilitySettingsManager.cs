@@ -110,8 +110,43 @@ public class AccessibilitySettingsManager : MonoBehaviour
         {
             UpdateMotionBlurIntensity();
         }
-
         motionBlurSlider.onValueChanged.AddListener(OnMotionBlurSliderChanged);
+
+
+
+
+
+
+
+        motionBlurVolume.intensity.value = SettingsSceneValues.Instance.motionBlurNew;
+        motionBlurSlider.value = SettingsSceneValues.Instance.motionBlurNew;
+        
+        if (SettingsSceneValues.Instance.newNormal == true)
+        {
+            colorBlindnessDropdown.value = (int)ColorBlindnessMode.Normal;
+
+        }
+
+        if (SettingsSceneValues.Instance.newProtanopia == true)
+        {
+            colorBlindnessDropdown.value = (int)ColorBlindnessMode.Protanopia;
+
+        }
+        
+        if (SettingsSceneValues.Instance.newDeuteranopia == true)
+        {
+            colorBlindnessDropdown.value = (int)ColorBlindnessMode.Deuteranopia;
+
+        }
+
+        if (SettingsSceneValues.Instance.newTritanopia == true)
+        {
+            colorBlindnessDropdown.value = (int)ColorBlindnessMode.Tritanopia;
+
+        }
+       
+
+       
         
     }
 
@@ -144,18 +179,34 @@ public class AccessibilitySettingsManager : MonoBehaviour
         {
             //call function depending on which mode selected
             case ColorBlindnessMode.Normal:
+                SettingsSceneValues.Instance.newNormal = true;
+                SettingsSceneValues.Instance.newProtanopia = false;
+                SettingsSceneValues.Instance.newDeuteranopia = false;
+                SettingsSceneValues.Instance.newTritanopia = false;
                 ResetChannelMixerSettings();
                 break;
 
             case ColorBlindnessMode.Protanopia:
+                SettingsSceneValues.Instance.newNormal = false;
+                SettingsSceneValues.Instance.newProtanopia = true;
+                SettingsSceneValues.Instance.newDeuteranopia = false;
+                SettingsSceneValues.Instance.newTritanopia = false;
                 SetProtanopiaChannelMixerSettings();
                 break;
 
             case ColorBlindnessMode.Deuteranopia:
+                SettingsSceneValues.Instance.newNormal = false;
+                SettingsSceneValues.Instance.newProtanopia = false;
+                SettingsSceneValues.Instance.newDeuteranopia = true;
+                SettingsSceneValues.Instance.newTritanopia = false;
                 SetDeuteranopiaChannelMixerSettings();
                 break;
 
             case ColorBlindnessMode.Tritanopia:
+                SettingsSceneValues.Instance.newNormal = false;
+                SettingsSceneValues.Instance.newProtanopia = false;
+                SettingsSceneValues.Instance.newDeuteranopia = false;
+                SettingsSceneValues.Instance.newTritanopia = true;
                 SetTritanopiaChannelMixerSettings();
                 break;
         }
@@ -245,6 +296,7 @@ private void OnMotionBlurSliderChanged(float value)
         {
             //update the motion blur setting in volume with value from slider
             motionBlurVolume.intensity.value = value;
+            SettingsSceneValues.Instance.motionBlurNew = value;
         }
     }
 
