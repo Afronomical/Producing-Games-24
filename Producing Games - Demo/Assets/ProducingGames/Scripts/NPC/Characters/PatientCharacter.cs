@@ -42,6 +42,8 @@ public class PatientCharacter : AICharacter
     public PatientStates currentState;
     public SafetyChoices safetyChoice;
     public bool isPossessed = false;
+    [Tooltip("If isMale is false it means the patient is a female")]
+    public bool isMale;
 
     [Space(10)]
 

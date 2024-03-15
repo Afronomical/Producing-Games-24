@@ -15,6 +15,44 @@ public class NPCManager : MonoBehaviour
 {
     public static NPCManager Instance;
 
+    public enum FemaleVoiceLines
+    {
+        // INFO: Add voice line names here
+        // For Example:
+        // Scream,
+        // Shout
+
+        Scream,
+        Shout
+    }
+
+    public enum MaleVoiceLines
+    {
+        // INFO: Add voice line names here
+        // For Example:
+        // Scream,
+        // Shout
+
+        Scream,
+        Shout
+    }
+
+    [Header("Female Patient Voice Lines:")]
+    [Tooltip("Ensure the order and size of both lists match up with each other")]
+    public List<SoundEffect> femaleVoiceLineList = new();
+    [Tooltip("Ensure the order and size of both lists match up with each other")]
+    public List<FemaleVoiceLines> femaleVoiceLines;
+
+    private Dictionary<FemaleVoiceLines, SoundEffect> femaleVoiceLinesDict = new();
+
+    [Header("Male Patient Voice Lines:")]
+    [Tooltip("Ensure the order and size of both lists match up with each other")]
+    public List<SoundEffect> maleVoiceLineList = new();
+    [Tooltip("Ensure the order and size of both lists match up with each other")]
+    public List<MaleVoiceLines> maleVoiceLines;
+
+    private Dictionary<MaleVoiceLines, SoundEffect> maleVoiceLinesDict = new();
+
     [Header("Patient Locations:")]
     [SerializeField] private List<Transform> wanderingDestinations = new();
     [SerializeField] private List<Transform> prayingLocations = new();
@@ -65,6 +103,18 @@ public class NPCManager : MonoBehaviour
         //    character.gameObject.SetActive(true);
         //    patientList.Add(character.gameObject);
         //}
+
+        // INFO: Put all female voices onto the dictionary with their respective keys
+        for (int i = 0; i < femaleVoiceLineList.Count; i++)
+        {
+            femaleVoiceLinesDict.Add(femaleVoiceLines[i], femaleVoiceLineList[i]);
+        }
+
+        // INFO: Put all male voices onto the dictionary with their respective keys
+        for (int i = 0; i < maleVoiceLineList.Count; i++)
+        {
+            maleVoiceLinesDict.Add(maleVoiceLines[i], maleVoiceLineList[i]);
+        }
 
         foreach (GameObject character in patientList)
         {
@@ -246,6 +296,30 @@ public class NPCManager : MonoBehaviour
     {
         if (hidingLib.ContainsKey(hidingLocation))
             hidingLib[hidingLocation] = false;
+    }
+
+    /// <summary>
+    /// Plays the female voice line if it is found in the dictionary
+    /// </summary>
+    /// <param name="voiceLine">The voice line key to play</param>
+    /// <param name="effectParent">The game object from which this voice line should play from</param>
+    public void PlayFemaleVoiceLine(FemaleVoiceLines voiceLine, Transform effectParent)
+    {
+        // INFO: Given that the dictionary contains the corresponding sound effect, it will play it
+        if (femaleVoiceLinesDict.ContainsKey(voiceLine))
+            AudioManager.instance.PlaySound(femaleVoiceLinesDict[voiceLine], effectParent);
+    }
+
+    /// <summary>
+    /// Plays the male voice line if it is found in the dictionary
+    /// </summary>
+    /// <param name="voiceLine">The voice line key to play</param>
+    /// <param name="effectParent">The game object from which this voice line should play from</param>
+    public void PlayMaleVoiceLine(MaleVoiceLines voiceLine, Transform effectParent)
+    {
+        // INFO: Given that the dictionary contains the corresponding sound effect, it will play it
+        if (maleVoiceLinesDict.ContainsKey(voiceLine))
+            AudioManager.instance.PlaySound(maleVoiceLinesDict[voiceLine], effectParent);
     }
 
     /// <summary>

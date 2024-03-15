@@ -1,3 +1,4 @@
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
 /// <summary>
@@ -29,6 +30,17 @@ public class EscortedState : PatientStateBaseClass
         // so that patients don't get stuck in the escorted state
         playerPos = character.player.transform.position;
         character.agent.SetDestination(playerPos);
+
+        // INFO: Plays the desired male voice line if the patient is a male
+        // otherwise plays the desirted female voice line
+        if (character.isMale)
+        {
+            NPCManager.Instance.PlayMaleVoiceLine(NPCManager.MaleVoiceLines.Scream, transform);
+        }
+        else
+        {
+            NPCManager.Instance.PlayFemaleVoiceLine(NPCManager.FemaleVoiceLines.Scream, transform);
+        }
     }
 
     public override void UpdateLogic()
