@@ -7,7 +7,9 @@ using UnityEngine.InputSystem;
 
 public class PPrayTask : Task
 {
-    private float prayTime = 5f;
+    private float prayTime = 5f;//Time it takes to Pray
+    private int gainedSanity = 4;//Gained Sanity if task is completed
+    private int lossSanity = -2;//Loss Sanity if failed task
 
     public override void CheckTaskConditions(GameObject interactedObject)
     {
@@ -21,7 +23,7 @@ public class PPrayTask : Task
     public override void CheckDetectTask(GameObject interactedObject)
     {
         //Debug.Log(interactedObject + " - " + taskTarget);
-        if (interactedObject == taskTarget)  // Check for the correct patient being looked at
+        if (interactedObject == taskTarget)  // Check if the altar being looked at
         {
             targetInteraction.collectible = hTask.tooltipPrompt;
         }
@@ -32,25 +34,25 @@ public class PPrayTask : Task
     {
         taskTarget.GetComponent<InteractableTemplate>().collectible = PatientTaskManager.instance.noTaskPrompt;
         TooltipManager.Instance.HideTooltip();
-        GameManager.Instance.player.GetComponent<PlayerInput>().enabled = false;
+        GameManager.Instance.player.GetComponent<PlayerInput>().enabled = false;//Disable the controls for the player
         yield return new WaitForSeconds(prayTime);
-        GameManager.Instance.player.GetComponent<PlayerInput>().enabled = true;
+        GameManager.Instance.player.GetComponent<PlayerInput>().enabled = true;//Enables the controls when the specified time is finished
         CompleteTask();
     }
 
-
+    //Adds specified Sanity to the player and completes the task
     public override void CompleteTask()
     {
-        GameManager.Instance.AddSanity(4);
+        GameManager.Instance.AddSanity(gainedSanity);
         base.CompleteTask();
     }
 
-
+    //Task Failed
     public override void FailTask()
     {
         if (taskTarget.TryGetComponent(out PatientCharacter character))
         {
-            GameManager.Instance.AddSanity(-2);
+            GameManager.Instance.AddSanity(lossSanity);
         }
 
         base.FailTask();
