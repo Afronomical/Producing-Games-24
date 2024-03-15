@@ -2437,6 +2437,7 @@ MonoBehaviour:
   collectible: {fileID: 11400000, guid: 419fb5fdd86fba841a57c996f0c8021e, type: 2}
   isExorcismObject: 1
   hasBeenPlaced: 0
+  actionTooltip: {fileID: 0}
 --- !u!54 &-1789858320629674137
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2483,8 +2484,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.16357422, y: 0.5898779, z: 0.07169772}
-  m_Center: {x: 0.0063476562, y: 0.24547055, z: 0.005472187}
+  m_Size: {x: 0.16357422, y: 0.5898779, z: 0.4729081}
+  m_Center: {x: 0.0063476562, y: 0.24547055, z: 0.20607744}
 --- !u!1 &4962168570779812132
 GameObject:
   m_ObjectHideFlags: 0

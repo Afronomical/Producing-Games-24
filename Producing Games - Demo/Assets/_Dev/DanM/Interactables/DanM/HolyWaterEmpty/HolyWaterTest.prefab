@@ -649,6 +649,7 @@ MonoBehaviour:
   collectible: {fileID: 11400000, guid: 86b35dcb6cb58a84b8cc5a180aaf2182, type: 2}
   isExorcismObject: 0
   hasBeenPlaced: 0
+  actionTooltip: {fileID: 0}
 --- !u!65 &850281648077879549
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -668,8 +669,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.23404408, y: 0.5669025, z: 0.3391525}
-  m_Center: {x: -0.9895897, y: 0.2840532, z: -0.102804825}
+  m_Size: {x: 0.23404413, y: 1.0143907, z: 0.3391525}
+  m_Center: {x: -0.98958963, y: 0.50779736, z: -0.1028049}
 --- !u!54 &8733858393552462413
 Rigidbody:
   m_ObjectHideFlags: 0
