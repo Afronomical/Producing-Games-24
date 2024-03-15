@@ -88,7 +88,6 @@ public class EscortedState : PatientStateBaseClass
                 }
 
                 shouldFollow = false;
-                transform.LookAt(new Vector3(character.BedDestination.position.x, transform.position.y, character.BedDestination.position.z));
 
                 // INFO: Switches to bed state once patient gets close enough to the bed
                 if (character.agent.remainingDistance < 0.1f)
@@ -104,9 +103,7 @@ public class EscortedState : PatientStateBaseClass
     private void MoveTowardsPlayer()
     {
         // INFO: Ensures the patient only rotates on the y-axis
-        Vector3 playerPosition = new(character.player.transform.position.x,
-                                     transform.position.y,
-                                     character.player.transform.position.z);
+        Vector3 playerPosition = new(playerPos.x, transform.position.y, playerPos.z);
 
         transform.LookAt(playerPosition);
 
@@ -116,12 +113,30 @@ public class EscortedState : PatientStateBaseClass
         // INFO: Stops patient from moving closer to the player
         if (character.raycastToPlayer.playerDistance < character.distanceFromPlayer)
         {
-            shouldFollow = false;
 
+            shouldFollow = false;
             character.rb.velocity = Vector3.zero;
             character.agent.ResetPath();
+            if(character.raycastToPlayer.playerDistance < character.distanceFromPlayer /2)
+            {
+                float moveDistance = character.distanceFromPlayer - character.raycastToPlayer.playerDistance;
+                BackAwayFromPlayer(moveDistance);
+            }
+            
+
         }
+        
         else
             shouldFollow = true;
+    }
+
+    private void BackAwayFromPlayer(float moveDistance)
+    {
+        Vector3 moveDirection = transform.position - playerPos;
+
+        moveDirection.Normalize();
+        moveDirection *= moveDistance;
+
+        character.agent.SetDestination(transform.position + moveDirection);
     }
 }

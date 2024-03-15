@@ -132,8 +132,11 @@ public class AudioManager : MonoBehaviour
         for (int i = 0; i < col.Length; i++)
         {
             if (col[i].TryGetComponent(out AudioListenScript audioListener))
+            {
                 audioListener.canSoundBeHeard = true;
-            else if (col[i].TryGetComponent(out IHear character))
+
+            }
+            else if (col[i].TryGetComponent(out IHear character) && effect.canBeHeardByDemon)
             {
                 character.ReactToSound(effectParent);
             }

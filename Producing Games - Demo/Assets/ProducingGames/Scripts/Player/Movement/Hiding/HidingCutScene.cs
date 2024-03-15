@@ -9,16 +9,19 @@ public class HidingCutScene : InteractableTemplate
 {
     private Camera cam;
     private int pointIndex;
-    private Transform playerRef;
+    private Transform playerTransformRef;
     private float originCamNearClippingPlane;
     private Animator playDoorAnimation;
-
+    public PatientCharacter patient;
+    public bool playerIsOccupying;
    [Header("Hiding Animation Position Points")]
     public List<Transform> points;
 
     [Header("Hiding Animation Speeds")]
     public float enterTransitionSpeed = 3;
     public float exitTransitionSpeed = 3;
+
+    private PlayerMovement playerMovement;
 
     public enum PlayerHidingStates
     {
@@ -36,10 +39,14 @@ public class HidingCutScene : InteractableTemplate
     {
         playDoorAnimation = gameObject.GetComponent<Animator>();
         cam = Camera.main;
-        playerRef = GameManager.Instance.player.transform;
+        playerTransformRef = GameManager.Instance.player.transform;
         hidingScare = Object.FindFirstObjectByType<HidingScare>();
+        
 
         originCamNearClippingPlane = cam.nearClipPlane;
+
+        // INFO: Get Local Reference to Player
+        playerMovement = GameManager.Instance.player.GetComponent<PlayerMovement>();
     }
 
     private void Update()
@@ -76,18 +83,20 @@ public class HidingCutScene : InteractableTemplate
     //Logic handles the player entering the hiding spot
     public void GoIn()
     {
-        cam.transform.rotation = playerRef.rotation;
+        playerMovement.isHiding = true;
+        playerIsOccupying = true;
+        cam.transform.rotation = playerTransformRef.rotation;
         cam.nearClipPlane = 0.01f;
         cam.GetComponent<CameraLook>().enabled = false;
         PlayerControlsAccess(false);
         DoorAnim(true);
-        playerRef.position = Vector3.MoveTowards(playerRef.position, points[pointIndex].position, enterTransitionSpeed * Time.deltaTime);
+        playerTransformRef.position = Vector3.MoveTowards(playerTransformRef.position, points[pointIndex].position, enterTransitionSpeed * Time.deltaTime);
                 
-         if (Quaternion.Angle(playerRef.rotation, points[pointIndex].rotation) > 0.1)
-            playerRef.rotation = Quaternion.Lerp(playerRef.rotation, points[pointIndex].rotation, enterTransitionSpeed * Time.deltaTime);
+         if (Quaternion.Angle(playerTransformRef.rotation, points[pointIndex].rotation) > 0.1)
+            playerTransformRef.rotation = Quaternion.Lerp(playerTransformRef.rotation, points[pointIndex].rotation, enterTransitionSpeed * Time.deltaTime);
 
         //Checks when the camera can transition
-        if (Vector3.Distance(playerRef.position, points[pointIndex].position) <= 0.2 && Mathf.Approximately(Quaternion.Angle(playerRef.rotation, points[pointIndex].rotation), 0))
+        if (Vector3.Distance(playerTransformRef.position, points[pointIndex].position) <= 0.2 && Mathf.Approximately(Quaternion.Angle(playerTransformRef.rotation, points[pointIndex].rotation), 0))
         {
             pointIndex++;
             
@@ -117,22 +126,21 @@ public class HidingCutScene : InteractableTemplate
         if(Input.GetMouseButtonUp(0))
             DoorAnim(false);
             
-       
-
     }
 
     //Logic handles the player exiting the hiding spot
     public void GoOut()
     {
-        playerRef.position = Vector3.MoveTowards(playerRef.position, points[pointIndex].position, exitTransitionSpeed * Time.deltaTime);
+        playerMovement.isHiding = false;
+        playerTransformRef.position = Vector3.MoveTowards(playerTransformRef.position, points[pointIndex].position, exitTransitionSpeed * Time.deltaTime);
 
         //Checks when the camera can transition
-        if (Vector3.Distance(playerRef.position, points[pointIndex].position) <= 0.2)
+        if (Vector3.Distance(playerTransformRef.position, points[pointIndex].position) <= 0.2)
         {
             pointIndex++;
             if (pointIndex == points.Count)
             {
-                playerRef.rotation = points[pointIndex - 1].rotation;
+                playerTransformRef.rotation = points[pointIndex - 1].rotation;
                 playerHidingStates = PlayerHidingStates.outside;
                 pointIndex = 0;
             }
@@ -143,6 +151,7 @@ public class HidingCutScene : InteractableTemplate
     //This will enable the player's controls again
     public void Outside()
     {
+        playerIsOccupying = false;
         DoorAnim(false);
         PlayerControlsAccess(true);
         playerHidingStates = PlayerHidingStates.none;
@@ -152,27 +161,49 @@ public class HidingCutScene : InteractableTemplate
     //Disables/Enables the Player's controls,colliders and mesh
     public void PlayerControlsAccess(bool canControl)
     {
-        playerRef.GetComponent<PlayerMovement>().enabled = canControl;
-        playerRef.GetComponent<DropItem>().enabled = canControl;
-        playerRef.GetComponent<CharacterController>().enabled = canControl;
-        playerRef.GetComponent<MeshRenderer>().enabled = canControl;
+        playerTransformRef.GetComponent<PlayerMovement>().enabled = canControl;
+        playerTransformRef.GetComponent<DropItem>().enabled = canControl;
+        playerTransformRef.GetComponent<CharacterController>().enabled = canControl;
+        playerTransformRef.GetComponent<MeshRenderer>().enabled = canControl;
         gameObject.GetComponent<BoxCollider>().enabled = canControl;
-        
+        cam.GetComponent<CameraLook>().canHeadBob = canControl;
     }
 
     //This is where the animation will be called, allows if there is multiple steps with the animation (Currently just open/close doors for the cupboard)
     public void DoorAnim(bool isEntering)
     {
         if(playDoorAnimation != null)
-        playDoorAnimation.SetBool("DoorState", isEntering);
+            playDoorAnimation.SetBool("DoorState", isEntering);
     }
 
     //When the Player interacts with the hiding spot, start entering
     public override void Interact()
     {
-        if (playerHidingStates == PlayerHidingStates.none)
-            playerHidingStates = PlayerHidingStates.goIn;
-        
+        if(patient != null)
+        {
+            // INFO: Opens door
+            DoorAnim(true);
+
+            // INFO: Kick patient out of hiding spot by accessing the last element held
+            // in the points list (Out)
+            patient.transform.position = new (points[^1].position.x, patient.transform.position.y, points[^1].position.z);
+
+            // INFO: Sets patient to escorted
+            patient.ChangePatientState(PatientCharacter.PatientStates.Escorted);
+            patient = null;
+
+            Invoke(nameof(InvokeCloseDoor), 2);
+        }
+        else
+        {
+            if (playerHidingStates == PlayerHidingStates.none)
+                playerHidingStates = PlayerHidingStates.goIn;
+        }
+
     }
 
+    private void InvokeCloseDoor()
+    {
+        DoorAnim(false);
+    }
 }

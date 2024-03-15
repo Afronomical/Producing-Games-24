@@ -324,10 +324,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.25
+  m_Height: 1.75
   m_Direction: 1
-  m_Center: {x: 0, y: 0.33, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &8979431675769053107
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -350,8 +350,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
@@ -373,8 +373,8 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 1
+  m_Height: 1.75
+  m_BaseOffset: 0.9
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &2078289618134970891
@@ -402,18 +402,27 @@ MonoBehaviour:
   animator: {fileID: 0}
   detectionRadiusColor: {r: 0.061599493, g: 1, b: 0, a: 1}
   currentState: 0
+  safetyChoice: 0
+  isPossessed: 0
   startingHealth: 100
   currentHealth: 0
   startingSanity: 100
   currentSanity: 0
-  isPossessed: 0
-  cowerRadiusPercentage: 0.125
-  calmingDuration: 5
+  cowerRadius: 2
   distanceFromDestination: 3
+  distanceFromPlayer: 3
+  calmingDuration: 5
+  abandonedDuration: 5
+  aloneEscortedDuration: 5
+  wanderingIdleDuration: 3
+  hungry: 0
+  hasBeenHiding: 0
+  hasBeenHungry: 0
+  hasBeenGreedy: 0
+  cardiogramNotChecked: 0
   patientStateScript: {fileID: 0}
-  demonSO: {fileID: 0}
-  demon: {fileID: 0}
   bed: {fileID: 0}
+  scaredNPC: {fileID: 0}
 --- !u!114 &2284047852259487571
 MonoBehaviour:
   m_ObjectHideFlags: 0
