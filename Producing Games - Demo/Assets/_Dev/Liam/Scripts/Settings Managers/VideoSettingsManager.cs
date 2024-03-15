@@ -40,7 +40,7 @@ public class VideoSettingsManager : MonoBehaviour
 
     private bool tempFPSDisplayValue;
     private bool overlayVisible = false;
-    private bool vsyncEnabled = true;
+    private bool vsyncEnabled;
     private bool fpsDisplayEnabled = true;
 
     private string selectedResolution;
@@ -88,6 +88,10 @@ public class VideoSettingsManager : MonoBehaviour
 
     void Start()
     {
+
+
+        Debug.Log("VSync is " + (vsyncEnabled ? "enabled." : "disabled."));
+
         Application.targetFrameRate = defaultMaxFPS;
 
         if (vsyncButton == null || vsyncButtonText == null || resolutionDropdown == null)
@@ -138,6 +142,8 @@ public class VideoSettingsManager : MonoBehaviour
             int fps = (int)(1f / Time.unscaledDeltaTime);
             fpsText.text = "FPS: " + fps;
         }
+
+        UpdateVSyncButton();
     }
 
     public void OnToggleFPSButtonClicked()
@@ -154,6 +160,18 @@ public class VideoSettingsManager : MonoBehaviour
         ApplyVSyncSetting();
         UpdateVSyncButtonText();
         Debug.Log("VSync Setting Changed: " + vsyncEnabled);
+    }
+
+    public void UpdateVSyncButton()
+    {
+        if (vsyncEnabled)
+        {
+            vsyncButtonText.text = "VSync: On";
+        }
+        else
+        {
+            vsyncButtonText.text = "VSync: Off";
+        }
     }
 
     private void ApplyVSyncSetting()
