@@ -25,6 +25,7 @@ public class CheckList : MonoBehaviour
     public PlayerArms arms;
 
     public static CheckList instance;
+    public TMP_Text listTooltip;
 
     //private int timer = 100;
 
@@ -39,6 +40,7 @@ public class CheckList : MonoBehaviour
     {
         //gameObject.SetActive(false); //Toggling the checklist
         pageArray[0].SetActive(true);
+        listTooltip.text = "Hold F to see tasks!";
     }
 
     // Update is called once per frame
@@ -64,6 +66,8 @@ public class CheckList : MonoBehaviour
                 arms.HoldClipboard();
             if (context.canceled)
                 arms.DropClipboard();
+
+            listTooltip.enabled = false;
         }
     }
 

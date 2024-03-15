@@ -29,6 +29,16 @@ public class AccessibilitySettingsManager : MonoBehaviour
     public TMP_Dropdown colorBlindnessDropdown;
     private ChannelMixer channelMixerSettings;
 
+
+    //Default values
+    private float defaultIncreaseEffectSpeed = 3f;
+    private float defaultDecreaseEffectSpeed = 3f;
+    private float defaultEffectWaitDuration = 1.5f;
+    private float defaultEffectScaleMultiplier = 1.2f;
+    private float defaultMotionBlurIntensity = 0.5f; // Assuming default intensity
+    private ColorBlindnessMode defaultColorBlindnessMode = ColorBlindnessMode.Normal;
+
+
     public enum ColorBlindnessMode
     {
         Normal,
@@ -100,8 +110,43 @@ public class AccessibilitySettingsManager : MonoBehaviour
         {
             UpdateMotionBlurIntensity();
         }
-
         motionBlurSlider.onValueChanged.AddListener(OnMotionBlurSliderChanged);
+
+
+
+
+
+
+
+        motionBlurVolume.intensity.value = SettingsSceneValues.Instance.motionBlurNew;
+        motionBlurSlider.value = SettingsSceneValues.Instance.motionBlurNew;
+        
+        if (SettingsSceneValues.Instance.newNormal == true)
+        {
+            colorBlindnessDropdown.value = (int)ColorBlindnessMode.Normal;
+
+        }
+
+        if (SettingsSceneValues.Instance.newProtanopia == true)
+        {
+            colorBlindnessDropdown.value = (int)ColorBlindnessMode.Protanopia;
+
+        }
+        
+        if (SettingsSceneValues.Instance.newDeuteranopia == true)
+        {
+            colorBlindnessDropdown.value = (int)ColorBlindnessMode.Deuteranopia;
+
+        }
+
+        if (SettingsSceneValues.Instance.newTritanopia == true)
+        {
+            colorBlindnessDropdown.value = (int)ColorBlindnessMode.Tritanopia;
+
+        }
+       
+
+       
         
     }
 
@@ -134,18 +179,34 @@ public class AccessibilitySettingsManager : MonoBehaviour
         {
             //call function depending on which mode selected
             case ColorBlindnessMode.Normal:
+                SettingsSceneValues.Instance.newNormal = true;
+                SettingsSceneValues.Instance.newProtanopia = false;
+                SettingsSceneValues.Instance.newDeuteranopia = false;
+                SettingsSceneValues.Instance.newTritanopia = false;
                 ResetChannelMixerSettings();
                 break;
 
             case ColorBlindnessMode.Protanopia:
+                SettingsSceneValues.Instance.newNormal = false;
+                SettingsSceneValues.Instance.newProtanopia = true;
+                SettingsSceneValues.Instance.newDeuteranopia = false;
+                SettingsSceneValues.Instance.newTritanopia = false;
                 SetProtanopiaChannelMixerSettings();
                 break;
 
             case ColorBlindnessMode.Deuteranopia:
+                SettingsSceneValues.Instance.newNormal = false;
+                SettingsSceneValues.Instance.newProtanopia = false;
+                SettingsSceneValues.Instance.newDeuteranopia = true;
+                SettingsSceneValues.Instance.newTritanopia = false;
                 SetDeuteranopiaChannelMixerSettings();
                 break;
 
             case ColorBlindnessMode.Tritanopia:
+                SettingsSceneValues.Instance.newNormal = false;
+                SettingsSceneValues.Instance.newProtanopia = false;
+                SettingsSceneValues.Instance.newDeuteranopia = false;
+                SettingsSceneValues.Instance.newTritanopia = true;
                 SetTritanopiaChannelMixerSettings();
                 break;
         }
@@ -235,6 +296,7 @@ private void OnMotionBlurSliderChanged(float value)
         {
             //update the motion blur setting in volume with value from slider
             motionBlurVolume.intensity.value = value;
+            SettingsSceneValues.Instance.motionBlurNew = value;
         }
     }
 
@@ -249,6 +311,47 @@ private void OnMotionBlurSliderChanged(float value)
         }
     }
 
-#endregion 
+    #endregion
+
+
+    // Function to set default values for all settings
+    private void SetDefaultValues()
+    {
+        increaseEffectSpeed = defaultIncreaseEffectSpeed;
+        decreaseEffectSpeed = defaultDecreaseEffectSpeed;
+        effectWaitDuration = defaultEffectWaitDuration;
+        effectScaleMultiplier = defaultEffectScaleMultiplier;
+        motionBlurSlider.value = defaultMotionBlurIntensity;
+        colorBlindnessDropdown.value = (int)defaultColorBlindnessMode;
+        SetColorBlindnessMode(defaultColorBlindnessMode); // Update color blindness settings to match default mode
+    }
+
+    // Function to update visuals of menus, sliders, and buttons
+    private void UpdateVisuals()
+    {
+        // Update inventory scale slider
+        inventoryScaleSlider.value = CalculateSliderValue(increaseEffectSpeed);
+
+        // Update motion blur slider
+        motionBlurSlider.value = defaultMotionBlurIntensity;
+
+        // Update color blindness dropdown
+        colorBlindnessDropdown.value = (int)defaultColorBlindnessMode;
+    }
+
+    // Function to reset all settings to their defaults
+    public void ResetAccessibilitySettingsToDefaults()
+    {
+        SetDefaultValues();
+        UpdateVisuals();
+    }
+
+    private float CalculateSliderValue(float speed)
+    {
+        // Logic to convert speed to slider value based on some scaling factor
+        // Modify this according to your requirements
+        return speed / 10f;
+    }
+
 }
 

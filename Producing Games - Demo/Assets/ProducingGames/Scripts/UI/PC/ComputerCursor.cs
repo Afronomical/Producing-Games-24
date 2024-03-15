@@ -13,7 +13,10 @@ public class ComputerCursor : InspectableObject
     {
         base.Interact();
 
+        Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        actionTooltip.enabled = true;
+        actionTooltip.text = "Press C to leave your PC!";
     }
 
     protected override void Update()
@@ -21,6 +24,8 @@ public class ComputerCursor : InspectableObject
         base.Update();
         if (stopLooking)
         {
+            actionTooltip.enabled = false;
+            Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
         DisplayTime();

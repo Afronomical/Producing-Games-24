@@ -127,9 +127,9 @@ public class ObjectiveTracker : MonoBehaviour
         DisplayObjectives();
     }
 
-    private IEnumerator RemoveText(string name)
-    {
-        yield return new WaitForSeconds(10);
-        name = " ";
-    }
+    //private IEnumerator RemoveText(string name)
+    //{
+    //    yield return new WaitForSeconds(10);
+    //    name = " ";
+    //}
 }

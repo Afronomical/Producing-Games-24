@@ -9,8 +9,12 @@ public class PauseMenu : MonoBehaviour
 
     private CameraLook cameraLookScript;
 
+    public static PauseMenu instance;
+
     private void Start()
     {
+        if(instance == null)
+            instance = this;
         
         // Find the CameraLook script attached to the camera
         cameraLookScript = Camera.main.GetComponent<CameraLook>();
@@ -29,6 +33,7 @@ public class PauseMenu : MonoBehaviour
 
     public void ResumeGame()
     {
+        Camera.main.GetComponent<CameraLook>().enabled = true;
         pauseMenu.SetActive(false);
         inventoryBar.transform.localScale = new Vector3(1, 1, 1);
         Time.timeScale = 1f; // Unpause time
@@ -45,6 +50,7 @@ public class PauseMenu : MonoBehaviour
 
     void PauseGame()
     {
+        Camera.main.GetComponent<CameraLook>().enabled = false;
         pauseMenu.SetActive(true);
         inventoryBar.transform.localScale = new Vector3(0, 0, 0);
         Time.timeScale = 0f; // Pause time

@@ -111,9 +111,12 @@ public class HidingCutScene : InteractableTemplate
     public void Inside()
     {
         DoorAnim(false);
-        cam.GetComponent<CameraLook>().enabled = true;
+        if(!PauseMenu.instance.isPaused) cam.GetComponent<CameraLook>().enabled = true;
+        base.actionTooltip.text = "Press C to stop hiding!";
+        base.actionTooltip.enabled = true;
         if ((Input.GetKeyDown(KeyCode.C)))
         {
+            base.actionTooltip.enabled = false;
             DoorAnim(true);
             playerHidingStates = PlayerHidingStates.goOut;
         }

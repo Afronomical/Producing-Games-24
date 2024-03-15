@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c76ba9bd6ee8d4491c07e1d1697379, type: 3}
   m_Name: PocketWatch
   m_EditorClassIdentifier: 
-  objectName: PocketWatch
+  objectName: Pocket Watch
   obj: {fileID: 7218715939089751833, guid: fc3c779ea2ad15c4182951e8571c6471, type: 3}
   prefab: {fileID: 7218715939089751833, guid: fc3c779ea2ad15c4182951e8571c6471, type: 3}
   interactSound: {fileID: 0}
-  objectImage: {fileID: 0}
+  objectImage: {fileID: 21300000, guid: 4500d493cbca81149836e9a1c7814808, type: 3}
   tooltipText: 
-  tooltipImage: {fileID: 21300000, guid: 5f3341524a651f74089f3c9a503c826d, type: 3}
+  tooltipImage: {fileID: 21300000, guid: 8848a6de3be742a48b4e49dd9ea3ebce, type: 3}

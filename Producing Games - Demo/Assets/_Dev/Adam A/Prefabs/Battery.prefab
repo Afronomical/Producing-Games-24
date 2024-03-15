@@ -122,5 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectIcon: {fileID: 0}
   collectible: {fileID: 11400000, guid: 11e02707f1e1a524d826abd91d46a9bf, type: 2}
-  flashlightRef: {fileID: 0}
+  isExorcismObject: 0
+  hasBeenPlaced: 0
+  actionTooltip: {fileID: 0}
   chargeGainAmount: 20
