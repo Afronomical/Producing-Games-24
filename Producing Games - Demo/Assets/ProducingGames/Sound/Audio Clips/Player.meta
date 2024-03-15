@@ -1,7 +1,12 @@
 fileFormatVersion: 2
-guid: 3d6f3e297ba2a2742b78df93a4d7da1b
+<<<<<<<< HEAD:Producing Games - Demo/Assets/ProducingGames/Sound/Audio Clips/Player.meta
+guid: a070600c0378d8845acf6283340eb934
 folderAsset: yes
 DefaultImporter:
+========
+guid: d5b5e64083674144980cf0500c519440
+PrefabImporter:
+>>>>>>>> main:Producing Games - Demo/Assets/_Dev/SamN/Prefabs/Exocism Items/SM_RIng_mesh_lod0.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

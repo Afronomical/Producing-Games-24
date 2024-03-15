@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db92280e6d78bce46b3708c9af45f26d, type: 3}
+  m_Name: CameraLine2
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: a62ea4176e5502445bcabc760d94aea9, type: 3}
+  volume: 0.75
+  pitch: 1
+  priority: 128
+  loop: 0
+  isMusic: 0
+  canEcho: 0
+  spacialAudio: 1
+  followObject: 0
+  travelDistance: 30
+  sentence: Enter text here
+  font: {fileID: 0}
+  typingSpeed: 0.15
+  waitTillHide: 4
+  soundPos: {fileID: 0}
+  isReactionSound: 0

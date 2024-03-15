@@ -20,6 +20,7 @@ public class ExorcismChest : InteractableTemplate
     private bool canDrop = true;
     private bool isInspecting = false;
     public List<GameObject> currentItems = new();
+    private bool isLocked = false;
 
 
     [Tooltip("Define points inside the chest where tooltips can sit")]
@@ -53,7 +54,7 @@ public class ExorcismChest : InteractableTemplate
     private void Start()
     {
         availableSlots = maxSlots;
-        collectible.tooltipText = "Interact With Chest";
+        collectible.tooltipText = "Unlock Chest";
         animator = GetComponent<Animator>();
     }
 
@@ -64,28 +65,36 @@ public class ExorcismChest : InteractableTemplate
 
     public override void Interact()
     {
-        if(!chestOpen)
-        {
-            animator.speed = 1;
-            animator.SetTrigger("OpenedChest");
-
-           // Debug.Log("Chest opening");
-            chestOpen = true;
-            collectible.tooltipText = "Press C to Inspect Objects";
-        }
-        else if(chestOpen)
-        {
-            animator.SetTrigger("CloseChest");
-            Debug.Log("Chest closing");
-            collectible.tooltipText = "Interact With Chest";
-            foreach(var item in currentItems)
+            if (isLocked)
             {
-                item.GetComponent<InteractableTemplate>().hasBeenPlaced = true;
-                Debug.Log("Set item to placed");
+               isLocked = false;
+               collectible.tooltipText = "Interact With Chest";
             }
+            else if (!isLocked && !chestOpen)
+            {
+                animator.speed = 1;
+                animator.SetTrigger("OpenedChest");
 
-            chestOpen = false;
-        }
+                // Debug.Log("Chest opening");
+                chestOpen = true;
+                collectible.tooltipText = "Press C to Inspect Objects";
+            }
+            else if (!isLocked && chestOpen)
+            {
+                animator.SetTrigger("CloseChest");
+                Debug.Log("Chest closing");
+                collectible.tooltipText = "Interact With Chest";
+                foreach (var item in currentItems)
+                {
+                    item.GetComponent<InteractableTemplate>().hasBeenPlaced = true;
+                    Debug.Log("Set item to placed");
+                }
+
+                chestOpen = false;
+            }
+        
+       
+       
     }
 
     public void AddtoChest()
@@ -97,13 +106,10 @@ public class ExorcismChest : InteractableTemplate
             foreach (Collider collider in colliders)
             {
                 //check they are interactable objects e.g water, cross, before adding to the count 
-                if (collider.gameObject.TryGetComponent(out IInteractable interactable))
+                if (collider.gameObject.TryGetComponent(out IInteractable interactable) && collider.gameObject.GetComponent<InteractableTemplate>().isExorcismObject && collider.gameObject.GetComponent<InteractableTemplate>().hasBeenPlaced == false)
                 {
-                    if (collider.gameObject.GetComponent<InteractableTemplate>().isExorcismObject)
-                    {
-                        Debug.Log("is an exorcism item");
-                        if (collider.gameObject.GetComponent<InteractableTemplate>().hasBeenPlaced == false)
-                        {
+                   
+                        
                             currentItems.Add(collider.gameObject);
                             --availableSlots;
                             int dropLoc = Random.Range(0, dropPoints.Count);
@@ -111,10 +117,10 @@ public class ExorcismChest : InteractableTemplate
                             collider.gameObject.transform.rotation = Quaternion.identity;
                             dropPoints.RemoveAt(dropLoc);
                             Debug.Log("added: " + collider.gameObject.name);
-                        }
+                        
 
 
-                    }
+                    
                 }
             }
         }
