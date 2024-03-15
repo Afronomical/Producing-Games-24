@@ -15,11 +15,14 @@ public class PagerController : MonoBehaviour
     {
         offset = pagerInterface.transform.localPosition;
         pagerTooltip.text = "Hold Q to switch to pager!";
+        pagerTooltip.enabled = false;
     }
 
     private void Update()
     {
         //pagerInterface.GetComponent<RectTransform>().position = transform.position + offset;
+
+        if (DiegeticUIManager.Instance.hasPager) pagerTooltip.enabled = true;
     }
 
     public void OnPagerInput(InputAction.CallbackContext context)
@@ -31,7 +34,7 @@ public class PagerController : MonoBehaviour
             if (context.canceled)
                 arms.DropPager();
 
-            pagerTooltip.enabled = false;
+            pagerTooltip.gameObject.SetActive(false);
 
             //if (!arms.holdingPager) arms.HoldPager();
             //else arms.DropPager();
