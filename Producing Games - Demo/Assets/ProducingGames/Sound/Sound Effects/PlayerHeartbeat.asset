@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: 0a4dea253fb166f4a8e6389147cdc542, type: 3}
   volume: 0.75
-  pitch: 1
+  pitch: 0.01
   priority: 128
   loop: 1
   isMusic: 0
   spacialAudio: 1
-  followObject: 0
+  followObject: 1
   travelDistance: 30
   sentence: Enter text here
   font: {fileID: 0}
