@@ -49,7 +49,11 @@ public class HeartBeat : MonoBehaviour
                 pitchTemporary = Mathf.Lerp(maxPitch, minPitch, demonDist() / activationRange);
                 AudioManager.instance.ChangePitch(heartBeatSound, pitchTemporary);
             }
-            StartCoroutine(HeartBeatStop());
+            if (demonDist() > activationRange)
+            {
+                StartCoroutine(HeartBeatStop());
+            }
+            
         }
         
 
