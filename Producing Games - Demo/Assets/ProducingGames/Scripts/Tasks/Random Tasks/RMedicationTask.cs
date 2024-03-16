@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RMedicationTask : Task
 {
+
+    public SoundEffect VoiceLines;
     public override void TaskStart()
     {
         detectingObjects = new List<GameObject>();
@@ -37,12 +39,16 @@ public class RMedicationTask : Task
 
     public override void CheckTaskConditions(GameObject interactedObject)
     {
+
         if (interactedObject == taskTarget)  // Check for the correct patient being interacted with
         {
             if (InventoryHotbar.instance.currentItem == rTask.itemToGive)  // Check for the correct item being held
             {
+                AudioManager.instance.PlaySound(VoiceLines, gameObject.transform);
+
                 InventoryHotbar.instance.RemoveFromInventory(InventoryHotbar.instance.currentItem);
                 CompleteTask();
+
 
                 //removing the request medicine animation
                 if (interactedObject.TryGetComponent(out PatientCharacter character))

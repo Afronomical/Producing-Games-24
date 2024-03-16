@@ -20,8 +20,8 @@ public class CrossThrown : InteractableTemplate
     private float startZpos;
     private GameManager gM;
     CrossThrowTrigger trigger;
-    
-    
+    public SoundEffect VoiceLines;
+
 
     void Start()
     {
@@ -45,6 +45,8 @@ public class CrossThrown : InteractableTemplate
     
     public void FallingCross()
     {
+        AudioManager.instance.PlaySound(VoiceLines, gameObject.transform);
+
         gameObject.AddComponent<Rigidbody>();
         Rigidbody rb = gameObject.GetComponent<Rigidbody>();
         rb.AddRelativeForce(Vector3.back * throwingForce, ForceMode.Impulse);

@@ -6,6 +6,7 @@ public class HorrorEventManager : MonoBehaviour
 {
     public static HorrorEventManager Instance;
 
+
     private void Awake()
     {
         if(Instance != null)

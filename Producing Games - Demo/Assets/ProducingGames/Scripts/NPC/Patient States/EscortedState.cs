@@ -22,6 +22,8 @@ public class EscortedState : PatientStateBaseClass
 
     private float escortedAloneTime = 0;
 
+
+
     private void Start()
     {
         character.agent.speed = character.runSpeed;
@@ -30,6 +32,7 @@ public class EscortedState : PatientStateBaseClass
         // so that patients don't get stuck in the escorted state
         playerPos = character.player.transform.position;
         character.agent.SetDestination(playerPos);
+        
 
         // INFO: Plays the desired male voice line if the patient is a male
         // otherwise plays the desirted female voice line
