@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Playables;
@@ -10,9 +11,12 @@ public class CinematicMangerScript : MonoBehaviour
 
 
     [Header("Current Cinematic")]
-    private float CinematicDuration=4f;
+    private float basementCinematicDuration=6.48f;
+    private float hallwayCinematicDuration = 4f;
     private float CinematicTime;
     private bool cineStart;
+    public bool ishallwayCinematic;
+   public bool isbasementCinematic;
 
     private GameObject playerOb;
     private PlayerInput playerin;
@@ -20,45 +24,72 @@ public class CinematicMangerScript : MonoBehaviour
 
 
     public PlayableDirector currentcinematic;
-
+    public PlayableDirector hallwayCinematic;
+    public PlayableDirector basementCinematic;
+    public GameObject flashlight; 
 
     public void Awake()
     {
-        currentcinematic = GetComponent<PlayableDirector>();
-        CinematicTime = CinematicDuration;
+        currentcinematic = gameObject.GetComponent<PlayableDirector>();
+         
+        CinematicTime = hallwayCinematicDuration;
     }
     public void Start()
     {
         playerOb = GameManager.Instance.player;
         playerin=playerOb.GetComponent<PlayerInput>();
         playerCont = playerOb.GetComponent<CharacterController>();
+        flashlight = playerOb.GetComponentInChildren<PlayerArms>().flashlight;
         
     }
     public void FixedUpdate()
+
     {
+        
+        if (hallwayCinematic)
+        {
+
+            currentcinematic = gameObject.GetComponent<PlayableDirector>();
+        }
+        else if (basementCinematic)
+        {
+
+            currentcinematic = gameObject.GetComponent<PlayableDirector>();
+        }
+
         if (cineStart)
         {
             CinematicTime -= Time.deltaTime;
-            print(CinematicTime);
+        
             playerin.enabled = false;
             playerCont.enabled = false;
+            flashlight.SetActive(false);
         }
         
         if (CinematicTime <= 0)
         {
             print("start end hour");
+            flashlight.SetActive(true);
             StartCoroutine(GameManager.Instance.EndHour());
             cineStart = false;
            
-            CinematicTime = CinematicDuration;
+            CinematicTime = hallwayCinematicDuration;
         }
     }   
-    public void StartJumpscare()
+    public void StartHallwayJumpscare()
     {
-        CinematicTime = CinematicDuration;
+        CinematicTime = hallwayCinematicDuration;
         print("play Jumpscare cutscene");
-        currentcinematic.Play();
+      hallwayCinematic.Play();
        cineStart=true;
        
+    }
+    public void StartBasementJumpscare()
+    {
+        CinematicTime = basementCinematicDuration;
+        print("play basement cutscene");
+        basementCinematic.Play();
+        cineStart = true;
+        
     }
 }

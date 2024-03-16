@@ -797,7 +797,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 850
+  m_VersionIndex: 862
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -913,6 +913,7 @@ GameObject:
   - component: {fileID: 4097661316917938728}
   - component: {fileID: 413108471072268046}
   - component: {fileID: 7058855203600400628}
+  - component: {fileID: 3764840626494566686}
   m_Layer: 0
   m_Name: Basement jumpscare
   m_TagString: Untagged
@@ -984,7 +985,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 2ae71ff4e0fab3642884f4d17764c9f9, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -1009,6 +1010,24 @@ PlayableDirector:
     value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
+--- !u!114 &3764840626494566686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8737839989431867032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b94c60c7715b7bd4197b67947273fee1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ishallwayCinematic: 0
+  isbasementCinematic: 1
+  currentcinematic: {fileID: 0}
+  hallwayCinematic: {fileID: 0}
+  basementCinematic: {fileID: 7058855203600400628}
+  flashlight: {fileID: 0}
 --- !u!1001 &357157085865153887
 PrefabInstance:
   m_ObjectHideFlags: 0
