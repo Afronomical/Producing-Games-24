@@ -96,6 +96,12 @@ public class HidingState : PatientStateBaseClass
         //character.agent.Warp(hidingLocation);
         //character.animator.SetBool("isTerrified", true);
 
+        // INFO: Check whether selected hiding spot is being occupied by player
+        NPCManager.Instance.HidingCutsceneLib.TryGetValue(hidingLocation, out HidingCutScene value);
+
+        if (value.patient == null)
+            value.patient = character;
+
         character.agent.enabled = false;
         character.rb.velocity = Vector3.zero;
 

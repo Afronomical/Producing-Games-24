@@ -14,12 +14,15 @@ public class HeartBeat : MonoBehaviour
     private GameObject demonObj;
     private AudioSource newSound;
     private bool isPlaying;
+
+    private DemonCharacter demonCharacter;
     // Start is called before the first frame update
     void Start()
     {
 
         //newSound = FindFirstObjectByType<AudioSource>(AudioClip.name.Equals(heartBeatSound.name));
         demonObj = GameManager.Instance.demon;
+        demonCharacter = demonObj.GetComponent<DemonCharacter>();
     }
 
     // Update is called once per frame
@@ -82,7 +85,7 @@ public class HeartBeat : MonoBehaviour
 
     private void activateHeart()
     {
-        if (!isPlaying && demonDist() < activationRange)
+        if (!isPlaying && demonDist() < activationRange && demonCharacter.currentState != DemonCharacter.DemonStates.Inactive)
         {
             
             StartCoroutine(HeartRadius());

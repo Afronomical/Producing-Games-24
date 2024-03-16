@@ -44,7 +44,6 @@ public class BedState : PatientStateBaseClass
 
         // INFO: Prevents the patient from moving
         character.agent.enabled = false;
-        character.rb.velocity = Vector3.zero;
 
         transform.SetPositionAndRotation(character.BedDestination.position, character.BedDestination.rotation);
 

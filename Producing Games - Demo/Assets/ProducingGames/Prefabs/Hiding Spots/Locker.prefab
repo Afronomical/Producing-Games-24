@@ -157,6 +157,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Locker
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e6bc6ab8dff5bd54f96f55aacbb36667, type: 3}
+      propertyPath: m_TagString
+      value: Hiding
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -201,6 +205,9 @@ MonoBehaviour:
   collectible: {fileID: 11400000, guid: 087b5aeaf21ab394aa101d5919637b8e, type: 2}
   isExorcismObject: 0
   hasBeenPlaced: 0
+  actionTooltip: {fileID: 0}
+  patient: {fileID: 0}
+  playerIsOccupying: 0
   points:
   - {fileID: 2607920902581873774}
   - {fileID: 8759759637025468346}

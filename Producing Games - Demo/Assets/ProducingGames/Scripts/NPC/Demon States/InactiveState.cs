@@ -13,6 +13,6 @@ public class InactiveState : DemonStateBaseClass
     {
         gameObject.SetActive(false);
 
-        Debug.LogWarning("Demon is inactive.");
+        Debug.Log("Demon is inactive.");
     }
 }
