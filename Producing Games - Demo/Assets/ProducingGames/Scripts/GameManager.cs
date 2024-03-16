@@ -219,7 +219,7 @@ public class GameManager : MonoBehaviour
     {
         inStudy = false;  // Starts the timer
         studyDoor.collectible = studyDoor.endHourSO;
-        player.GetComponent<PlayerInput>().enabled = false;
+        /*player.GetComponent<PlayerInput>().enabled = false;
         FadeOut();
 
         yield return new WaitForSeconds(3);
@@ -229,7 +229,8 @@ public class GameManager : MonoBehaviour
         player.GetComponent<CharacterController>().enabled = false;
         player.transform.position = startShiftPosition.position;
         player.transform.rotation = startShiftPosition.rotation;
-        player.GetComponent<CharacterController>().enabled = true;
+        player.GetComponent<CharacterController>().enabled = true;*/
+        yield return new WaitForSeconds(0);
     }
 
 
