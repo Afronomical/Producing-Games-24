@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerHeartbeat
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: 0a4dea253fb166f4a8e6389147cdc542, type: 3}
-  volume: 0.75
+  volume: 0.528
   pitch: 0.01
   priority: 128
   loop: 1
@@ -25,3 +25,4 @@ MonoBehaviour:
   font: {fileID: 0}
   typingSpeed: 0.15
   waitTillHide: 4
+  canBeHeardByDemon: 0

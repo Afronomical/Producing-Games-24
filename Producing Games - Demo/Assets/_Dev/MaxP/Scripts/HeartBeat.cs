@@ -6,8 +6,10 @@ using UnityEngine.Rendering;
 public class HeartBeat : MonoBehaviour
 {
     public SoundEffect heartBeatSound;
+    public float activationRange = 10f;
     [Range(0.0f, 3f)] public float maxPitch;
     [Range(0.0f, 3f)] public float minPitch;
+    public float volume = 1;
     public float heartFalloffTime = 3;
     private GameObject demonObj;
     private AudioSource newSound;
@@ -23,7 +25,7 @@ public class HeartBeat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        activateHeart();
     }
 
     public void HeartTime()
@@ -31,28 +33,42 @@ public class HeartBeat : MonoBehaviour
 
     }
 
-    public void HeartRadius()
+    public IEnumerator HeartRadius()
     {
-        float pitchTemporary;
-        float maxDistance = demonDist();
-
-        while (demonDist() < maxDistance)
+        if (!isPlaying)
         {
+            isPlaying = true;
+            Debug.Log("played");
+            float pitchTemporary;
             AudioManager.instance.PlaySound(heartBeatSound, transform);
-            pitchTemporary = Mathf.Lerp(minPitch, maxPitch, demonDist() / maxDistance);
+            AudioManager.instance.ChangeVolume(heartBeatSound, volume);
+
+            while (demonDist() < activationRange)
+            {
+                yield return new WaitForSeconds(Time.deltaTime);
+                pitchTemporary = Mathf.Lerp(maxPitch, minPitch, demonDist() / activationRange);
+                AudioManager.instance.ChangePitch(heartBeatSound, pitchTemporary);
+            }
+            StartCoroutine(HeartBeatStop());
         }
+        
 
     }
 
 
     IEnumerator HeartBeatStop()
     {
-        yield return new WaitForSeconds(heartFalloffTime);
-        float time = heartFalloffTime / 2;
+        //yield return new WaitForSeconds(heartFalloffTime);
+        Debug.Log("heartstopped");
+        float time = heartFalloffTime;
         while (time > 0)
         {
+            yield return new WaitForSeconds(Time.deltaTime);
             time -= Time.deltaTime;
+            AudioManager.instance.ChangeVolume(heartBeatSound, volume >= 0 ? volume - Time.deltaTime : 0);
         }
+        AudioManager.instance.StopSound(heartBeatSound);
+        isPlaying = false;
     }
 
     float demonDist()
@@ -60,4 +76,15 @@ public class HeartBeat : MonoBehaviour
         return Vector3.Distance(demonObj.transform.position, transform.position);
     }
 
+    private void activateHeart()
+    {
+        if (!isPlaying && demonDist() < activationRange)
+        {
+            
+            StartCoroutine(HeartRadius());
+            
+        }
+    }
+
+    
 }
