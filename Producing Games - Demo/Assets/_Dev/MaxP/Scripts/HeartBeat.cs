@@ -19,16 +19,25 @@ public class HeartBeat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         //newSound = FindFirstObjectByType<AudioSource>(AudioClip.name.Equals(heartBeatSound.name));
-        demonObj = GameManager.Instance.demon;
-        demonCharacter = demonObj.GetComponent<DemonCharacter>();
+        if (GameManager.Instance.demon != null)
+        {
+            demonObj = GameManager.Instance.demon;
+            demonCharacter = demonObj.GetComponent<DemonCharacter>();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        activateHeart();
+        if (demonObj == null)
+        {
+            demonObj = GameManager.Instance.demon;
+            demonCharacter = demonObj.GetComponent<DemonCharacter>();
+        }
+
+        if (demonObj != null && demonCharacter != null)
+            activateHeart();
     }
 
     public void HeartTime()

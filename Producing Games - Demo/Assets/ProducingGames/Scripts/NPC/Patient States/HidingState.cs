@@ -51,10 +51,6 @@ public class HidingState : PatientStateBaseClass
 
                 isWalkingToHidingDest = false;
                 TeleportToHidingSpot();
-
-                // STOP PLAYING WALKING ANIMATION
-
-                character.animator.SetBool("isTerrified", true);
             }
         }
     }
@@ -115,14 +111,12 @@ public class HidingState : PatientStateBaseClass
     /// </summary>
     private void WalkToHidingSpot()
     {
-        // PLAY WALKING ANIMATION HERE
         character.ResetAnimation();
         
-
-        isWalkingToHidingDest = true;
-
         character.agent.speed = character.walkSpeed;
         character.agent.SetDestination(hidingLocation);
+
+        isWalkingToHidingDest = true;
     }
 
     /// <summary>

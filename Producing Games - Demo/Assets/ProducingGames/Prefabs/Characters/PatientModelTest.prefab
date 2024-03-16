@@ -404,6 +404,8 @@ MonoBehaviour:
   currentState: 0
   safetyChoice: 0
   isPossessed: 0
+  isMale: 0
+  bedYOffset: 0.55
   startingHealth: 100
   currentHealth: 0
   startingSanity: 100

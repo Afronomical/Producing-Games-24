@@ -32,8 +32,6 @@ public class RequestMedicationState : PatientStateBaseClass
             {
                 isWalkingToReqMeds = false;
 
-                // STOP PLAYING WALKING ANIMATION
-
                 character.animator.SetBool("reqMeds", true);
             }
         }
@@ -56,11 +54,11 @@ public class RequestMedicationState : PatientStateBaseClass
     /// </summary>
     private void WalkToReqMedSpot()
     {
-        // PLAY WALKING ANIMATION HERE
-
-        isWalkingToReqMeds = true;
+        character.ResetAnimation();
 
         character.agent.speed = character.walkSpeed;
         character.agent.SetDestination(character.BedDestination.position);
+
+        isWalkingToReqMeds = true;
     }
 }

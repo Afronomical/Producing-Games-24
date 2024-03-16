@@ -25,14 +25,14 @@ public class HungryState : PatientStateBaseClass
 
     public override void UpdateLogic()
     {
+        character.animator.SetFloat("movement", character.agent.velocity.magnitude);
+
         if (isWalkingToHungryDest)
         {
             // INFO: Stops the walking animation and transitions to the praying animation
             if (character.agent.remainingDistance < 0.1f)
             {
                 isWalkingToHungryDest = false;
-
-                // STOP PLAYING WALKING ANIMATION
 
                 character.animator.SetBool("isHungry", true);
             }
@@ -72,12 +72,12 @@ public class HungryState : PatientStateBaseClass
     /// </summary>
     private void WalkToHungrySpot()
     {
-        // PLAY WALKING ANIMATION HERE
-
-        isWalkingToHungryDest = true;
+        character.ResetAnimation();
 
         character.agent.speed = character.walkSpeed;
         character.agent.SetDestination(hungryLocation);
+
+        isWalkingToHungryDest = true;
     }
 
     /// <summary>

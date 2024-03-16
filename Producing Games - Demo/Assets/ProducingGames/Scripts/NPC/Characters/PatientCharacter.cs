@@ -44,6 +44,8 @@ public class PatientCharacter : AICharacter
     public bool isPossessed = false;
     [Tooltip("If isMale is false it means the patient is a female")]
     public bool isMale;
+    [Tooltip("The y-axis offset of a patient whos lying on their bed, this value gets deducted from their y-axis")]
+    [Min(0)] public float bedYOffset = 0.55f;
 
     [Space(10)]
 

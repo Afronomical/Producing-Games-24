@@ -40,12 +40,12 @@ public class BedState : PatientStateBaseClass
     /// </summary>
     private void PutInBed()
     {
-        // STOP PLAYING WALKING ANIMATION HERE
-
         // INFO: Prevents the patient from moving
         character.agent.enabled = false;
 
         transform.SetPositionAndRotation(character.BedDestination.position, character.BedDestination.rotation);
+
+        transform.position = new(transform.position.x, transform.position.y - character.bedYOffset, transform.position.z);
 
         character.animator.SetBool("inBed", true);
     }
@@ -57,12 +57,11 @@ public class BedState : PatientStateBaseClass
     /// </summary>
     private void WalkToBed()
     {
-        // PLAY WALKING ANIMATION HERE
         character.ResetAnimation();
-
-        isWalkingToBed = true;
 
         character.agent.speed = character.walkSpeed;
         character.agent.SetDestination(character.BedDestination.position);
+
+        isWalkingToBed = true;
     }
 }

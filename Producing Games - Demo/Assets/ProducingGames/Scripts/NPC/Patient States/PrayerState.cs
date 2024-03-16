@@ -35,8 +35,6 @@ public class PrayerState : PatientStateBaseClass
             {
                 isWalkingToPrayingDest = false;
 
-                // STOP PLAYING WALKING ANIMATION
-
                 character.animator.SetBool("isPraying", true);
             }
         }
@@ -75,14 +73,12 @@ public class PrayerState : PatientStateBaseClass
     /// </summary>
     private void WalkToPrayingSpot()
     {
-        // PLAY WALKING ANIMATION HERE
         character.ResetAnimation();
         
-
-        isWalkingToPrayingDest = true;
-
         character.agent.speed = character.walkSpeed;
         character.agent.SetDestination(prayingDestination);
+
+        isWalkingToPrayingDest = true;
     }
 
     /// <summary>
