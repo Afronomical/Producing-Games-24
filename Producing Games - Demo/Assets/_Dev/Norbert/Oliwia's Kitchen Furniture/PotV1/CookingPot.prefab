@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &5738194762492844587
+--- !u!1001 &1921088636389485252
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 531b7d42bdf28ed45bea6653837de4c6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 283.22574
+      value: 283.02005
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 531b7d42bdf28ed45bea6653837de4c6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.2129217
+      value: 1.2129216
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 531b7d42bdf28ed45bea6653837de4c6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 40.44894
+      value: 41.080986
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 531b7d42bdf28ed45bea6653837de4c6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -53,7 +53,10 @@ PrefabInstance:
       value: SM_CookingPot_lod0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: -2584929872377315666, guid: 531b7d42bdf28ed45bea6653837de4c6, type: 3}
+    - {fileID: -7833787476836453974, guid: 531b7d42bdf28ed45bea6653837de4c6, type: 3}
+    - {fileID: -4031465092619968647, guid: 531b7d42bdf28ed45bea6653837de4c6, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 531b7d42bdf28ed45bea6653837de4c6, type: 3}
