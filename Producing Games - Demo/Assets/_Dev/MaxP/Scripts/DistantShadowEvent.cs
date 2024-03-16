@@ -59,7 +59,7 @@ public class DistantShadowEvent : MonoBehaviour
                 move.y = shadowManObj.transform.position.y;
                 shadowManObj.transform.position = move;
                 moveTime += Time.deltaTime;
-                if (distance < 3) //end the event, reset everything suuuuuurely
+                if (distance < 3 || moveTime > 5) //end the event, reset everything suuuuuurely
                 {
                     shadowManObj.SetActive(false);
                     startMove = false;
