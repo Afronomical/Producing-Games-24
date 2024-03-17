@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class Flashlight : MonoBehaviour
 {
     public GameObject flashlight;
+    public GameObject clipboardFlashlight;
     public Light light;
     public SoundEffect toggleSound;
 
@@ -60,6 +61,11 @@ public class Flashlight : MonoBehaviour
         {
             batteryCharge = maxBatteryCharge;
         }
+
+        if (clipboardFlashlight.activeSelf && batteryCharge <= 0)
+            clipboardFlashlight.SetActive(false);
+        else if (!clipboardFlashlight.activeSelf && batteryCharge > 0)
+            clipboardFlashlight.SetActive(true);
         
         //Called every frame to account for the decreasing charge
         IntensityChange();
