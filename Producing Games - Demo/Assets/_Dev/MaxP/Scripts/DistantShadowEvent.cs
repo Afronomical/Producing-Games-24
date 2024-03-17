@@ -34,6 +34,7 @@ public class DistantShadowEvent : MonoBehaviour
     private float moveTime;
     private Camera playerCam;
     private float origFOV;
+    private bool soundOnce = true;
     [Range(-30f, 30f)] public float fovLeniency = 0;
 
 
@@ -60,7 +61,7 @@ public class DistantShadowEvent : MonoBehaviour
             }
             if (startMove)
             {
-                AudioManager.instance.PlaySound(moveSound , playerObj.transform);
+                PlaySoundOnce();
                 if (moveToPlayer)
                 {
                     Vector3 move = Vector3.Lerp(shadowManObj.transform.position, playerObj.transform.position, Time.deltaTime * moveAwaySpeed);
@@ -123,6 +124,17 @@ public class DistantShadowEvent : MonoBehaviour
         startMove = false;
         shouldMove = false;
         moveTime = 0;
+        soundOnce = true;
+    }
+
+    private void PlaySoundOnce()
+    {
+        if (soundOnce)
+        {
+            AudioManager.instance.PlaySound(moveSound, playerObj.transform);
+            soundOnce = false;
+        }
+        
     }
     
 }

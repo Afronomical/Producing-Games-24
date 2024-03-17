@@ -77,7 +77,7 @@ MonoBehaviour:
   shadowRotSpeed: 1
   fovLeniency: -15
   headTurnSpeed: 6
-  jumpScareFOV: 30
+  jumpScareFOV: 50
   jumpScareFOVSpeed: 6
   jumpScareSound: {fileID: 11400000, guid: c367f1577e24e9c438a5835fc0639800, type: 2}
 --- !u!1 &9120065020868049590
