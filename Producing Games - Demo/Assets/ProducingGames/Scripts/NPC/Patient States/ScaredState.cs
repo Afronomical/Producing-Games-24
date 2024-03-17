@@ -45,10 +45,15 @@ public class ScaredState : PatientStateBaseClass
 
     public override void UpdateLogic()
     {
+        Debug.Log(character.agent.remainingDistance);
+
         // INFO: Given that the patient reaches their hiding location they will then
         // wait for a while before going into another state as they are no longer scared
         if (character.agent.remainingDistance < 0.1f)
         {
+            character.animator.SetBool("isRunning", false);
+            character.animator.SetBool("isScared", true);
+
             calmingTime += Time.deltaTime;
 
             if (calmingTime > character.calmingDuration)

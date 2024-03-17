@@ -17,7 +17,8 @@ public class RequestMedicationState : PatientStateBaseClass
 
         // INFO: Given that the previous was none we will have the patient
         // teleport, otherwise we have them walk to their destination
-        if (character.PreviousState == PatientCharacter.PatientStates.None)
+        if (character.PreviousState == PatientCharacter.PatientStates.None ||
+            character.PreviousState == PatientCharacter.PatientStates.Bed)
             TeleportToReqMedSpot();
         else
             WalkToReqMedSpot();
@@ -25,6 +26,8 @@ public class RequestMedicationState : PatientStateBaseClass
 
     public override void UpdateLogic()
     {
+        character.animator.SetFloat("movement", character.agent.velocity.magnitude);
+
         if (isWalkingToReqMeds)
         {
             // INFO: Stops the walking animation and transitions to the req meds animation
