@@ -9505,7 +9505,6 @@ GameObject:
   - component: {fileID: 5546704305577805030}
   - component: {fileID: 5863319930419737407}
   - component: {fileID: 6568094422362449912}
-  - component: {fileID: 3485323520245316746}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -10118,24 +10117,6 @@ MonoBehaviour:
   maxPitch: 1.81
   minPitch: 1
   volume: 0.11
-  heartFalloffTime: 3
---- !u!114 &3485323520245316746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5039208490668459519}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d30e874a5b3d424799099efe1e1b5b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  heartBeatSound: {fileID: 11400000, guid: 52b0cf1f76a64044cbb05fed9de2186a, type: 2}
-  activationRange: 10
-  maxPitch: 2.52
-  minPitch: 1
-  volume: 1
   heartFalloffTime: 3
 --- !u!1 &5071186367569005307
 GameObject:

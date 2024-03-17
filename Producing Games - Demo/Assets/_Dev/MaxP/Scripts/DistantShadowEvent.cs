@@ -23,6 +23,7 @@ public class DistantShadowEvent : MonoBehaviour
     public GameObject[] shadowSpawnLocations;
     public GameObject[] shadowMoveToLocations;
     public GameObject shadowManObj;
+    public SoundEffect moveSound;
     private int spawnLocIndex;
     private bool canPlay = true;
     private GameObject playerObj;
@@ -59,6 +60,7 @@ public class DistantShadowEvent : MonoBehaviour
             }
             if (startMove)
             {
+                AudioManager.instance.PlaySound(moveSound , playerObj.transform);
                 if (moveToPlayer)
                 {
                     Vector3 move = Vector3.Lerp(shadowManObj.transform.position, playerObj.transform.position, Time.deltaTime * moveAwaySpeed);
