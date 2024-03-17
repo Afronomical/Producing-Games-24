@@ -21,10 +21,10 @@ public class AudioTriggerTemp : MonoBehaviour
         }
         else
         {
+            crypt.enabled = true;
             crypt.PlayOneShot(AMB_crypt);
             Churhc.enabled = false;
-            
         }
-    }
-
+        
+    }   
 }
