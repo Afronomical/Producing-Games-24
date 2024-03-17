@@ -195,16 +195,16 @@ MonoBehaviour:
     m_Value: -3
   contrast:
     m_OverrideState: 1
-    m_Value: -20
+    m_Value: -30
   colorFilter:
     m_OverrideState: 0
-    m_Value: {r: 0.7924528, g: 0.72765857, b: 0.6840513, a: 1}
+    m_Value: {r: 0.6603774, g: 0.42363834, b: 0.24608402, a: 1}
   hueShift:
     m_OverrideState: 0
     m_Value: 0
   saturation:
     m_OverrideState: 1
-    m_Value: -25
+    m_Value: -15
 --- !u!114 &-4570406020683281336
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -259,37 +259,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   quality:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
   threshold:
     m_OverrideState: 1
-    m_Value: 2.3
+    m_Value: 3.33
   intensity:
     m_OverrideState: 1
-    m_Value: 0.67
+    m_Value: 0.426
   scatter:
     m_OverrideState: 1
-    m_Value: 0.471
+    m_Value: 0.545
   tint:
     m_OverrideState: 0
     m_Value: {r: 1, g: 1, b: 1, a: 1}
   dirtTexture:
     m_OverrideState: 1
-    m_Value: {fileID: 2800000, guid: de033210e4253cb47a566ebdc81df81b, type: 3}
+    m_Value: {fileID: 2800000, guid: f933f384c128f5e449b8a641bdb2ce7d, type: 3}
   dirtIntensity:
     m_OverrideState: 1
-    m_Value: 16.52
+    m_Value: 25
   anamorphic:
     m_OverrideState: 0
     m_Value: 1
   m_Resolution:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 2
   m_HighQualityPrefiltering:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   m_HighQualityFiltering:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
 --- !u!114 &-3511012708695710763
 MonoBehaviour:
@@ -404,6 +404,79 @@ MonoBehaviour:
   m_MaxSamples:
     m_OverrideState: 0
     m_Value: 6
+--- !u!114 &-1912155384608083399
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15cc4c5fcb677014ebdc0d8be227b40c, type: 3}
+  m_Name: ScreenSpaceLensFlare
+  m_EditorClassIdentifier: 
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 1.5
+  tintColor:
+    m_OverrideState: 0
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  bloomMip:
+    m_OverrideState: 0
+    m_Value: 1
+  firstFlareIntensity:
+    m_OverrideState: 1
+    m_Value: 0.2
+  secondaryFlareIntensity:
+    m_OverrideState: 1
+    m_Value: 0.025
+  warpedFlareIntensity:
+    m_OverrideState: 1
+    m_Value: 0.02
+  warpedFlareScale:
+    m_OverrideState: 0
+    m_Value: {x: 1, y: 1}
+  samples:
+    m_OverrideState: 0
+    m_Value: 1
+  sampleDimmer:
+    m_OverrideState: 0
+    m_Value: 0.5
+  vignetteEffect:
+    m_OverrideState: 1
+    m_Value: 0.4
+  startingPosition:
+    m_OverrideState: 0
+    m_Value: 1.25
+  scale:
+    m_OverrideState: 0
+    m_Value: 1.5
+  streaksIntensity:
+    m_OverrideState: 1
+    m_Value: 0.2
+  streaksLength:
+    m_OverrideState: 1
+    m_Value: 0.149
+  streaksOrientation:
+    m_OverrideState: 1
+    m_Value: 0
+  streaksThreshold:
+    m_OverrideState: 1
+    m_Value: 0.04
+  resolution:
+    m_OverrideState: 0
+    m_Value: 4
+  spectralLut:
+    m_OverrideState: 0
+    m_Value: {fileID: 0}
+  chromaticAbberationIntensity:
+    m_OverrideState: 1
+    m_Value: 0.25
+  chromaticAbberationSampleCount:
+    m_OverrideState: 0
+    m_Value: 3
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,6 +503,7 @@ MonoBehaviour:
   - {fileID: 488005792475747229}
   - {fileID: -6736868498573263181}
   - {fileID: 2853258395366100296}
+  - {fileID: -1912155384608083399}
 --- !u!114 &214298394396948364
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -448,7 +522,7 @@ MonoBehaviour:
     m_Value: 1
   meteringMode:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   luminanceSource:
     m_OverrideState: 0
     m_Value: 1
@@ -457,13 +531,13 @@ MonoBehaviour:
     m_Value: 2.6
   compensation:
     m_OverrideState: 1
-    m_Value: 0.5
+    m_Value: 0.25
   limitMin:
     m_OverrideState: 1
-    m_Value: -1.5
+    m_Value: -3.8487585
   limitMax:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: -2.2234764
   curveMap:
     m_OverrideState: 0
     m_Value:
@@ -543,7 +617,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   adaptationMode:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 1
   adaptationSpeedDarkToLight:
     m_OverrideState: 1
@@ -567,11 +641,11 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 0
   proceduralCenter:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: {x: 0.5, y: 0.5}
   proceduralRadii:
-    m_OverrideState: 0
-    m_Value: {x: 0.3, y: 0.3}
+    m_OverrideState: 1
+    m_Value: {x: 0.1, y: 0.1}
   maskMinIntensity:
     m_OverrideState: 0
     m_Value: -30
@@ -579,7 +653,7 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 30
   proceduralSoftness:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0.5
 --- !u!114 &488005792475747229
 MonoBehaviour:
@@ -601,7 +675,7 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 65535
   reflectionLightingMultiplier:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
   reflectionLightingLayers:
     m_OverrideState: 0
@@ -655,13 +729,13 @@ MonoBehaviour:
   active: 1
   type:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 2
   intensity:
     m_OverrideState: 1
-    m_Value: 0.8
+    m_Value: 1
   response:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.75
   texture:
     m_OverrideState: 1
     m_Value: {fileID: 0}

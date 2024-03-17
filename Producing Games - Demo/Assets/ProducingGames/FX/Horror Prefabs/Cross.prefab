@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9202829718717733215}
   - component: {fileID: 4976379841826882017}
   - component: {fileID: 3690537762142939323}
+  - component: {fileID: 3481785344187744706}
   m_Layer: 6
   m_Name: Cross
   m_TagString: Untagged
@@ -124,9 +125,33 @@ MonoBehaviour:
   collectible: {fileID: 11400000, guid: dcf2cc832280c7d4abfd4842de3157ce, type: 2}
   isExorcismObject: 0
   hasBeenPlaced: 0
-  Cross: {fileID: 7661773188408393803}
-  throwingForce: 0
+  actionTooltip: {fileID: 0}
+  throwingForce: 5
   CrossThrownSound: {fileID: 0}
+  VoiceLines: {fileID: 0}
+--- !u!114 &3481785344187744706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7661773188408393803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f2ad6e0bf59d76469db9c8417d62bb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectIcon: {fileID: 0}
+  collectible: {fileID: 0}
+  isExorcismObject: 0
+  hasBeenPlaced: 0
+  actionTooltip: {fileID: 0}
+  rotationSpeed: 3
+  CrossSpinSound: {fileID: 0}
+  eventTriggered: 0
+  isCrossReplaced: 0
+  isInverting: 0
+  isInverted: 0
 --- !u!1001 &1567657540687734610
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -209,10 +234,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1476359682891423457}
     m_Modifications:
-    - target: {fileID: 6553309997974429607, guid: 96101304daf64b543adc786b0737894d, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 14.44
-      objectReference: {fileID: 0}
+    - target: {fileID: 6524654406858530761, guid: 96101304daf64b543adc786b0737894d, type: 3}
+      propertyPath: cross
+      value: 
+      objectReference: {fileID: 3690537762142939323}
     - target: {fileID: 6553309997974429607, guid: 96101304daf64b543adc786b0737894d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -257,14 +282,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cross Trigger
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7052559618265219744, guid: 96101304daf64b543adc786b0737894d, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8484796400150997074, guid: 96101304daf64b543adc786b0737894d, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 287640653761064045}
+      addedObject: {fileID: 8526973374319236980}
   m_SourcePrefab: {fileID: 100100000, guid: 96101304daf64b543adc786b0737894d, type: 3}
 --- !u!4 &5110508767096929345 stripped
 Transform:
@@ -276,7 +300,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8484796400150997074, guid: 96101304daf64b543adc786b0737894d, type: 3}
   m_PrefabInstance: {fileID: 2026096590411588582}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &287640653761064045
+--- !u!114 &8526973374319236980
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -285,8 +309,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 7628580183844293556}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7839a71b50b055f4ab7116223d285186, type: 3}
+  m_Script: {fileID: 11500000, guid: d81b2afc6fdb5cb4e8daa7797a08e2e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crossThrow: {fileID: -78552246943970542, guid: e8574bb1fd23fcc418bdf7b7e5326a52, type: 3}
+  crossRotation: {fileID: 0}
   eventTriggered: 0
