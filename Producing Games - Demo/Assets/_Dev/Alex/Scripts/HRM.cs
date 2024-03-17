@@ -19,8 +19,8 @@ public class HRM : InteractableTemplate
     {
         //base.Interact();
 
-        if(!staticEffect.activeSelf) TurnOff();
-        else TurnOn();
+        //if(!staticEffect.activeSelf) TurnOff();
+        //else TurnOn();
     }
 
     // Start is called before the first frame update
