@@ -15,8 +15,8 @@ MonoBehaviour:
   demonName: Mammon
   itemsForExorcism:
   - {fileID: 7659437054393390907, guid: 9f2f4e9705489524d9ea12a1004ad8ba, type: 3}
-  - {fileID: 2540081522479636542, guid: d5b5e64083674144980cf0500c519440, type: 3}
-  - {fileID: 8234776983270169147, guid: 0c0c9d4d0cdad8f4bb0c11f2ebd6a581, type: 3}
+  - {fileID: 2540081522479636542, guid: 5be0fb606d26bd14e85d5800e868d807, type: 3}
+  - {fileID: 1635683077781567079, guid: 169d3c33a028a844b979c753b990f012, type: 3}
   likelyStates: []
   battleCryAudio: {fileID: 0}
   defeatCryAudio: {fileID: 0}
