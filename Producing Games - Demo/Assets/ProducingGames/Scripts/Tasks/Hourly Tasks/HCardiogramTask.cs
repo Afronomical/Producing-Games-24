@@ -13,6 +13,7 @@ public class HCardiogramTask : Task
         patient = taskTarget;
         taskTarget = taskTarget.GetComponent<PatientCharacter>().bed.transform.Find("HR Monitor").gameObject;
         base.TaskStart();
+        taskTarget.GetComponent<HRM>().TurnOff();
     }
 
     public override void CheckTaskConditions(GameObject interactedObject)
@@ -20,6 +21,7 @@ public class HCardiogramTask : Task
         if (interactedObject == taskTarget && targetInteraction.collectible == hTask.tooltipPrompt) 
         {
             CompleteTask();
+            taskTarget.GetComponent<HRM>().TurnOn();
         }
     }
 
