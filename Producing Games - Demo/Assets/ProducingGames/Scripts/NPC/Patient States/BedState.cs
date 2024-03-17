@@ -14,10 +14,16 @@ public class BedState : PatientStateBaseClass
     {
         // INFO: Given that the previous was none we will have the patient
         // teleport, otherwise we have them walk to their destination
-        if (character.PreviousState == PatientCharacter.PatientStates.None)
-            PutInBed();
-        else
+        if (character.PreviousState == PatientCharacter.PatientStates.Scared ||
+            character.PreviousState == PatientCharacter.PatientStates.Panic)
             WalkToBed();
+        else
+            PutInBed();
+        
+        //if (character.PreviousState == PatientCharacter.PatientStates.None)
+        //    PutInBed();
+        //else
+        //    WalkToBed();
     }
 
     public override void UpdateLogic()
