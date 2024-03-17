@@ -11,7 +11,7 @@ public class RCardiogramTask : Task
     {
         patient = taskTarget;
         taskTarget = taskTarget.GetComponent<PatientCharacter>().bed.transform.Find("HR Monitor").gameObject;
-        hrm = taskTarget.transform.GetChild(0).Find("Heart Rate Monitor").GetComponent<HRM>();
+        hrm = taskTarget.transform.GetChild(0).GetChild(1).GetComponent<HRM>();
         if (hrm == null) Debug.LogError("Cardiogram Random Task failed to find cardiogram");
         hrm.TurnOff();
         DiegeticUIManager.Instance.pagerBroken = true;

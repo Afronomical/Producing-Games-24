@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class RMedicationTask : Task
 {
-
-    public SoundEffect VoiceLines;
     public override void TaskStart()
     {
         detectingObjects = new List<GameObject>();
@@ -44,7 +42,7 @@ public class RMedicationTask : Task
         {
             if (InventoryHotbar.instance.currentItem == rTask.itemToGive)  // Check for the correct item being held
             {
-                AudioManager.instance.PlaySound(VoiceLines, gameObject.transform);
+                AudioManager.instance.PlaySound(PatientTaskManager.instance.medicationVoiceLines, gameObject.transform);
 
                 InventoryHotbar.instance.RemoveFromInventory(InventoryHotbar.instance.currentItem);
                 CompleteTask();

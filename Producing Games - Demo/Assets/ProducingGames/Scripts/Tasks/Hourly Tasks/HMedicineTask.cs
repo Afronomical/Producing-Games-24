@@ -12,6 +12,8 @@ public class HMedicineTask : Task
         {
             if (InventoryHotbar.instance.currentItem == hTask.itemToGive && targetInteraction.collectible == hTask.tooltipPrompt)
             {
+                AudioManager.instance.PlaySound(PatientTaskManager.instance.medicationVoiceLines, gameObject.transform);
+
                 InventoryHotbar.instance.RemoveFromInventory(InventoryHotbar.instance.currentItem);
                 CompleteTask();
 

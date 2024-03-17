@@ -10,7 +10,6 @@ public class HidingCutScene : InteractableTemplate
     private Camera cam;
     private int pointIndex;
     private Transform playerTransformRef;
-    private float originCamNearClippingPlane;
     private Animator playDoorAnimation;
     public PatientCharacter patient;
     public bool playerIsOccupying;
@@ -43,7 +42,6 @@ public class HidingCutScene : InteractableTemplate
         hidingScare = Object.FindFirstObjectByType<HidingScare>();
         
 
-        originCamNearClippingPlane = cam.nearClipPlane;
 
         // INFO: Get Local Reference to Player
         playerMovement = GameManager.Instance.player.GetComponent<PlayerMovement>();
@@ -86,7 +84,6 @@ public class HidingCutScene : InteractableTemplate
         playerMovement.isHiding = true;
         playerIsOccupying = true;
         cam.transform.rotation = playerTransformRef.rotation;
-        cam.nearClipPlane = 0.01f;
         cam.GetComponent<CameraLook>().enabled = false;
         PlayerControlsAccess(false);
         DoorAnim(true);
@@ -158,7 +155,6 @@ public class HidingCutScene : InteractableTemplate
         DoorAnim(false);
         PlayerControlsAccess(true);
         playerHidingStates = PlayerHidingStates.none;
-        cam.nearClipPlane = originCamNearClippingPlane;
     }
 
     //Disables/Enables the Player's controls,colliders and mesh

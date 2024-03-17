@@ -48,18 +48,6 @@ public class AudioManager : MonoBehaviour
 
 
 
-    public void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.J))  // Used for testing spacial audio, will play a sound effect at a random location
-        //{
-        //    GameObject obj = Instantiate(sourcePrefab);
-        //    obj.transform.position = new Vector3(Random.Range(0, 50), Random.Range(0, 50), Random.Range(0, 50));
-        //    PlaySound(testSound, obj.transform);
-        //}
-    }
-
-
-
     private void SetupAudioSources()  // Create a certain number of audio sources, these will be pooled and then used whenever a sound needs to be played
     {
         musicSource = transform.GetChild(0).GetComponent<AudioSource>();  // Get references to the music and ambience specific sources
