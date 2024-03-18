@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectIcon: {fileID: 0}
-  collectible: {fileID: 11400000, guid: f2106af1c760c0f448df63d8fd16a960, type: 2}
+  collectible: {fileID: 11400000, guid: f459d9aaeefb35a4f85555f9bab0129b, type: 2}
   isExorcismObject: 0
   hasBeenPlaced: 0
   actionTooltip: {fileID: 0}

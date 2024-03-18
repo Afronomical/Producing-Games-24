@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3690537762142939323, guid: 2983fc715414cdb4f81e123e2f4edb66, type: 3}
+      propertyPath: collectible
+      value: 
+      objectReference: {fileID: 11400000, guid: f459d9aaeefb35a4f85555f9bab0129b, type: 2}
     - target: {fileID: 7661773188408393803, guid: 2983fc715414cdb4f81e123e2f4edb66, type: 3}
       propertyPath: m_Name
       value: Cross (Throw)
