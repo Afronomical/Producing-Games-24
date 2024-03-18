@@ -137,7 +137,12 @@ public class GameManager : MonoBehaviour
             patientCharacter.ChangePatientState(PatientCharacter.PatientStates.Bed);
         }
 
-        if (demon) demon.GetComponent<DemonCharacter>().ChangeDemonState(DemonCharacter.DemonStates.Inactive);
+        if (demon)
+        {
+            demon.GetComponent<DemonCharacter>().ChangeDemonState(DemonCharacter.DemonStates.Inactive);
+        }
+  
+        
 
         currentTime = 0;
         inStudy = true;
@@ -211,6 +216,7 @@ public class GameManager : MonoBehaviour
         {
             EndGame(false);  // Lose the game
         }
+        demon.SetActive(true);
     }
 
 
@@ -312,7 +318,7 @@ public class GameManager : MonoBehaviour
 
     public void DemonCaptureEvent()
     {
-        cineChance=UnityEngine.Random.Range(0, 3);
+       cineChance=UnityEngine.Random.Range(0, 3);
        if (cineChance==1)
        {
         StartCoroutine(captureBoxScript.MainEvent());
