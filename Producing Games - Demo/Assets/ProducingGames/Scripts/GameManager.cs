@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     public int startingHour = 1;
     public int finalHour = 8;
     public Transform playerStartPosition;
-    public StudyDoorInteractable studyDoor;
+    public ShiftChange studyDoor, studyBed;
 
     public int currentHour;
     public float currentTime;
@@ -193,7 +193,8 @@ public class GameManager : MonoBehaviour
     public IEnumerator EndHour()
     {
         currentHour++;
-        studyDoor.collectible = studyDoor.startShiftSO;
+        //studyDoor.collectible = studyDoor.startShiftSO;
+        studyBed.ChangeShift();
         sanityEvents.EndHour();
         PatientTaskManager.instance.ClearTasks();
         EconomyManager.instance.AddIncome(salary);
@@ -226,8 +227,9 @@ public class GameManager : MonoBehaviour
     public IEnumerator StartShift(Transform startShiftPosition)  // Called when the player leaves the study
     {
         inStudy = false;  // Starts the timer
-        studyDoor.collectible = studyDoor.endHourSO;
-        /*player.GetComponent<PlayerInput>().enabled = false;
+        studyDoor.ChangeShift();
+        /*studyDoor.collectible = studyDoor.endHourSO;
+        player.GetComponent<PlayerInput>().enabled = false;
         FadeOut();
 
         yield return new WaitForSeconds(3);
