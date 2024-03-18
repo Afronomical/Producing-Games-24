@@ -192,6 +192,7 @@ public class NPCManager : MonoBehaviour
             hungryLib.Add(transform.position, false);
 
         AssignBeds();
+        AssignPatientID();
         AssignRandomDemonType();
     }
 
@@ -207,6 +208,28 @@ public class NPCManager : MonoBehaviour
             Patient.GetComponent<PatientCharacter>().bed = chosenBed;
             Debug.Log("Set " + Patient.name + " to bed number: " + chosenBed);
             patientBeds.Remove(chosenBed);
+        }
+    }
+    /// <summary>
+    /// Assigns a random ID for each patient for uses in game such as drawing specific blood from patients, and using it in exorcism 
+    /// </summary>
+    private void AssignPatientID()
+    {
+        List<int> patientIDs = new();
+        foreach(GameObject Patient in patientList) 
+        {
+            int ID;
+            int iter = 0;
+            do
+            {
+                ++iter;
+                ID = Random.Range(1, patientList.Count+1);
+            } while (patientIDs.Contains(ID) && iter < 100);  //assigns a random ID to each patient unique to each other 
+            
+            patientIDs.Add(ID);
+            Patient.GetComponent<PatientCharacter>().SetID(ID);
+            Patient.gameObject.name = "Patient: " + ID;
+            Debug.Log("Patient is now Patient: " + ID.ToString());
         }
     }
 

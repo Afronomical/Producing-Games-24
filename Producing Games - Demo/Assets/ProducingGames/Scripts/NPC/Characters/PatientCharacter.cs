@@ -42,6 +42,7 @@ public class PatientCharacter : AICharacter
     public PatientStates currentState;
     public SafetyChoices safetyChoice;
     public bool isPossessed = false;
+    public int PatientID { get; private set; }
     [Tooltip("If isMale is false it means the patient is a female")]
     public bool isMale;
     [Tooltip("The y-axis offset of a patient whos lying on their bed, this value gets deducted from their y-axis")]
@@ -303,5 +304,10 @@ public class PatientCharacter : AICharacter
         animator.SetBool("isRunning", false);
         animator.SetBool("isTerrified", false);
         animator.SetBool("isScared", false);
+    }
+
+    public void SetID(int newID)
+    {
+        newID = PatientID;
     }
 }
