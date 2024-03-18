@@ -17,5 +17,5 @@ MonoBehaviour:
   prefab: {fileID: 0}
   interactSound: {fileID: 0}
   objectImage: {fileID: 0}
-  tooltipText: Read Document
-  tooltipImage: {fileID: 21300000, guid: fc65d0561b7956244be7f8b71df43b35, type: 3}
+  tooltipText: 
+  tooltipImage: {fileID: 21300000, guid: 0fb5bb1f5aab7a647bc7acf8fab501b7, type: 3}

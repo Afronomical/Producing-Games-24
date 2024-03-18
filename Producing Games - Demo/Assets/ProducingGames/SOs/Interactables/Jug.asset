@@ -17,5 +17,5 @@ MonoBehaviour:
   prefab: {fileID: 672073858492910588, guid: a291c0261011b1a47bfd6b54095fde5c, type: 3}
   interactSound: {fileID: 0}
   objectImage: {fileID: 21300000, guid: 8d9ef3a5cfa5dc6448a9ca3ef1466428, type: 3}
-  tooltipText: Pick up Holy Water Jug
-  tooltipImage: {fileID: 21300000, guid: 8848a6de3be742a48b4e49dd9ea3ebce, type: 3}
+  tooltipText: 
+  tooltipImage: {fileID: 21300000, guid: 0fb5bb1f5aab7a647bc7acf8fab501b7, type: 3}
