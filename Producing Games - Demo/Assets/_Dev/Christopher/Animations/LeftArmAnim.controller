@@ -195,7 +195,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ClipboardUpAnim 0 0
-  m_Speed: -1
+  m_Speed: -1.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 7640228735075722025}
@@ -223,7 +223,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PagerDown
-  m_Speed: -1
+  m_Speed: -1.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -7645200908623829171}
@@ -325,7 +325,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PagerUp
-  m_Speed: 1
+  m_Speed: 1.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 5210031587343928997}
@@ -352,7 +352,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ClipboardUp
-  m_Speed: 1
+  m_Speed: 1.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -8770449930099623556}
@@ -491,7 +491,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FlashlightUpAnim 0
-  m_Speed: -1
+  m_Speed: -1.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -4880994378550089552}
@@ -518,7 +518,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FlashlightUp
-  m_Speed: 1
+  m_Speed: 1.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -8876276919712608890}

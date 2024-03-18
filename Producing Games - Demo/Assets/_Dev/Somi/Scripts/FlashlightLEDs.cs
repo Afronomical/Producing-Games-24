@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FlashlightLEDs : MonoBehaviour
 {
@@ -35,7 +36,9 @@ public class FlashlightLEDs : MonoBehaviour
             yield return new WaitForSeconds(TimeBetweenImpulses / 2);
             meshRenderer.material = colourToFlashTo;
             Debug.Log("Flashlight LED set flicker OFF");
-            canFlicker = true;
+        canFlicker = true;
+
+            
        
     }
 

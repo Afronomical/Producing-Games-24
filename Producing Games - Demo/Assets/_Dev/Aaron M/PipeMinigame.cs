@@ -50,7 +50,7 @@ public class PipeMinigame : InspectableObject
         {
             if (w.Count > 0)
             {
-                int rand = Random.Range(0, w.Count - 1);
+                int rand = Random.Range(0, w.Count);
                 w[rand].transform.GetChild(0).GetComponent<PipePart>().RemovePart(removedPositions[i]);
                 removedPipes.Add(w[rand].transform.GetChild(0).gameObject);
                 w.Remove(w[rand]);

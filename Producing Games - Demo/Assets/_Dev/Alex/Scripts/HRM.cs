@@ -4,7 +4,7 @@ using System.Threading;
 using TMPro;
 using UnityEngine;
 
-public class HRM : MonoBehaviour
+public class HRM : InteractableTemplate
 {
     //public static HRM instance;
     public TMP_Text hRateText;
@@ -13,6 +13,15 @@ public class HRM : MonoBehaviour
     //public AnimationCurve heartRate;
     private float timer = 0;
     public float timerInterval = 24;
+    public ParticleSystem heartBeat;
+
+    public override void Interact()
+    {
+        //base.Interact();
+
+        //if(!staticEffect.activeSelf) TurnOff();
+        //else TurnOn();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -69,14 +78,14 @@ public class HRM : MonoBehaviour
 
     public void TurnOn()
     {
-        gameObject.GetComponent<ParticleSystem>().Play();
+        heartBeat.Play();
         staticEffect.SetActive(false);
     }
 
     public void TurnOff()
     {
-        gameObject.GetComponent<ParticleSystem>().Stop();
-        gameObject.GetComponent<ParticleSystem>().Clear();
+        heartBeat.Stop();
+        heartBeat.Clear();
         staticEffect.SetActive(true);
     }
 }

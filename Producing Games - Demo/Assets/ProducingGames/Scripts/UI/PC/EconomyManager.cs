@@ -75,7 +75,8 @@ public class EconomyManager : MonoBehaviour
         //{
             InteractableSpawner.instance.SpawnAllPurchasedItems(boughtItems, InteractableSpawner.instance.shopSpawns);
             deliveryTime = 0;
-            Debug.Log("Spawned");
+            boughtItems.Clear();
+            //Debug.Log("Spawned");
         //}
     }
 }

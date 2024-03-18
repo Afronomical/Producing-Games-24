@@ -12,16 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db92280e6d78bce46b3708c9af45f26d, type: 3}
   m_Name: PlayerHeartbeat
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: 0a4dea253fb166f4a8e6389147cdc542, type: 3}
-  volume: 0.75
-  pitch: 1
+  audioClip: {fileID: 8300000, guid: 0c951e782de77da4c841e1c71e1f81ed, type: 3}
+  volume: 0.814
+  pitch: 0.95
   priority: 128
   loop: 1
   isMusic: 0
   spacialAudio: 1
-  followObject: 0
+  followObject: 1
   travelDistance: 30
   sentence: Enter text here
   font: {fileID: 0}
   typingSpeed: 0.15
   waitTillHide: 4
+  canBeHeardByDemon: 0

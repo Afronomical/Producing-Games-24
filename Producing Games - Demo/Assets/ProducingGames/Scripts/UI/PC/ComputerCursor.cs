@@ -8,10 +8,12 @@ public class ComputerCursor : InspectableObject
 {
     public SoundEffect clickSound;
     public TMP_Text clock;
+    public SoundEffect VoiceLines;
 
     public override void Interact()
     {
         base.Interact();
+        AudioManager.instance.PlaySound(VoiceLines, gameObject.transform);
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;

@@ -3,7 +3,12 @@ guid: 9b6d40f460912e447a5317041054ffab
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - taskTarget: {instanceID: 0}
+  - hTask: {instanceID: 0}
+  - rTask: {instanceID: 0}
+  - checkList: {instanceID: 0}
+  - VoiceLines: {fileID: 11400000, guid: 712f1baafefc29046b2ab7ee5e83978a, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

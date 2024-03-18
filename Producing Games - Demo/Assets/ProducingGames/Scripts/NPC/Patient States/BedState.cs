@@ -12,17 +12,24 @@ public class BedState : PatientStateBaseClass
 
     private void Start()
     {
-        // INFO: Given that the previous was panicked or scared we will have
-        // the patient walk back to their bed
-        if (character.PreviousState == PatientCharacter.PatientStates.Panic ||
-            character.PreviousState == PatientCharacter.PatientStates.Scared)
+        // INFO: Given that the previous was none we will have the patient
+        // teleport, otherwise we have them walk to their destination
+        if (character.PreviousState == PatientCharacter.PatientStates.Scared ||
+            character.PreviousState == PatientCharacter.PatientStates.Panic)
             WalkToBed();
         else
             PutInBed();
+        
+        //if (character.PreviousState == PatientCharacter.PatientStates.None)
+        //    PutInBed();
+        //else
+        //    WalkToBed();
     }
 
     public override void UpdateLogic()
     {
+        character.animator.SetFloat("movement", character.agent.velocity.magnitude);
+
         if (isWalkingToBed)
         {
             // INFO: Puts the patient into bed once they get close enough to it
@@ -41,10 +48,10 @@ public class BedState : PatientStateBaseClass
     {
         // INFO: Prevents the patient from moving
         character.agent.enabled = false;
-        character.rb.velocity = Vector3.zero;
-        character.rb.useGravity = false;
 
         transform.SetPositionAndRotation(character.BedDestination.position, character.BedDestination.rotation);
+
+        transform.position = new(transform.position.x, transform.position.y - character.bedYOffset, transform.position.z);
 
         character.animator.SetBool("inBed", true);
     }
@@ -56,9 +63,11 @@ public class BedState : PatientStateBaseClass
     /// </summary>
     private void WalkToBed()
     {
-        isWalkingToBed = true;
+        character.ResetAnimation();
 
         character.agent.speed = character.walkSpeed;
         character.agent.SetDestination(character.BedDestination.position);
+
+        isWalkingToBed = true;
     }
 }

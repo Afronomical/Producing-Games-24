@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     public int startingHour = 1;
     public int finalHour = 8;
     public Transform playerStartPosition;
-    public StudyDoorInteractable studyDoor;
+    public ShiftChange studyDoor, studyBed;
 
     public int currentHour;
     public float currentTime;
@@ -66,7 +66,8 @@ public class GameManager : MonoBehaviour
     public GameObject jumpscareTimelineGO;
     private CinematicMangerScript cinematicManagerScript;
     private int cineChance;
-   
+
+    public int salary; //Money received after shift
 
     private void Awake()
     {
@@ -125,12 +126,23 @@ public class GameManager : MonoBehaviour
         player.transform.rotation = playerStartPosition.rotation;
         player.GetComponent<CharacterController>().enabled = true;
 
-        foreach (GameObject AI in NPCManager.Instance.patientList)  // Put all NPCs in bed
+        foreach (GameObject AI in NPCManager.Instance.patientList)
         {
-            AI.GetComponent<PatientCharacter>().ChangePatientState(PatientCharacter.PatientStates.Bed);
+            PatientCharacter patientCharacter = AI.GetComponent<PatientCharacter>();
+
+            // INFO: Set the current states to none ready for the next hour
+            patientCharacter.currentState = PatientCharacter.PatientStates.None;
+
+            // Put all NPCs in bed
+            patientCharacter.ChangePatientState(PatientCharacter.PatientStates.Bed);
         }
 
-        if (demon) demon.GetComponent<DemonCharacter>().ChangeDemonState(DemonCharacter.DemonStates.Inactive);
+        if (demon)
+        {
+            demon.GetComponent<DemonCharacter>().ChangeDemonState(DemonCharacter.DemonStates.Inactive);
+        }
+  
+        
 
         currentTime = 0;
         inStudy = true;
@@ -186,9 +198,11 @@ public class GameManager : MonoBehaviour
     public IEnumerator EndHour()
     {
         currentHour++;
-        studyDoor.collectible = studyDoor.startShiftSO;
+        //studyDoor.collectible = studyDoor.startShiftSO;
+        studyBed.ChangeShift();
         sanityEvents.EndHour();
         PatientTaskManager.instance.ClearTasks();
+        EconomyManager.instance.AddIncome(salary);
 
         if (currentHour <= finalHour)
         {
@@ -202,6 +216,7 @@ public class GameManager : MonoBehaviour
         {
             EndGame(false);  // Lose the game
         }
+        demon.SetActive(true);
     }
 
 
@@ -218,7 +233,8 @@ public class GameManager : MonoBehaviour
     public IEnumerator StartShift(Transform startShiftPosition)  // Called when the player leaves the study
     {
         inStudy = false;  // Starts the timer
-        studyDoor.collectible = studyDoor.endHourSO;
+        studyDoor.ChangeShift();
+        /*studyDoor.collectible = studyDoor.endHourSO;
         player.GetComponent<PlayerInput>().enabled = false;
         FadeOut();
 
@@ -229,7 +245,8 @@ public class GameManager : MonoBehaviour
         player.GetComponent<CharacterController>().enabled = false;
         player.transform.position = startShiftPosition.position;
         player.transform.rotation = startShiftPosition.rotation;
-        player.GetComponent<CharacterController>().enabled = true;
+        player.GetComponent<CharacterController>().enabled = true;*/
+        yield return new WaitForSeconds(0);
     }
 
 
@@ -301,14 +318,18 @@ public class GameManager : MonoBehaviour
 
     public void DemonCaptureEvent()
     {
-        cineChance=UnityEngine.Random.Range(0, 10);
-       if (cineChance<=5)
+       cineChance=UnityEngine.Random.Range(0, 3);
+       if (cineChance==1)
        {
         StartCoroutine(captureBoxScript.MainEvent());
         }
-        else
+        else if(cineChance==2)
         {
-           cinematicManagerScript.StartJumpscare();
+            cinematicManagerScript.StartBasementJumpscare();
+        }
+       else
+        {
+           cinematicManagerScript.StartHallwayJumpscare();
         }
        
 

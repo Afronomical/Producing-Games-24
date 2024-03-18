@@ -48,18 +48,6 @@ public class AudioManager : MonoBehaviour
 
 
 
-    public void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.J))  // Used for testing spacial audio, will play a sound effect at a random location
-        //{
-        //    GameObject obj = Instantiate(sourcePrefab);
-        //    obj.transform.position = new Vector3(Random.Range(0, 50), Random.Range(0, 50), Random.Range(0, 50));
-        //    PlaySound(testSound, obj.transform);
-        //}
-    }
-
-
-
     private void SetupAudioSources()  // Create a certain number of audio sources, these will be pooled and then used whenever a sound needs to be played
     {
         musicSource = transform.GetChild(0).GetComponent<AudioSource>();  // Get references to the music and ambience specific sources
@@ -78,64 +66,70 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySound(SoundEffect effect, Transform effectParent)
     {
-        AudioSource source = musicSource;
-
-        for (int i = 0; i < effectSources.Count; i++)
+        if (effect != null)
         {
-            if (!effectSources[i].isPlaying)
-            {
-                source = effectSources[i];
-                break;
-            }
-        }
+            AudioSource source = musicSource;
 
-        if (source == musicSource)  // If it couldn't find an empty source
-        {
-            AudioSource lowestPrioritySource = effectSources[0];
-            for (int i = 0; i < effectSources.Count; i++)  // Find the active source with the lowest priority
+            for (int i = 0; i < effectSources.Count; i++)
             {
-                if (effectSources[i].priority < lowestPrioritySource.priority)
+                if (!effectSources[i].isPlaying)
                 {
-                    lowestPrioritySource = effectSources[i];
+                    source = effectSources[i];
+                    break;
                 }
             }
 
-            Debug.Log("Sound effect stopped due to not having enough free sources, Source: " + lowestPrioritySource.name + " Priority: " + lowestPrioritySource.priority);
-        }
-
-
-        SetMainSourceSettings(source, effect);
-
-        if (effect.spacialAudio)
-        {
-            source.transform.position = effectParent.position;
-
-            if (effect.followObject)
-                source.transform.parent = effectParent;
-            else
-                source.transform.parent = transform;
-
-            source.spatialBlend = 1;
-            source.maxDistance = effect.travelDistance;
-            source.SetCustomCurve(AudioSourceCurveType.CustomRolloff, distanceFalloff);
-        }
-        else
-        {
-            source.spatialBlend = 0;
-            source.transform.parent = transform;
-        }
-
-        source.Play();
-
-        //Creates an invisible sphere that will be the size of the max distance that the sound can be heard from, any Audio listener scripts within that sphere will be detected and triggered
-        Collider[] col = Physics.OverlapSphere(source.transform.position, source.maxDistance);
-        for (int i = 0; i < col.Length; i++)
-        {
-            if (col[i].TryGetComponent(out AudioListenScript audioListener))
-                audioListener.canSoundBeHeard = true;
-            else if (col[i].TryGetComponent(out IHear character))
+            if (source == musicSource)  // If it couldn't find an empty source
             {
-                character.ReactToSound(effectParent);
+                AudioSource lowestPrioritySource = effectSources[0];
+                for (int i = 0; i < effectSources.Count; i++)  // Find the active source with the lowest priority
+                {
+                    if (effectSources[i].priority < lowestPrioritySource.priority)
+                    {
+                        lowestPrioritySource = effectSources[i];
+                    }
+                }
+
+                Debug.Log("Sound effect stopped due to not having enough free sources, Source: " + lowestPrioritySource.name + " Priority: " + lowestPrioritySource.priority);
+            }
+
+
+            SetMainSourceSettings(source, effect);
+
+            if (effect.spacialAudio)
+            {
+                source.transform.position = effectParent.position;
+
+                if (effect.followObject)
+                    source.transform.parent = effectParent;
+                else
+                    source.transform.parent = transform;
+
+                source.spatialBlend = 1;
+                source.maxDistance = effect.travelDistance;
+                source.SetCustomCurve(AudioSourceCurveType.CustomRolloff, distanceFalloff);
+            }
+            else
+            {
+                source.spatialBlend = 0;
+                source.transform.parent = transform;
+            }
+
+            source.Play();
+
+            //Creates an invisible sphere that will be the size of the max distance that the sound can be heard from, any Audio listener scripts within that sphere will be detected and triggered
+            Collider[] col = Physics.OverlapSphere(source.transform.position, source.maxDistance);
+            for (int i = 0; i < col.Length; i++)
+            {
+                if (col[i].TryGetComponent(out AudioListenScript audioListener))
+                {
+                    audioListener.canSoundBeHeard = true;
+
+                }
+                else if (col[i].TryGetComponent(out IHear character) && effect.canBeHeardByDemon)
+                {
+                    character.ReactToSound(effectParent);
+                }
             }
         }
     }
@@ -162,6 +156,30 @@ public class AudioManager : MonoBehaviour
     }
 
 
+
+    public void ChangePitch(SoundEffect effect, float pitch)
+    {
+        for (int i = 0; i < effectSources.Count; i++)  // Check through all effect sources
+        {
+            if (effectSources[i].clip == effect.audioClip)  // Find the source playing this clip
+            {
+                effectSources[i].pitch = pitch;
+            }
+        }
+    }
+
+    public void ChangeVolume(SoundEffect effect, float volume)
+    {
+        for (int i = 0; i < effectSources.Count; i++)  // Check through all effect sources
+        {
+            if (effectSources[i].clip == effect.audioClip)  // Find the source playing this clip
+            {
+                volume *= globalVolume;
+                volume *= effect.isMusic ? musicVolume : soundEffectVolume;
+                effectSources[i].volume = volume;
+            }
+        }
+    }
 
     public void StopSound(SoundEffect effect)
     {

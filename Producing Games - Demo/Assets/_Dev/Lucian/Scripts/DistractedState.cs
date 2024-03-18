@@ -20,28 +20,34 @@ public class DistractedState : DemonStateBaseClass
 
     public override void UpdateLogic()
     {
-        //if far away from sound the destination will be set to move towards that sound
-        if(Mathf.Abs(character.agent.gameObject.transform.position.magnitude - character.soundDestination.position.magnitude) < 5f )
+        if(character.soundDestination)
         {
-            character.agent.SetDestination(character.soundDestination.position);
-            if(Mathf.Abs(character.agent.gameObject.transform.position.magnitude - character.soundDestination.position.magnitude) < 0.1f)
+            //if far away from sound the destination will be set to move towards that sound
+            if(Mathf.Abs(character.agent.gameObject.transform.position.magnitude - character.soundDestination.position.magnitude) < 5f )
+            {
+                character.agent.SetDestination(character.soundDestination.position);
+                if(Mathf.Abs(character.agent.gameObject.transform.position.magnitude - character.soundDestination.position.magnitude) < 0.1f)
+                {
+                    character.agent.velocity = Vector3.zero;
+                    startTimer = true;
+                }
+                return;
+            }
+            else
             {
                 character.agent.velocity = Vector3.zero;
                 startTimer = true;
             }
         }
-        else
-        {
-            character.agent.velocity = Vector3.zero;
-            startTimer = true;
-        }
+
         if(startTimer)
         {
             character.animator.SetBool("isConfused", true);
-            if(currentTime < 0)
+            if(currentTime <= 0)
             {
                 character.animator.SetBool("isConfused", false);
                 character.ChangeDemonState(DemonCharacter.DemonStates.Patrol);
+                currentTime = investigationTime;
             }
             else
             {

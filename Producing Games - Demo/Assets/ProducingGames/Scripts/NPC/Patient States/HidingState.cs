@@ -11,20 +11,48 @@ using UnityEngine;
 public class HidingState : PatientStateBaseClass
 {
     private Vector3 hidingLocation;
+    private bool isWalkingToHidingDest = false;
 
     private void Start()
     {
         ChooseHidingLocation();
 
-        // INFO: Given that the previous was panicked or scared we will have
-        // the patient walk back to their hiding spot
-        if (character.PreviousState == PatientCharacter.PatientStates.Panic ||
-            character.PreviousState == PatientCharacter.PatientStates.Scared)
-            WalkToHidingSpot();
-        else
+        // INFO: Given that the previous was none we will have the patient
+        // teleport, otherwise we have them walk to their destination
+        if (character.PreviousState == PatientCharacter.PatientStates.None ||
+            character.PreviousState == PatientCharacter.PatientStates.Bed)
             TeleportToHidingSpot();
+        else
+            WalkToHidingSpot();
+    }
 
-        // PLAY HIDING ANIMATION HERE
+    public override void UpdateLogic()
+    {
+        character.animator.SetFloat("movement", character.agent.velocity.magnitude);
+
+        if (isWalkingToHidingDest)
+        {
+            // INFO: Stops the walking animation and transitions to the praying animation
+            if (character.agent.remainingDistance < 0.1f)
+            {
+                // INFO: Check whether selected hiding spot is being occupied by player
+                NPCManager.Instance.HidingCutsceneLib.TryGetValue(hidingLocation, out HidingCutScene value);
+
+                // INFO: If it isn't being occupied by the player we can break, otherwise
+                // we find another hiding location
+                if (value.playerIsOccupying)
+                {
+                    ChooseHidingLocation();
+                    return;
+                }
+
+                // INFO: Occupy the hiding spot with the patient
+                value.patient = character;
+
+                isWalkingToHidingDest = false;
+                TeleportToHidingSpot();
+            }
+        }
     }
 
     /// <summary>
@@ -40,7 +68,19 @@ public class HidingState : PatientStateBaseClass
         }
 
         // INFO: Chooses a location to hide at
-        hidingLocation = NPCManager.Instance.RandomHidingLocation();
+        for (int i = 0; i < 100; i++)
+        {
+            hidingLocation = NPCManager.Instance.RandomHidingLocation();
+
+            // INFO: Check whether selected hiding spot is being occupied by player
+            NPCManager.Instance.HidingCutsceneLib.TryGetValue(hidingLocation, out HidingCutScene value);
+
+            // INFO: If it isn't being occupied by the player we can break, otherwise
+            // we find another hiding location
+            if (!value.playerIsOccupying)
+                break;
+        }
+        //hidingLocation = NPCManager.Instance.RandomHidingLocation();
     }
 
     /// <summary>
@@ -49,7 +89,20 @@ public class HidingState : PatientStateBaseClass
     /// </summary>
     private void TeleportToHidingSpot()
     {
-        character.agent.Warp(hidingLocation);
+        //character.agent.Warp(hidingLocation);
+        //character.animator.SetBool("isTerrified", true);
+
+        // INFO: Check whether selected hiding spot is being occupied by player
+        NPCManager.Instance.HidingCutsceneLib.TryGetValue(hidingLocation, out HidingCutScene value);
+
+        if (value.patient == null)
+            value.patient = character;
+
+        character.agent.enabled = false;
+        character.rb.velocity = Vector3.zero;
+
+        //transform.position = new(hidingLocation.x, transform.position.y, hidingLocation.z);
+        transform.SetPositionAndRotation(new(hidingLocation.x, transform.position.y, hidingLocation.z), character.BedDestination.rotation);
     }
 
     /// <summary>
@@ -58,7 +111,12 @@ public class HidingState : PatientStateBaseClass
     /// </summary>
     private void WalkToHidingSpot()
     {
+        character.ResetAnimation();
+        
+        character.agent.speed = character.walkSpeed;
         character.agent.SetDestination(hidingLocation);
+
+        isWalkingToHidingDest = true;
     }
 
     /// <summary>

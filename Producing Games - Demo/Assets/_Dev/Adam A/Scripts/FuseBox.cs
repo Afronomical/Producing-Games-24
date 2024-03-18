@@ -13,7 +13,7 @@ public class FuseBox : InspectableObject
     
     public List<GameObject> fuses, fuseSlots;//Fuses/FuseSlots references
     public Material[] materials;//All the Colour Materials
-    private int activeFuses;//Correct Fuses
+    private int heldFuses;//Correct Fuses
     public bool complete;//If this minigame is completed
 
     //Materials for the lights
@@ -82,15 +82,15 @@ public class FuseBox : InspectableObject
     //If the fuse isn't connected to it's correct slot, you can hold onto the fuse and move it around
     public void Select()
     {
-        foreach (GameObject obj in cursor.GetComponent<MinigameCursor>().collidingObjects)
+        foreach (GameObject obj in cursor.GetComponent<MinigameCursor>().collidingObjects)//If the cursor is colliding with objects
         {
             Debug.Log(obj.name);
             Debug.Log(obj.GetComponent<Fuse>().connected);
-            if (fuses.Contains(obj) && !obj.GetComponent<Fuse>().connected)
+            if (fuses.Contains(obj) && !obj.GetComponent<Fuse>().connected)//If the fuse is within the list of fuses and isn't connected
             {
                 Debug.Log(obj);
-                activeFuses = fuses.IndexOf(obj);
-                obj.GetComponent<Fuse>().Hold();
+                heldFuses = fuses.IndexOf(obj);//Grabs reference to the selected fuse
+                obj.GetComponent<Fuse>().Hold();//Hold the fuse
                 break;
             }
         }
@@ -99,22 +99,23 @@ public class FuseBox : InspectableObject
     //If the fuse is over the correct slot, connect the fuse to that slot, if all 4 fuses are connected, the task is complete
     public void Release()
     {
-        if (activeFuses != -1)
+        
+        if (heldFuses != -1)//Checks if the player is holding a valid fuse(Without this the fuse will be stuck to the mouse)
         {
-            if (cursor.GetComponent<MinigameCursor>().collidingObjects.Count == 0)
+            if (cursor.GetComponent<MinigameCursor>().collidingObjects.Count == 0)//If cursor is colliding with 0 objects
             {
-                fuses[activeFuses].GetComponent<Fuse>().Release();
-                activeFuses = -1;
+                fuses[heldFuses].GetComponent<Fuse>().Release();//The fuse that is being held will be released
+                heldFuses = -1;//Resets the "Held Fuse" reference 
             }
 
             else
             {
-                foreach (GameObject obj in cursor.GetComponent<MinigameCursor>().collidingObjects)
+                foreach (GameObject obj in cursor.GetComponent<MinigameCursor>().collidingObjects)//Each object the cursor is colliding with
                 {
-                    if (fuseSlots.Contains(obj) && fuses[activeFuses].GetComponent<Fuse>().fuseSlot == obj)
+                    if (fuseSlots.Contains(obj) && fuses[heldFuses].GetComponent<Fuse>().fuseSlot == obj)//Validates if it's the correct slot
                     {
-                        fuses[activeFuses].GetComponent<Fuse>().Connect();
-                        activeFuses = -1;
+                        fuses[heldFuses].GetComponent<Fuse>().Connect();//Connect the fuse to the slot
+                        heldFuses = -1;//Resets the "Held Fuse" reference 
 
                         int connectedFuses = 0;
                         foreach (GameObject fuse in fuses)  // Check all fuses
@@ -122,7 +123,7 @@ public class FuseBox : InspectableObject
                             if (fuse.GetComponent<Fuse>().connected) ++connectedFuses;  // If they are all connected
                         }
 
-                        if (connectedFuses >= 4)
+                        if (connectedFuses >= 4)//If all fuses are connected, Complete the Task, Turn Light's on and exit the player out of the minigame
                         {
                             complete = true;
                             LightManager.Instance.AllLightToggle(true);
@@ -136,9 +137,9 @@ public class FuseBox : InspectableObject
                         break;
                     }
 
-                    else  // Not touching the fuse end
+                    else  //If the held fuse isn't over the correct slot, release the fuse
                     {
-                        fuses[activeFuses].GetComponent<Fuse>().Release();
+                        fuses[heldFuses].GetComponent<Fuse>().Release();
                     }
                 }
             }

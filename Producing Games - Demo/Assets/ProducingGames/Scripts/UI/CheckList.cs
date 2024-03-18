@@ -41,12 +41,15 @@ public class CheckList : MonoBehaviour
         //gameObject.SetActive(false); //Toggling the checklist
         pageArray[0].SetActive(true);
         listTooltip.text = "Hold F to see tasks!";
+        listTooltip.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         turnPageTimer += Time.deltaTime;
+
+        if (DiegeticUIManager.Instance.hasChecklist) listTooltip.enabled = true;
 
         //if(timer <= 0)
         //{
@@ -67,7 +70,7 @@ public class CheckList : MonoBehaviour
             if (context.canceled)
                 arms.DropClipboard();
 
-            listTooltip.enabled = false;
+            listTooltip.gameObject.SetActive(false);
         }
     }
 

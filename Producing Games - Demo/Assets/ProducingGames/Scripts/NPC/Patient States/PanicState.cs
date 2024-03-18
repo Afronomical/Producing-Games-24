@@ -19,18 +19,28 @@ public class PanicState : PatientStateBaseClass
 
     private void Start()
     {
-        // INFO: If the previous state was the bed state, we firstly need to
-        // teleport the agent to the closest point on the navmesh before assigning
-        // their destination location
-        character.NearestNavMeshPoint();
-
         character.agent.speed = character.runSpeed;
+
+        // INFO: Plays the desired male voice line if the patient is a male
+        // otherwise plays the desirted female voice line
+        if (character.isMale)
+        {
+            NPCManager.Instance.PlayMaleVoiceLine(NPCManager.MaleVoiceLines.ManOneScream, transform);
+        }
+        else
+        {
+            NPCManager.Instance.PlayFemaleVoiceLine(NPCManager.FemaleVoiceLines.FemOneScreamOne, transform);
+        }
 
         // INFO: If the previous patient state was the bed state, we don't
         // want the safety choice to be their bed, as they wouldn't go anywhere
         // so we need to choose the other (hiding location)
         if (character.PreviousState == PatientCharacter.PatientStates.Bed)
+        {
+            // INFO: Teleports to closest point of navmesh as beds aren't on the navmesh
+            character.NearestNavMeshPoint();
             character.safetyChoice = SafetyChoices.HidingSpot;
+        }
         else
             character.safetyChoice = character.GetRandomEnum<SafetyChoices>();
 
@@ -73,6 +83,8 @@ public class PanicState : PatientStateBaseClass
             {
                 // INFO: Returns to the previous state before the patient became scared, to
                 // ensure the task system does not break
+                character.animator.SetBool("isRunning", false);
+                character.animator.SetBool("isTerrified", true);
                 character.ChangePatientState(character.PreviousState);
             }
         }

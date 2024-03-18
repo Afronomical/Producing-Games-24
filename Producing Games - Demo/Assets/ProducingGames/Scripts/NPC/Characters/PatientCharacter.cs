@@ -2,6 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.TextCore.Text;
+using static DemonCharacter;
 
 /// <summary>
 /// Written by: Matej Cincibus
@@ -41,6 +42,10 @@ public class PatientCharacter : AICharacter
     public PatientStates currentState;
     public SafetyChoices safetyChoice;
     public bool isPossessed = false;
+    [Tooltip("If isMale is false it means the patient is a female")]
+    public bool isMale;
+    [Tooltip("The y-axis offset of a patient whos lying on their bed, this value gets deducted from their y-axis")]
+    [Min(0)] public float bedYOffset = 0.55f;
 
     [Space(10)]
 
@@ -90,16 +95,6 @@ public class PatientCharacter : AICharacter
     private GameObject demonGO;
     private DemonCharacter demonCharacter;
 
-
-    private void Awake()
-    {
-        player = FindFirstObjectByType<PlayerMovement>().gameObject;
-        rb = GetComponent<Rigidbody>();
-        agent = GetComponent<NavMeshAgent>();
-        raycastToPlayer = GetComponent<RaycastToPlayer>();
-        animator = GetComponent<Animator>();
-    }
-
     public override void Start()
     {
         base.Start();
@@ -120,14 +115,11 @@ public class PatientCharacter : AICharacter
 
             GameManager.Instance.demon = GO;
         }
-
-        // INFO: Starting State
-        ChangePatientState(PatientStates.Abandoned);
     }
 
     private void Update()
     {
-        // INFO:  Calls the virtual function for whatever state scripts
+        // INFO: Calls the virtual function for whatever state scripts
         if (patientStateScript != null)
             patientStateScript.UpdateLogic();
 
@@ -157,31 +149,23 @@ public class PatientCharacter : AICharacter
     /// <param name="newState"></param>
     public void ChangePatientState(PatientStates newState)
     {
+        // INFO: Remove all animations
+        ResetAnimation();
+
         if (currentState != newState || patientStateScript == null)
         {
             // INFO: If the previous state had the patient remain stationary, we will need to grant the patient
             // movement again for the new state that they're going to go into
-            if (currentState == PatientStates.Bed || currentState == PatientStates.ReqMeds || currentState == PatientStates.Prayer)
-            {
-                rb.useGravity = true;
+            if (currentState == PatientStates.Bed || currentState == PatientStates.Hiding)
                 agent.enabled = true;
-            }
 
             // INFO: If the patient has a path set from a previous state, this will get rid of it
             if (agent.hasPath)
                 agent.ResetPath();
 
+            // INFO: Destroy current script attached to patient character
             if (patientStateScript != null)
-                Destroy(patientStateScript); // destroy current script attached to AI character
-
-            // INFO: Remove all animations
-            animator.SetBool("isHungry", false);
-            animator.SetBool("isPraying", false);
-            animator.SetBool("reqMeds", false);
-            animator.SetBool("inBed", false);
-            animator.SetBool("isRunning", false);
-            animator.SetBool("isTerrified", false);
-            animator.SetBool("isScared", false);
+                Destroy(patientStateScript);
 
             // INFO: Set the previous state of the patient to the current state
             PreviousState = currentState;
@@ -263,10 +247,12 @@ public class PatientCharacter : AICharacter
     private void PanicOrScaredDecider()
     {
         // INFO: If the patient is already panicking/scared or they are dead
-        // we can return
+        // or are currently possessed we can return
         if (currentState == PatientStates.Panic ||
             currentState == PatientStates.Scared ||
-            currentState == PatientStates.Dead)
+            currentState == PatientStates.Dead  ||
+            currentState == PatientStates.Possessed ||
+            currentState == PatientStates.Hiding)
             return;
 
         ChangePatientState(GameManager.Instance.currentHour < 7 ? PatientStates.Scared : PatientStates.Panic);
@@ -306,5 +292,16 @@ public class PatientCharacter : AICharacter
                 return true;
         }
         return false;
+    }
+
+    public void ResetAnimation()
+    {
+        animator.SetBool("isHungry", false);
+        animator.SetBool("isPraying", false);
+        animator.SetBool("reqMeds", false);
+        animator.SetBool("inBed", false);
+        animator.SetBool("isRunning", false);
+        animator.SetBool("isTerrified", false);
+        animator.SetBool("isScared", false);
     }
 }

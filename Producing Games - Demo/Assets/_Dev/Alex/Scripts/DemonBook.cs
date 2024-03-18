@@ -19,11 +19,14 @@ public class DemonBook : MonoBehaviour
     {
         pageArray[0].SetActive(true);
         bookTooltip.text = "Press B to read the demon book!";
+        bookTooltip.enabled = false;
     }
 
     private void Update()
     {
         turnPageTimer = Time.deltaTime;
+
+        if (DiegeticUIManager.Instance.hasDemonBook) bookTooltip.enabled = true;
     }
 
     public void OnReadBook(InputAction.CallbackContext context)
@@ -31,7 +34,7 @@ public class DemonBook : MonoBehaviour
         if(DiegeticUIManager.Instance.hasDemonBook)
         {
             gameObject.SetActive(!gameObject.activeSelf);
-            bookTooltip.enabled = false;
+            bookTooltip.gameObject.SetActive(false);
         }
     }
 

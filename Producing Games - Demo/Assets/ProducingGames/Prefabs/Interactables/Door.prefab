@@ -14,12 +14,13 @@ GameObject:
   - component: {fileID: 5251809640134829072}
   - component: {fileID: 2322653275245972884}
   - component: {fileID: 4103884319283356870}
+  - component: {fileID: 1588378930480246948}
   m_Layer: 0
   m_Name: DoorMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &9008434657128963388
 Transform:
@@ -121,6 +122,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectIcon: {fileID: 0}
   collectible: {fileID: 11400000, guid: ddf09297b4404ee4f98ca49c78bbdad6, type: 2}
+  isExorcismObject: 0
+  hasBeenPlaced: 0
   doorHingeTransform: {fileID: 97279428093766836}
   doorRotationOffset: 105
   interactionInterval: 2
@@ -135,7 +138,7 @@ NavMeshObstacle:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 810460950104111626}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
@@ -144,6 +147,25 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 0
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &1588378930480246948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810460950104111626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &1942559486859986778
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,12 +178,14 @@ GameObject:
   - component: {fileID: 7773913857201604422}
   - component: {fileID: 6463201639761129195}
   - component: {fileID: 2440662291908468006}
+  - component: {fileID: 3465974584253475623}
+  - component: {fileID: 7856374026025334744}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &97279428093766836
 Transform:
@@ -171,9 +195,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1942559486859986778}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.855, y: 1.25, z: -3}
-  m_LocalScale: {x: 0.25, y: 2.5, z: 0.25}
+  m_LocalScale: {x: 0.2518811, y: 3.6774666, z: 0.276525}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9008434657128963388}
@@ -250,3 +274,38 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &3465974584253475623
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1942559486859986778}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 12.840975, y: 0.9269283, z: 11.199878}
+  m_Center: {x: 3.2824686, y: 0.03653682, z: -0.04338869}
+--- !u!114 &7856374026025334744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1942559486859986778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38477e666d2ab444ebf990cdf7e44433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  door: {fileID: 0}
+  animation: {fileID: 0}

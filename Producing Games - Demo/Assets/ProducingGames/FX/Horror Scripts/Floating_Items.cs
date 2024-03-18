@@ -27,6 +27,8 @@ public class Floating_Items : MonoBehaviour
     [Header("SFX")]
     public SoundEffect ThrowSound;
     public SoundEffect ItemShakeSound;
+    public SoundEffect VoiceLines;
+
 
     private GameManager gM;
     [HideInInspector] public bool eventTriggered;
@@ -78,6 +80,8 @@ public class Floating_Items : MonoBehaviour
         // Shake the item using max rotation angle and define time with shakeTime variable
         while (delta <= shakeTime)
         {
+            AudioManager.instance.PlaySound(VoiceLines, gameObject.transform);
+
             switch (startRotation < maxRotAngle)
             {
                 case true:

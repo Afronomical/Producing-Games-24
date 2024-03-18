@@ -1078,6 +1078,7 @@ MonoBehaviour:
   turnPageDelay: 0.3
   pageSound: {fileID: 11400000, guid: 8cb31542d5e97794e8367b32073cdf3e, type: 2}
   arms: {fileID: 2397263937806965464}
+  listTooltip: {fileID: 0}
 --- !u!1 &1079686810079229914
 GameObject:
   m_ObjectHideFlags: 0
@@ -8236,6 +8237,7 @@ MonoBehaviour:
   - {fileID: 6156755021051889892}
   turnPageDelay: 0.3
   pageSound: {fileID: 11400000, guid: 8cb31542d5e97794e8367b32073cdf3e, type: 2}
+  bookTooltip: {fileID: 0}
 --- !u!1 &3568462782054155981
 GameObject:
   m_ObjectHideFlags: 0
@@ -9502,6 +9504,7 @@ GameObject:
   - component: {fileID: 975648811581934756}
   - component: {fileID: 5546704305577805030}
   - component: {fileID: 5863319930419737407}
+  - component: {fileID: 6568094422362449912}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -9625,6 +9628,7 @@ MonoBehaviour:
   sprintingSound: {fileID: 11400000, guid: 618361e51ec060f40bf39dad09cc8fe7, type: 2}
   timeBetweenCrouchingFootsteps: 0.7
   crouchingSound: {fileID: 11400000, guid: 9befc63620fbd4e40b0c278fff90ce3f, type: 2}
+  isHiding: 0
   cameraShake: {fileID: 3769672194398167182}
 --- !u!143 &7917980772711468240
 CharacterController:
@@ -10095,6 +10099,25 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 256
+  PlMove: {fileID: 0}
+--- !u!114 &6568094422362449912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5039208490668459519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d30e874a5b3d424799099efe1e1b5b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heartBeatSound: {fileID: 11400000, guid: 52b0cf1f76a64044cbb05fed9de2186a, type: 2}
+  activationRange: 10
+  maxPitch: 1.81
+  minPitch: 1
+  volume: 0.11
+  heartFalloffTime: 3
 --- !u!1 &5071186367569005307
 GameObject:
   m_ObjectHideFlags: 0
@@ -13446,7 +13469,7 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 0
-  m_ColorTemperature: 5307
+  m_ColorTemperature: 12573
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -23016,6 +23039,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pagerInterface: {fileID: 4294033640546177467}
   arms: {fileID: 2397263937806965464}
+  pagerTooltip: {fileID: 0}
 --- !u!114 &6688637818997208028
 MonoBehaviour:
   m_ObjectHideFlags: 0

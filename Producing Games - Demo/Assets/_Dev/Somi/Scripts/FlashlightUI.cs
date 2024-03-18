@@ -24,43 +24,44 @@ public class FlashlightUI : MonoBehaviour
 
     private void Update()
     {
+        
         currentBatteryPercent = Mathf.Clamp((flashlight.batteryCharge / flashlight.maxBatteryCharge), 0, 1);
 
-         /*float currentLEDIndex = 0;
-         int flashingIndex = 0;
-         foreach (var LED in BatteryIndicatorLEDs)
-         {
-             currentIndexPercent = (currentLEDIndex + 1) / BatteryIndicatorLEDs.Length;
-             currentLEDIndex += 1;
+        /*float currentLEDIndex = 0;
+        int flashingIndex = 0;
+        foreach (var LED in BatteryIndicatorLEDs)
+        {
+            currentIndexPercent = (currentLEDIndex + 1) / BatteryIndicatorLEDs.Length;
+            currentLEDIndex += 1;
 
-             if (currentBatteryPercent == currentIndexPercent)
-             {
-                 //LED.ledState = FlashlightLEDs.LEDState.Charged;
-                 flashingIndex = ((int)currentIndexPercent + 1) * BatteryIndicatorLEDs.Length;
-             }
-             else if (currentBatteryPercent > currentIndexPercent)
-             {
-                 LED.ledState = FlashlightLEDs.LEDState.Flashing;
-             }
-             else if (currentBatteryPercent < currentIndexPercent)
-             {
-                 LED.ledState = FlashlightLEDs.LEDState.Dead;
-             }
-             else
-             {
-                 LED.ledState = FlashlightLEDs.LEDState.Charged;
-                 Debug.Log("Broken");
-             }
-             //Debug.Log(currentBatteryPercent + " " + currentIndexPercent);
+            if (currentBatteryPercent == currentIndexPercent)
+            {
+                LED.ledState = FlashlightLEDs.LEDState.Charged;
+                //flashingIndex = ((int)currentIndexPercent + 1) * BatteryIndicatorLEDs.Length;
+            }
+            else if (currentBatteryPercent > currentIndexPercent)
+            {
+                LED.ledState = FlashlightLEDs.LEDState.Charged;
+            }
+            else if (currentBatteryPercent < currentIndexPercent)
+            {
+                LED.ledState = FlashlightLEDs.LEDState.Dead;
+            }
+            else
+            {
+                LED.ledState = FlashlightLEDs.LEDState.Charged;
+                Debug.Log("Broken");
+            }
+            //Debug.Log(currentBatteryPercent + " " + currentIndexPercent);
 
-            BatteryIndicatorLEDs[flashingIndex].ledState = FlashlightLEDs.LEDState.Flashing;      
-         }
+            //BatteryIndicatorLEDs[flashingIndex].ledState = FlashlightLEDs.LEDState.Flashing;
+        }
 
-         foreach (var item in BatteryIndicatorLEDs)
-         {
+        foreach (var item in BatteryIndicatorLEDs)
+        {
 
-         }*/
-        
+        }*/
+
 
         switch (currentBatteryPercent)
         {
@@ -72,7 +73,7 @@ public class FlashlightUI : MonoBehaviour
                 BatteryIndicatorLEDs[0].ledState = FlashlightLEDs.LEDState.Dead;
 
                 break;
-      
+
             case float i when (i > 0 && i < 0.25):
 
                 BatteryIndicatorLEDs[3].ledState = FlashlightLEDs.LEDState.Dead;
@@ -118,8 +119,8 @@ public class FlashlightUI : MonoBehaviour
                 BatteryIndicatorLEDs[0].ledState = FlashlightLEDs.LEDState.Charged;
                 Debug.Log(" 5");
                 break;
-            
-                
+
+
         }
 
 

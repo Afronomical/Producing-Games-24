@@ -16,6 +16,7 @@ public class ExorcismTable : MonoBehaviour
     [ShowOnly] public List<GameObject> requiredObjects = new();
     public SoundEffect confirmSound;
     private bool b_fail_playing = false;
+    public bool tableAvailable = false; 
     
 
     private int playerItemAmount = 0;
@@ -27,15 +28,20 @@ public class ExorcismTable : MonoBehaviour
 
     private void Update()
     {
-        if (playerItemAmount < 3)
-            CheckForPlayerItems();
-        else if (playerItemAmount == 3)
+       if(tableAvailable)
+
         {
-            if (DoListsMatch(playerObjects, requiredObjects))
-                CompleteExorcism();
-            else if (!DoListsMatch(playerObjects, requiredObjects))
-                FailExorcism();
-        }
+            if (playerItemAmount < 3)
+                CheckForPlayerItems();
+            else if (playerItemAmount == 3)
+            {
+                if (DoListsMatch(playerObjects, requiredObjects))
+                    CompleteExorcism();
+                else if (!DoListsMatch(playerObjects, requiredObjects))
+                    FailExorcism();
+            }
+        }        
+       
 
     }
 

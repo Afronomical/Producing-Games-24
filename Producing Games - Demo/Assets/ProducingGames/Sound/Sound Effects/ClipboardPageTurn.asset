@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ClipboardPageTurn
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: a4a30ce45fb127c4281a97f8b2bf39c7, type: 3}
-  volume: 0.75
+  volume: 0.4
   pitch: 1
   priority: 128
   loop: 0
@@ -25,3 +25,4 @@ MonoBehaviour:
   font: {fileID: 0}
   typingSpeed: 0.15
   waitTillHide: 4
+  canBeHeardByDemon: 0
