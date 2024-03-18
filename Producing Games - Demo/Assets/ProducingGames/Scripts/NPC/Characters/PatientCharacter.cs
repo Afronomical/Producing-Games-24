@@ -308,6 +308,6 @@ public class PatientCharacter : AICharacter
 
     public void SetID(int newID)
     {
-        newID = PatientID;
+        PatientID = newID;
     }
 }
