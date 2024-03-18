@@ -47,9 +47,6 @@ public class PatientTaskManager : MonoBehaviour
     public GameObject satellite;
     public GameObject[] tables;
 
-    [Header("Voice Lines")]
-    public SoundEffect medicationVoiceLines;
-
 
     void Awake()
     {
