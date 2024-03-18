@@ -13,9 +13,14 @@ MonoBehaviour:
   m_Name: Cross(Thrown)
   m_EditorClassIdentifier: 
   objectName: 
-  obj: {fileID: 79533909156319223, guid: 7d208f81df3fa2f4fb02e22d13e51aef, type: 3}
-  prefab: {fileID: 79533909156319223, guid: 7d208f81df3fa2f4fb02e22d13e51aef, type: 3}
+  obj: {fileID: 800868709172025809, guid: e8574bb1fd23fcc418bdf7b7e5326a52, type: 3}
+  prefab: {fileID: 800868709172025809, guid: e8574bb1fd23fcc418bdf7b7e5326a52, type: 3}
   interactSound: {fileID: 0}
   objectImage: {fileID: 21300000, guid: 7b926451dffb53e4e8848cab787007cf, type: 3}
+<<<<<<< Updated upstream
   tooltipText: 
   tooltipImage: {fileID: 21300000, guid: 0fb5bb1f5aab7a647bc7acf8fab501b7, type: 3}
+=======
+  tooltipText: Replace
+  tooltipImage: {fileID: 21300000, guid: 8848a6de3be742a48b4e49dd9ea3ebce, type: 3}
+>>>>>>> Stashed changes

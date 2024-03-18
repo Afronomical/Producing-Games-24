@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1476359682891423457, guid: 2983fc715414cdb4f81e123e2f4edb66, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 25.48884
+      value: 25.959278
       objectReference: {fileID: 0}
     - target: {fileID: 1476359682891423457, guid: 2983fc715414cdb4f81e123e2f4edb66, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.99
+      value: 2.5116043
       objectReference: {fileID: 0}
     - target: {fileID: 1476359682891423457, guid: 2983fc715414cdb4f81e123e2f4edb66, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.7495446
+      value: 6.749544
       objectReference: {fileID: 0}
     - target: {fileID: 1476359682891423457, guid: 2983fc715414cdb4f81e123e2f4edb66, type: 3}
       propertyPath: m_LocalRotation.w
@@ -61,6 +61,9 @@ PrefabInstance:
     - {fileID: 9061697124431454534, guid: 2983fc715414cdb4f81e123e2f4edb66, type: 3}
     - {fileID: 287640653761064045, guid: 2983fc715414cdb4f81e123e2f4edb66, type: 3}
     - {fileID: 3690537762142939323, guid: 2983fc715414cdb4f81e123e2f4edb66, type: 3}
+    - {fileID: 3481785344187744706, guid: 2983fc715414cdb4f81e123e2f4edb66, type: 3}
+    - {fileID: 5085160466152537135, guid: 2983fc715414cdb4f81e123e2f4edb66, type: 3}
+    - {fileID: 8526973374319236980, guid: 2983fc715414cdb4f81e123e2f4edb66, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -92,6 +95,7 @@ MonoBehaviour:
   collectible: {fileID: 11400000, guid: f2106af1c760c0f448df63d8fd16a960, type: 2}
   isExorcismObject: 0
   hasBeenPlaced: 0
+  actionTooltip: {fileID: 0}
   rotationSpeed: 4
   CrossSpinSound: {fileID: 0}
   eventTriggered: 0

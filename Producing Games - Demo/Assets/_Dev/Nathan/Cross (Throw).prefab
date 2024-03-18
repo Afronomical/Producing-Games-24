@@ -56,7 +56,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cross (Throw)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3481785344187744706, guid: 2983fc715414cdb4f81e123e2f4edb66, type: 3}
+    - {fileID: 8526973374319236980, guid: 2983fc715414cdb4f81e123e2f4edb66, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
