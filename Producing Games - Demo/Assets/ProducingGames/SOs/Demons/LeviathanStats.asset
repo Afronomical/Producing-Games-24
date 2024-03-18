@@ -16,7 +16,7 @@ MonoBehaviour:
   itemsForExorcism:
   - {fileID: 5315861791349507470, guid: 84c49b269b6dcfc46a79243aaf350a78, type: 3}
   - {fileID: 7038516228746814899, guid: 98b5eedef250feb43993370ef904f047, type: 3}
-  - {fileID: 7218715939089751833, guid: fc3c779ea2ad15c4182951e8571c6471, type: 3}
+  - {fileID: 7218715939089751833, guid: 2df6e15deea73ce4896f98a072e39a49, type: 3}
   likelyStates: []
   battleCryAudio: {fileID: 0}
   defeatCryAudio: {fileID: 0}

@@ -26,11 +26,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c6da031cff5c3b44b9b105c46b0f93df, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.8196
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c6da031cff5c3b44b9b105c46b0f93df, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 20.273
+      value: 18.328
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c6da031cff5c3b44b9b105c46b0f93df, type: 3}
       propertyPath: m_LocalRotation.w
@@ -70,35 +70,19 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c6da031cff5c3b44b9b105c46b0f93df, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4391252288054121445}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c6da031cff5c3b44b9b105c46b0f93df, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 2215720551897750472}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c6da031cff5c3b44b9b105c46b0f93df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8884082575792793599}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c6da031cff5c3b44b9b105c46b0f93df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5457322696500970716}
   m_SourcePrefab: {fileID: 100100000, guid: c6da031cff5c3b44b9b105c46b0f93df, type: 3}
 --- !u!1 &672073858492910588 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c6da031cff5c3b44b9b105c46b0f93df, type: 3}
   m_PrefabInstance: {fileID: 401601350439728813}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4391252288054121445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 672073858492910588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 221865555ae7bb34a8997ed66df77fcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectIcon: {fileID: 0}
-  collectible: {fileID: 11400000, guid: 6a7b2638039621e4891833dfa439b18f, type: 2}
-  isExorcismObject: 0
-  hasBeenPlaced: 0
 --- !u!54 &2215720551897750472
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -147,3 +131,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0020258862, y: 0.0030039907, z: 0.002889772}
   m_Center: {x: 0, y: 0.00022658857, z: 0.0014608898}
+--- !u!114 &5457322696500970716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672073858492910588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58678810af61707419f32cddc176e80d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectIcon: {fileID: 21300000, guid: 8d9ef3a5cfa5dc6448a9ca3ef1466428, type: 3}
+  collectible: {fileID: 11400000, guid: 6a7b2638039621e4891833dfa439b18f, type: 2}
+  isExorcismObject: 0
+  hasBeenPlaced: 0
+  actionTooltip: {fileID: 0}
+  capacity: 0

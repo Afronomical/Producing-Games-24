@@ -17,6 +17,21 @@ public class WanderingState : PatientStateBaseClass
     {
         character.agent.speed = character.walkSpeed;
 
+        // INFO: Plays the desired male voice line if the patient is a male
+        // otherwise plays the desirted female voice line
+        if (character.isMale)
+        {
+            NPCManager.Instance.PlayMaleVoiceLine(NPCManager.MaleVoiceLines.ManOneWanderOne, transform);
+        }
+        else
+        {
+            NPCManager.Instance.PlayFemaleVoiceLine(NPCManager.FemaleVoiceLines.FemOneWanderOne, transform);
+        }
+
+        // INFO: Places the patient on the navmesh if they aren't already on it
+        if (!character.agent.isOnNavMesh)
+            character.NearestNavMeshPoint();
+
         ChooseWanderingDestination();
     }
 

@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PFuseBoxTask : Task
 {
+    private int gainedSanity = 8;//Gained Sanity if task is completed
+
     //Sets up the fusebox to be "broken"
     public override void TaskStart()
     {
@@ -23,13 +25,13 @@ public class PFuseBoxTask : Task
 
     public override void CheckDetectTask(GameObject interactedObject)
     {
-        if (interactedObject == taskTarget)  // Check for the correct patient being looked at
+        if (interactedObject == taskTarget)  // Check if the fusebox is being looked at
         {
             targetInteraction.collectible = hTask.tooltipPrompt;
         }
     }
 
-    //Adds 8 Sanity to the player and completes the task
+    //Adds specified Sanity to the player and completes the task
     public override void CompleteTask()
     {
         GameManager.Instance.AddSanity(8);

@@ -285,6 +285,7 @@ GameObject:
   - component: {fileID: 8341545069647784979}
   - component: {fileID: 3641418199748369729}
   - component: {fileID: 2951411950113038144}
+  - component: {fileID: 5788049948937212586}
   m_Layer: 0
   m_Name: Bed
   m_TagString: Bed
@@ -329,8 +330,9 @@ MonoBehaviour:
   collectible: {fileID: 11400000, guid: df8e0dbefad8be143b1e5d104add63df, type: 2}
   isExorcismObject: 0
   hasBeenPlaced: 0
-  playAnimation: {fileID: 0}
-  doorMaterialRef: {fileID: 0}
+  actionTooltip: {fileID: 0}
+  patient: {fileID: 0}
+  playerIsOccupying: 0
   points:
   - {fileID: 5527852218973253725}
   - {fileID: 652796394291984440}
@@ -358,6 +360,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.5612597, y: 0.3694399, z: 1.2332058}
   m_Center: {x: -0.3641956, y: -0.21712199, z: -0.28116322}
+--- !u!208 &5788049948937212586
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2255101606753165926}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.375, y: 0.625, z: 0.625}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.35, y: 0.25, z: -0.25}
+  m_TimeToStationary: 0.5
 --- !u!1 &4175797911152792958
 GameObject:
   m_ObjectHideFlags: 0

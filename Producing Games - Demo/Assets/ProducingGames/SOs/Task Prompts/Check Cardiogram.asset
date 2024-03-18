@@ -18,3 +18,4 @@ MonoBehaviour:
   interactSound: {fileID: 0}
   objectImage: {fileID: 0}
   tooltipText: Check Cardiogram
+  tooltipImage: {fileID: 21300000, guid: 8def9cf6117afe84ab8ea47d40092066, type: 3}

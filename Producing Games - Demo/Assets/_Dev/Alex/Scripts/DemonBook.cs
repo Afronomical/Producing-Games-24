@@ -13,16 +13,20 @@ public class DemonBook : MonoBehaviour
     public float turnPageDelay;
     private float turnPageTimer;
     public SoundEffect pageSound;
+    public TMP_Text bookTooltip;
 
     void Start()
     {
-        //gameObject.SetActive(false); //Toggling the checklist
         pageArray[0].SetActive(true);
+        bookTooltip.text = "Press B to read the demon book!";
+        bookTooltip.enabled = false;
     }
 
     private void Update()
     {
         turnPageTimer = Time.deltaTime;
+
+        if (DiegeticUIManager.Instance.hasDemonBook) bookTooltip.enabled = true;
     }
 
     public void OnReadBook(InputAction.CallbackContext context)
@@ -30,6 +34,7 @@ public class DemonBook : MonoBehaviour
         if(DiegeticUIManager.Instance.hasDemonBook)
         {
             gameObject.SetActive(!gameObject.activeSelf);
+            bookTooltip.gameObject.SetActive(false);
         }
     }
 

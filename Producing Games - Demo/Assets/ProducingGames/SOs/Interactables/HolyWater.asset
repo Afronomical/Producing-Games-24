@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c76ba9bd6ee8d4491c07e1d1697379, type: 3}
   m_Name: HolyWater
   m_EditorClassIdentifier: 
-  objectName: Holy Water
+  objectName: Holy Water Container
   obj: {fileID: 8310591842342234969, guid: ce6d19ed9728787438af7e295445a0f4, type: 3}
   prefab: {fileID: 8310591842342234969, guid: ce6d19ed9728787438af7e295445a0f4, type: 3}
   interactSound: {fileID: 0}
-  objectImage: {fileID: 21300000, guid: 29d069f8349750845bd1b238da7996db, type: 3}
+  objectImage: {fileID: 21300000, guid: 7350783035d9a6d4b926f44f88263756, type: 3}
   tooltipText: 
-  tooltipImage: {fileID: 21300000, guid: 8848a6de3be742a48b4e49dd9ea3ebce, type: 3}
+  tooltipImage: {fileID: 21300000, guid: 0fb5bb1f5aab7a647bc7acf8fab501b7, type: 3}

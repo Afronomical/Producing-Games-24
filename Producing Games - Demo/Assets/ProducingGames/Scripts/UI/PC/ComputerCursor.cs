@@ -8,12 +8,17 @@ public class ComputerCursor : InspectableObject
 {
     public SoundEffect clickSound;
     public TMP_Text clock;
+    public SoundEffect VoiceLines;
 
     public override void Interact()
     {
         base.Interact();
+        AudioManager.instance.PlaySound(VoiceLines, gameObject.transform);
 
+        Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        actionTooltip.enabled = true;
+        actionTooltip.text = "Press C to leave your PC!";
     }
 
     protected override void Update()
@@ -21,6 +26,8 @@ public class ComputerCursor : InspectableObject
         base.Update();
         if (stopLooking)
         {
+            actionTooltip.enabled = false;
+            Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
         DisplayTime();

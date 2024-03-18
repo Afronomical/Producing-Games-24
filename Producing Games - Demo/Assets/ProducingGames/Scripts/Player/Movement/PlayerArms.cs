@@ -32,7 +32,7 @@ public class PlayerArms : MonoBehaviour
     private bool holdingClipboard;
     private bool holdingObject;
     [HideInInspector] public bool holdingPager;
-    private string lastLeftAnimation;
+    private string lastLeftAnimation, lastRightAnimation;
 
     [Header("Arm Bobbing")]
     [SerializeField][Range(0.01f, 5f)] private float bobAmplitude = 0.5f;
@@ -88,17 +88,30 @@ public class PlayerArms : MonoBehaviour
 
         if (leftAnimator.GetCurrentAnimatorClipInfoCount(0) != 0)  // When the animation on the left arm changes
         {
-            if (leftAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name != lastLeftAnimation && leftAnimator.GetCurrentAnimatorStateInfo(0).speed == 1)
+            if (leftAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name != lastLeftAnimation && leftAnimator.GetCurrentAnimatorStateInfo(0).speed > 0)
             {
                 if (leftAnimator.GetCurrentAnimatorStateInfo(0).IsName("PagerUp"))  // If it is a pick up animation
-                    SetHeldObjects();
+                    SetLeftHeldObjects();
                 else if (leftAnimator.GetCurrentAnimatorStateInfo(0).IsName("FlashlightUp"))
-                    SetHeldObjects();
+                    SetLeftHeldObjects();
                 else if (leftAnimator.GetCurrentAnimatorStateInfo(0).IsName("ClipboardUp"))
-                    SetHeldObjects();
+                    SetLeftHeldObjects();
             }
 
             lastLeftAnimation = leftAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
+        }
+
+        if (rightAnimator.GetCurrentAnimatorClipInfoCount(0) != 0)  // When the animation on the left arm changes
+        {
+            if (rightAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name != lastLeftAnimation && leftAnimator.GetCurrentAnimatorStateInfo(0).speed > 0)
+            {
+                if (rightAnimator.GetCurrentAnimatorStateInfo(0).IsName("Grab"))  // If it is a pick up animation
+                    SetRightHeldObjects();
+                else if (rightAnimator.GetCurrentAnimatorStateInfo(0).IsName("ClipboardFlashlightUp"))
+                    SetRightHeldObjects();
+            }
+
+            lastRightAnimation = rightAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
         }
 
         ArmBobbing();
@@ -106,7 +119,7 @@ public class PlayerArms : MonoBehaviour
 
 
 
-    private void SetHeldObjects()  // Change the items visible in your hands
+    private void SetLeftHeldObjects()  // Change the items visible in your hands
     {
         if (flashlight.activeSelf && playerBody.GetComponent<Flashlight>().intensityIndex != 0) 
             AudioManager.instance.PlaySound(playerBody.GetComponent<Flashlight>().toggleSound, null);
@@ -134,19 +147,6 @@ public class PlayerArms : MonoBehaviour
                 break;
         }
 
-        switch (rightArmState)
-        {
-            case rightArmStates.Clipboard:
-                heldItem.SetActive(false);
-                break;
-            case rightArmStates.Object:
-                heldItem.SetActive(true);
-                break;
-            case rightArmStates.Idle:
-                heldItem.SetActive(false);
-                break;
-        }
-
 
         if (flashlight.activeSelf && playerBody.GetComponent<Flashlight>().intensityIndex != 0)
             AudioManager.instance.PlaySound(playerBody.GetComponent<Flashlight>().toggleSound, null);
@@ -154,19 +154,44 @@ public class PlayerArms : MonoBehaviour
 
 
 
+    private void SetRightHeldObjects()  // Change the items visible in your hands
+    {
+        switch (rightArmState)
+        {
+            case rightArmStates.Clipboard:
+                heldItem.SetActive(false);
+                clipboardFlashlight.SetActive(true);
+                break;
+            case rightArmStates.Object:
+                heldItem.SetActive(true);
+                clipboardFlashlight.SetActive(false);
+                break;
+            case rightArmStates.Idle:
+                heldItem.SetActive(false);
+                clipboardFlashlight.SetActive(false);
+                break;
+        }
+    }
+
+
+
     public IEnumerator GrabObject(InteractiveObject obj)
     {
-        rightAnimator.SetTrigger("Grab");  // Play the animation
-        heldItem.SetActive(false);  // Hide the item in your hand
-        pickUpItem.canPickUp = false;  // Stop PickUpItem from calling the enum again
+        if (!holdingClipboard)
+        {
+            rightAnimator.SetTrigger("Grab");  // Play the animation
+            heldItem.SetActive(false);  // Hide the item in your hand
+            pickUpItem.canPickUp = false;  // Stop PickUpItem from calling the enum again
 
-        yield return new WaitForSeconds(grabItemTime);  // Wait until the hand reaches the object
+            yield return new WaitForSeconds(grabItemTime);  // Wait until the hand reaches the object
 
-        heldItem.SetActive(true);  // Show the item in your hand
-        if (obj.interactSound != null)
-            AudioManager.instance.PlaySound(obj.interactSound, null);
-        PlayerInteractor.instance.currentObject.Interact();  // Pick up the object in front of you
-        pickUpItem.canPickUp = true;
+            heldItem.SetActive(true);  // Show the item in your hand
+            holdingObject = true;
+            if (obj.interactSound != null)
+                AudioManager.instance.PlaySound(obj.interactSound, null);
+            PlayerInteractor.instance.currentObject.Interact();  // Pick up the object in front of you
+            pickUpItem.canPickUp = true;
+        }
     }
 
 
@@ -186,12 +211,14 @@ public class PlayerArms : MonoBehaviour
     public void HoldClipboard()  // Pick up the clipboard
     {
         leftAnimator.SetBool("Checklist", true);
+        rightAnimator.SetBool("Checklist", true);
         holdingClipboard = true;
     }
 
     public void DropClipboard()  // Put down the Clipboard
     {
         leftAnimator.SetBool("Checklist", false);
+        rightAnimator.SetBool("Checklist", false);
         holdingClipboard = false;
     }
 

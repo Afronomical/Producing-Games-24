@@ -25,4 +25,6 @@ public class SoundEffect : ScriptableObject
     public TMP_FontAsset font;  // The font that will be used for the text
     [Range(0, 0.25f)] public float typingSpeed = 0.15f;  // Time between each character appearing
     [Range(0, 10)] public float waitTillHide = 4.0f;  // Time till text dissapears after text has finished typing
+
+    public bool canBeHeardByDemon = false;
 }

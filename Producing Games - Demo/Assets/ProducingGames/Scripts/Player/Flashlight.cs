@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class Flashlight : MonoBehaviour
 {
     public GameObject flashlight;
+    public GameObject clipboardFlashlight;
     public Light light;
     public SoundEffect toggleSound;
 
@@ -15,7 +16,7 @@ public class Flashlight : MonoBehaviour
     
     
     [Header("Battery Settings")]
-    [Range(0, 200)] public float batteryCharge;
+    [Range(0, 100)] public float batteryCharge;
     [Range(0, 10)] public float batteryDrainRate;
     [NonSerialized] public float maxBatteryCharge;
     private bool unlimitedBatteryActivated;
@@ -28,7 +29,7 @@ public class Flashlight : MonoBehaviour
     [Range(0.0f, 1f)] public float flickerLightPower = 0.7f;
     [Range(0.0f, 1f)] public float flickerLightPowerDiff = 0.3f;
     private bool isFlickering;
-    private float oldIntensity;
+    private float oldIntensity; 
 
 
     private void Start()
@@ -40,17 +41,35 @@ public class Flashlight : MonoBehaviour
     void Update()
     {
         //Debug.Log(light.intensity);
-        
+
         //If the battery charge is 0, it will turn off the flashlight
+        //The changes to the intensity system made this useless
+        /*
         if(batteryCharge <= 0 && !unlimitedBatteryActivated)
         {
             intensityIndex = 0;
             IntensityChange();
         }
-        
+        */
+
         //Higher the intensity of the flashlight, the faster the battery will drain
-        batteryCharge -= batteryDrainRate * Time.deltaTime * intensityIndex;
-       
+        if (!unlimitedBatteryActivated)
+        {
+            batteryCharge -= batteryDrainRate * Time.deltaTime * intensityIndex;
+        }
+        else
+        {
+            batteryCharge = maxBatteryCharge;
+        }
+
+        if (clipboardFlashlight.activeSelf && batteryCharge <= 0)
+            clipboardFlashlight.SetActive(false);
+        else if (!clipboardFlashlight.activeSelf && batteryCharge > 0)
+            clipboardFlashlight.SetActive(true);
+        
+        //Called every frame to account for the decreasing charge
+        IntensityChange();
+        
         FlashFlicker();
 
     }
@@ -64,6 +83,9 @@ public class Flashlight : MonoBehaviour
             if (intensityIndex >= intensities.Length)
                 intensityIndex = 0;
             IntensityChange();
+
+            // Moved the sound to the actual action that triggers it
+            AudioManager.instance.PlaySound(toggleSound, null);
         }
     }
 
@@ -72,8 +94,8 @@ public class Flashlight : MonoBehaviour
         if (light.intensity != intensities[intensityIndex])
         {
             flashlight.SetActive(true);
-            light.intensity = intensities[intensityIndex];
-            AudioManager.instance.PlaySound(toggleSound, null);
+            // Sets the intensity to a value proportional to the charge in the battery
+            light.intensity = batteryCharge / maxBatteryCharge * intensities[intensityIndex];
         }
 
         oldIntensity = light.intensity;

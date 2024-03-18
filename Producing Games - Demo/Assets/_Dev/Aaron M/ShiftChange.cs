@@ -14,17 +14,27 @@ public class ShiftChange : InteractableTemplate
             if (startShift && GameManager.Instance.inStudy)
             {
                 GameManager.Instance.OpenDoor(startShiftPosition);
-                openDoor.SetActive(true);
-                closedDoor.SetActive(false);
-                endShift.SetActive(true);
             }
             else if (!startShift)
             {
                 GameManager.Instance.CloseDoor();
-                openDoor.SetActive(false);
-                closedDoor.SetActive(true);
-                endShift.SetActive(false);
             }
+        }
+    }
+
+    public void ChangeShift()
+    {
+        if (startShift)
+        {
+            openDoor.SetActive(true);
+            closedDoor.SetActive(false);
+            endShift.SetActive(true);
+        }
+        else if (!startShift)
+        {
+            openDoor.SetActive(false);
+            closedDoor.SetActive(true);
+            endShift.SetActive(false);
         }
     }
 }

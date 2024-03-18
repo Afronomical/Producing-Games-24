@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+
 
 public class CrossTrigger : MonoBehaviour
 {
     public CrossBehaviour cross;
-    GameManager gM;  
+    GameManager gM;
+    private int eventType;
 
     private void Start()
     { 
@@ -20,8 +21,10 @@ public class CrossTrigger : MonoBehaviour
         if (other.CompareTag("Player") && randChance <= gM.eventChance && !cross.eventTriggered)
         {
             cross.TriggerEvent();
-            cross.eventTriggered = true;            
+            cross.eventTriggered = true;
         }
     }
+
+    
 
 }

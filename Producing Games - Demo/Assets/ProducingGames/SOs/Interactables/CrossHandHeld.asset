@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c76ba9bd6ee8d4491c07e1d1697379, type: 3}
   m_Name: CrossHandHeld
   m_EditorClassIdentifier: 
-  objectName: CrossHandHeld
+  objectName: Wooden Cross
   obj: {fileID: 5575245926669238249, guid: 7b0cd2b4c43787545ad5a20b44cec82c, type: 3}
   prefab: {fileID: 5575245926669238249, guid: 7b0cd2b4c43787545ad5a20b44cec82c, type: 3}
   interactSound: {fileID: 0}
-  objectImage: {fileID: 0}
+  objectImage: {fileID: 21300000, guid: 7b926451dffb53e4e8848cab787007cf, type: 3}
   tooltipText: 
-  tooltipImage: {fileID: 21300000, guid: 5f3341524a651f74089f3c9a503c826d, type: 3}
+  tooltipImage: {fileID: 21300000, guid: 0fb5bb1f5aab7a647bc7acf8fab501b7, type: 3}

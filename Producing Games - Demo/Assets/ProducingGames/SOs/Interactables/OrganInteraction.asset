@@ -17,5 +17,5 @@ MonoBehaviour:
   prefab: {fileID: 7049374576153781254, guid: 5a74a897aec864b4abc0b7c8b85c77e4, type: 3}
   interactSound: {fileID: 0}
   objectImage: {fileID: 0}
-  tooltipText: Interact With Organ
-  tooltipImage: {fileID: 0}
+  tooltipText: 
+  tooltipImage: {fileID: 21300000, guid: 0fb5bb1f5aab7a647bc7acf8fab501b7, type: 3}

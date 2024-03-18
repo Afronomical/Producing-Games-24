@@ -5,8 +5,10 @@ using UnityEngine;
 public class PickUpHolyWater : InteractableTemplate
 {
     //holy water specific code
+    public SoundEffect VoiceLines;
     public override void Interact()
     {
+        AudioManager.instance.PlaySound(VoiceLines, gameObject.transform);
         InventoryHotbar.instance.AddToInventory(collectible);
         Destroy(gameObject);
     }

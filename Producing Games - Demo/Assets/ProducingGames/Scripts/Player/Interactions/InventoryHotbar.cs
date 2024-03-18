@@ -116,6 +116,7 @@ public class InventoryHotbar : MonoBehaviour
         {
             Debug.Log("Currently holding " + inventory[currentIndex].objectName);
             itemName.text = inventory[currentIndex].objectName;
+            itemSlots[centerSlotIndex].GetComponent<Image>().CrossFadeAlpha(255, 0.1f, true);
             if (!holding)
             {
                 //instantiate the object currently held

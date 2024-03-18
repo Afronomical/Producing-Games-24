@@ -12,6 +12,7 @@ TagManager:
   - Stone Floor
   - Carpet
   - Crypt Floor
+  - Hiding
   layers:
   - Default
   - TransparentFX

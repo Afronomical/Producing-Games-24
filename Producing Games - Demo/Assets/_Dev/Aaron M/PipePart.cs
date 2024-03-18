@@ -11,7 +11,7 @@ public class PipePart : MonoBehaviour
 
     public void RemovePart(Transform pos)
     {
-        puzzle = transform.parent.parent.GetComponent<PipeMinigame>();
+        puzzle = transform.parent.parent.parent.GetComponent<PipeMinigame>();
         pipeStart = pos;
         transform.position = pipeStart.position;
         connected = false;

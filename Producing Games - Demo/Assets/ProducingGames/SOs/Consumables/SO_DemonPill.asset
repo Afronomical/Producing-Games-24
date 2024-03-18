@@ -15,5 +15,7 @@ MonoBehaviour:
   objectName: Demon Pill
   obj: {fileID: 6279819465787853623, guid: af35edc4373189e41b4de4836d1ce52f, type: 3}
   prefab: {fileID: 6279819465787853623, guid: af35edc4373189e41b4de4836d1ce52f, type: 3}
-  objectImage: {fileID: 21300000, guid: 5c6c1de5c4682fb49a10bdd17188f488, type: 3}
-  tooltipText: Pick up
+  interactSound: {fileID: 0}
+  objectImage: {fileID: 21300000, guid: 53d8ad7fa640f204aa618446c61d8d6d, type: 3}
+  tooltipText: 
+  tooltipImage: {fileID: 21300000, guid: 0fb5bb1f5aab7a647bc7acf8fab501b7, type: 3}

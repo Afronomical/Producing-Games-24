@@ -12,68 +12,79 @@ using UnityEngine;
 
 public class ChaseState : DemonStateBaseClass
 {
-    private Vector3 targetPos;
-    private Vector3 lastTargetPos;
-    private bool isChasing;
+    private Vector3 playerPos;
+    private Vector3 lastPlayerPos;
 
-    private float timeAlone = 0;
-    private readonly float maxTimeAlone = 20f;
+    private bool isChasing = false;
+
+    private float chaseAloneTime = 0;
+    private float campingTime = 0;
 
     private void Start()
     {
-        if (character.agent.hasPath)
-            character.agent.ResetPath();
-
         character.agent.speed = character.runSpeed;
-
-        isChasing = false;
     }
 
     public override void UpdateLogic()
     {
-        GetComponent<Animator>().SetFloat("movement", character.agent.velocity.magnitude);
+        character.animator.SetFloat("movement", character.agent.velocity.magnitude);
+        character.animator.SetBool("isChasing", isChasing);
 
-        targetPos = character.player.transform.position;
+        playerPos = character.player.transform.position;
 
-        /*
-         * if (character.player.GetComponent<PlayerController>().GetIsHiding())
-         * {
-         *      character.ChangeDemonState(DemonCharacter.DemonStates.Patrol);
-         * }
-         */
-
-        if (character.raycastToPlayer.PlayerDetected()) //player is detected. following player function is called. 
+        // INFO: Checks whether the player is currently hiding
+        if (character.playerMovement.isHiding)
         {
-            isChasing = true;
+            campingTime += Time.deltaTime;
 
-            if (timeAlone != 0)
-                timeAlone = 0.0f;
-
-            lastTargetPos = character.player.transform.position;
-
-            MoveTowardsPlayer();
-
-            Collider[] colliders = Physics.OverlapSphere(character.transform.position, character.attackRadius);
-            foreach (Collider collider in colliders)
-            {
-                if (collider.gameObject == character.player)
-                    character.ChangeDemonState(DemonCharacter.DemonStates.Attack);
-            }
-
-
-        }     
+            // INFO: Once the camping duration is up the demon will go into patrol
+            if (campingTime > character.campingDuration)
+                character.ChangeDemonState(DemonCharacter.DemonStates.Patrol);
+        }
         else
         {
-            character.agent.SetDestination(lastTargetPos);
-            timeAlone += Time.deltaTime;
-
-            isChasing = false;
-
-            if (timeAlone >= maxTimeAlone)
-                character.ChangeDemonState(DemonCharacter.DemonStates.Patrol); //changes state to patrol
+            // INFO: Resets camping time if player leaves hiding spot prematurely
+            campingTime = 0;
         }
 
-        character.animator.SetBool("isChasing", isChasing);
+        // INFO: If the player is detected, the following player function is called
+        if (character.raycastToPlayer.PlayerDetected() && !character.playerMovement.isHiding)
+        {
+            if (chaseAloneTime != 0)
+                chaseAloneTime = 0.0f;
+
+            isChasing = true;
+            lastPlayerPos = character.player.transform.position;
+
+            MoveTowardsPlayer();
+            Attack();
+        }
+        else
+        {
+            // INFO: Demon goes to the last known player location
+            // Prevents running set destination call multiple times
+            if (isChasing)
+            { 
+                isChasing = false;
+                character.agent.SetDestination(lastPlayerPos);
+            }
+
+            chaseAloneTime += Time.deltaTime;
+
+            if (chaseAloneTime > character.chaseAloneDuration)
+                character.ChangeDemonState(DemonCharacter.DemonStates.Patrol);
+        }
+    }
+
+    private void Attack()
+    {
+        Collider[] colliders = Physics.OverlapSphere(character.transform.position, character.attackRadius);
+
+        foreach (Collider collider in colliders)
+        {
+            if (collider.gameObject == character.player)
+                character.ChangeDemonState(DemonCharacter.DemonStates.Attack);
+        }
     }
 
     /// <summary>
@@ -82,10 +93,11 @@ public class ChaseState : DemonStateBaseClass
     /// </summary>
     void MoveTowardsPlayer()
     {
-        // INFO: Ensures the NPC only rotates on the y-axis
-        Vector3 playerPosition = new(targetPos.x, transform.position.y, targetPos.z);
+        // INFO: Ensures the demon only rotates on the y-axis
+        Vector3 playerPosition = new(playerPos.x, transform.position.y, playerPos.z);
+
         transform.LookAt(playerPosition);
 
-        character.agent.SetDestination(targetPos); // sets target position to player last pos 
+        character.agent.SetDestination(playerPos);
     }
 }

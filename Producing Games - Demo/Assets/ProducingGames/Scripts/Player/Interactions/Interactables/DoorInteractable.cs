@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 /// <summary>
 /// Written by: Matej Cincibus
@@ -91,11 +92,17 @@ public class DoorInteractable : InteractableTemplate
         if (InventoryHotbar.instance.currentItem != null && InventoryHotbar.instance.currentItem.prefab.TryGetComponent<KeyInteractable>(out _))
         {
             if (isLocked)
+            {
                 isLocked = false;
+                //makes the door an obstacle when locked
+                GetComponent<NavMeshObstacle>().enabled = false;
+                GetComponent<NavMeshObstacle>().carving = false;
+            }
             else
             {
                 isLocked = true;
-
+                GetComponent<NavMeshObstacle>().enabled = true;
+                GetComponent<NavMeshObstacle>().carving = true;
                 // INFO: Closes the door automatically if it's open when the player locks it
                 ChangeDoorState();
             }

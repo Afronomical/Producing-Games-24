@@ -16,6 +16,7 @@ public class CrossBehaviour : InteractableTemplate
     [Header("Cross Variables")]
     public float rotationSpeed;
     private float rotTime;
+    private float returnTime;
     public float throwingForce;
     
     [Space]
@@ -28,6 +29,7 @@ public class CrossBehaviour : InteractableTemplate
     private GameManager gM;
 
     bool isInverting;
+    bool isInverted;
     private float startXEuAng;
     private float startYEuAng;
     private float startZEuAng;
@@ -39,6 +41,8 @@ public class CrossBehaviour : InteractableTemplate
     private void Start()
     {
         isInverting = false;
+        isInverted = false;
+
         gM = GameManager.Instance; 
         CrossStartPos();           
     }   
@@ -46,11 +50,12 @@ public class CrossBehaviour : InteractableTemplate
     private void Update()
     {
         invertedCross();
+        //ReInvertedCross();
     }
 
     public void TriggerEvent()
     {
-        eventType = UnityEngine.Random.Range(0, 2);
+        eventType = Random.Range(0, 2);
         if (eventType == 0)
         {
             isInverting = true;
@@ -100,31 +105,31 @@ public class CrossBehaviour : InteractableTemplate
             AudioManager.instance.PlaySound(CrossSpinSound,gameObject.transform);
             //isInverting = false;
         }
-    } 
-    public override void Interact()
-    {
-        Destroy(gameObject.GetComponent<Rigidbody>());
-        gameObject.transform.position = new Vector3(startXpos, startYpos, startZpos);
-        gameObject.transform.localEulerAngles = new Vector3(startXEuAng, startYEuAng, startZEuAng);
-        isInverting = false;
-        isCrossReplaced = true;
     }
-    
-    /* void ReplaceCross()
+
+    /*void ReInvertedCross()
     {
-        Destroy(gameObject.GetComponent<Rigidbody>());
-        gameObject.transform.position = new Vector3(startXpos, startYpos, startZpos);
-        gameObject.transform.localEulerAngles = new Vector3(startXEuAng, startYEuAng, startZEuAng);
-        isReplaced = true;
-    }*/
-   /* private void ReInvertCross()
-    {
-        if (isReInverting)
+        if (isInverted == true)
         {
-            rotTime += (Time.deltaTime * rotationSpeed);
-            gameObject.transform.localEulerAngles = new Vector3(startXEuAng, startYEuAng, Mathf.Lerp(0, -180, rotTime));
+            returnTime += (Time.deltaTime * rotationSpeed);
+            gameObject.transform.localEulerAngles = new Vector3(startXEuAng, startYEuAng, Mathf.Lerp(gameObject.transform.localEulerAngles.z, startZEuAng, returnTime));
             AudioManager.instance.PlaySound(CrossSpinSound, gameObject.transform);
-            isReInverting = false;
+            //isInverting = false;
         }
     }*/
+
+    public override void Interact()
+    {
+        
+            Destroy(gameObject.GetComponent<Rigidbody>());
+            gameObject.transform.position = new Vector3(startXpos, startYpos, startZpos);
+            gameObject.transform.localEulerAngles = new Vector3(startXEuAng, startYEuAng, startZEuAng);
+            isInverting = false;
+            isCrossReplaced = true;
+       
+        
+    }
+    
+    
+   
 }

@@ -9,20 +9,35 @@ using UnityEngine;
 public class HungryState : PatientStateBaseClass
 {
     private Vector3 hungryLocation;
+    private bool isWalkingToHungryDest = false;
 
     private void Start()
     {
         ChooseKitchenDestination();
 
-        // INFO: Given that the previous was panicked or scared we will have
-        // the patient walk back to their hungry spot
-        if (character.PreviousState == PatientCharacter.PatientStates.Panic ||
-            character.PreviousState == PatientCharacter.PatientStates.Scared)
-            WalkToHungrySpot();
-        else
+        // INFO: Given that the previous was none we will have the patient
+        // teleport, otherwise we have them walk to their destination
+        if (character.PreviousState == PatientCharacter.PatientStates.None ||
+            character.PreviousState == PatientCharacter.PatientStates.Bed)
             TeleportToHungrySpot();
+        else
+            WalkToHungrySpot();
+    }
 
-        character.animator.SetBool("isHungry", true);
+    public override void UpdateLogic()
+    {
+        character.animator.SetFloat("movement", character.agent.velocity.magnitude);
+
+        if (isWalkingToHungryDest)
+        {
+            // INFO: Stops the walking animation and transitions to the praying animation
+            if (character.agent.remainingDistance < 0.1f)
+            {
+                isWalkingToHungryDest = false;
+
+                character.animator.SetBool("isHungry", true);
+            }
+        }
     }
 
     /// <summary>
@@ -48,6 +63,8 @@ public class HungryState : PatientStateBaseClass
     private void TeleportToHungrySpot()
     {
         character.agent.Warp(hungryLocation);
+
+        character.animator.SetBool("isHungry", true);
     }
 
     /// <summary>
@@ -56,7 +73,12 @@ public class HungryState : PatientStateBaseClass
     /// </summary>
     private void WalkToHungrySpot()
     {
+        character.ResetAnimation();
+
+        character.agent.speed = character.walkSpeed;
         character.agent.SetDestination(hungryLocation);
+
+        isWalkingToHungryDest = true;
     }
 
     /// <summary>

@@ -40,7 +40,7 @@ public class VideoSettingsManager : MonoBehaviour
 
     private bool tempFPSDisplayValue;
     private bool overlayVisible = false;
-    private bool vsyncEnabled = true;
+    private bool vsyncEnabled;
     private bool fpsDisplayEnabled = true;
 
     private string selectedResolution;
@@ -88,6 +88,10 @@ public class VideoSettingsManager : MonoBehaviour
 
     void Start()
     {
+
+
+        Debug.Log("VSync is " + (vsyncEnabled ? "enabled." : "disabled."));
+
         Application.targetFrameRate = defaultMaxFPS;
 
         if (vsyncButton == null || vsyncButtonText == null || resolutionDropdown == null)
@@ -98,7 +102,7 @@ public class VideoSettingsManager : MonoBehaviour
 
         if (resetButton != null)
         {
-            resetButton.onClick.AddListener(OnResetToDefaultButtonClicked);
+            resetButton.onClick.AddListener(ResetVideoSettingsToDefaults);
         }
         else
         {
@@ -109,7 +113,7 @@ public class VideoSettingsManager : MonoBehaviour
         PopulateMaxFPSDropdown();
         PopulateDisplayModeDropdown();
         // Populate UI elements with default values on start
-        SetDefaultValues();
+        //SetDefaultValues();
 
         resolutionDropdown.onValueChanged.AddListener(OnResolutionChanged);
         maxFPSDropdown.onValueChanged.AddListener(OnMaxFPSChanged);
@@ -126,6 +130,9 @@ public class VideoSettingsManager : MonoBehaviour
         SetDropdownToCurrentResolution();
         SetDropdownToCurrentMaxFPS();
         SetDropdownToCurrentDisplayMode();
+
+        mainCamera.fieldOfView = SettingsSceneValues.Instance.FovNew;
+        fovSlider.value = SettingsSceneValues.Instance.FovNew;
     }
 
     void Update()
@@ -135,6 +142,9 @@ public class VideoSettingsManager : MonoBehaviour
             int fps = (int)(1f / Time.unscaledDeltaTime);
             fpsText.text = "FPS: " + fps;
         }
+
+        UpdateVSyncButton();
+        UpdateDisplayModeDropdown();
     }
 
     public void OnToggleFPSButtonClicked()
@@ -153,6 +163,18 @@ public class VideoSettingsManager : MonoBehaviour
         Debug.Log("VSync Setting Changed: " + vsyncEnabled);
     }
 
+    public void UpdateVSyncButton()
+    {
+        if (vsyncEnabled)
+        {
+            vsyncButtonText.text = "VSync: On";
+        }
+        else
+        {
+            vsyncButtonText.text = "VSync: Off";
+        }
+    }
+
     private void ApplyVSyncSetting()
     {
         QualitySettings.vSyncCount = vsyncEnabled ? 1 : 0;
@@ -162,6 +184,7 @@ public class VideoSettingsManager : MonoBehaviour
     private void OnFOVChanged(float value)
     {
         mainCamera.fieldOfView = value;
+        SettingsSceneValues.Instance.FovNew = value;
         // Add additional logic related to FOV setting
         Debug.Log("FOV Setting Changed: " + value);
     }
@@ -235,7 +258,9 @@ public class VideoSettingsManager : MonoBehaviour
         List<string> preferredResolutions = new List<string>
         {
             "1920x1080", "1280x720", "2560x1440", "3840x2160", "1680x1050",
-            "1600x900", "1366x768", "1280x800", "1024x768", "800x600"
+            "1600x900", "1366x768", "1280x800", "1024x768", "800x600",
+            "3440x1440", "2560x1080", "2560x1600", "1920x1200","3840x2160"
+
         };
 
         List<string> supportedResolutions = new List<string>();
@@ -396,7 +421,7 @@ public class VideoSettingsManager : MonoBehaviour
         }
     }
 
-    public void OnResetToDefaultButtonClicked()
+    public void ResetVideoSettingsToDefaults()
     {
         SetDefaultValues();
         Debug.Log("Settings Reset to Default Values");
@@ -420,5 +445,29 @@ public class VideoSettingsManager : MonoBehaviour
         SetDropdownToCurrentResolution();
         SetDropdownToCurrentMaxFPS();
         UpdateVSyncButtonText();
+
+        // Update slider visuals
+       // fovSlider.GetComponentInChildren<TextMeshProUGUI>().text = defaultFOV.ToString(); // Update FOV slider text
+        //brightnessSlider.GetComponentInChildren<TextMeshProUGUI>().text = defaultBrightness.ToString(); // Update brightness slider text
+
+        Debug.Log("Settings Reset to Default Values:");
+        Debug.Log("VSync: " + (vsyncEnabled ? "On" : "Off"));
+        Debug.Log("Resolution: " + defaultResolution);
+        Debug.Log("Max FPS: " + defaultFPS);
+        Debug.Log("FOV: " + defaultFOV);
+        Debug.Log("Brightness: " + defaultBrightness);
+    }
+
+    private void UpdateDisplayModeDropdown()
+    {
+        FullScreenMode currentDisplayMode = Screen.fullScreenMode;
+        string currentDisplayModeString = GetDisplayModeString(currentDisplayMode);
+
+        int index = displayModeDropdown.options.FindIndex(option => option.text == currentDisplayModeString);
+        if (index != -1)
+        {
+            displayModeDropdown.value = index;
+            displayModeDropdown.RefreshShownValue();
+        }
     }
 }
