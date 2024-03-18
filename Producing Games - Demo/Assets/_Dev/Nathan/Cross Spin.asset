@@ -16,6 +16,6 @@ MonoBehaviour:
   obj: {fileID: 79533909156319223, guid: 7d208f81df3fa2f4fb02e22d13e51aef, type: 3}
   prefab: {fileID: 79533909156319223, guid: 7d208f81df3fa2f4fb02e22d13e51aef, type: 3}
   interactSound: {fileID: 0}
-  objectImage: {fileID: 0}
-  tooltipText: Replace Cross
-  tooltipImage: {fileID: 0}
+  objectImage: {fileID: 21300000, guid: 7b926451dffb53e4e8848cab787007cf, type: 3}
+  tooltipText: 
+  tooltipImage: {fileID: 21300000, guid: 8848a6de3be742a48b4e49dd9ea3ebce, type: 3}
