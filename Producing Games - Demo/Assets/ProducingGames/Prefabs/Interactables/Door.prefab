@@ -124,10 +124,11 @@ MonoBehaviour:
   collectible: {fileID: 11400000, guid: ddf09297b4404ee4f98ca49c78bbdad6, type: 2}
   isExorcismObject: 0
   hasBeenPlaced: 0
+  actionTooltip: {fileID: 0}
   doorHingeTransform: {fileID: 97279428093766836}
   doorRotationOffset: 105
   interactionInterval: 2
-  doorRotationSpeed: 1.75
+  doorDuration: 3
   isLocked: 0
   closedMaterial: {fileID: 2100000, guid: 25786d4ddeed5894c8957b3ba5796fdd, type: 2}
   openMaterial: {fileID: 2100000, guid: b879bec9e88e9b642bcf7c597cc1a18f, type: 2}

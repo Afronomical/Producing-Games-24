@@ -18,15 +18,13 @@ public class DoorInteractable : InteractableTemplate
     [Header("Customizables:")]
     [Tooltip("How much the door rotates by in degrees")][SerializeField] private float doorRotationOffset = 45.0f;
     [Tooltip("The delay between interactions in seconds")][SerializeField] private float interactionInterval = 2.0f;
-    [SerializeField] private float doorRotationSpeed = 1.75f;
+    [Tooltip("How long it takes for the door to close/open")][SerializeField] private float doorDuration = 3.0f;
     [SerializeField] private bool isLocked = false;
 
     private bool isOpen = false;
-    private bool hasInteractedWithDoor = false;
     private bool isDoorRotating = false;
 
-    private float timeSinceInteraction = 0.0f; // INFO: Prevents multiple interactions at once
-    private float t = 0.0f; // INFO: How much the door lerps
+    private float currentTime;
 
     private Quaternion initialDoorRotation;
     private Quaternion targetRotation;
@@ -58,35 +56,25 @@ public class DoorInteractable : InteractableTemplate
         // INFO: If the door is currently rotating:
         if (isDoorRotating)
         {
-            // INFO: Calculate the speed at which the door will rotate
-            t = Mathf.Clamp01(t + doorRotationSpeed * Time.deltaTime);
-            doorHingeTransform.rotation = Quaternion.Slerp(doorHingeTransform.rotation, targetRotation, doorRotationSpeed * Time.deltaTime);
+            currentTime += Time.deltaTime;
 
-            if (doorHingeTransform.rotation == targetRotation)
-                isDoorRotating = false;
-        }
+            // INFO: Rotates the door to the target rotation for doorDuration time
+            doorHingeTransform.rotation = Quaternion.Lerp(doorHingeTransform.rotation, targetRotation, currentTime / doorDuration);
 
-        // INFO: Prevents multiple interactions
-        if (hasInteractedWithDoor)
-        {
-            timeSinceInteraction += Time.deltaTime;
-
-            if (timeSinceInteraction > interactionInterval)
+            if (currentTime > doorDuration)
             {
-                timeSinceInteraction = 0.0f;
-                hasInteractedWithDoor = false;
+                currentTime = 0.0f;
+                isDoorRotating = false;
             }
         }
     }
 
     public override void Interact()
     {
-        // INFO: Given that the player tries to interact with the door when the interaction is
-        // still on cooldown, the function won't do anything
-        if (hasInteractedWithDoor)
+        // INFO: Given that the player tries to interact with the door when the door is
+        // still rotating, the function won't do anything
+        if (isDoorRotating)
             return;
-
-        hasInteractedWithDoor = true;
 
         // INFO: Given that the player is holding an item and that item has a key interactable component on it then:
         if (InventoryHotbar.instance.currentItem != null && InventoryHotbar.instance.currentItem.prefab.TryGetComponent<KeyInteractable>(out _))
@@ -138,7 +126,9 @@ public class DoorInteractable : InteractableTemplate
         isDoorRotating = true;
     }
 
-    // INFO: Temp function for locked/unlocked door visualisation
+    /// <summary>
+    /// Temp function for locked/unlocked door visualisation
+    /// </summary>
     private void ChangeDoorMaterial()
     {
         if (isLocked)
