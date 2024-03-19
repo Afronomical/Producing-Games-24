@@ -21,11 +21,11 @@ public class WanderingState : PatientStateBaseClass
         // otherwise plays the desirted female voice line
         if (character.isMale)
         {
-            NPCManager.Instance.PlayMaleVoiceLine(NPCManager.MaleVoiceLines.ManOneWanderOne, transform);
+           // NPCManager.Instance.PlayMaleVoiceLine(NPCManager.MaleVoiceLines.ManOneWanderOne, transform);
         }
         else
         {
-            NPCManager.Instance.PlayFemaleVoiceLine(NPCManager.FemaleVoiceLines.FemOneWanderOne, transform);
+           // NPCManager.Instance.PlayFemaleVoiceLine(NPCManager.FemaleVoiceLines.FemOneWanderOne, transform);
         }
 
         // INFO: Places the patient on the navmesh if they aren't already on it

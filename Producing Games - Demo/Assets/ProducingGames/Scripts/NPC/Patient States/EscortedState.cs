@@ -38,11 +38,11 @@ public class EscortedState : PatientStateBaseClass
         // otherwise plays the desirted female voice line
         if (character.isMale)
         {
-            NPCManager.Instance.PlayMaleVoiceLine(NPCManager.MaleVoiceLines.ManOneMedicineOne, transform);
+            //NPCManager.Instance.PlayMaleVoiceLine(NPCManager.MaleVoiceLines.ManOneMedicineOne, transform);
         }
         else
         {
-            NPCManager.Instance.PlayFemaleVoiceLine(NPCManager.FemaleVoiceLines.FemOneMedicineOne, transform);
+           // NPCManager.Instance.PlayFemaleVoiceLine(NPCManager.FemaleVoiceLines.FemOneMedicineOne, transform);
         }
     }
 
