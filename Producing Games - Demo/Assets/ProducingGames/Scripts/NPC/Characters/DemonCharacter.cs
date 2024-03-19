@@ -1,4 +1,5 @@
 using Steamworks;
+using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
@@ -66,6 +67,10 @@ public class DemonCharacter : AICharacter, IHear
     public DemonStates PreviousState { get; private set; }
 
     public PlayerMovement playerMovement;
+
+    private bool inRageMode = false;
+
+    public void SetInRageMode(bool inRageMode) { this.inRageMode = inRageMode; }
 
     public override void Start()
     {
