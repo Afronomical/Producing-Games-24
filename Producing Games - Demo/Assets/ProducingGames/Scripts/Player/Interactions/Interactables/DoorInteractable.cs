@@ -12,18 +12,32 @@ using UnityEngine.AI;
 
 public class DoorInteractable : InteractableTemplate
 {
+    public enum DoorStates
+    {
+        None,
+
+        Open,
+        Shut,
+        Locked
+    }
+
     [Header("References:")]
     [SerializeField] private Transform doorHingeTransform;
 
     [Header("Customizables:")]
-    [Tooltip("How much the door rotates by in degrees")][SerializeField] private float doorRotationOffset = 45.0f;
-    [Tooltip("The delay between interactions in seconds")][SerializeField] private float interactionInterval = 2.0f;
-    [Tooltip("How long it takes for the door to close/open")][SerializeField] private float doorDuration = 3.0f;
-    [SerializeField] private bool isLocked = false;
 
-    private bool isOpen = false;
+    [Tooltip("How much the door rotates by in degrees")]
+    [SerializeField] private float doorRotationOffset = 45.0f;
+
+    [Tooltip("The delay between interactions in seconds")]
+    [SerializeField] private float interactionInterval = 2.0f;
+
+    [Tooltip("How long it takes for the door to close/open")]
+    [SerializeField] private float doorDuration = 3.0f;
+
+    [SerializeField] private DoorStates currentState = DoorStates.Open;
+
     private bool isDoorRotating = false;
-
     private float currentTime;
 
     private Quaternion initialDoorRotation;
@@ -31,7 +45,7 @@ public class DoorInteractable : InteractableTemplate
     private Transform playerPosition;
     private Vector3 forwardDirection;
 
-    // INFO: Temporary Variables:
+    [Header("Temporary Variables for Testing:")]
     [SerializeField] private Material closedMaterial;
     [SerializeField] private Material openMaterial;
     private MeshRenderer doorMeshRenderer;
@@ -44,6 +58,26 @@ public class DoorInteractable : InteractableTemplate
         forwardDirection = transform.forward;
 
         ChangeDoorMaterial();
+
+        switch (currentState)
+        {
+            case DoorStates.Open:
+                Vector3 startingRot = doorHingeTransform.rotation.eulerAngles;
+
+                int rand = Random.Range(0, 2);
+
+                if (rand == 0)
+                    startingRot.y += doorRotationOffset;
+                else
+                    startingRot.y -= doorRotationOffset;
+
+                doorHingeTransform.rotation = Quaternion.Euler(startingRot);
+                break;
+            case DoorStates.None:
+                break;
+            default:
+                break;
+        }
     }
 
     private void Start()
@@ -76,6 +110,12 @@ public class DoorInteractable : InteractableTemplate
         if (isDoorRotating)
             return;
 
+        if (currentState == DoorStates.Open)
+            ChangeDoorState(DoorStates.Shut);
+        else if (currentState == DoorStates.Shut)
+            ChangeDoorState(DoorStates.Open);
+
+        /*
         // INFO: Given that the player is holding an item and that item has a key interactable component on it then:
         if (InventoryHotbar.instance.currentItem != null && InventoryHotbar.instance.currentItem.prefab.TryGetComponent<KeyInteractable>(out _))
         {
@@ -98,10 +138,36 @@ public class DoorInteractable : InteractableTemplate
         }
         else if (!isLocked)
             ChangeDoorState();
+        */
     }
 
-    private void ChangeDoorState()
+    private void ChangeDoorState(DoorStates newState)
     {
+        if (currentState != newState)
+        {
+            currentState = newState;
+
+            switch (currentState)
+            {
+                case DoorStates.Open:
+                    Open();
+                    break;
+                case DoorStates.Shut:
+                    Shut();
+                    break;
+                case DoorStates.Locked:
+                    Locked();
+                    break;
+                case DoorStates.None:
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        isDoorRotating = true;
+
+        /*
         if (isOpen || isLocked)
         {
             isOpen = false;
@@ -124,6 +190,45 @@ public class DoorInteractable : InteractableTemplate
             targetRotation = Quaternion.Euler(currentRotation);
         }
         isDoorRotating = true;
+        */
+    }
+
+    /// <summary>
+    /// The function that gets called when the door goes into the open state
+    /// </summary>
+    private void Open()
+    {
+        ChangeDoorMaterial();
+
+        float dot = Vector3.Dot(forwardDirection, (playerPosition.position - transform.position).normalized);
+
+        Vector3 currentRotation = doorHingeTransform.rotation.eulerAngles;
+
+        // INFO: Opens the door outwards based on which way the player is facing it
+        if (dot >= 0.0f)
+            currentRotation.y += doorRotationOffset;
+        else
+            currentRotation.y -= doorRotationOffset;
+
+        targetRotation = Quaternion.Euler(currentRotation);
+    }
+
+    /// <summary>
+    /// The function that gets called when the door goes into the shut state
+    /// </summary>
+    private void Shut()
+    {
+        ChangeDoorMaterial();
+        targetRotation = initialDoorRotation;
+    }
+
+    /// <summary>
+    /// The function that gets called when the door goes into the locked state
+    /// </summary>
+    private void Locked()
+    {
+        ChangeDoorMaterial();
+        targetRotation = initialDoorRotation;
     }
 
     /// <summary>
@@ -131,9 +236,16 @@ public class DoorInteractable : InteractableTemplate
     /// </summary>
     private void ChangeDoorMaterial()
     {
+        if (currentState == DoorStates.Locked)
+            doorMeshRenderer.material = closedMaterial;
+        else
+            doorMeshRenderer.material = openMaterial;
+
+        /*
         if (isLocked)
             doorMeshRenderer.material = closedMaterial;
         else
             doorMeshRenderer.material = openMaterial;
+        */
     }
 }
