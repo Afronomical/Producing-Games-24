@@ -22,6 +22,7 @@ MonoBehaviour:
   followObject: 0
   travelDistance: 30
   sentence: Enter text here
-  font: {fileID: 0}
+  font: {fileID: 11400000, guid: 2f03756d07bf7144b94bf6a9537977d8, type: 2}
   typingSpeed: 0.15
   waitTillHide: 4
+  canBeHeardByDemon: 0
