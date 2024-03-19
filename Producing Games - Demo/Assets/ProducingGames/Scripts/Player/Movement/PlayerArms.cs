@@ -132,6 +132,7 @@ public class PlayerArms : MonoBehaviour
                 pagerScreen.GetComponent<Canvas>().enabled = false;
                 flashlight.gameObject.SetActive(false);
                 clipboard.gameObject.SetActive(true);
+                PlayerVoiceController.instance.PlayDialogue(PlayerVoiceController.instance.checklistDialogue);
                 break;
             case leftArmStates.Pager:
                 pager.GetComponent<SkinnedMeshRenderer>().enabled = true;

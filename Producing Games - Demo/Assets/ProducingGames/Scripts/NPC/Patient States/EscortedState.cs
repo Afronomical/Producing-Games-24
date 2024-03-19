@@ -44,6 +44,8 @@ public class EscortedState : PatientStateBaseClass
         {
             NPCManager.Instance.PlayFemaleVoiceLine(NPCManager.FemaleVoiceLines.FemOneMedicineOne, transform);
         }
+
+        PlayerVoiceController.instance.PlayDialogue(PlayerVoiceController.instance.escortingDialogue);
     }
 
     public override void UpdateLogic()

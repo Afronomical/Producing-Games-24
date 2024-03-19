@@ -234,18 +234,8 @@ public class GameManager : MonoBehaviour
     {
         inStudy = false;  // Starts the timer
         studyDoor.ChangeShift();
-        /*studyDoor.collectible = studyDoor.endHourSO;
-        player.GetComponent<PlayerInput>().enabled = false;
-        FadeOut();
+        PlayerVoiceController.instance.PlayDialogue(PlayerVoiceController.instance.leaveStudyDialogue);
 
-        yield return new WaitForSeconds(3);
-
-        FadeIn();
-        player.GetComponent<PlayerInput>().enabled = true;
-        player.GetComponent<CharacterController>().enabled = false;
-        player.transform.position = startShiftPosition.position;
-        player.transform.rotation = startShiftPosition.rotation;
-        player.GetComponent<CharacterController>().enabled = true;*/
         yield return new WaitForSeconds(0);
     }
 
