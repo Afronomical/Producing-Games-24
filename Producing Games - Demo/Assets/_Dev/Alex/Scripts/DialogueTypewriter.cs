@@ -6,14 +6,15 @@ using UnityEngine;
 
 public class DialogueTypewriter : MonoBehaviour
 {
-    public DialogueTypewriter instance;
-    public TMP_Text dialogueBox;
+    public static DialogueTypewriter instance;
+    private TMP_Text dialogueBox;
 
     private void Start()
     {
         if(instance == null)
             instance = this;
 
+        dialogueBox = GetComponent<TMP_Text>();
         dialogueBox.enabled = false;
     }
 
