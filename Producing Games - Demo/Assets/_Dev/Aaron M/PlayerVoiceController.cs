@@ -23,7 +23,7 @@ public class PlayerVoiceController : MonoBehaviour
         if (rand <= dialogue.dialoguePercentageChance)
         {
             rand = Random.Range(0, dialogue.dialogue.Length);
-            if (dialogue.dialogue[rand] == null)
+            if (dialogue.dialogue[rand] != null)
             {
                 AudioManager.instance.PlaySound(dialogue.dialogue[rand], transform);
             }
