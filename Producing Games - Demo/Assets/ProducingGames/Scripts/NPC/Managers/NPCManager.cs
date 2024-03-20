@@ -15,8 +15,7 @@ public class NPCManager : MonoBehaviour
 {
     public static NPCManager Instance;
 
-
-    public enum Name1VoiceLines
+    public enum MartinaVoiceLines
     {
         FemOneMedicineOne,
         FemOneMedicineTwo,
@@ -27,7 +26,7 @@ public class NPCManager : MonoBehaviour
         FemOneWanderTwo,
         FemLaugh,
     }
-    public enum Name2VoiceLines
+    public enum CarmenVoiceLines
     {
         // INFO: Add voice line names here
         // For Example:
@@ -45,7 +44,7 @@ public class NPCManager : MonoBehaviour
         FemTwoWanderThree,
         FemLaugh,
     }
-    public enum Name3VoiceLines
+    public enum DiegoVoiceLines
     {
         ManOneGroanOne,
         ManOneGroanTwo,
@@ -59,7 +58,7 @@ public class NPCManager : MonoBehaviour
         ManLaughTwo,
     }
 
-    public enum Name4VoiceLines
+    public enum LucianoVoiceLines
     {
         // INFO: Add voice line names here
         // For Example:
@@ -80,36 +79,37 @@ public class NPCManager : MonoBehaviour
         
     }
 
+
     [Header("Name 1 Patient Voice Lines:")]
     [Tooltip("Ensure the order and size of both lists match up with each other")]
-    public List<SoundEffect> Name1VoiceLineList = new();
+    public List<SoundEffect> MartinaVoiceLineList = new();
     [Tooltip("Ensure the order and size of both lists match up with each other")]
-    public List<Name1VoiceLines> name1VoiceLines;
-    private Dictionary<Name1VoiceLines, SoundEffect> name1VoiceLinesDict = new();
+    public List<MartinaVoiceLines> martinaVoiceLines;
+    private Dictionary<MartinaVoiceLines, SoundEffect> martinaVoiceLinesDict = new();
 
     [Space(30)]
     [Header("Name 2 Patient Voice Lines:")]
     [Tooltip("Ensure the order and size of both lists match up with each other")]
-    public List<SoundEffect> Name2VoiceLineList = new();
+    public List<SoundEffect> CarmenVoiceLineList = new();
     [Tooltip("Ensure the order and size of both lists match up with each other")]
-    public List<Name2VoiceLines> name2VoiceLines;
-    private Dictionary<Name2VoiceLines,SoundEffect> name2VoiceLinesDict = new();
+    public List<CarmenVoiceLines> carmenVoiceLines;
+    private Dictionary<CarmenVoiceLines,SoundEffect> carmenVoiceLinesDict = new();
 
     [Space(30)]
     [Header("Name 3 Patient Voice Lines:")]
     [Tooltip("Ensure the order and size of both lists match up with each other")]
-    public List<SoundEffect> Name3VoiceLineList = new();
+    public List<SoundEffect> DiegoVoiceLineList = new();
     [Tooltip("Ensure the order and size of both lists match up with each other")]
-    public List<Name3VoiceLines> name3VoiceLines;
-    private Dictionary<Name3VoiceLines, SoundEffect> name3VoiceLinesDict = new();
+    public List<DiegoVoiceLines> diegoVoiceLines;
+    private Dictionary<DiegoVoiceLines, SoundEffect> diegoVoiceLinesDict = new();
 
     [Space(30)]
     [Header("Name 4 Patient Voice Lines:")]
     [Tooltip("Ensure the order and size of both lists match up with each other")]
-    public List<SoundEffect> Name4VoiceLineList = new();
+    public List<SoundEffect> LucianoVoiceLineList = new();
     [Tooltip("Ensure the order and size of both lists match up with each other")]
-    public List<Name4VoiceLines> name4VoiceLines;
-    private Dictionary<Name4VoiceLines,SoundEffect> name4VoiceLinesDict = new();
+    public List<LucianoVoiceLines> lucianoVoiceLines;
+    private Dictionary<LucianoVoiceLines,SoundEffect> lucianoVoiceLinesDict = new();
 
 
     [Header("Patient Locations:")]
@@ -164,26 +164,26 @@ public class NPCManager : MonoBehaviour
         //}
 
         // INFO: Put all female voices onto the dictionary with their respective keys
-        for (int i = 0; i < Name1VoiceLineList.Count; i++)
+        for (int i = 0; i < MartinaVoiceLineList.Count; i++)
         {
-            name1VoiceLinesDict.Add(name1VoiceLines[i], Name1VoiceLineList[i]);
+            martinaVoiceLinesDict.Add(martinaVoiceLines[i], MartinaVoiceLineList[i]);
         }
 
         // INFO: Put all male voices onto the dictionary with their respective keys
-        for (int i = 0; i < Name3VoiceLineList.Count; i++)
+        for (int i = 0; i < DiegoVoiceLineList.Count; i++)
         {
-            name3VoiceLinesDict.Add(name3VoiceLines[i], Name3VoiceLineList[i]);
+            diegoVoiceLinesDict.Add(diegoVoiceLines[i], DiegoVoiceLineList[i]);
         }
 
-        for(int i = 0;i<Name2VoiceLineList.Count;i++)
+        for(int i = 0;i<CarmenVoiceLineList.Count;i++)
         {
-            name2VoiceLinesDict.Add(name2VoiceLines[i], Name2VoiceLineList[i]);
+            carmenVoiceLinesDict.Add(carmenVoiceLines[i], CarmenVoiceLineList[i]);
         }
 
         // INFO: Put all male voices onto the dictionary with their respective keys
-        for (int i = 0; i < Name4VoiceLineList.Count; i++)
+        for (int i = 0; i < LucianoVoiceLineList.Count; i++)
         {
-            name4VoiceLinesDict.Add(name4VoiceLines[i], Name4VoiceLineList[i]);
+            lucianoVoiceLinesDict.Add(lucianoVoiceLines[i], LucianoVoiceLineList[i]);
         }
 
 
@@ -393,28 +393,42 @@ public class NPCManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Plays the female voice line if it is found in the dictionary
+    /// Plays the Linda voice line if it is found in the dictionary
     /// </summary>
     /// <param name="voiceLine">The voice line key to play</param>
     /// <param name="effectParent">The game object from which this voice line should play from</param>
-    public void PlayFemaleVoiceLine(Name1VoiceLines voiceLine, Transform effectParent)
+    public void PlayCarmenVoiceLine(CarmenVoiceLines voiceLine, Transform effectParent)
     {
         // INFO: Given that the dictionary contains the corresponding sound effect, it will play it
-        if (name1VoiceLinesDict.ContainsKey(voiceLine))
-            AudioManager.instance.PlaySound(name1VoiceLinesDict[voiceLine], effectParent);
+        if (carmenVoiceLinesDict.ContainsKey(voiceLine))
+            AudioManager.instance.PlaySound(carmenVoiceLinesDict[voiceLine], effectParent);
     }
 
     /// <summary>
-    /// Plays the male voice line if it is found in the dictionary
+    /// Plays the Damien voice line if it is found in the dictionary
     /// </summary>
     /// <param name="voiceLine">The voice line key to play</param>
     /// <param name="effectParent">The game object from which this voice line should play from</param>
-    public void PlayMaleVoiceLine(Name3VoiceLines voiceLine, Transform effectParent)
+    public void PlayDiegoVoiceLine(DiegoVoiceLines voiceLine, Transform effectParent)
     {
         // INFO: Given that the dictionary contains the corresponding sound effect, it will play it
-        if (name3VoiceLinesDict.ContainsKey(voiceLine))
-            AudioManager.instance.PlaySound(name3VoiceLinesDict[voiceLine], effectParent);
+        if (diegoVoiceLinesDict.ContainsKey(voiceLine))
+            AudioManager.instance.PlaySound(diegoVoiceLinesDict[voiceLine], effectParent);
     }
+
+    public void PlayMartinaVoiceLine(MartinaVoiceLines voiceLine, Transform effectParent)
+    {
+        if (martinaVoiceLinesDict.ContainsKey(voiceLine))
+            AudioManager.instance.PlaySound(martinaVoiceLinesDict[voiceLine], effectParent);
+    }
+
+    public void PlayLucianoVoiceLine(LucianoVoiceLines voiceLine, Transform effectParent)
+    {
+        // INFO: Given that the dictionary contains the corresponding sound effect, it will play it
+        if (lucianoVoiceLinesDict.ContainsKey(voiceLine))
+            AudioManager.instance.PlaySound(lucianoVoiceLinesDict[voiceLine], effectParent);
+    }
+
 
     /// <summary>
     /// Checks the number of available locations that have not yet been taken by an NPC
