@@ -33,6 +33,10 @@ public class AICharacter : MonoBehaviour
     [Header("Debugging Tools")]
     public Color detectionRadiusColor = Color.white;
 
+    [Space (20)]
+
+    public bool isOpeningDoor = false;
+
     private void Awake()
     {
         player = FindFirstObjectByType<PlayerMovement>().gameObject;

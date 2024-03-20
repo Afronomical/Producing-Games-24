@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering.UI;
 
 /// <summary>
 /// Written by: Matej Cincibus
@@ -43,7 +44,6 @@ public class DoorInteractable : InteractableTemplate
     [Space(10)]
 
     [Tooltip("No touch")]
-    [SerializeField] private BoxCollider entitiesInRoomChecker;
     public List<GameObject> entitiesInsideRoom = new();
 
     private bool isDoorRotating = false;
@@ -53,6 +53,7 @@ public class DoorInteractable : InteractableTemplate
     private Quaternion targetRotation;
     private Transform playerPosition;
     private Vector3 forwardDirection;
+    private GameObject demon;
     private DemonCharacter demonCharacter;
 
     [Header("Temporary Variables for Testing:")]
@@ -93,15 +94,16 @@ public class DoorInteractable : InteractableTemplate
     private void Start()
     {
         playerPosition = FindFirstObjectByType<PlayerMovement>().transform;
-        
-        if (!GameManager.Instance.demon.TryGetComponent<DemonCharacter>(out demonCharacter))
-        {
-            Debug.LogWarning("Demon character was not assigned to door");
-        }
     }
 
     private void Update()
     {
+        if (demon == null)
+        {
+            demon = GameManager.Instance.demon;
+            demonCharacter = demon.GetComponent<DemonCharacter>();
+        }
+
         // INFO: If the door is currently rotating:
         if (isDoorRotating)
         {
@@ -119,12 +121,19 @@ public class DoorInteractable : InteractableTemplate
 
         // INFO: Will automatically close and lock when the demon goes into rage mode
         // if it's a patient door and there and the player or demon aren't in the room
-        if (isPatientDoor)
+        if (isPatientDoor && !isDoorRotating)
         {
-            if (demonCharacter.IsInRageMode() && entitiesInsideRoom.Count == 0 && currentState != DoorStates.Locked)
+            if (demonCharacter.IsInRageMode() && entitiesInsideRoom.Count == 0)
             {
+                //Invoke(nameof(AutomaticLockDoor), doorDuration);
                 ChangeDoorState(DoorStates.Locked);
             }
+            else if (demonCharacter.IsInRageMode() && entitiesInsideRoom.Count > 0)
+            {
+                //Invoke(nameof(AutomaticOpenDoor), doorDuration);
+                ChangeDoorState(DoorStates.Open);
+            }
+
         }
     }
 
@@ -175,7 +184,7 @@ public class DoorInteractable : InteractableTemplate
             switch (currentState)
             {
                 case DoorStates.Open:
-                    Open();
+                    Open(playerPosition.position);
                     break;
                 case DoorStates.Shut:
                     Shut();
@@ -188,9 +197,8 @@ public class DoorInteractable : InteractableTemplate
                 default:
                     break;
             }
+            isDoorRotating = true;
         }
-
-        isDoorRotating = true;
 
         /*
         if (isOpen || isLocked)
@@ -221,11 +229,11 @@ public class DoorInteractable : InteractableTemplate
     /// <summary>
     /// The function that gets called when the door goes into the open state
     /// </summary>
-    private void Open()
+    public void Open(Vector3 characterPosition)
     {
         ChangeDoorMaterial();
 
-        float dot = Vector3.Dot(forwardDirection, (playerPosition.position - transform.position).normalized);
+        float dot = Vector3.Dot(forwardDirection, (characterPosition - transform.position).normalized);
 
         Vector3 currentRotation = doorHingeTransform.rotation.eulerAngles;
 

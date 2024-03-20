@@ -106,10 +106,7 @@ public class DemonCharacter : AICharacter, IHear
     public void ChangeDemonState(DemonStates newState)
     {
         // INFO: Remove all animations
-        //animator.SetBool("isConfused", false);
-        //animator.SetBool("isAttacking", false);
-        //animator.SetBool("isChasing", false);
-        //animator.SetBool("isConfused", false);
+        //ResetAnimation();
 
         if (currentState != newState || demonStateScript == null)
         {
@@ -182,6 +179,13 @@ public class DemonCharacter : AICharacter, IHear
         }
     }
 
+    private void ResetAnimation()
+    {
+        animator.SetBool("isConfused", false);
+        animator.SetBool("isAttacking", false);
+        animator.SetBool("isChasing", false);
+    }
+
     /// <summary>
     /// Causes the demon to become distracted by the sound that has occured
     /// and will make it walk over to it
@@ -222,7 +226,6 @@ public class DemonCharacter : AICharacter, IHear
         else
         {
             GameManager.Instance.DemonCaptureEvent();
-            ChangeDemonState(DemonStates.Inactive);
         }
 
         animator.SetBool("isAttacking", false);

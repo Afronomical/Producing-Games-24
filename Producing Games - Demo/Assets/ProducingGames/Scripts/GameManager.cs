@@ -219,7 +219,6 @@ public class GameManager : MonoBehaviour
         {
             EndGame(false);  // Lose the game
         }
-        demon.SetActive(true);
     }
 
 
