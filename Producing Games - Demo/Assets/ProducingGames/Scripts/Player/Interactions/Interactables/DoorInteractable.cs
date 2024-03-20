@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -36,6 +38,13 @@ public class DoorInteractable : InteractableTemplate
     [SerializeField] private float doorDuration = 3.0f;
 
     [SerializeField] private DoorStates currentState = DoorStates.Open;
+    [SerializeField] private bool isPatientDoor = false;
+
+    [Space(10)]
+
+    [Tooltip("No touch")]
+    [SerializeField] private BoxCollider entitiesInRoomChecker;
+    public List<GameObject> entitiesInsideRoom = new();
 
     private bool isDoorRotating = false;
     private float currentTime;
@@ -44,6 +53,7 @@ public class DoorInteractable : InteractableTemplate
     private Quaternion targetRotation;
     private Transform playerPosition;
     private Vector3 forwardDirection;
+    private DemonCharacter demonCharacter;
 
     [Header("Temporary Variables for Testing:")]
     [SerializeField] private Material closedMaterial;
@@ -83,6 +93,11 @@ public class DoorInteractable : InteractableTemplate
     private void Start()
     {
         playerPosition = FindFirstObjectByType<PlayerMovement>().transform;
+        
+        if (!GameManager.Instance.demon.TryGetComponent<DemonCharacter>(out demonCharacter))
+        {
+            Debug.LogWarning("Demon character was not assigned to door");
+        }
     }
 
     private void Update()
@@ -99,6 +114,16 @@ public class DoorInteractable : InteractableTemplate
             {
                 currentTime = 0.0f;
                 isDoorRotating = false;
+            }
+        }
+
+        // INFO: Will automatically close and lock when the demon goes into rage mode
+        // if it's a patient door and there and the player or demon aren't in the room
+        if (isPatientDoor)
+        {
+            if (demonCharacter.IsInRageMode() && entitiesInsideRoom.Count == 0 && currentState != DoorStates.Locked)
+            {
+                ChangeDoorState(DoorStates.Locked);
             }
         }
     }

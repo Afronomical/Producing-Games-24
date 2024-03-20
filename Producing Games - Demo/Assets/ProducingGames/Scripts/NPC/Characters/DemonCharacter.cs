@@ -70,6 +70,8 @@ public class DemonCharacter : AICharacter, IHear
 
     private bool inRageMode = false;
 
+    public bool IsInRageMode() => inRageMode;
+
     public void SetInRageMode(bool inRageMode) { this.inRageMode = inRageMode; }
 
     public override void Start()
