@@ -83,7 +83,6 @@ public class DemonCharacter : AICharacter, IHear
         // INFO: Get Local Reference to Player
         playerMovement = GameManager.Instance.player.GetComponent<PlayerMovement>();
 
-        this.ChangeDemonState(DemonStates.Patrol);
     }
 
     private void Update()
