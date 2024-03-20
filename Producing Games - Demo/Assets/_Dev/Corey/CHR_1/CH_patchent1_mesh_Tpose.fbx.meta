@@ -3,7 +3,67 @@ guid: a2104e54e30acc94d91f51e92cd94641
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eye lids
+    second: {fileID: 2100000, guid: c0155627554363042831149ca6d6d66a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eyes
+    second: {fileID: 2100000, guid: a4a35f51a16fd174cabe19305a6b86f3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: grace
+    second: {fileID: 2100000, guid: f87f6a124307dbd4da2f36faa35ac61e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hair
+    second: {fileID: 2100000, guid: 04a68287cdf480642a61e2f2b491ba2b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hand nail_
+    second: {fileID: 2100000, guid: 1f903e5de936b03428d89ec1712bbf0f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lase
+    second: {fileID: 2100000, guid: 408df49ddf5f37643886f3e22a724335, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: legs
+    second: {fileID: 2100000, guid: b42eb30bb98666943beaa2703c87dac0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shirt
+    second: {fileID: 2100000, guid: 88b5265a8409da54b8a9ebb1674d7e5d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shoe
+    second: {fileID: 2100000, guid: f2805e657b094d04b84d951fdc20a4b9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shoe bold
+    second: {fileID: 2100000, guid: 918f72919fd9edf45b96cbdc432f56cb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shoe sole
+    second: {fileID: 2100000, guid: dc9a037f00e1b2941bf3bf323f58180b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: skin
+    second: {fileID: 2100000, guid: 8236c5b159293d642b08f992822453fe, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -97,7 +157,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
