@@ -612,6 +612,7 @@ MonoBehaviour:
   raycastToPlayer: {fileID: 0}
   animator: {fileID: 0}
   detectionRadiusColor: {r: 1, g: 0, b: 0, a: 1}
+  isOpeningDoor: 0
   currentState: 0
   attackRadius: 2
   distanceFromDestination: 3
@@ -642,6 +643,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   playerDistance: 0
+  radius: 3
+  angle: 60
+  canSeePlayer: 0
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!95 &8667392400560299184
 Animator:
   serializedVersion: 7

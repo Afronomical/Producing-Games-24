@@ -82,6 +82,8 @@ public class DemonCharacter : AICharacter, IHear
 
         // INFO: Get Local Reference to Player
         playerMovement = GameManager.Instance.player.GetComponent<PlayerMovement>();
+
+        this.ChangeDemonState(DemonStates.Patrol);
     }
 
     private void Update()
@@ -92,7 +94,7 @@ public class DemonCharacter : AICharacter, IHear
 
         // INFO: Will go into the chase state whenever it sees the player, so long as its not already
         // attacking the player or is not exorcised or the player isn't currently hiding
-        if (raycastToPlayer.PlayerDetected() && 
+        if (raycastToPlayer.LookForPlayer() && 
             currentState != DemonStates.Attack && 
             currentState != DemonStates.Exorcised &&
             !playerMovement.isHiding)
