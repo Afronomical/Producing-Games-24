@@ -20,7 +20,7 @@ public class AttackState : DemonStateBaseClass
 
         character.animator.SetBool("isAttacking", true);
         
-        Reset();
+        //Reset();
     }
 
     public override void UpdateLogic()
@@ -37,12 +37,12 @@ public class AttackState : DemonStateBaseClass
     /// <summary>
     /// Calls the end hour function on the game manager and other logic
     /// </summary>
+    /*
     private void Reset()
     {
         // INFO: Replaced EndHour with the captured event. Captured event has EndHour within it after the scene
         GameManager.Instance.DemonCaptureEvent();
 
-        /*
         StartCoroutine(GameManager.Instance.EndHour());
 
         //this is where animation will go before moving player back to start pos
@@ -52,6 +52,7 @@ public class AttackState : DemonStateBaseClass
         character.player.transform.position = GameManager.Instance.playerStartPosition.position;
         GameManager.Instance.currentTime = 60;  // End the hour
         character.ChangeDemonState(DemonCharacter.DemonStates.Inactive);
-        */
+        
     }
+    */
 }   
