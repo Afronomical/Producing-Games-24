@@ -96,12 +96,14 @@ public class PatientTaskManager : MonoBehaviour
     {
         for (int i = 0; i < patients.Length; i++)
         {
+            Debug.Log("1");
             if (patients[i].GetComponent<PatientCharacter>().currentHealth > 0)
             {
                 List<HourlyTask> tasksSetForThisPatient = new List<HourlyTask>();
 
                 for (int j = 0; j < tasksPerPatient; j++)
                 {
+                    Debug.Log("2");
                     List<HourlyTask> choiceOfTasks = new List<HourlyTask>();
                     int totalChance = 0;
                     foreach (HourlyTask t in hourlyTasks)  // Check for invalid tasks and calculate total chance
@@ -117,6 +119,7 @@ public class PatientTaskManager : MonoBehaviour
 
                     int rand = Random.Range(0, totalChance);
                     HourlyTask chosenTask = choiceOfTasks[0];
+                    Debug.Log(chosenTask.taskType);
                     Task newTask = null;
 
                     int x = 0;
@@ -163,6 +166,7 @@ public class PatientTaskManager : MonoBehaviour
                         CheckList.instance.AddTask(newTask);
                         tasksSetForThisPatient.Add(chosenTask);
                         newTask.TaskStart();
+                        Debug.Log("3");
                     }
                 }
 
@@ -324,7 +328,7 @@ public class PatientTaskManager : MonoBehaviour
             {
                 if (NPCManager.Instance.ChosenDemon.demonName == "Leviathan" || NPCManager.Instance.ChosenDemon.demonName == "Beezlebub")
                 {
-                    int satelliteChance = GetDemonTellTaskChance(patientDemonTells, satelliteHasBroken, true);
+                    int satelliteChance = GetDemonTellTaskChance(environmentDemonTells, satelliteHasBroken, true);
                     for (int j = 0; j < satelliteChance; j++)
                     {
                         totalChance += t.chanceToHappen;
@@ -337,7 +341,7 @@ public class PatientTaskManager : MonoBehaviour
             {
                 if (NPCManager.Instance.ChosenDemon.demonName == "Leviathan" || NPCManager.Instance.ChosenDemon.demonName == "Mammon")
                 {
-                    int waterChance = GetDemonTellTaskChance(patientDemonTells, waterHasBroken, true);
+                    int waterChance = GetDemonTellTaskChance(environmentDemonTells, waterHasBroken, true);
                     for (int j = 0; j < waterChance; j++)
                     {
                         totalChance += t.chanceToHappen;
@@ -350,7 +354,7 @@ public class PatientTaskManager : MonoBehaviour
             {
                 if (NPCManager.Instance.ChosenDemon.demonName == "Mammon" || NPCManager.Instance.ChosenDemon.demonName == "Beezlebub")
                 {
-                    int fuseChance = GetDemonTellTaskChance(patientDemonTells, fuseHasBroken, true);
+                    int fuseChance = GetDemonTellTaskChance(environmentDemonTells, fuseHasBroken, true);
                     for (int j = 0; j < fuseChance; j++)
                     {
                         totalChance += t.chanceToHappen;
