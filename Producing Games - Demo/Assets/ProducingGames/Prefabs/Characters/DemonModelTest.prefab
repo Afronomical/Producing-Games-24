@@ -989,6 +989,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Imp_Rigged_02
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 238dfddfc6f071f45b1c14afce72e7fc, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 238dfddfc6f071f45b1c14afce72e7fc, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: e8a0184fc758348499ebce4c7dd47ae9, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
