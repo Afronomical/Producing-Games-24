@@ -2,6 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// <para> Written By: Nathan Jowett  </para>
+/// Moderated By: Lucian Dusciac
+/// <para> Demonic image will spawn at random location from an array, if player looks at the image it will disappear. 
+/// Detection range is key, if it is equal to player FOV then you will have to look right at object for it to disappear.
+/// </summary>
+
+
 public class HorrorImagery : MonoBehaviour
 {
     [Header("Horror Image")]
@@ -13,21 +21,20 @@ public class HorrorImagery : MonoBehaviour
     [Header("Event Reset Timers")]
     public float EventResetTimer = 100;
     public float EventFailedRestTimer = 40;
+    [Space]
+    [Header("Spotting Distance, this value will minus from player FOV")]
+    [Range(0f, 90f)] public float DetectionRange = 0;
 
 
     private bool canPlay = true;
     private GameObject playerObj;
-    private Vector3 standLoc;    
-    private bool hasBeenSeen;    
-    private float moveTime;
+    private Vector3 imgPos;    
     private Camera playerCam;
     private float origFOV;
-   
-    [Range(-30f, 30f)] public float fovLeniency = 0;
-
 
     void Start()
     {
+        HorrorImage.SetActive(false);
         playerObj = GameManager.Instance.player;
         playerCam = Camera.main;
         origFOV = playerCam.fieldOfView;
@@ -36,22 +43,21 @@ public class HorrorImagery : MonoBehaviour
 
     void Update()
     {
-        if (hasBeenSeen)
+        Vector3 ImgLoc = HorrorImage.transform.position;
+        ImgLoc.y = playerCam.transform.position.y;
+        Vector3 ImgCurrentLoc = (ImgLoc - playerCam.transform.position).normalized;
+        
+        //finds and angle between the player and the img, if in the detection range then img will disappear
+        if (Vector3.Angle(playerCam.transform.forward, ImgCurrentLoc) < (origFOV - DetectionRange)) 
         {
-            float distance = Vector3.Distance(HorrorImage.transform.position, playerObj.transform.position); //Returns distance between imagery and player
-            
-            Vector3 camRelY = HorrorImage.transform.position;
-            camRelY.y = playerCam.transform.position.y;
-            Vector3 camRelLoc = (camRelY - playerCam.transform.position).normalized;
-
-            if (Vector3.Angle(playerCam.transform.forward, camRelLoc) < (origFOV + fovLeniency))
-            {
-                ResetImagery();
-            }
+            ResetImagery();
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    /// <summary>
+    /// Slight difference to other events, this can happen multiple times every shift. more likely if player sanity is lower
+    /// </summary>
+    private void OnTriggerEnter(Collider other) 
     {
         if (other.CompareTag("Player"))
         {
@@ -72,15 +78,14 @@ public class HorrorImagery : MonoBehaviour
     private void SpawnImagery() //spawns Imagery in random location set out from the array
     {
         int imageryArr = Random.Range(0, ImagerySpawnLocations.Length);
-        standLoc = ImagerySpawnLocations[imageryArr].transform.position;
+        imgPos = ImagerySpawnLocations[imageryArr].transform.position;
        
         HorrorImage.SetActive(true);
-        HorrorImage.transform.position = standLoc;
-        HorrorImage.transform.LookAt(playerObj.transform, Vector3.up);       
+        HorrorImage.transform.position = imgPos;   
     }
-    private IEnumerator ResetTimer(float delay)
+    private IEnumerator ResetTimer(float timer)
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(timer);
         canPlay = true;
     }
 
