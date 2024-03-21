@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3369550382755547268}
   - component: {fileID: 3461621365025910614}
   - component: {fileID: 4249072412113562811}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Counter top.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 451349434334106601}
   - component: {fileID: 7888348978541584289}
   - component: {fileID: 7918025846414365893}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: legs.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 6722464726718952394}
   - component: {fileID: 7332471383255092101}
   - component: {fileID: 3279671201136393891}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: leg end.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 1085082771744812616}
   - component: {fileID: 2074930750656112566}
   - component: {fileID: 2873067375712542743}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: draw cupboard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 5249411632849515356}
   - component: {fileID: 1842814715736987127}
   - component: {fileID: 4794055250360944624}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: draw 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 3577534369563062749}
   - component: {fileID: 8686926385249558676}
   - component: {fileID: 4523828355372012300}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: draw 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,7 +509,7 @@ GameObject:
   - component: {fileID: 2322134433932154772}
   - component: {fileID: 1833863088263989894}
   - component: {fileID: 2612978574214457369}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: draw 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -592,7 +592,7 @@ GameObject:
   - component: {fileID: 3595831003295255069}
   - component: {fileID: 1693084421756015279}
   - component: {fileID: 752134565107031277}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: draw 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -674,7 +674,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8716352105040839762}
   - component: {fileID: 5414627114092343542}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SM_KitchenWorktopType2_mesh_lod0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -737,7 +737,7 @@ GameObject:
   - component: {fileID: 6256354599963316901}
   - component: {fileID: 1587045401741833320}
   - component: {fileID: 8885436794632684735}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: shelf.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
