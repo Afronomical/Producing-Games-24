@@ -24,11 +24,15 @@ public class ExorcismChest : InteractableTemplate
     public List<GameObject> currentItems = new();
     private bool isLocked = false;
     private float t;
+    private float returnT;
     private float currentTime = 0f;
-    private float timeToMove = 5f;
+    public float timeToInspect = 10f;
+    private float timeToMove = 3f;
     public float panToChestSpeed = 0.05f;
     private Camera mainCam;
     public Transform inspectPoint;
+    private Transform originalTransform;
+    private Quaternion originalPlayerRot;
     private GameObject player;
     private CameraLook cameraLook;
 
@@ -74,32 +78,47 @@ public class ExorcismChest : InteractableTemplate
     {
         AddtoChest();
         t = currentTime / timeToMove;
-        currentTime += Time.deltaTime;
+       
         if (isInspecting)
         {
+            currentTime += Time.deltaTime;
             if (isMoving)
             {
+               
+                
                 Vector3 newPos = player.transform.position - inspectPoint.position;
                 player.transform.position = Vector3.Lerp(player.transform.position, inspectPoint.position, t * panToChestSpeed);  //works but no lerp 
 
                 Quaternion targetRot = Quaternion.LookRotation(transform.position - player.transform.position);  //works but angle is off 
-                player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRot, t * panToChestSpeed);
+                float reducedXAngle = targetRot.eulerAngles.x * 0.8f;
+                Quaternion adjustedRotation = Quaternion.Euler(reducedXAngle, targetRot.eulerAngles.y, targetRot.eulerAngles.z);
+                player.transform.rotation = Quaternion.Slerp(player.transform.rotation, adjustedRotation, t * panToChestSpeed);
                 player.GetComponent<PlayerMovement>().enabled = false;
                 cameraLook.enabled = false;
-                if (player.transform.position == newPos)
-                {
-                    isMoving = false;
-                    return;
-                }
+                //if (player.transform.position == newPos)
+                //{
+                    
+                //    isMoving = false;
+                    
+                //}
             }
-             ////need to return to original position after stopped inspecting 
-            
+            if (currentTime > timeToInspect)
+            {
+                isInspecting = false;
+                isMoving = false;
+                returnT = t;
+                Return();
+            }
         }
+      
     }
 
     public override void Interact()
     {
-            if (isLocked)
+        originalTransform = player.transform;
+        originalPlayerRot = player.transform.rotation;
+
+        if (isLocked)
             {
                isLocked = false;
                collectible.tooltipText = "Interact With Chest";
@@ -108,8 +127,9 @@ public class ExorcismChest : InteractableTemplate
             {
                 animator.speed = 1;
                 animator.SetTrigger("OpenedChest");
+               
 
-                // Debug.Log("Chest opening");
+            // Debug.Log("Chest opening");
                 chestOpen = true;
                 collectible.tooltipText = "Press C to Inspect Objects";
                 ///need to move to new input system to allow for inspection 
@@ -119,6 +139,7 @@ public class ExorcismChest : InteractableTemplate
             else if (!isLocked && chestOpen)
             {
                 animator.SetTrigger("CloseChest");
+              
                 Debug.Log("Chest closing");
                 collectible.tooltipText = "Interact With Chest";
                 foreach (var item in currentItems)
@@ -132,6 +153,19 @@ public class ExorcismChest : InteractableTemplate
         
        
        
+    }
+
+     private void Return()
+    {
+        Debug.Log("returning");
+        isInspecting = false;
+        isMoving = false;
+        player.transform.rotation = Quaternion.Lerp(player.transform.rotation, originalPlayerRot, 1);
+        player.transform.position = Vector3.Lerp(player.transform.position, originalTransform.position,1);
+      
+            player.GetComponent<PlayerMovement>().enabled = true;
+            cameraLook.enabled = true;
+        
     }
 
     public void AddtoChest()
