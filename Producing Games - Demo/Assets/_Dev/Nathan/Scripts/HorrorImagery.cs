@@ -8,8 +8,6 @@ using UnityEngine;
 /// <para> Demonic image will spawn at random location from an array, if player looks at the image it will disappear. 
 /// Detection range is key, if it is equal to player FOV then you will have to look right at object for it to disappear.
 /// </summary>
-
-
 public class HorrorImagery : MonoBehaviour
 {
     [Header("Horror Image")]
@@ -26,29 +24,28 @@ public class HorrorImagery : MonoBehaviour
     [Range(0f, 90f)] public float DetectionRange = 0;
 
 
-    private bool canPlay = true;
-    private GameObject playerObj;
-    private Vector3 imgPos;    
+    private bool canSpawn = true;
+    private Vector3 ImgSpawnPos;
+    private Vector3 ImgPos;
+    private Vector3 ImgCurrentPos;
     private Camera playerCam;
-    private float origFOV;
+    private float playerFOV;
 
     void Start()
     {
         HorrorImage.SetActive(false);
-        playerObj = GameManager.Instance.player;
         playerCam = Camera.main;
-        origFOV = playerCam.fieldOfView;
+        playerFOV = playerCam.fieldOfView;
     }
-
 
     void Update()
     {
-        Vector3 ImgLoc = HorrorImage.transform.position;
-        ImgLoc.y = playerCam.transform.position.y;
-        Vector3 ImgCurrentLoc = (ImgLoc - playerCam.transform.position).normalized;
+        ImgPos = HorrorImage.transform.position;
+        ImgPos.y = playerCam.transform.position.y;
+        ImgCurrentPos = (ImgPos - playerCam.transform.position).normalized;
         
         //finds and angle between the player and the img, if in the detection range then img will disappear
-        if (Vector3.Angle(playerCam.transform.forward, ImgCurrentLoc) < (origFOV - DetectionRange)) 
+        if (Vector3.Angle(playerCam.transform.forward, ImgCurrentPos) < (playerFOV - DetectionRange)) 
         {
             ResetImagery();
         }
@@ -61,15 +58,15 @@ public class HorrorImagery : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (canPlay && (Random.Range(1, 101) <= GameManager.Instance.eventChance)) 
+            if (canSpawn && (Random.Range(1, 101) <= GameManager.Instance.eventChance)) 
             {
                 SpawnImagery();
-                canPlay = false;
+                canSpawn = false;
                 StartCoroutine(ResetTimer(EventResetTimer));
             }
             else
             {
-                canPlay = false;
+                canSpawn = false;
                 StartCoroutine(ResetTimer(EventFailedRestTimer));
             }
         }
@@ -78,22 +75,18 @@ public class HorrorImagery : MonoBehaviour
     private void SpawnImagery() //spawns Imagery in random location set out from the array
     {
         int imageryArr = Random.Range(0, ImagerySpawnLocations.Length);
-        imgPos = ImagerySpawnLocations[imageryArr].transform.position;
+        ImgSpawnPos = ImagerySpawnLocations[imageryArr].transform.position;
        
         HorrorImage.SetActive(true);
-        HorrorImage.transform.position = imgPos;   
+        HorrorImage.transform.position = ImgSpawnPos;
     }
     private IEnumerator ResetTimer(float timer)
     {
         yield return new WaitForSeconds(timer);
-        canPlay = true;
+        canSpawn = true;
     }
-
     private void ResetImagery()
     {
         HorrorImage.SetActive(false);       
-    }
-
-   
-
+    }  
 }
