@@ -91,28 +91,18 @@ public class PlayerArms : MonoBehaviour
         {
             if (leftAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name != lastLeftAnimation && leftAnimator.GetCurrentAnimatorStateInfo(0).speed > 0)
             {
-                if (leftAnimator.GetCurrentAnimatorStateInfo(0).IsName("PagerUp"))  // If it is a pick up animation
-                    SetLeftHeldObjects();
-                else if (leftAnimator.GetCurrentAnimatorStateInfo(0).IsName("FlashlightUp"))
-                    SetLeftHeldObjects();
-                else if (leftAnimator.GetCurrentAnimatorStateInfo(0).IsName("ClipboardUp"))
-                    SetLeftHeldObjects();
+                SetLeftHeldObjects();
+                lastLeftAnimation = leftAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
             }
-
-            lastLeftAnimation = leftAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
         }
 
         if (rightAnimator.GetCurrentAnimatorClipInfoCount(0) != 0)  // When the animation on the left arm changes
         {
-            if (rightAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name != lastLeftAnimation && leftAnimator.GetCurrentAnimatorStateInfo(0).speed > 0)
+            if (rightAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name != lastRightAnimation && rightAnimator.GetCurrentAnimatorStateInfo(0).speed > 0)
             {
-                if (rightAnimator.GetCurrentAnimatorStateInfo(0).IsName("Grab"))  // If it is a pick up animation
-                    SetRightHeldObjects();
-                else if (rightAnimator.GetCurrentAnimatorStateInfo(0).IsName("ClipboardFlashlightUp"))
-                    SetRightHeldObjects();
+                SetRightHeldObjects();
+                lastRightAnimation = rightAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
             }
-
-            lastRightAnimation = rightAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
         }
 
         ArmBobbing();
@@ -125,28 +115,28 @@ public class PlayerArms : MonoBehaviour
         if (flashlight.activeSelf && playerBody.GetComponent<Flashlight>().intensityIndex != 0) 
             AudioManager.instance.PlaySound(playerBody.GetComponent<Flashlight>().toggleSound, null);
 
-
-        switch(leftArmState)
+        AnimatorStateInfo info = leftAnimator.GetCurrentAnimatorStateInfo(0);
+        if (info.IsName("ClipboardUp"))
         {
-            case leftArmStates.Clipboard:
-                pager.GetComponent<SkinnedMeshRenderer>().enabled = false;
-                pagerScreen.GetComponent<Canvas>().enabled = false;
-                flashlight.gameObject.SetActive(false);
-                clipboard.gameObject.SetActive(true);
-                PlayerVoiceController.instance.PlayDialogue(PlayerVoiceController.instance.checklistDialogue);
-                break;
-            case leftArmStates.Pager:
-                pager.GetComponent<SkinnedMeshRenderer>().enabled = true;
-                pagerScreen.GetComponent<Canvas>().enabled = true;
-                flashlight.gameObject.SetActive(false);
-                clipboard.SetActive(false);
-                break;
-            case leftArmStates.Flashlight:
-                pager.GetComponent<SkinnedMeshRenderer>().enabled = false;
-                pagerScreen.GetComponent<Canvas>().enabled = false;
-                flashlight.gameObject.SetActive(true);
-                clipboard.SetActive(false);
-                break;
+            pager.GetComponent<SkinnedMeshRenderer>().enabled = false;
+            pagerScreen.GetComponent<Canvas>().enabled = false;
+            flashlight.gameObject.SetActive(false);
+            clipboard.gameObject.SetActive(true);
+            PlayerVoiceController.instance.PlayDialogue(PlayerVoiceController.instance.checklistDialogue);
+        }
+        else if (info.IsName("PagerUp"))
+        {
+            pager.GetComponent<SkinnedMeshRenderer>().enabled = true;
+            pagerScreen.GetComponent<Canvas>().enabled = true;
+            flashlight.gameObject.SetActive(false);
+            clipboard.SetActive(false);
+        }
+        else if (info.IsName("FlashlightUp"))
+        {
+            pager.GetComponent<SkinnedMeshRenderer>().enabled = false;
+            pagerScreen.GetComponent<Canvas>().enabled = false;
+            flashlight.gameObject.SetActive(true);
+            clipboard.SetActive(false);
         }
 
 
@@ -158,25 +148,30 @@ public class PlayerArms : MonoBehaviour
 
     private void SetRightHeldObjects()  // Change the items visible in your hands
     {
-        switch (rightArmState)
+        AnimatorStateInfo info = rightAnimator.GetCurrentAnimatorStateInfo(0);
+        if (info.IsName("ClipboardFlashlightUp"))
         {
-            case rightArmStates.Clipboard:
-                heldItem.SetActive(false);
-                clipboardFlashlight.SetActive(true);
-                break;
-            case rightArmStates.Object:
-                heldItem.SetActive(true);
-                clipboardFlashlight.SetActive(false);
-                break;
-            case rightArmStates.Idle:
-                heldItem.SetActive(false);
-                clipboardFlashlight.SetActive(false);
-                break;
-            case rightArmStates.Injection:
-                heldItem.SetActive(false);
-                //holdingSyringe
-                clipboardFlashlight.SetActive(false);
-                break;
+            heldItem.SetActive(false);
+            syringe.SetActive(false);
+            clipboardFlashlight.SetActive(true);
+        }
+        else if (info.IsName("Grab"))
+        {
+            heldItem.SetActive(false);
+            syringe.SetActive(false);
+            clipboardFlashlight.SetActive(false);
+        }
+        else if (info.IsName("Injection"))
+        {
+            heldItem.SetActive(false);
+            syringe.SetActive(true);
+            clipboardFlashlight.SetActive(false);
+        }
+        else if (info.IsName("HoldingUp"))
+        {
+            heldItem.SetActive(true);
+            clipboardFlashlight.SetActive(false);
+            syringe.SetActive(false);
         }
     }
 
