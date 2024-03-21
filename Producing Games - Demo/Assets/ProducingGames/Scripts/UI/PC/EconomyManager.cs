@@ -31,13 +31,13 @@ public class EconomyManager : MonoBehaviour
             instance = this;
 
         if (money != null)
-            money.text = "£ " + budget;
+            money.text = "P " + budget;
     }
 
     public void DisplayBudget()
     {
         if(budget < 0) budget = 0;
-        money.text = "£ " + budget;
+        money.text = "P " + budget;
     }
 
     public void AddIncome(int amount) { budget += amount; DisplayBudget(); }
