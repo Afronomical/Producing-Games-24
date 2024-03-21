@@ -56,6 +56,8 @@ public class DoorInteractable : InteractableTemplate
     private GameObject demon;
     private DemonCharacter demonCharacter;
 
+    public DoorStates PreviousState { get; private set; }
+
     [Header("Temporary Variables for Testing:")]
     [SerializeField] private Material closedMaterial;
     [SerializeField] private Material openMaterial;
@@ -102,6 +104,12 @@ public class DoorInteractable : InteractableTemplate
         {
             demon = GameManager.Instance.demon;
             demonCharacter = demon.GetComponent<DemonCharacter>();
+        }
+
+        // INFO: Reset door to previous state when demon is no longer in rage mode
+        if (!demonCharacter.IsInRageMode() && currentState == DoorStates.Locked)
+        {
+            ChangeDoorState(PreviousState);
         }
 
         // INFO: If the door is currently rotating:
@@ -179,6 +187,9 @@ public class DoorInteractable : InteractableTemplate
     {
         if (currentState != newState)
         {
+            if (currentState != DoorStates.Locked)
+                PreviousState = currentState;
+
             currentState = newState;
 
             switch (currentState)
