@@ -21,7 +21,7 @@ public class HorrorImagery : MonoBehaviour
     public float EventFailedRestTimer = 40;
     [Space]
     [Header("Spotting Distance, this value will minus from player FOV")]
-    [Range(0f, 90f)] public float DetectionRange = 0;
+    [Range(0f, 75f)] public float DetectionRange = 0;
 
 
     private bool canSpawn = true;
