@@ -72,4 +72,4 @@ MonoBehaviour:
   - {fileID: 0}
   EventResetTimer: 100
   EventFailedRestTimer: 40
-  fovLeniency: 0
+  DetectionRange: 33
