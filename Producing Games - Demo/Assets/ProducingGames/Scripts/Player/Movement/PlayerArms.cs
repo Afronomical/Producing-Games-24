@@ -13,12 +13,12 @@ using UnityEngine;
 public class PlayerArms : MonoBehaviour
 {
     private enum leftArmStates { Flashlight, Pager, Clipboard};
-    private enum rightArmStates { Idle, Object, Clipboard };
+    private enum rightArmStates { Idle, Object, Clipboard, Injection };
 
     public Transform playerBody;
     private PlayerMovement playerMovement;
     private CharacterController playerController;
-    public GameObject flashlight, pager, pagerScreen;
+    public GameObject flashlight, pager, pagerScreen, syringe;
     public GameObject clipboard, clipboardFlashlight;
     private PickUpItem pickUpItem;
     public Animator leftAnimator, rightAnimator;
@@ -32,6 +32,7 @@ public class PlayerArms : MonoBehaviour
     private bool holdingClipboard;
     private bool holdingObject;
     [HideInInspector] public bool holdingPager;
+    private bool holdingSyringe;
     private string lastLeftAnimation, lastRightAnimation;
 
     [Header("Arm Bobbing")]
@@ -171,6 +172,11 @@ public class PlayerArms : MonoBehaviour
                 heldItem.SetActive(false);
                 clipboardFlashlight.SetActive(false);
                 break;
+            case rightArmStates.Injection:
+                heldItem.SetActive(false);
+                //holdingSyringe
+                clipboardFlashlight.SetActive(false);
+                break;
         }
     }
 
@@ -221,6 +227,12 @@ public class PlayerArms : MonoBehaviour
         leftAnimator.SetBool("Checklist", false);
         rightAnimator.SetBool("Checklist", false);
         holdingClipboard = false;
+    }
+
+    public void GiveInjection()  // Pick up the clipboard
+    {
+        rightAnimator.SetTrigger("Injection");
+        holdingSyringe = true;
     }
 
 
