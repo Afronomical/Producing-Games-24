@@ -208,28 +208,29 @@ public class DemonCharacter : AICharacter, IHear
     /// Used to check the distance from the player and whether the player is hiding to either
     /// attack the player 
     /// </summary>
-    public void CheckBeforeAttack()
-    {
-        // INFO: Final check before attacking player so the demon doesn't
-        // get stuck in attacking state
-        if (playerMovement.isHiding)
-        {
-            animator.SetBool("isAttacking", false);
-            ChangeDemonState(DemonStates.Patrol);
-            return;
-        }
+    //public void CheckBeforeAttack()
+    //{
+    //    //// INFO: Final check before attacking player so the demon doesn't
+    //    //// get stuck in attacking state
+    //    //if (playerMovement.isHiding)
+    //    //{
+    //    //    animator.SetBool("isAttacking", false);
+    //    //    ChangeDemonState(DemonStates.Patrol);
+    //    //    return;
+    //    //}
 
-        // INFO: If the player is outside of the demons attack radius when the demon slashes at them then
-        // the player won't be killed and the demon will go into the chase state.
-        if (Vector3.Distance(transform.position, GameManager.Instance.player.transform.position) > attackRadius)
-        {
-            ChangeDemonState(DemonStates.Chase);
-        }
-        else
-        {
-            GameManager.Instance.DemonCaptureEvent();
-        }
+    //    // INFO: If the player is outside of the demons attack radius when the demon slashes at them then
+    //    // the player won't be killed and the demon will go into the chase state.
+    //    if (Vector3.Distance(transform.position, GameManager.Instance.player.transform.position) > attackRadius)
+    //    {
+    //        ChangeDemonState(DemonStates.Chase);
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Triggered event");
+    //        GameManager.Instance.DemonCaptureEvent();
+    //    }
 
-        animator.SetBool("isAttacking", false);
-    }
+    //    animator.SetBool("isAttacking", false);
+    //}
 }
