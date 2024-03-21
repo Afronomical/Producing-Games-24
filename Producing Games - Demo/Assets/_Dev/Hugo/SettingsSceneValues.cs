@@ -29,6 +29,10 @@ public class SettingsSceneValues : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        volumeNew = 0.5f;
+        FovNew = 75f;
+        motionBlurNew = 0f;
     }
 
     
