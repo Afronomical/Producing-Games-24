@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 94b559fad8311644bb0ba3e34b594fef, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 305.11652
+      value: 315.254
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 94b559fad8311644bb0ba3e34b594fef, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.9081361
+      value: 1.632
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 94b559fad8311644bb0ba3e34b594fef, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 36.682125
+      value: 29.720144
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 94b559fad8311644bb0ba3e34b594fef, type: 3}
       propertyPath: m_LocalRotation.w
@@ -61,10 +61,10 @@ PrefabInstance:
       addedObject: {fileID: 6516766452918215527}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 94b559fad8311644bb0ba3e34b594fef, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3654167554506522871}
+      addedObject: {fileID: 7426734540680862825}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 94b559fad8311644bb0ba3e34b594fef, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7426734540680862825}
+      addedObject: {fileID: 3987464076304557229}
   m_SourcePrefab: {fileID: 100100000, guid: 94b559fad8311644bb0ba3e34b594fef, type: 3}
 --- !u!1 &6173440018035574942 stripped
 GameObject:
@@ -98,27 +98,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &3654167554506522871
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6173440018035574942}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.004164428, y: 0.0032581722, z: 0.0026409666}
-  m_Center: {x: 0.00016021758, y: -0.000056560933, z: 0.0011036983}
 --- !u!114 &7426734540680862825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,3 +116,24 @@ MonoBehaviour:
   hasBeenPlaced: 0
   actionTooltip: {fileID: 0}
   munchSoundEffect: {fileID: 11400000, guid: 2c6aaee9e38ab02429951390ef06a4af, type: 2}
+--- !u!65 &3987464076304557229
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6173440018035574942}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0021973723, y: 0.0019873814, z: 0.00043191857}
+  m_Center: {x: 0.00010162743, y: -0.000030602612, z: -0.00000082601747}

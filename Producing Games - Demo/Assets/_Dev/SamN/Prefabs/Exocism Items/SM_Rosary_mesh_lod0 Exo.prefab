@@ -2335,7 +2335,7 @@ GameObject:
   - component: {fileID: 5330834051812439658}
   - component: {fileID: 8915325482102074696}
   - component: {fileID: -1789858320629674137}
-  - component: {fileID: -7558682154148394462}
+  - component: {fileID: 1590482829865939867}
   m_Layer: 0
   m_Name: SM_Rosary_mesh_lod0 Exo
   m_TagString: Untagged
@@ -2438,6 +2438,7 @@ MonoBehaviour:
   isExorcismObject: 1
   hasBeenPlaced: 0
   actionTooltip: {fileID: 0}
+  VoiceLines: {fileID: 0}
 --- !u!54 &-1789858320629674137
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2465,7 +2466,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &-7558682154148394462
+--- !u!65 &1590482829865939867
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2484,8 +2485,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.16357422, y: 0.5898779, z: 0.4729081}
-  m_Center: {x: 0.0063476562, y: 0.24547055, z: 0.20607744}
+  m_Size: {x: 0.12426758, y: 0.6106527, z: 0.022081481}
+  m_Center: {x: 0.0058288574, y: 0.2550519, z: 0.004917128}
 --- !u!1 &4962168570779812132
 GameObject:
   m_ObjectHideFlags: 0
