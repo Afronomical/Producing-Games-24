@@ -21,7 +21,8 @@ MonoBehaviour:
   spacialAudio: 1
   followObject: 0
   travelDistance: 30
-  sentence: Enter text here
-  font: {fileID: 0}
-  typingSpeed: 0.15
-  waitTillHide: 4
+  sentence: What was on here again?
+  font: {fileID: 11400000, guid: 2f03756d07bf7144b94bf6a9537977d8, type: 2}
+  typingSpeed: 0.075
+  waitTillHide: 3
+  canBeHeardByDemon: 0

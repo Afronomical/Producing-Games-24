@@ -295,7 +295,7 @@ public class SettingsManager : MonoBehaviour
     public void AudioEnable()
     {
         // Attempt to find the slider
-        GameObject sliderObject = GameObject.Find("AudioSlider");
+        GameObject sliderObject = GameObject.Find("Audio");
         GameObject audioObject = GameObject.Find("AudioManager");
 
         if (sliderObject != null)
