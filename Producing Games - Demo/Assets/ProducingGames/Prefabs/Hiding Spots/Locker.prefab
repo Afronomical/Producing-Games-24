@@ -103,7 +103,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e6bc6ab8dff5bd54f96f55aacbb36667, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.8485
+      value: 1.8485001
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e6bc6ab8dff5bd54f96f55aacbb36667, type: 3}
       propertyPath: m_LocalScale.y
@@ -111,11 +111,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e6bc6ab8dff5bd54f96f55aacbb36667, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.8485
+      value: 1.8485001
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e6bc6ab8dff5bd54f96f55aacbb36667, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -18.827332
+      value: -15.539001
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e6bc6ab8dff5bd54f96f55aacbb36667, type: 3}
       propertyPath: m_LocalPosition.y
@@ -123,11 +123,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e6bc6ab8dff5bd54f96f55aacbb36667, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 33.31719
+      value: 17.529001
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e6bc6ab8dff5bd54f96f55aacbb36667, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.15015003
+      value: -0.15015
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e6bc6ab8dff5bd54f96f55aacbb36667, type: 3}
       propertyPath: m_LocalRotation.x
@@ -135,7 +135,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e6bc6ab8dff5bd54f96f55aacbb36667, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.98866326
+      value: -0.9886633
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e6bc6ab8dff5bd54f96f55aacbb36667, type: 3}
       propertyPath: m_LocalRotation.z
@@ -212,7 +212,7 @@ MonoBehaviour:
   - {fileID: 2607920902581873774}
   - {fileID: 8759759637025468346}
   - {fileID: 6033559830840520576}
-  enterTransitionSpeed: 5
+  enterTransitionSpeed: 4
   exitTransitionSpeed: 3
 --- !u!65 &1193175722128872430
 BoxCollider:

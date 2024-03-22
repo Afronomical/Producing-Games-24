@@ -174,13 +174,14 @@ public class HidingCutScene : InteractableTemplate
         cam.GetComponent<CameraLook>().canHeadBob = canControl;
     }
 
-    //
+    //Peeking animation
     public void PeekAnim(bool isEntering)
     {
         if(playDoorAnimation != null)
             playDoorAnimation.SetBool("Peeking", isEntering);
     }
-
+    
+    //Entering animation
     public void EnteringAnim(bool isEntering)
     {
         if (playDoorAnimation != null)
