@@ -81,14 +81,17 @@ public class HidingCutScene : InteractableTemplate
     //Logic handles the player entering the hiding spot
     public void GoIn()
     {
+        EnteringAnim(true);
+
         playerMovement.isHiding = true;
         playerIsOccupying = true;
+
+        playerTransformRef.GetComponent<PickUpItem>().enabled = false;
         cam.transform.rotation = playerTransformRef.rotation;
         cam.GetComponent<CameraLook>().enabled = false;
         PlayerControlsAccess(false);
-        DoorAnim(true);
+
         playerTransformRef.position = Vector3.MoveTowards(playerTransformRef.position, points[pointIndex].position, enterTransitionSpeed * Time.deltaTime);
-                
          if (Quaternion.Angle(playerTransformRef.rotation, points[pointIndex].rotation) > 0.1)
             playerTransformRef.rotation = Quaternion.Lerp(playerTransformRef.rotation, points[pointIndex].rotation, enterTransitionSpeed * Time.deltaTime);
 
@@ -107,30 +110,32 @@ public class HidingCutScene : InteractableTemplate
     //If the player is inside the cupboard, it allows the player to click "c" to exit (moves to the GoOut function)
     public void Inside()
     {
-        DoorAnim(false);
-        if(!PauseMenu.instance.isPaused) cam.GetComponent<CameraLook>().enabled = true;
+        EnteringAnim(false);
+        cam.GetComponent<CameraLook>().enabled = true;
+        
         base.actionTooltip.text = "Press C to stop hiding!";
         base.actionTooltip.enabled = true;
-        if ((Input.GetKeyDown(KeyCode.C)))
+        if ((Input.GetKeyDown(KeyCode.C) && !Input.GetMouseButton(0)))
         {
             base.actionTooltip.enabled = false;
-            DoorAnim(true);
+            PeekAnim(false);
             playerHidingStates = PlayerHidingStates.goOut;
         }
 
         //Hold LMB to open the door to peek out, when the LMB is released, it will close the door again
         if (Input.GetMouseButton(0))
-            DoorAnim(true);
+            PeekAnim(true);
             
         
-        if(Input.GetMouseButtonUp(0))
-            DoorAnim(false);
+        else
+            PeekAnim(false);
             
     }
 
     //Logic handles the player exiting the hiding spot
     public void GoOut()
     {
+        EnteringAnim(true);
         playerMovement.isHiding = false;
         playerTransformRef.position = Vector3.MoveTowards(playerTransformRef.position, points[pointIndex].position, exitTransitionSpeed * Time.deltaTime);
 
@@ -142,6 +147,7 @@ public class HidingCutScene : InteractableTemplate
             {
                 playerTransformRef.rotation = points[pointIndex - 1].rotation;
                 playerHidingStates = PlayerHidingStates.outside;
+                playerTransformRef.GetComponent<PickUpItem>().enabled = true;
                 pointIndex = 0;
             }
                 
@@ -152,7 +158,7 @@ public class HidingCutScene : InteractableTemplate
     public void Outside()
     {
         playerIsOccupying = false;
-        DoorAnim(false);
+        EnteringAnim(false);
         PlayerControlsAccess(true);
         playerHidingStates = PlayerHidingStates.none;
     }
@@ -164,15 +170,21 @@ public class HidingCutScene : InteractableTemplate
         playerTransformRef.GetComponent<DropItem>().enabled = canControl;
         playerTransformRef.GetComponent<CharacterController>().enabled = canControl;
         playerTransformRef.GetComponent<MeshRenderer>().enabled = canControl;
-        gameObject.GetComponent<BoxCollider>().enabled = canControl;
+        
         cam.GetComponent<CameraLook>().canHeadBob = canControl;
     }
 
-    //This is where the animation will be called, allows if there is multiple steps with the animation (Currently just open/close doors for the cupboard)
-    public void DoorAnim(bool isEntering)
+    //
+    public void PeekAnim(bool isEntering)
     {
         if(playDoorAnimation != null)
-            playDoorAnimation.SetBool("DoorState", isEntering);
+            playDoorAnimation.SetBool("Peeking", isEntering);
+    }
+
+    public void EnteringAnim(bool isEntering)
+    {
+        if (playDoorAnimation != null)
+            playDoorAnimation.SetBool("Entering", isEntering);
     }
 
     //When the Player interacts with the hiding spot, start entering
@@ -181,7 +193,7 @@ public class HidingCutScene : InteractableTemplate
         if(patient != null)
         {
             // INFO: Opens door
-            DoorAnim(true);
+            PeekAnim(true);
 
             // INFO: Kick patient out of hiding spot by accessing the last element held
             // in the points list (Out)
@@ -203,6 +215,6 @@ public class HidingCutScene : InteractableTemplate
 
     private void InvokeCloseDoor()
     {
-        DoorAnim(false);
+        PeekAnim(false);
     }
 }

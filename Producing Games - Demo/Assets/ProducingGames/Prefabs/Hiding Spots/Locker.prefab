@@ -212,7 +212,7 @@ MonoBehaviour:
   - {fileID: 2607920902581873774}
   - {fileID: 8759759637025468346}
   - {fileID: 6033559830840520576}
-  enterTransitionSpeed: 3
+  enterTransitionSpeed: 5
   exitTransitionSpeed: 3
 --- !u!65 &1193175722128872430
 BoxCollider:
