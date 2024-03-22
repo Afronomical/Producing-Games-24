@@ -13,6 +13,8 @@ public class CinematicMangerScript : MonoBehaviour
     [Header("Current Cinematic")]
     private float basementCinematicDuration=6.48f;
     private float hallwayCinematicDuration = 4f;
+    private float failedExorcismCinematicDuration = 4f;
+    private float exorcismWinCinematicDuration = 19f;
     private float CinematicTime;
     private bool cineStart;
     public bool ishallwayCinematic;
@@ -26,6 +28,8 @@ public class CinematicMangerScript : MonoBehaviour
     public PlayableDirector currentcinematic;
     public PlayableDirector hallwayCinematic;
     public PlayableDirector basementCinematic;
+    public PlayableDirector failedExorcismCinematic;
+    public PlayableDirector exorcismWinCinematic;
     public GameObject flashlight; 
 
     public void Awake()
@@ -91,5 +95,19 @@ public class CinematicMangerScript : MonoBehaviour
         basementCinematic.Play();
         cineStart = true;
         
+    }
+    public void StartFailedExorcism()
+    {
+        CinematicTime = failedExorcismCinematicDuration;
+        print("play basement cutscene");
+        failedExorcismCinematic.Play();
+        cineStart = true;
+    }
+    public void StartExorcismWin()
+    {
+        CinematicTime = exorcismWinCinematicDuration;
+        print("play basement cutscene");
+        exorcismWinCinematic.Play();
+        cineStart = true;
     }
 }

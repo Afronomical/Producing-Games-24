@@ -1,4 +1,5 @@
 using Steamworks;
+using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
@@ -67,6 +68,12 @@ public class DemonCharacter : AICharacter, IHear
 
     public PlayerMovement playerMovement;
 
+    private bool inRageMode = false;
+
+    public bool IsInRageMode() => inRageMode;
+
+    public void SetInRageMode(bool inRageMode) { this.inRageMode = inRageMode; }
+
     public override void Start()
     {
         base.Start();
@@ -75,6 +82,8 @@ public class DemonCharacter : AICharacter, IHear
 
         // INFO: Get Local Reference to Player
         playerMovement = GameManager.Instance.player.GetComponent<PlayerMovement>();
+
+        ChangeDemonState(DemonStates.Patrol);
     }
 
     private void Update()
@@ -85,7 +94,7 @@ public class DemonCharacter : AICharacter, IHear
 
         // INFO: Will go into the chase state whenever it sees the player, so long as its not already
         // attacking the player or is not exorcised or the player isn't currently hiding
-        if (raycastToPlayer.PlayerDetected() && 
+        if (raycastToPlayer.LookForPlayer() && 
             currentState != DemonStates.Attack && 
             currentState != DemonStates.Exorcised &&
             !playerMovement.isHiding)
@@ -99,10 +108,7 @@ public class DemonCharacter : AICharacter, IHear
     public void ChangeDemonState(DemonStates newState)
     {
         // INFO: Remove all animations
-        //animator.SetBool("isConfused", false);
-        //animator.SetBool("isAttacking", false);
-        //animator.SetBool("isChasing", false);
-        //animator.SetBool("isConfused", false);
+        //ResetAnimation();
 
         if (currentState != newState || demonStateScript == null)
         {
@@ -175,6 +181,13 @@ public class DemonCharacter : AICharacter, IHear
         }
     }
 
+    private void ResetAnimation()
+    {
+        animator.SetBool("isConfused", false);
+        animator.SetBool("isAttacking", false);
+        animator.SetBool("isChasing", false);
+    }
+
     /// <summary>
     /// Causes the demon to become distracted by the sound that has occured
     /// and will make it walk over to it
@@ -190,4 +203,34 @@ public class DemonCharacter : AICharacter, IHear
     {
 
     }
+
+    /// <summary>
+    /// Used to check the distance from the player and whether the player is hiding to either
+    /// attack the player 
+    /// </summary>
+    //public void CheckBeforeAttack()
+    //{
+    //    //// INFO: Final check before attacking player so the demon doesn't
+    //    //// get stuck in attacking state
+    //    //if (playerMovement.isHiding)
+    //    //{
+    //    //    animator.SetBool("isAttacking", false);
+    //    //    ChangeDemonState(DemonStates.Patrol);
+    //    //    return;
+    //    //}
+
+    //    // INFO: If the player is outside of the demons attack radius when the demon slashes at them then
+    //    // the player won't be killed and the demon will go into the chase state.
+    //    if (Vector3.Distance(transform.position, GameManager.Instance.player.transform.position) > attackRadius)
+    //    {
+    //        ChangeDemonState(DemonStates.Chase);
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Triggered event");
+    //        GameManager.Instance.DemonCaptureEvent();
+    //    }
+
+    //    animator.SetBool("isAttacking", false);
+    //}
 }

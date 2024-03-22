@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 852658313956549131}
   - component: {fileID: 133066561353734954}
-  m_Layer: 0
+  - component: {fileID: 6053401317888568837}
+  m_Layer: 6
   m_Name: SM_KitchenWorktop_mesh_lod0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,6 +58,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.2686462, y: 0.9937258, z: 2.422821}
   m_Center: {x: -0.0049591064, y: 0.49411535, z: 0.004634857}
+--- !u!208 &6053401317888568837
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44632014142945457}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &104723408464207118
 GameObject:
   m_ObjectHideFlags: 0
@@ -68,7 +85,7 @@ GameObject:
   - component: {fileID: 2467809376095837467}
   - component: {fileID: 5892367540649649993}
   - component: {fileID: 6707954592983577946}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: leg end.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +168,7 @@ GameObject:
   - component: {fileID: 2733963607932417276}
   - component: {fileID: 7288413354398634545}
   - component: {fileID: 607033252571357926}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: shelf.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,7 +251,7 @@ GameObject:
   - component: {fileID: 8457891894210803120}
   - component: {fileID: 2187341687172413944}
   - component: {fileID: 2216209415419867804}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: legs.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -317,7 +334,7 @@ GameObject:
   - component: {fileID: 6764679381755686621}
   - component: {fileID: 4839630706237524239}
   - component: {fileID: 5319957248026938082}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Counter top.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}

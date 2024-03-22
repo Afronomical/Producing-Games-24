@@ -23,13 +23,30 @@ public class PanicState : PatientStateBaseClass
 
         // INFO: Plays the desired male voice line if the patient is a male
         // otherwise plays the desirted female voice line
+        switch(character.patientName)
+        {
+            case PatientNames.MartinaBlanco:
+                NPCManager.Instance.PlayMartinaVoiceLine(NPCManager.MartinaVoiceLines.FemOneScreamOne, transform);
+                break;
+            case PatientNames.CarmenIglesias:
+                NPCManager.Instance.PlayCarmenVoiceLine(NPCManager.CarmenVoiceLines.FemTwoScream, transform);
+                break;
+            case PatientNames.DiegoSanz:
+                NPCManager.Instance.PlayDiegoVoiceLine(NPCManager.DiegoVoiceLines.ManOneScream, transform);
+                break;
+            case PatientNames.LucianoGarcia:
+                NPCManager.Instance.PlayLucianoVoiceLine(NPCManager.LucianoVoiceLines.ManTwoScreamOne, transform);
+                break;
+
+        }
+
         if (character.isMale)
         {
-            NPCManager.Instance.PlayMaleVoiceLine(NPCManager.MaleVoiceLines.ManOneScream, transform);
+           // NPCManager.Instance.PlayMaleVoiceLine(NPCManager.MaleVoiceLines.ManOneScream, transform);
         }
         else
         {
-            NPCManager.Instance.PlayFemaleVoiceLine(NPCManager.FemaleVoiceLines.FemOneScreamOne, transform);
+           // NPCManager.Instance.PlayFemaleVoiceLine(NPCManager.FemaleVoiceLines.FemOneScreamOne, transform);
         }
 
         // INFO: If the previous patient state was the bed state, we don't
