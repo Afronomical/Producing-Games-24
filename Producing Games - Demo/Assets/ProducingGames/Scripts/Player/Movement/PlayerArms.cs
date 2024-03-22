@@ -138,6 +138,13 @@ public class PlayerArms : MonoBehaviour
             flashlight.gameObject.SetActive(true);
             clipboard.SetActive(false);
         }
+        else if (info.IsName("Default"))
+        {
+            pager.GetComponent<SkinnedMeshRenderer>().enabled = false;
+            pagerScreen.GetComponent<Canvas>().enabled = false;
+            flashlight.gameObject.SetActive(false);
+            clipboard.SetActive(false);
+        }
 
 
         if (flashlight.activeSelf && playerBody.GetComponent<Flashlight>().intensityIndex != 0)
@@ -170,6 +177,12 @@ public class PlayerArms : MonoBehaviour
         else if (info.IsName("HoldingUp"))
         {
             heldItem.SetActive(true);
+            clipboardFlashlight.SetActive(false);
+            syringe.SetActive(false);
+        }
+        else if(info.IsName("Default"))
+        {
+            heldItem.SetActive(false);
             clipboardFlashlight.SetActive(false);
             syringe.SetActive(false);
         }

@@ -26,6 +26,8 @@ public class PlayerVoiceController : MonoBehaviour
             if (dialogue.dialogue[rand] != null)
             {
                 AudioManager.instance.PlaySound(dialogue.dialogue[rand], transform);
+                if (DialogueTypewriter.instance != null)
+                    DialogueTypewriter.instance.Dialogue(dialogue.dialogue[rand]);
             }
         }
     }

@@ -96,14 +96,12 @@ public class PatientTaskManager : MonoBehaviour
     {
         for (int i = 0; i < patients.Length; i++)
         {
-            Debug.Log("1");
             if (patients[i].GetComponent<PatientCharacter>().currentHealth > 0)
             {
                 List<HourlyTask> tasksSetForThisPatient = new List<HourlyTask>();
 
                 for (int j = 0; j < tasksPerPatient; j++)
                 {
-                    Debug.Log("2");
                     List<HourlyTask> choiceOfTasks = new List<HourlyTask>();
                     int totalChance = 0;
                     foreach (HourlyTask t in hourlyTasks)  // Check for invalid tasks and calculate total chance
@@ -119,7 +117,6 @@ public class PatientTaskManager : MonoBehaviour
 
                     int rand = Random.Range(0, totalChance);
                     HourlyTask chosenTask = choiceOfTasks[0];
-                    Debug.Log(chosenTask.taskType);
                     Task newTask = null;
 
                     int x = 0;
@@ -166,7 +163,6 @@ public class PatientTaskManager : MonoBehaviour
                         CheckList.instance.AddTask(newTask);
                         tasksSetForThisPatient.Add(chosenTask);
                         newTask.TaskStart();
-                        Debug.Log("3");
                     }
                 }
 
