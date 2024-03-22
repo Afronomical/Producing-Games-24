@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6553309997974429607}
   - component: {fileID: 1267583544622020380}
-  - component: {fileID: 6524654406858530761}
+  - component: {fileID: 6302814336564577378}
   m_Layer: 0
   m_Name: Cross Trigger
   m_TagString: Untagged
@@ -54,7 +54,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6524654406858530761
+--- !u!114 &6302814336564577378
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -63,8 +63,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8484796400150997074}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7839a71b50b055f4ab7116223d285186, type: 3}
+  m_Script: {fileID: 11500000, guid: 18a7dcb4071597f45917342689354342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cross: {fileID: 0}
-  eventTriggered: 0
+  cross: {fileID: 2664789712659897634, guid: 2983fc715414cdb4f81e123e2f4edb66, type: 3}

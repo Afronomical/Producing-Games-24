@@ -2,12 +2,10 @@ using UnityEngine;
 
 public class ModelMover : MonoBehaviour
 {
-    public Vector3 movementDirection = Vector3.forward; // Direction of movement
-    public float movementDistance = 5.0f; // Distance of movement
+    public GameObject targetObject; // Target GameObject whose position will be the target position
     public float movementSpeed = 1.0f; // Speed of movement
 
     private Vector3 initialPosition; // Initial position of the object
-    private Vector3 targetPosition; // Target position of the movement
     private bool isMoving = false; // Flag to check if the object is currently moving
     private bool soundPlayed = false; // Flag to check if the sound has been played
 
@@ -24,7 +22,7 @@ public class ModelMover : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (!soundPlayed) // Check if the sound has already been played
+            if (!soundPlayed && Random.Range(1, 100) <= GameManager.Instance.eventChance) // Check if the sound has already been played
             {
                 StartMoving();
                 AudioManager.instance.PlaySound(movementNoise, player.transform);
@@ -43,8 +41,14 @@ public class ModelMover : MonoBehaviour
 
     public void StartMoving()
     {
-        targetPosition = initialPosition + movementDirection.normalized * movementDistance;
-        isMoving = true;
+        if (targetObject != null)
+        {
+            isMoving = true;
+        }
+        else
+        {
+            Debug.LogWarning("Target object is not set.");
+        }
     }
 
     public void StopMoving()
@@ -54,10 +58,13 @@ public class ModelMover : MonoBehaviour
 
     private void MoveTowardsTarget()
     {
-        float step = movementSpeed * Time.deltaTime;
-        transform.position = Vector3.Lerp(transform.position, targetPosition, step);
+        if (targetObject != null)
+        {
+            Vector3 targetPosition = targetObject.transform.position;
+            targetPosition.y = initialPosition.y; // Adjusting the target position's height
+            float step = movementSpeed * Time.deltaTime;
+            transform.position = Vector3.Lerp(transform.position, targetPosition, step);
+        }
     }
+
 }
-
-
-

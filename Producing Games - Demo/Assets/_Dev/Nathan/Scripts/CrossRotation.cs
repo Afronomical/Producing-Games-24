@@ -64,6 +64,7 @@ public class CrossRotation : InteractableTemplate
 
     public override void Interact()
     {
+        AudioManager.instance.PlaySound(CrossSpinSound, gameObject.transform);
         isInverting = false;
         isInverted = true;        
     }
