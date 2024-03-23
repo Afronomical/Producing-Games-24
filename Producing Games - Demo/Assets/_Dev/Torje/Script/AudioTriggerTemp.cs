@@ -4,26 +4,21 @@ using UnityEngine;
 
 public class AudioTriggerTemp : MonoBehaviour
 {
-    public AudioSource Churhc,crypt;
-    public AudioClip AMB_church, AMB_crypt; 
+    public AudioSource churchSource,cryptSource;
+    public SoundEffect church, crypt; 
 
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-
-           Churhc.enabled = true;
-
-            Churhc.PlayOneShot(AMB_church);
-            crypt.enabled = false;
-            
+            AudioManager.instance.StopSound(church);
+            AudioManager.instance.PlaySound(church, churchSource.transform);
         }
         else
         {
-            crypt.enabled = true;
-            crypt.PlayOneShot(AMB_crypt);
-            Churhc.enabled = false;
+            AudioManager.instance.StopSound(crypt);
+            AudioManager.instance.PlaySound(crypt, transform);
         }
         
     }   

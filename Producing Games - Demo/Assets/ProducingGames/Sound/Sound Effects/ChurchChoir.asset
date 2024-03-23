@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db92280e6d78bce46b3708c9af45f26d, type: 3}
   m_Name: ChurchChoir
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: 84220afef0285844781ffe7aee4ae2e7, type: 3}
-  volume: 0.75
+  audioClip: {fileID: 8300000, guid: 5963ebf90aeebec4dab35a5facbef680, type: 3}
+  volume: 1
   pitch: 1
   priority: 128
-  loop: 0
+  loop: 1
   isMusic: 0
   spacialAudio: 1
   followObject: 0
@@ -25,3 +25,4 @@ MonoBehaviour:
   font: {fileID: 0}
   typingSpeed: 0.15
   waitTillHide: 4
+  canBeHeardByDemon: 0
