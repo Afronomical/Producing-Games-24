@@ -315,12 +315,11 @@ public class GameManager : MonoBehaviour
 
     public void DemonCaptureEvent()
     {
-       cineChance=UnityEngine.Random.Range(0, 3);
-       if (cineChance==1)
-       {
-        StartCoroutine(captureBoxScript.MainEvent());
-        }
-        else if(cineChance==2)
+       cineChance=UnityEngine.Random.Range(0, 2);
+    
+       // StartCoroutine(captureBoxScript.MainEvent());
+       
+       if(cineChance==1)
         {
             cinematicManagerScript.StartBasementJumpscare();
         }
