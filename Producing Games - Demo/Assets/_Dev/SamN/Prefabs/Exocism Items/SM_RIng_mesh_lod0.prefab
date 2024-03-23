@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 44d9776c13bf8494eb16667a105570cc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 305.37253
+      value: 306.8943
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 44d9776c13bf8494eb16667a105570cc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.9081361
+      value: 1.939
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 44d9776c13bf8494eb16667a105570cc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 37.21087
+      value: 37.02967
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 44d9776c13bf8494eb16667a105570cc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -102,8 +102,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.0011513189, y: 0.0007750679, z: 0.0026151447}
-  m_Center: {x: 0.000012580732, y: -0.00002263015, z: 0.0012003756}
+  m_Size: {x: 0.0002403664, y: 0.00027536834, z: 0.0008248914}
+  m_Center: {x: -0.00000924484, y: 0.0000051771417, z: 0.0003289089}
 --- !u!54 &7786393044981152088
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -148,3 +148,4 @@ MonoBehaviour:
   isExorcismObject: 1
   hasBeenPlaced: 0
   actionTooltip: {fileID: 0}
+  VoiceLines: {fileID: 0}
