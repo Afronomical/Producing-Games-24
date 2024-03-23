@@ -69,11 +69,8 @@ public class SatelliteBox : InspectableObject
     {
         foreach (GameObject obj in cursor.GetComponent<MinigameCursor>().collidingObjects)
         {
-            Debug.Log(obj.name);
-            Debug.Log(obj.GetComponent<SatelliteWire>().connected);
             if (wires.Contains(obj) && !obj.GetComponent<SatelliteWire>().connected)
             {
-                Debug.Log(obj);
                 activeWire = wires.IndexOf(obj);
                 obj.GetComponent<SatelliteWire>().Hold();
                 break;
