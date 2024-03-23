@@ -17,6 +17,13 @@ public class PlayerVoiceController : MonoBehaviour
 
 
 
+    private void Awake()
+    {
+        if (instance != null && instance != this) Destroy(gameObject);
+        else instance = this;
+    }
+
+
     public void PlayDialogue(Dialogue dialogue)
     {
         int rand = Random.Range(0, 100);
