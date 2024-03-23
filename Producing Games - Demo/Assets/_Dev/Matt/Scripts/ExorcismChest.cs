@@ -22,11 +22,10 @@ public class ExorcismChest : InteractableTemplate
     private bool isMoving = false;
     private bool stopInspecing = false;
     public List<GameObject> currentItems = new();
-    private bool isLocked = false;
     private float t;
     private float returnT;
     private float currentTime = 0f;
-    public float timeToInspect = 10f;
+    public float timeToInspect = 3f;
     private float timeToMove = 3f;
     public float panToChestSpeed = 0.05f;
     private Camera mainCam;
@@ -67,7 +66,6 @@ public class ExorcismChest : InteractableTemplate
     private void Start()
     {
         availableSlots = maxSlots;
-        collectible.tooltipText = "Unlock Chest";
         animator = GetComponent<Animator>();
         mainCam = Camera.main;
         cameraLook = mainCam.GetComponent<CameraLook>();
@@ -81,13 +79,15 @@ public class ExorcismChest : InteractableTemplate
        
         if (isInspecting)
         {
+            GetComponent<BoxCollider>().enabled = false;
             currentTime += Time.deltaTime;
+            Debug.Log(currentTime);
             if (isMoving)
             {
                
                 
                 Vector3 newPos = player.transform.position - inspectPoint.position;
-                player.transform.position = Vector3.Lerp(player.transform.position, inspectPoint.position, t * panToChestSpeed);  //works but no lerp 
+                player.transform.position = Vector3.Lerp(player.transform.position, inspectPoint.position, t * panToChestSpeed);  
 
                 Quaternion targetRot = Quaternion.LookRotation(transform.position - player.transform.position);  //works but angle is off 
                 float reducedXAngle = targetRot.eulerAngles.x * 0.8f;
@@ -102,7 +102,7 @@ public class ExorcismChest : InteractableTemplate
                     
                 //}
             }
-            if (currentTime > timeToInspect)
+            if (currentTime >= timeToInspect)
             {
                 isInspecting = false;
                 isMoving = false;
@@ -118,12 +118,9 @@ public class ExorcismChest : InteractableTemplate
         originalTransform = player.transform;
         originalPlayerRot = player.transform.rotation;
 
-        if (isLocked)
-            {
-               isLocked = false;
-               collectible.tooltipText = "Interact With Chest";
-            }
-            else if (!isLocked && !chestOpen)
+       
+         
+            if (!chestOpen)
             {
                 animator.speed = 1;
                 animator.SetTrigger("OpenedChest");
@@ -131,22 +128,22 @@ public class ExorcismChest : InteractableTemplate
 
             // Debug.Log("Chest opening");
                 chestOpen = true;
-                collectible.tooltipText = "Press C to Inspect Objects";
-                ///need to move to new input system to allow for inspection 
+            ///need to move to new input system to allow for inspection 
+                currentTime = 0;
                 isInspecting = true;
                 isMoving = true;
             }
-            else if (!isLocked && chestOpen)
+            else if (chestOpen)
             {
                 animator.SetTrigger("CloseChest");
               
                 Debug.Log("Chest closing");
-                collectible.tooltipText = "Interact With Chest";
                 foreach (var item in currentItems)
                 {
                     item.GetComponent<InteractableTemplate>().hasBeenPlaced = true;
                     Debug.Log("Set item to placed");
                 }
+               
 
                 chestOpen = false;
             }
@@ -165,6 +162,7 @@ public class ExorcismChest : InteractableTemplate
       
             player.GetComponent<PlayerMovement>().enabled = true;
             cameraLook.enabled = true;
+            GetComponent<BoxCollider>().enabled = true;
         
     }
 
