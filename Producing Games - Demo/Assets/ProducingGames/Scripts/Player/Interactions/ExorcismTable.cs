@@ -16,8 +16,9 @@ public class ExorcismTable : MonoBehaviour
     [ShowOnly] public List<GameObject> requiredObjects = new();
     public SoundEffect confirmSound;
     private bool b_fail_playing = false;
-    public bool tableAvailable = false; 
-    
+    public bool tableAvailable = false;
+    private CinematicMangerScript cinematicManagerScript;
+
 
     private int playerItemAmount = 0;
 
@@ -90,8 +91,11 @@ public class ExorcismTable : MonoBehaviour
     public void FailExorcism()
     {
         Debug.Log("Failed Exorcism");
-        GameManager.Instance.exorcismFailed = true;
-        GameManager.Instance.EndGame(false);
+        
+        cinematicManagerScript.StartFailedExorcism();
+        //moved below Code to cinematics manager to account for cinematic length
+       // GameManager.Instance.exorcismFailed = true;
+       // GameManager.Instance.EndGame(false);
         //enable rage mode here. or game end 
 
     }
@@ -114,7 +118,8 @@ public class ExorcismTable : MonoBehaviour
         Debug.Log("Exorcism Completed!");
         //set task as complete here. win screen or demon scream etc 
         GameManager.Instance.demon.GetComponent<DemonCharacter>().ChangeDemonState(DemonCharacter.DemonStates.Exorcised);
-        GameManager.Instance.EndGame(true);
+        cinematicManagerScript.StartExorcismWin();//moved  GameManager.Instance.EndGame(true); moved to Cinematic manager script to account for cinematic length.
+        
     }
 
     /// <summary>
