@@ -485,8 +485,12 @@ PrefabInstance:
       value: -1.1081753
       objectReference: {fileID: 0}
     - target: {fileID: 5465940246521907071, guid: 3a8fdc4636191de41b38f3d88953d550, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5465940246521907071, guid: 3a8fdc4636191de41b38f3d88953d550, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.36
+      value: 1.57
       objectReference: {fileID: 0}
     - target: {fileID: 5465940246521907071, guid: 3a8fdc4636191de41b38f3d88953d550, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -582,7 +586,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7745077494020191209, guid: 3a8fdc4636191de41b38f3d88953d550, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.16
+      value: 1.37
       objectReference: {fileID: 0}
     - target: {fileID: 8169382868667117632, guid: 3a8fdc4636191de41b38f3d88953d550, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -705,7 +709,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 6
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -714,7 +718,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0
+  m_BaseOffset: 0.34
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &3388287754950933126
@@ -757,7 +761,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterType: 0
   walkSpeed: 1
-  runSpeed: 3
+  runSpeed: 6
   crawlSpeed: 0.5
   detectionRadius: 5
   knowsAboutPlayer: 0
