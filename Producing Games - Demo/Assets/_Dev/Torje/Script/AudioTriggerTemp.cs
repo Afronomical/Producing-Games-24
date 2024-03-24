@@ -13,11 +13,13 @@ public class AudioTriggerTemp : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             AudioManager.instance.StopSound(church);
+            AudioManager.instance.StopSound(crypt);
             AudioManager.instance.PlaySound(church, churchSource.transform);
         }
         else
         {
             AudioManager.instance.StopSound(crypt);
+            AudioManager.instance.StopSound(church);
             AudioManager.instance.PlaySound(crypt, transform);
         }
         
