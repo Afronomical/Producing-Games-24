@@ -79,7 +79,14 @@ public class FlashlightUI : MonoBehaviour
                 BatteryIndicatorLEDs[3].ledState = FlashlightLEDs.LEDState.Dead;
                 BatteryIndicatorLEDs[2].ledState = FlashlightLEDs.LEDState.Dead;
                 BatteryIndicatorLEDs[1].ledState = FlashlightLEDs.LEDState.Dead;
-                BatteryIndicatorLEDs[0].ledState = FlashlightLEDs.LEDState.Flashing;
+                if(flashlight.intensityIndex != 0)
+                {
+                    BatteryIndicatorLEDs[0].ledState = FlashlightLEDs.LEDState.Flashing;
+                }
+                else
+                {
+                    BatteryIndicatorLEDs[0].ledState = FlashlightLEDs.LEDState.Charged;
+                }
 
                 Debug.Log(" 1");
                 break;
@@ -88,7 +95,14 @@ public class FlashlightUI : MonoBehaviour
 
                 BatteryIndicatorLEDs[3].ledState = FlashlightLEDs.LEDState.Dead;
                 BatteryIndicatorLEDs[2].ledState = FlashlightLEDs.LEDState.Dead;
-                BatteryIndicatorLEDs[1].ledState = FlashlightLEDs.LEDState.Flashing;
+                if (flashlight.intensityIndex != 0)
+                {
+                    BatteryIndicatorLEDs[1].ledState = FlashlightLEDs.LEDState.Flashing;
+                }
+                else
+                {
+                    BatteryIndicatorLEDs[1].ledState = FlashlightLEDs.LEDState.Charged;
+                }
                 BatteryIndicatorLEDs[0].ledState = FlashlightLEDs.LEDState.Charged;
                 Debug.Log(" 2");
                 break;
@@ -96,7 +110,14 @@ public class FlashlightUI : MonoBehaviour
             case float i when (i > 0.50 && i < 0.75):
 
                 BatteryIndicatorLEDs[3].ledState = FlashlightLEDs.LEDState.Dead;
-                BatteryIndicatorLEDs[2].ledState = FlashlightLEDs.LEDState.Flashing;
+                if (flashlight.intensityIndex != 0)
+                {
+                    BatteryIndicatorLEDs[2].ledState = FlashlightLEDs.LEDState.Flashing;
+                }
+                else
+                {
+                    BatteryIndicatorLEDs[2].ledState = FlashlightLEDs.LEDState.Charged;
+                }
                 BatteryIndicatorLEDs[1].ledState = FlashlightLEDs.LEDState.Charged;
                 BatteryIndicatorLEDs[0].ledState = FlashlightLEDs.LEDState.Charged;
                 Debug.Log(" 3");
@@ -104,7 +125,14 @@ public class FlashlightUI : MonoBehaviour
 
             case float i when (i > 0.75 && i < 1):
 
-                BatteryIndicatorLEDs[3].ledState = FlashlightLEDs.LEDState.Flashing;
+                if (flashlight.intensityIndex != 0)
+                {
+                    BatteryIndicatorLEDs[3].ledState = FlashlightLEDs.LEDState.Flashing;
+                }
+                else
+                {
+                    BatteryIndicatorLEDs[3].ledState = FlashlightLEDs.LEDState.Charged;
+                }
                 BatteryIndicatorLEDs[2].ledState = FlashlightLEDs.LEDState.Charged;
                 BatteryIndicatorLEDs[1].ledState = FlashlightLEDs.LEDState.Charged;
                 BatteryIndicatorLEDs[0].ledState = FlashlightLEDs.LEDState.Charged;
