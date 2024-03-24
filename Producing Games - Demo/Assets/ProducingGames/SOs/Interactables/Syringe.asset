@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Syringe
   m_EditorClassIdentifier: 
   objectName: Syringe
-  obj: {fileID: 11759742422874786, guid: 3b11e73bf287ef54e952367a56355f26, type: 3}
-  prefab: {fileID: 11759742422874786, guid: 3b11e73bf287ef54e952367a56355f26, type: 3}
+  obj: {fileID: 4320104595271138675, guid: ea9cad2095222eb43afbbb1028f05189, type: 3}
+  prefab: {fileID: 4320104595271138675, guid: ea9cad2095222eb43afbbb1028f05189, type: 3}
   interactSound: {fileID: 0}
   objectImage: {fileID: 21300000, guid: c124d9b37cf36da46be1166f350237be, type: 3}
   tooltipText: 
