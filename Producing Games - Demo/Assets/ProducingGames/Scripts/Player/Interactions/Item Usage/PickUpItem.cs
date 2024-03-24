@@ -50,6 +50,14 @@ public class PickUpItem : MonoBehaviour
                             if (interactableTemplate.gameObject != null)
                                 PatientTaskManager.instance.CheckTaskConditions(interactableTemplate.gameObject);
 
+                            if (interactableTemplate.UIToDisable != null)
+                            {
+                                for (int i = 0; i < interactableTemplate.UIToDisable.Length; i++)
+                                {
+                                    interactableTemplate.UIToDisable[i].SetActive(false);
+                                }
+                            }
+
                             if (PlayerInteractor.instance.currentObject != null)
                             {
                                 //Debug.Log("Interact");

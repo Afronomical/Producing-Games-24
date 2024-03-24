@@ -14,6 +14,7 @@ public class InteractableTemplate : MonoBehaviour, IInteractable
     [SerializeField] public InteractiveObject collectible;
     [SerializeField] public bool isExorcismObject;
     [SerializeField] public bool hasBeenPlaced = false;
+    public GameObject[] UIToDisable;
     public TMP_Text actionTooltip;
     
     //public bool canBeInteractedWith = true;
