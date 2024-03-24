@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: HangingIncense
   m_EditorClassIdentifier: 
   objectName: Hanging Incense
-  obj: {fileID: 8234776983270169147, guid: 0c0c9d4d0cdad8f4bb0c11f2ebd6a581, type: 3}
-  prefab: {fileID: 8234776983270169147, guid: 0c0c9d4d0cdad8f4bb0c11f2ebd6a581, type: 3}
+  obj: {fileID: 1635683077781567079, guid: 169d3c33a028a844b979c753b990f012, type: 3}
+  prefab: {fileID: 1635683077781567079, guid: 169d3c33a028a844b979c753b990f012, type: 3}
   interactSound: {fileID: 0}
   objectImage: {fileID: 21300000, guid: 162f44fb3d40aae4cb72396698bd199e, type: 3}
   tooltipText: 
