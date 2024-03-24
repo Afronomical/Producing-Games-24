@@ -10,6 +10,8 @@ public class PickUpItem : MonoBehaviour
     InputAction.CallbackContext c;
     public PlayerArms arms;
     [HideInInspector] public bool canPickUp = true;
+    [HideInInspector] public InspectableObject currentlyInspecting;
+    [HideInInspector] public HidingCutScene currentLocker;
 
     public void OnPickUp(InputAction.CallbackContext context)
     {
@@ -21,6 +23,20 @@ public class PickUpItem : MonoBehaviour
             //    PlayerInteractor.instance.currentObject.Interact();
             
             //}
+        }
+    }
+
+    public void OnStopInspectingInput(InputAction.CallbackContext context)
+    {
+        if (currentlyInspecting != null)
+        {
+            currentlyInspecting.StopInspecting();
+            currentlyInspecting = null;
+        }
+        if (currentLocker != null)
+        {
+            currentLocker.ExitInput();
+            currentLocker = null;
         }
     }
 

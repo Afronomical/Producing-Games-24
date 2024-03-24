@@ -107,6 +107,13 @@ public class HidingCutScene : InteractableTemplate
         }
     }
 
+    public void ExitInput()
+    {
+        base.actionTooltip.enabled = false;
+        PeekAnim(false);
+        playerHidingStates = PlayerHidingStates.goOut;
+    }
+
     //If the player is inside the cupboard, it allows the player to click "c" to exit (moves to the GoOut function)
     public void Inside()
     {
@@ -115,12 +122,7 @@ public class HidingCutScene : InteractableTemplate
         
         base.actionTooltip.text = "Press C to stop hiding!";
         base.actionTooltip.enabled = true;
-        if ((Input.GetKeyDown(KeyCode.C) && !Input.GetMouseButton(0)))
-        {
-            base.actionTooltip.enabled = false;
-            PeekAnim(false);
-            playerHidingStates = PlayerHidingStates.goOut;
-        }
+
 
         //Hold LMB to open the door to peek out, when the LMB is released, it will close the door again
         if (Input.GetMouseButton(0))
@@ -209,7 +211,10 @@ public class HidingCutScene : InteractableTemplate
         else
         {
             if (playerHidingStates == PlayerHidingStates.none)
+            {
                 playerHidingStates = PlayerHidingStates.goIn;
+                GameManager.Instance.player.GetComponent<PickUpItem>().currentLocker = this;
+            }
         }
 
     }

@@ -121,6 +121,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Stop Inspecting",
+                    "type": "Button",
+                    "id": "e7aabfae-4730-40d5-b637-aa1c61dbdf59",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -534,7 +543,7 @@
                 {
                     "name": "",
                     "id": "5e8b3957-9f20-4b60-9531-00d4f71baefc",
-                    "path": "<Keyboard>/e",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -633,11 +642,44 @@
                 {
                     "name": "",
                     "id": "8cfe7426-37c1-4c83-9036-734a4f8c14a6",
-                    "path": "<Keyboard>/b",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Open Book",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f12edbba-c6af-4a18-98db-506bc3ce64e7",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Open Book",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "891022ce-8f9e-4f6c-9889-2a7f02d03795",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Stop Inspecting",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7f94f4a6-2c4f-4562-bd22-0d0fbf9db3e7",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Stop Inspecting",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

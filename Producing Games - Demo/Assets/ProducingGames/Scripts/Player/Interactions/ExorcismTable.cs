@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Written By: Matt Brake
@@ -18,6 +19,7 @@ public class ExorcismTable : MonoBehaviour
     private bool b_fail_playing = false;
     public bool tableAvailable = false;
     private CinematicMangerScript cinematicManagerScript;
+    private bool confirmInput;
 
 
     private int playerItemAmount = 0;
@@ -41,9 +43,9 @@ public class ExorcismTable : MonoBehaviour
                 else if (!DoListsMatch(playerObjects, requiredObjects))
                     FailExorcism();
             }
-        }        
-       
+        }
 
+        confirmInput = false;
     }
 
     private void OnDrawGizmos()
@@ -141,8 +143,9 @@ public class ExorcismTable : MonoBehaviour
                     {
                         //play sound showing that this item is an exorcism object 
                         TooltipManager.Instance.ShowTooltip("Press C to confirm drop", null);
-                        if (Input.GetKeyUp(KeyCode.C))
+                        if (confirmInput)
                         {
+                            confirmInput = false;
                             collider.gameObject.GetComponent<InteractableTemplate>().hasBeenPlaced = true;
                             collider.gameObject.GetComponent<InteractableTemplate>().enabled = false;
                             AudioManager.instance.PlaySound(confirmSound, this.gameObject.transform); ///plays confirmation sound 
@@ -183,6 +186,10 @@ public class ExorcismTable : MonoBehaviour
         
     }
 
- 
 
+    public void OnConfirmInput(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            confirmInput = true;
+    }
 }

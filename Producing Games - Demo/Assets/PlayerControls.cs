@@ -143,6 +143,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Stop Inspecting"",
+                    ""type"": ""Button"",
+                    ""id"": ""e7aabfae-4730-40d5-b637-aa1c61dbdf59"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -556,7 +565,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""5e8b3957-9f20-4b60-9531-00d4f71baefc"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -655,11 +664,44 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""8cfe7426-37c1-4c83-9036-734a4f8c14a6"",
-                    ""path"": ""<Keyboard>/b"",
+                    ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Open Book"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f12edbba-c6af-4a18-98db-506bc3ce64e7"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Open Book"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""891022ce-8f9e-4f6c-9889-2a7f02d03795"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Stop Inspecting"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7f94f4a6-2c4f-4562-bd22-0d0fbf9db3e7"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Stop Inspecting"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -711,6 +753,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_ConsumeItem = m_Player.FindAction("Consume Item", throwIfNotFound: true);
         m_Player_Scroll = m_Player.FindAction("Scroll", throwIfNotFound: true);
         m_Player_OpenBook = m_Player.FindAction("Open Book", throwIfNotFound: true);
+        m_Player_StopInspecting = m_Player.FindAction("Stop Inspecting", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -785,6 +828,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_ConsumeItem;
     private readonly InputAction m_Player_Scroll;
     private readonly InputAction m_Player_OpenBook;
+    private readonly InputAction m_Player_StopInspecting;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -802,6 +846,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @ConsumeItem => m_Wrapper.m_Player_ConsumeItem;
         public InputAction @Scroll => m_Wrapper.m_Player_Scroll;
         public InputAction @OpenBook => m_Wrapper.m_Player_OpenBook;
+        public InputAction @StopInspecting => m_Wrapper.m_Player_StopInspecting;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -850,6 +895,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @OpenBook.started += instance.OnOpenBook;
             @OpenBook.performed += instance.OnOpenBook;
             @OpenBook.canceled += instance.OnOpenBook;
+            @StopInspecting.started += instance.OnStopInspecting;
+            @StopInspecting.performed += instance.OnStopInspecting;
+            @StopInspecting.canceled += instance.OnStopInspecting;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -893,6 +941,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @OpenBook.started -= instance.OnOpenBook;
             @OpenBook.performed -= instance.OnOpenBook;
             @OpenBook.canceled -= instance.OnOpenBook;
+            @StopInspecting.started -= instance.OnStopInspecting;
+            @StopInspecting.performed -= instance.OnStopInspecting;
+            @StopInspecting.canceled -= instance.OnStopInspecting;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -943,5 +994,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnConsumeItem(InputAction.CallbackContext context);
         void OnScroll(InputAction.CallbackContext context);
         void OnOpenBook(InputAction.CallbackContext context);
+        void OnStopInspecting(InputAction.CallbackContext context);
     }
 }
