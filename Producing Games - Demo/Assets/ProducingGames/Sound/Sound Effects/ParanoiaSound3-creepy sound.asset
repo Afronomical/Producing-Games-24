@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ParanoiaSound3-creepy sound
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: a4ec651c9da55e14c84e03ab1d2bdf34, type: 3}
-  volume: 0.75
+  volume: 0.283
   pitch: 1
   priority: 128
   loop: 0
