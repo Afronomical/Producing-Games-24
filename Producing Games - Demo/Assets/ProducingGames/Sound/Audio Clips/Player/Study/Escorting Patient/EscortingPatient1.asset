@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: db92280e6d78bce46b3708c9af45f26d, type: 3}
-  m_Name: EscortingPatient2
+  m_Name: EscortingPatient1
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: 715534a9df8dbdf4d88a9661cf6966b6, type: 3}
+  audioClip: {fileID: 8300000, guid: 43340bd684aa9ca4b84d90cc75720e94, type: 3}
   volume: 0.75
   pitch: 1
   priority: 128
@@ -21,7 +21,8 @@ MonoBehaviour:
   spacialAudio: 1
   followObject: 0
   travelDistance: 30
-  sentence: Enter text here
-  font: {fileID: 0}
+  sentence: This way.
+  font: {fileID: 11400000, guid: 2f03756d07bf7144b94bf6a9537977d8, type: 2}
   typingSpeed: 0.15
   waitTillHide: 4
+  canBeHeardByDemon: 0

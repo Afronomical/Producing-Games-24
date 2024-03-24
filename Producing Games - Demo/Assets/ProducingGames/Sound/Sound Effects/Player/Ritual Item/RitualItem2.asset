@@ -21,7 +21,8 @@ MonoBehaviour:
   spacialAudio: 1
   followObject: 0
   travelDistance: 30
-  sentence: Enter text here
+  sentence: Looks like the right one.
   font: {fileID: 0}
   typingSpeed: 0.15
   waitTillHide: 4
+  canBeHeardByDemon: 0

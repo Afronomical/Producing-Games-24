@@ -18,13 +18,11 @@ MonoBehaviour:
   priority: 128
   loop: 0
   isMusic: 0
-  canEcho: 0
   spacialAudio: 1
   followObject: 0
   travelDistance: 30
-  sentence: Enter text here
+  sentence: That should do for a while.
   font: {fileID: 0}
   typingSpeed: 0.15
   waitTillHide: 4
-  soundPos: {fileID: 0}
-  isReactionSound: 0
+  canBeHeardByDemon: 0
