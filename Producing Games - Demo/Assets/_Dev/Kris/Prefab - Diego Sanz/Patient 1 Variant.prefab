@@ -58,19 +58,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4655979141669490855, guid: 859c0dcf648b6ce4eb19ecffba0ff65e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 4655979141669490855, guid: 859c0dcf648b6ce4eb19ecffba0ff65e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4655979141669490855, guid: 859c0dcf648b6ce4eb19ecffba0ff65e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 4655979141669490855, guid: 859c0dcf648b6ce4eb19ecffba0ff65e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4655979141669490855, guid: 859c0dcf648b6ce4eb19ecffba0ff65e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -78,7 +78,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4655979141669490855, guid: 859c0dcf648b6ce4eb19ecffba0ff65e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 4655979141669490855, guid: 859c0dcf648b6ce4eb19ecffba0ff65e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -161,6 +161,7 @@ MonoBehaviour:
   collectible: {fileID: 0}
   isExorcismObject: 0
   hasBeenPlaced: 0
+  UIToDisable: []
   actionTooltip: {fileID: 0}
 --- !u!1001 &2281290325764493120
 PrefabInstance:
