@@ -36,6 +36,10 @@ PrefabInstance:
       propertyPath: currentSanity
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 2784441415389130093, guid: 859c0dcf648b6ce4eb19ecffba0ff65e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3901550049516321638, guid: 859c0dcf648b6ce4eb19ecffba0ff65e, type: 3}
       propertyPath: 'm_Materials.Array.data[11]'
       value: 
