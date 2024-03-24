@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -78,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
 
     public CameraShake cameraShake;
 
+    public GameObject UIToSwitch;
     private void Awake()
     {
         
@@ -243,7 +245,10 @@ public class PlayerMovement : MonoBehaviour
         else if (isSprinting && context.canceled || stamina <= 1)
             isSprinting = false;
             
-        
+        if(UIToSwitch.GetComponent<TextMeshProUGUI>().text == "Use Shift to Sprint")
+        {
+            UIToSwitch.GetComponent<TextMeshProUGUI>().text = "Use Ctrl to Crouch";
+        }
             
     }
 
@@ -253,6 +258,11 @@ public class PlayerMovement : MonoBehaviour
         {
             isCrouching = true;
             isSprinting = false;
+
+            if(UIToSwitch.GetComponent<TextMeshProUGUI>().text == "Use Ctrl to Crouch")
+            {
+                UIToSwitch.SetActive(false);
+            }
         }
         else if (isCrouching && context.canceled)
             isCrouching = false;
