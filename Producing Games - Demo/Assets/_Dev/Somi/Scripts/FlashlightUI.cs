@@ -88,7 +88,6 @@ public class FlashlightUI : MonoBehaviour
                     BatteryIndicatorLEDs[0].ledState = FlashlightLEDs.LEDState.Charged;
                 }
 
-                Debug.Log(" 1");
                 break;
 
             case float i when (i > 0.25 && i < 0.50):
@@ -104,7 +103,6 @@ public class FlashlightUI : MonoBehaviour
                     BatteryIndicatorLEDs[1].ledState = FlashlightLEDs.LEDState.Charged;
                 }
                 BatteryIndicatorLEDs[0].ledState = FlashlightLEDs.LEDState.Charged;
-                Debug.Log(" 2");
                 break;
 
             case float i when (i > 0.50 && i < 0.75):
@@ -120,7 +118,6 @@ public class FlashlightUI : MonoBehaviour
                 }
                 BatteryIndicatorLEDs[1].ledState = FlashlightLEDs.LEDState.Charged;
                 BatteryIndicatorLEDs[0].ledState = FlashlightLEDs.LEDState.Charged;
-                Debug.Log(" 3");
                 break;
 
             case float i when (i > 0.75 && i < 1):
@@ -136,7 +133,6 @@ public class FlashlightUI : MonoBehaviour
                 BatteryIndicatorLEDs[2].ledState = FlashlightLEDs.LEDState.Charged;
                 BatteryIndicatorLEDs[1].ledState = FlashlightLEDs.LEDState.Charged;
                 BatteryIndicatorLEDs[0].ledState = FlashlightLEDs.LEDState.Charged;
-                Debug.Log(" 4");
                 break;
 
             case float i when (i == 1):
@@ -145,7 +141,6 @@ public class FlashlightUI : MonoBehaviour
                 BatteryIndicatorLEDs[2].ledState = FlashlightLEDs.LEDState.Charged;
                 BatteryIndicatorLEDs[1].ledState = FlashlightLEDs.LEDState.Charged;
                 BatteryIndicatorLEDs[0].ledState = FlashlightLEDs.LEDState.Charged;
-                Debug.Log(" 5");
                 break;
 
 

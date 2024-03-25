@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Reading2
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: 3dd2161af9375024eaec1cbdc6ddb10d, type: 3}
-  volume: 0.75
+  volume: 0.85
   pitch: 1
   priority: 128
   loop: 0
   isMusic: 0
-  spacialAudio: 1
+  spacialAudio: 0
   followObject: 0
   travelDistance: 30
-  sentence: Enter text here
+  sentence: I see!
   font: {fileID: 11400000, guid: 2f03756d07bf7144b94bf6a9537977d8, type: 2}
   typingSpeed: 0.15
   waitTillHide: 4

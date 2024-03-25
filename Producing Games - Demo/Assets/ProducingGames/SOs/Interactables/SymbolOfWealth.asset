@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: SymbolOfWealth
   m_EditorClassIdentifier: 
   objectName: Golden Ring
-  obj: {fileID: 2540081522479636542, guid: d5b5e64083674144980cf0500c519440, type: 3}
-  prefab: {fileID: 2540081522479636542, guid: d5b5e64083674144980cf0500c519440, type: 3}
+  obj: {fileID: 2540081522479636542, guid: 5be0fb606d26bd14e85d5800e868d807, type: 3}
+  prefab: {fileID: 2540081522479636542, guid: 5be0fb606d26bd14e85d5800e868d807, type: 3}
   interactSound: {fileID: 0}
   objectImage: {fileID: 21300000, guid: 51b36e5f518b67b498037db47b00e70d, type: 3}
   tooltipText: 

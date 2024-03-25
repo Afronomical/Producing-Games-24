@@ -513,7 +513,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.6239827, y: 1, z: 1}
   m_Center: {x: 0.1880087, y: 0, z: 0}
@@ -533,6 +533,7 @@ MonoBehaviour:
   collectible: {fileID: 11400000, guid: 536c7f3653d54ab4a9d564235c524398, type: 2}
   isExorcismObject: 0
   hasBeenPlaced: 0
+  actionTooltip: {fileID: 0}
   camRotation: {x: 0, y: 0, z: 0}
   camMoveTransform: {fileID: 2813602147415684633}
   camPosition: {x: 0, y: 0, z: 0}

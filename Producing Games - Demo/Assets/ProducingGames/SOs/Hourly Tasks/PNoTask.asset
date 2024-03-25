@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdfcf11202b697448b0dcdc743394992, type: 3}
   m_Name: PNoTask
   m_EditorClassIdentifier: 
-  taskType: 6
-  chanceToHappen: 50
+  taskType: 0
+  chanceToHappen: 30
   BlockingTasks: []
   taskName: 
   taskDescription: 

@@ -13,7 +13,7 @@ public class ShiftChange : InteractableTemplate
         {
             if (startShift && GameManager.Instance.inStudy)
             {
-                GameManager.Instance.OpenDoor(startShiftPosition);
+                GameManager.Instance.OpenDoor(transform);
             }
             else if (!startShift)
             {

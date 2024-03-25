@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -16,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     [Range(1, 15)] public float walkSpeed = 5;
     [Range(1, 15)] public float sprintSpeed = 8;
     [Range(1, 15)] public float crouchSpeed = 3;
-    public float crouchHeight = -1f;
+    public float crouchHeight = -1f, crouchTime = 2.5f; 
     public GameObject crouchObject;
     [HideInInspector] public float defaultWalkSpeed;
     [HideInInspector] public float defaultSprintSpeed;
@@ -78,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
 
     public CameraShake cameraShake;
 
+    public GameObject UIToSwitch;
     private void Awake()
     {
         
@@ -129,13 +131,13 @@ public class PlayerMovement : MonoBehaviour
 
 
         //transform.localScale = new Vector3(transform.localScale.x, isCrouching ? 0.5f : 1f, transform.localScale.z);
-        if (isCrouching) crouchObject.transform.SetLocalPositionAndRotation(new Vector3(0, crouchHeight, 0), crouchObject.transform.localRotation);
-        else crouchObject.transform.SetLocalPositionAndRotation(new Vector3(0, 0, 0), crouchObject.transform.localRotation);
+        if (isCrouching && crouchObject.transform.localPosition.y > crouchHeight) crouchObject.transform.localPosition = new Vector3(0, crouchObject.transform.localPosition.y - (crouchTime * Time.deltaTime), 0);
+        else if (!isCrouching && crouchObject.transform.localPosition.y < 0) crouchObject.transform.localPosition = new Vector3(0, crouchObject.transform.localPosition.y + (crouchTime * Time.deltaTime), 0);
 
 
         //FootstepSounds();
-        
-        
+
+
         if (!isSprinting && stamina <= maxStamina)
             stamina += staminaRegenSpeed * Time.deltaTime;
 
@@ -243,7 +245,10 @@ public class PlayerMovement : MonoBehaviour
         else if (isSprinting && context.canceled || stamina <= 1)
             isSprinting = false;
             
-        
+        if(UIToSwitch.GetComponent<TextMeshProUGUI>().text == "Use Shift to Sprint")
+        {
+            UIToSwitch.GetComponent<TextMeshProUGUI>().text = "Use Ctrl to Crouch";
+        }
             
     }
 
@@ -253,6 +258,11 @@ public class PlayerMovement : MonoBehaviour
         {
             isCrouching = true;
             isSprinting = false;
+
+            if(UIToSwitch.GetComponent<TextMeshProUGUI>().text == "Use Ctrl to Crouch")
+            {
+                UIToSwitch.SetActive(false);
+            }
         }
         else if (isCrouching && context.canceled)
             isCrouching = false;

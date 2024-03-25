@@ -17,6 +17,7 @@ public class OrganTrigger : InteractableTemplate
     private bool enabledTable;
     private bool needToInteract;
     private ExorcismTable exorcismTable;
+    public GameObject panPosition;
     private GameObject player;
     private Camera mainCam;
     private CameraLook cameraLook;
@@ -53,7 +54,7 @@ public class OrganTrigger : InteractableTemplate
                 Debug.Log("Panning"); ////gets here but does none of the after 
 
 
-                Quaternion targetRot = Quaternion.LookRotation(exorcismTable.transform.position - player.transform.position);
+                Quaternion targetRot = Quaternion.LookRotation(panPosition.transform.position - player.transform.position);
                 Debug.Log("Target rot is: " + targetRot.eulerAngles);
                 player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRot, t * panToTableSpeed);
                

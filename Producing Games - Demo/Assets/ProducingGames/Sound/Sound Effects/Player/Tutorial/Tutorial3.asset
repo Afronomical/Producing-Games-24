@@ -13,15 +13,16 @@ MonoBehaviour:
   m_Name: Tutorial3
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: ebafb1240a074744e9a02eab82814759, type: 3}
-  volume: 0.75
+  volume: 0.85
   pitch: 1
   priority: 128
   loop: 0
   isMusic: 0
-  spacialAudio: 1
+  spacialAudio: 0
   followObject: 0
   travelDistance: 30
-  sentence: Enter text here
+  sentence: I'm forgetting something...
   font: {fileID: 0}
   typingSpeed: 0.15
   waitTillHide: 4
+  canBeHeardByDemon: 0

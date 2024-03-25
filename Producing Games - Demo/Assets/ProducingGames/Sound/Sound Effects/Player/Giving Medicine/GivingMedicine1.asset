@@ -13,15 +13,16 @@ MonoBehaviour:
   m_Name: GivingMedicine1
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: df865df1c33c03b42b908b73baa58275, type: 3}
-  volume: 0.75
+  volume: 0.85
   pitch: 1
   priority: 128
   loop: 0
   isMusic: 0
-  spacialAudio: 1
+  spacialAudio: 0
   followObject: 0
   travelDistance: 30
-  sentence: Enter text here
+  sentence: That's better!
   font: {fileID: 0}
   typingSpeed: 0.15
   waitTillHide: 4
+  canBeHeardByDemon: 0

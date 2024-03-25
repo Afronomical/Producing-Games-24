@@ -19,9 +19,21 @@ public class ExorcismChest : InteractableTemplate
     private bool chestOpen = false;
     private bool canDrop = true;
     private bool isInspecting = false;
+    private bool isMoving = false;
+    private bool stopInspecing = false;
     public List<GameObject> currentItems = new();
-    private bool isLocked = false;
-
+    private float t;
+    private float returnT;
+    private float currentTime = 0f;
+    public float timeToInspect = 3f;
+    private float timeToMove = 3f;
+    public float panToChestSpeed = 0.05f;
+    private Camera mainCam;
+    public Transform inspectPoint;
+    private Transform originalTransform;
+    private Quaternion originalPlayerRot;
+    private GameObject player;
+    private CameraLook cameraLook;
 
     [Tooltip("Define points inside the chest where tooltips can sit")]
     public List<Transform> dropPoints = new();
@@ -54,47 +66,104 @@ public class ExorcismChest : InteractableTemplate
     private void Start()
     {
         availableSlots = maxSlots;
-        collectible.tooltipText = "Unlock Chest";
         animator = GetComponent<Animator>();
+        mainCam = Camera.main;
+        cameraLook = mainCam.GetComponent<CameraLook>();
+        player = FindFirstObjectByType<PlayerMovement>().gameObject;
     }
 
     private void Update()
     {
         AddtoChest();
+        t = currentTime / timeToMove;
+       
+        if (isInspecting)
+        {
+            GetComponent<BoxCollider>().enabled = false;
+            currentTime += Time.deltaTime;
+            Debug.Log(currentTime);
+            if (isMoving)
+            {
+               
+                
+                Vector3 newPos = player.transform.position - inspectPoint.position;
+                player.transform.position = Vector3.Lerp(player.transform.position, inspectPoint.position, t * panToChestSpeed);  
+
+                Quaternion targetRot = Quaternion.LookRotation(transform.position - player.transform.position);  //works but angle is off 
+                float reducedXAngle = targetRot.eulerAngles.x * 0.8f;
+                Quaternion adjustedRotation = Quaternion.Euler(reducedXAngle, targetRot.eulerAngles.y, targetRot.eulerAngles.z);
+                player.transform.rotation = Quaternion.Slerp(player.transform.rotation, adjustedRotation, t * panToChestSpeed);
+                player.GetComponent<PlayerMovement>().enabled = false;
+                cameraLook.enabled = false;
+                //if (player.transform.position == newPos)
+                //{
+                    
+                //    isMoving = false;
+                    
+                //}
+            }
+            if (currentTime >= timeToInspect)
+            {
+                isInspecting = false;
+                isMoving = false;
+                returnT = t;
+                Return();
+            }
+        }
+      
     }
 
     public override void Interact()
     {
-            if (isLocked)
-            {
-               isLocked = false;
-               collectible.tooltipText = "Interact With Chest";
-            }
-            else if (!isLocked && !chestOpen)
+        originalTransform = player.transform;
+        originalPlayerRot = player.transform.rotation;
+
+       
+         
+            if (!chestOpen)
             {
                 animator.speed = 1;
                 animator.SetTrigger("OpenedChest");
+               
 
-                // Debug.Log("Chest opening");
+            // Debug.Log("Chest opening");
                 chestOpen = true;
-                collectible.tooltipText = "Press C to Inspect Objects";
+            ///need to move to new input system to allow for inspection 
+                currentTime = 0;
+                isInspecting = true;
+                isMoving = true;
             }
-            else if (!isLocked && chestOpen)
+            else if (chestOpen)
             {
                 animator.SetTrigger("CloseChest");
+              
                 Debug.Log("Chest closing");
-                collectible.tooltipText = "Interact With Chest";
                 foreach (var item in currentItems)
                 {
                     item.GetComponent<InteractableTemplate>().hasBeenPlaced = true;
                     Debug.Log("Set item to placed");
                 }
+               
 
                 chestOpen = false;
             }
         
        
        
+    }
+
+     private void Return()
+    {
+        Debug.Log("returning");
+        isInspecting = false;
+        isMoving = false;
+        player.transform.rotation = Quaternion.Lerp(player.transform.rotation, originalPlayerRot, 1);
+        player.transform.position = Vector3.Lerp(player.transform.position, originalTransform.position,1);
+      
+            player.GetComponent<PlayerMovement>().enabled = true;
+            cameraLook.enabled = true;
+            GetComponent<BoxCollider>().enabled = true;
+        
     }
 
     public void AddtoChest()

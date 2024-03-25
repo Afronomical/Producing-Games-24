@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random=UnityEngine.Random;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class Flashlight : MonoBehaviour
 {
@@ -29,7 +30,9 @@ public class Flashlight : MonoBehaviour
     [Range(0.0f, 1f)] public float flickerLightPower = 0.7f;
     [Range(0.0f, 1f)] public float flickerLightPowerDiff = 0.3f;
     private bool isFlickering;
-    private float oldIntensity; 
+    private float oldIntensity;
+
+    public GameObject[] UIToDisable;
 
 
     private void Start()
@@ -86,6 +89,11 @@ public class Flashlight : MonoBehaviour
 
             // Moved the sound to the actual action that triggers it
             AudioManager.instance.PlaySound(toggleSound, null);
+
+            for(int i = 0; i < UIToDisable.Length; i++)
+            {
+                UIToDisable[i].GetComponent<TextMeshProUGUI>().GetComponent<TMP_Text>().enabled = false;
+            }
         }
     }
 

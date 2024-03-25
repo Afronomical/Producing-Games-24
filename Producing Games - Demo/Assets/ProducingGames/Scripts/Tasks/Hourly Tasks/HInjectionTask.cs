@@ -11,6 +11,7 @@ public class HInjectionTask : Task
             if (InventoryHotbar.instance.currentItem == hTask.itemToGive && targetInteraction.collectible == hTask.tooltipPrompt)
             {
                 InventoryHotbar.instance.RemoveFromInventory(InventoryHotbar.instance.currentItem);
+                GameManager.Instance.player.GetComponent<PickUpItem>().arms.GiveInjection();
                 CompleteTask();
             }
         }

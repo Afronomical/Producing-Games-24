@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -15,6 +16,13 @@ public enum SafetyChoices
 {
     HidingSpot,
     Bedroom
+}
+public enum PatientNames
+{
+    MartinaBlanco,
+    CarmenIglesias,
+    DiegoSanz,
+    LucianoGarcia
 }
 
 [RequireComponent(typeof(PatientInteractor))]
@@ -42,8 +50,10 @@ public class PatientCharacter : AICharacter
     public PatientStates currentState;
     public SafetyChoices safetyChoice;
     public bool isPossessed = false;
+    public int PatientID { get; private set; }
     [Tooltip("If isMale is false it means the patient is a female")]
     public bool isMale;
+    public PatientNames patientName;
     [Tooltip("The y-axis offset of a patient whos lying on their bed, this value gets deducted from their y-axis")]
     [Min(0)] public float bedYOffset = 0.55f;
 
@@ -303,5 +313,10 @@ public class PatientCharacter : AICharacter
         animator.SetBool("isRunning", false);
         animator.SetBool("isTerrified", false);
         animator.SetBool("isScared", false);
+    }
+
+    public void SetID(int newID)
+    {
+        PatientID = newID;
     }
 }

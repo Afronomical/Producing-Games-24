@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5a99211c42cd17547b8ce98f5fa34e27, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 305.2554
+      value: 282.89233
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5a99211c42cd17547b8ce98f5fa34e27, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.9081361
+      value: 1.2272823
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5a99211c42cd17547b8ce98f5fa34e27, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 36.8401
+      value: 40.538395
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5a99211c42cd17547b8ce98f5fa34e27, type: 3}
       propertyPath: m_LocalRotation.w
@@ -100,6 +100,7 @@ MonoBehaviour:
   isExorcismObject: 1
   hasBeenPlaced: 0
   actionTooltip: {fileID: 0}
+  VoiceLines: {fileID: 0}
 --- !u!54 &19605706557052760
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -146,5 +147,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.027153779, y: 0.020118313, z: 0.055075802}
-  m_Center: {x: 0.00002267131, y: -1.6307976e-16, z: 0.026698994}
+  m_Size: {x: 0.020118283, y: 0.02011828, z: 0.0016778437}
+  m_Center: {x: 0, y: 0, z: 0}

@@ -18,11 +18,11 @@ MonoBehaviour:
   priority: 128
   loop: 0
   isMusic: 0
-  canEcho: 0
-  spacialAudio: 1
-  followObject: 1
+  spacialAudio: 0
+  followObject: 0
   travelDistance: 5
   sentence: Enter text here
   font: {fileID: 0}
   typingSpeed: 0.15
   waitTillHide: 4
+  canBeHeardByDemon: 0
