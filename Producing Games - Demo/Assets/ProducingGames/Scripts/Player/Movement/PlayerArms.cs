@@ -176,7 +176,7 @@ public class PlayerArms : MonoBehaviour
         }
         else if (info.IsName("HoldingUp"))
         {
-            heldItem.SetActive(true);
+            //heldItem.SetActive(true);
             clipboardFlashlight.SetActive(false);
             syringe.SetActive(false);
         }
@@ -200,7 +200,7 @@ public class PlayerArms : MonoBehaviour
 
             yield return new WaitForSeconds(grabItemTime);  // Wait until the hand reaches the object
 
-            heldItem.SetActive(true);  // Show the item in your hand
+            //heldItem.SetActive(true);  // Show the item in your hand
             holdingObject = true;
             if (obj.interactSound != null)
                 AudioManager.instance.PlaySound(obj.interactSound, null);
