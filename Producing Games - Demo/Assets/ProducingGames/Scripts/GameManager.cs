@@ -139,7 +139,10 @@ public class GameManager : MonoBehaviour
 
         if (demon)
         {
-            demon.GetComponent<DemonCharacter>().ChangeDemonState(DemonCharacter.DemonStates.Inactive);
+            DemonCharacter demonCharacter = demon.GetComponent<DemonCharacter>();
+
+            demonCharacter.SetInRageMode(false);
+            demonCharacter.ChangeDemonState(DemonCharacter.DemonStates.Inactive);
         }
   
         
@@ -216,7 +219,6 @@ public class GameManager : MonoBehaviour
         {
             EndGame(false);  // Lose the game
         }
-        demon.SetActive(true);
     }
 
 
@@ -234,18 +236,8 @@ public class GameManager : MonoBehaviour
     {
         inStudy = false;  // Starts the timer
         studyDoor.ChangeShift();
-        /*studyDoor.collectible = studyDoor.endHourSO;
-        player.GetComponent<PlayerInput>().enabled = false;
-        FadeOut();
+        PlayerVoiceController.instance.PlayDialogue(PlayerVoiceController.instance.leaveStudyDialogue);
 
-        yield return new WaitForSeconds(3);
-
-        FadeIn();
-        player.GetComponent<PlayerInput>().enabled = true;
-        player.GetComponent<CharacterController>().enabled = false;
-        player.transform.position = startShiftPosition.position;
-        player.transform.rotation = startShiftPosition.rotation;
-        player.GetComponent<CharacterController>().enabled = true;*/
         yield return new WaitForSeconds(0);
     }
 
@@ -260,7 +252,12 @@ public class GameManager : MonoBehaviour
         }
 
         if (demon != null)
-            demon.GetComponent<DemonCharacter>().ChangeDemonState(DemonCharacter.DemonStates.Patrol);
+        {
+            DemonCharacter demonCharacter = demon.GetComponent<DemonCharacter>();
+
+            demonCharacter.SetInRageMode(true);
+            demonCharacter.ChangeDemonState(DemonCharacter.DemonStates.Patrol);
+        }
 
         // <--- Lock patient doors
     }
@@ -318,12 +315,11 @@ public class GameManager : MonoBehaviour
 
     public void DemonCaptureEvent()
     {
-       cineChance=UnityEngine.Random.Range(0, 3);
-       if (cineChance==1)
-       {
-        StartCoroutine(captureBoxScript.MainEvent());
-        }
-        else if(cineChance==2)
+       cineChance=UnityEngine.Random.Range(0, 2);
+    
+       // StartCoroutine(captureBoxScript.MainEvent());
+       
+       if(cineChance==1)
         {
             cinematicManagerScript.StartBasementJumpscare();
         }
@@ -333,5 +329,48 @@ public class GameManager : MonoBehaviour
         }
        
 
+    }
+
+    /// <summary>
+    /// Used to activate demon regardless of whether shift has ended or not
+    /// </summary>
+    /// <param name="demonState">The demon you want the state to be in when they spawn</param>
+    /// <param name="spawnLocation">The location at which you want the demon to spawn at</param>
+    public void ActivateDemon(DemonCharacter.DemonStates demonState, Vector3 spawnLocation = default)
+    {
+        if (demon != null)
+        {
+            DemonCharacter demonCharacter = demon.GetComponent<DemonCharacter>();
+
+            demon.SetActive(true);
+            demonCharacter.ChangeDemonState(demonState);
+            demonCharacter.SetInRageMode(true);
+
+            // INFO: If a spawn location has not been provided, spawn them by the possessed patients bed
+            if (spawnLocation == default)
+            {
+                foreach (GameObject character in NPCManager.Instance.patientList)
+                {
+                    if (character.GetComponent<PatientCharacter>().isPossessed)
+                        demonCharacter.agent.Warp(character.GetComponent<PatientCharacter>().bed.transform.position);
+                }
+            }
+            else
+                demonCharacter.agent.Warp(spawnLocation);
+        }
+    }
+
+    /// <summary>
+    /// Deactivates the demon whenever called
+    /// </summary>
+    public void DeactivateDemon()
+    {
+        if (demon != null)
+        {
+            DemonCharacter demonCharacter = demon.GetComponent<DemonCharacter>();
+
+            demonCharacter.SetInRageMode(false);
+            demonCharacter.ChangeDemonState(DemonCharacter.DemonStates.Inactive);
+        }
     }
 }

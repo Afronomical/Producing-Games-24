@@ -12,16 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db92280e6d78bce46b3708c9af45f26d, type: 3}
   m_Name: CryptAmbience
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: f578b6050ed0c1840bbad5f2d99f8c7d, type: 3}
-  volume: 0.75
+  audioClip: {fileID: 8300000, guid: 0c5b4eda091d64c4caad84d987268ecf, type: 3}
+  volume: 0.5
   pitch: 1
   priority: 128
-  loop: 0
+  loop: 1
   isMusic: 0
-  spacialAudio: 1
+  spacialAudio: 0
   followObject: 0
   travelDistance: 30
   sentence: Enter text here
   font: {fileID: 0}
   typingSpeed: 0.15
   waitTillHide: 4
+  canBeHeardByDemon: 0

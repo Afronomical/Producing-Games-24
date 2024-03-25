@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5a99211c42cd17547b8ce98f5fa34e27, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 316.685
+      value: 282.89233
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5a99211c42cd17547b8ce98f5fa34e27, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.404
+      value: 1.2272823
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5a99211c42cd17547b8ce98f5fa34e27, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 29.281
+      value: 40.538395
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5a99211c42cd17547b8ce98f5fa34e27, type: 3}
       propertyPath: m_LocalRotation.w
@@ -76,7 +76,7 @@ PrefabInstance:
       addedObject: {fileID: 19605706557052760}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5a99211c42cd17547b8ce98f5fa34e27, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4912858602081432181}
+      addedObject: {fileID: 1591555975113166204}
   m_SourcePrefab: {fileID: 100100000, guid: 5a99211c42cd17547b8ce98f5fa34e27, type: 3}
 --- !u!1 &7659437054393390907 stripped
 GameObject:
@@ -128,7 +128,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &4912858602081432181
+--- !u!65 &1591555975113166204
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

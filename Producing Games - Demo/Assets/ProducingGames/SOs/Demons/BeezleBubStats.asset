@@ -20,4 +20,4 @@ MonoBehaviour:
   likelyStates: []
   battleCryAudio: {fileID: 0}
   defeatCryAudio: {fileID: 0}
-  demonPrefab: {fileID: 8508798601276137036, guid: 618a56752a3832c40ab084038b6d0641, type: 3}
+  demonPrefab: {fileID: 6309318585991975335, guid: ee4452a2d541e4e4b9673f1b7859d6a0, type: 3}

@@ -32,18 +32,38 @@ public class EscortedState : PatientStateBaseClass
         // so that patients don't get stuck in the escorted state
         playerPos = character.player.transform.position;
         character.agent.SetDestination(playerPos);
-        
+
+        switch(character.patientName)
+        {
+            case PatientNames.MartinaBlanco:
+                NPCManager.Instance.PlayMartinaVoiceLine(NPCManager.MartinaVoiceLines.FemOneMedicineOne,transform);
+                break;
+            case PatientNames.CarmenIglesias:
+                NPCManager.Instance.PlayCarmenVoiceLine(NPCManager.CarmenVoiceLines.FemTwoMedicineOne, transform);
+                break;
+            case PatientNames.DiegoSanz:
+                NPCManager.Instance.PlayDiegoVoiceLine(NPCManager.DiegoVoiceLines.ManOneMedicineOne, transform);
+                break;
+            case PatientNames.LucianoGarcia:
+                NPCManager.Instance.PlayLucianoVoiceLine(NPCManager.LucianoVoiceLines.ManTwoMedicineOne, transform);
+                break;
+
+
+
+        }
 
         // INFO: Plays the desired male voice line if the patient is a male
         // otherwise plays the desirted female voice line
         if (character.isMale)
         {
-            NPCManager.Instance.PlayMaleVoiceLine(NPCManager.MaleVoiceLines.ManOneMedicineOne, transform);
+            //NPCManager.Instance.PlayMaleVoiceLine(NPCManager.MaleVoiceLines.ManOneMedicineOne, transform);
         }
         else
         {
-            NPCManager.Instance.PlayFemaleVoiceLine(NPCManager.FemaleVoiceLines.FemOneMedicineOne, transform);
+           // NPCManager.Instance.PlayFemaleVoiceLine(NPCManager.FemaleVoiceLines.FemOneMedicineOne, transform);
         }
+
+        PlayerVoiceController.instance.PlayDialogue(PlayerVoiceController.instance.escortingDialogue);
     }
 
     public override void UpdateLogic()

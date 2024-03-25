@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdfcf11202b697448b0dcdc743394992, type: 3}
   m_Name: HInjection
   m_EditorClassIdentifier: 
-  taskType: 1
+  taskType: 2
   chanceToHappen: 60
   BlockingTasks: []
   taskName: Provide patients with their prescribed injections

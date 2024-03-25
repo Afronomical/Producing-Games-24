@@ -32,12 +32,13 @@ public class FuseBox : InspectableObject
     public override void Interact()
     {
         base.Interact();
-        GetComponent<BoxCollider>().enabled = false;
         Cursor.lockState = CursorLockMode.None;
+        ToggleBoxCollider(false);
         cursor.SetActive(true);
     }
     protected override void Start()
     {
+        ToggleBoxCollider(true);
         InitializeBox();
         base.Start();
     }
@@ -45,7 +46,16 @@ public class FuseBox : InspectableObject
     protected override void Update()
     {
         base.Update();
-        if (stopLooking) StopUsing();
+        if (stopLooking)
+        {
+            ToggleBoxCollider(false);
+            StopUsing();
+            if (!complete)
+            {
+                ToggleBoxCollider(true);
+            }
+        }
+
     }
 
     //This will randomly swap the colours that the fuses will need to go into, and take the fuses out and put them onto the side
@@ -55,7 +65,7 @@ public class FuseBox : InspectableObject
         LightManager.Instance.AllLightToggle(false);
         correctObject.GetComponent<Renderer>().material = correctOffMaterial;
         incorrectObject.GetComponent<Renderer>().material = incorrectMaterial;
-        GetComponent<BoxCollider>().enabled = true;
+        ToggleBoxCollider(true);
 
         List<GameObject> w = new List<GameObject>(fuses);
         List<GameObject> e = new List<GameObject>(fuseSlots);
@@ -129,7 +139,7 @@ public class FuseBox : InspectableObject
                             LightManager.Instance.AllLightToggle(true);
                             correctObject.GetComponent<Renderer>().material = correctMaterial;
                             incorrectObject.GetComponent<Renderer>().material = incorrectOffMaterial;
-                            GetComponent<BoxCollider>().enabled = false;
+                            ToggleBoxCollider(false);
                             PatientTaskManager.instance.CheckTaskConditions(gameObject);
                             StopUsing();
                         }
@@ -146,12 +156,16 @@ public class FuseBox : InspectableObject
         }
     }
 
+    private void ToggleBoxCollider(bool enable)
+    {
+        GetComponent<BoxCollider>().enabled = enable;
+    }
+
     //Exits the player out of the minigame
     private void StopUsing()
     {
         Cursor.lockState = CursorLockMode.Locked;
         cursor.SetActive(false);
-
         looking = false;
         playerCanMove = true;
         stopLooking = true;

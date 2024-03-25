@@ -42,6 +42,24 @@ public class InspectableObject : InteractableTemplate
         //}
     }
 
+    public void StopInspecting()
+    {
+        if (looking)
+        {
+            looking = false;
+            playerCanMove = true;
+            stopLooking = true;
+
+            //re-enable interaction ability
+            this.gameObject.GetComponent<BoxCollider>().enabled = true;
+
+            //foreach(var m in cameraScreens)
+            //{
+            //    m.mainTextureScale = defaultScreenSize;
+            //}
+        }
+    }
+
     protected virtual void Update()
     {
 
@@ -86,20 +104,6 @@ public class InspectableObject : InteractableTemplate
         //    index--;
         //}
 
-        if (Input.GetKeyDown(KeyCode.C) && looking)
-        {
-            looking = false;
-            playerCanMove = true;
-            stopLooking = true;
-
-            //re-enable interaction ability
-            this.gameObject.GetComponent<BoxCollider>().enabled = true;
-
-            //foreach(var m in cameraScreens)
-            //{
-            //    m.mainTextureScale = defaultScreenSize;
-            //}
-        }
         //move camera to glass panel if door is interacted with
         if (looking)
         {
@@ -148,6 +152,8 @@ public class InspectableObject : InteractableTemplate
         playerCanMove = false;
 
         Camera.main.GetComponent<CameraLook>().canHeadBob = false;
+
+        GameManager.Instance.player.GetComponent<PickUpItem>().currentlyInspecting = this;
 
 
         //TODO Move into the steam manager or somewhere not here

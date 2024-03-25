@@ -26,10 +26,10 @@ public class DoorNPC : MonoBehaviour
 
     private void Awake()
     {
-        obstacle = GetComponent<NavMeshObstacle>();
-        obstacle.carveOnlyStationary = false;
-        obstacle.carving = isOpen;
-        obstacle.enabled = isOpen;
+        //obstacle = GetComponent<NavMeshObstacle>();
+        //obstacle.carveOnlyStationary = false;
+        //obstacle.carving = isOpen;
+        //obstacle.enabled = isOpen;
 
         startRotation = doorHinge.transform.rotation.eulerAngles;
         fwd = transform.right;
@@ -73,38 +73,38 @@ public class DoorNPC : MonoBehaviour
             time += Time.deltaTime * speed;
         }
 
-        obstacle.enabled = true;
-        obstacle.carving = true;
+        //obstacle.enabled = true;
+        //obstacle.carving = true;
     }
 
-    public void CloseDoor()
-    {
-        if (isOpen)
-        {
-            if(coroutine != null)
-            {
-                StopCoroutine(coroutine);
-            }
-            coroutine = StartCoroutine(CloseDoorRotation());
-        }
-    }
+    //public void CloseDoor()
+    //{
+    //    if (isOpen)
+    //    {
+    //        if(coroutine != null)
+    //        {
+    //            StopCoroutine(coroutine);
+    //        }
+    //        coroutine = StartCoroutine(CloseDoorRotation());
+    //    }
+    //}
 
-    private IEnumerator CloseDoorRotation()
-    {
-        obstacle.enabled = false;
-        obstacle.carving = false;
-
-        Quaternion startRot = transform.rotation;
-        Quaternion endRot = Quaternion.Euler(startRotation);
-
-        isOpen = false;
-
-        float time = 0;
-        while(time < 1)
-        {
-            doorHinge.transform.rotation = Quaternion.Slerp(startRot, endRot, time);
-            yield return null;
-            time += Time.deltaTime * speed;
-        }
-    }
+    //private IEnumerator CloseDoorRotation()
+    //{
+    //    obstacle.enabled = false;
+    //    obstacle.carving = false;
+    //
+    //    Quaternion startRot = transform.rotation;
+    //    Quaternion endRot = Quaternion.Euler(startRotation);
+    //
+    //    isOpen = false;
+    //
+    //    float time = 0;
+    //    while(time < 1)
+    //    {
+    //        doorHinge.transform.rotation = Quaternion.Slerp(startRot, endRot, time);
+    //        yield return null;
+    //        time += Time.deltaTime * speed;
+    //    }
+    //}
 }

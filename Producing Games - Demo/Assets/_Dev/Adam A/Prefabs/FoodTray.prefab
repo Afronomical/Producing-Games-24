@@ -131,5 +131,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ef53b6bb8199d54da1e91f30d83c293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectIcon: {fileID: 0}
+  objectIcon: {fileID: 21300000, guid: d9cf3eaa38d721e40b9aca53b6a58618, type: 3}
   collectible: {fileID: 11400000, guid: 82fdb7ac93408ac4cb14bc17b6a3204b, type: 2}
+  isExorcismObject: 0
+  hasBeenPlaced: 0
+  UIToDisable: []
+  actionTooltip: {fileID: 0}
+  VoiceLines: {fileID: 0}

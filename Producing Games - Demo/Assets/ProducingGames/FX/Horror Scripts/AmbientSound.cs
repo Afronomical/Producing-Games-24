@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AmbientSound : MonoBehaviour
@@ -15,7 +14,7 @@ public class AmbientSound : MonoBehaviour
         if (other.CompareTag("Player") && !isPlaying)
         {
             isPlaying = true;
-            AudioManager.instance.PlaySound(ambientSoundEffect, transform);
+            StartCoroutine(FadeIn());
         }
     }
 
@@ -28,9 +27,31 @@ public class AmbientSound : MonoBehaviour
         }
     }
 
+    private IEnumerator FadeIn()
+    {
+        float timer = 0f;
+        while (timer < fadeInDuration)
+        {
+            timer += Time.deltaTime;
+            float normalizedTime = timer / fadeInDuration;
+            float volumeMultiplier = Mathf.Lerp(0f, 1f, normalizedTime);
+            AudioManager.instance.musicVolume = volumeMultiplier;
+            AudioManager.instance.soundEffectVolume = volumeMultiplier;
+            yield return null;
+        }
+    }
+
     private IEnumerator FadeOut()
     {
-        yield return new WaitForSeconds(fadeOutDuration);
-        AudioManager.instance.StopSound(ambientSoundEffect);
+        float timer = 0f;
+        while (timer < fadeOutDuration)
+        {
+            timer += Time.deltaTime;
+            float normalizedTime = timer / fadeOutDuration;
+            float volumeMultiplier = Mathf.Lerp(1f, 0f, normalizedTime);
+            AudioManager.instance.musicVolume = volumeMultiplier;
+            AudioManager.instance.soundEffectVolume = volumeMultiplier;
+            yield return null;
+        }
     }
 }

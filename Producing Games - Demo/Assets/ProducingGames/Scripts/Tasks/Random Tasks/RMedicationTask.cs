@@ -42,7 +42,7 @@ public class RMedicationTask : Task
         {
             if (InventoryHotbar.instance.currentItem == rTask.itemToGive)  // Check for the correct item being held
             {
-                AudioManager.instance.PlaySound(PatientTaskManager.instance.medicationVoiceLines, gameObject.transform);
+                PlayerVoiceController.instance.PlayDialogue(PlayerVoiceController.instance.medicineDialogue);
 
                 InventoryHotbar.instance.RemoveFromInventory(InventoryHotbar.instance.currentItem);
                 CompleteTask();

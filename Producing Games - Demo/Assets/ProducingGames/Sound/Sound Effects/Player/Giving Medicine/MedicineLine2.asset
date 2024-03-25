@@ -13,18 +13,16 @@ MonoBehaviour:
   m_Name: MedicineLine2
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: cedc6b8b96d82ef469e12db9a4afeb74, type: 3}
-  volume: 0.75
+  volume: 0.85
   pitch: 1
   priority: 128
   loop: 0
   isMusic: 0
-  canEcho: 0
-  spacialAudio: 1
+  spacialAudio: 0
   followObject: 0
   travelDistance: 30
-  sentence: Enter text here
+  sentence: 
   font: {fileID: 0}
   typingSpeed: 0.15
   waitTillHide: 4
-  soundPos: {fileID: 0}
-  isReactionSound: 0
+  canBeHeardByDemon: 0

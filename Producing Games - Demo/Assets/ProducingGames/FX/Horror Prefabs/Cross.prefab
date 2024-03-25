@@ -12,8 +12,7 @@ GameObject:
   - component: {fileID: 8168856236731444879}
   - component: {fileID: 9202829718717733215}
   - component: {fileID: 4976379841826882017}
-  - component: {fileID: 3690537762142939323}
-  - component: {fileID: 3481785344187744706}
+  - component: {fileID: 2664789712659897634}
   m_Layer: 6
   m_Name: Cross
   m_TagString: Untagged
@@ -109,7 +108,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3690537762142939323
+--- !u!114 &2664789712659897634
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,40 +117,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 7661773188408393803}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba6d1a9236bdc8148a2a4909a219a878, type: 3}
+  m_Script: {fileID: 11500000, guid: d5b24eb5dbc393844b98fa529f393f82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   objectIcon: {fileID: 0}
-  collectible: {fileID: 11400000, guid: dcf2cc832280c7d4abfd4842de3157ce, type: 2}
-  isExorcismObject: 0
-  hasBeenPlaced: 0
-  actionTooltip: {fileID: 0}
-  throwingForce: 5
-  CrossThrownSound: {fileID: 0}
-  VoiceLines: {fileID: 0}
---- !u!114 &3481785344187744706
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7661773188408393803}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f2ad6e0bf59d76469db9c8417d62bb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectIcon: {fileID: 0}
-  collectible: {fileID: 0}
+  collectible: {fileID: 11400000, guid: f459d9aaeefb35a4f85555f9bab0129b, type: 2}
   isExorcismObject: 0
   hasBeenPlaced: 0
   actionTooltip: {fileID: 0}
   rotationSpeed: 3
+  throwingForce: 4
   CrossSpinSound: {fileID: 0}
+  CrossDropSound: {fileID: 0}
   eventTriggered: 0
   isCrossReplaced: 0
-  isInverting: 0
-  isInverted: 0
 --- !u!1001 &1567657540687734610
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -234,10 +213,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1476359682891423457}
     m_Modifications:
-    - target: {fileID: 6524654406858530761, guid: 96101304daf64b543adc786b0737894d, type: 3}
+    - target: {fileID: 6302814336564577378, guid: 96101304daf64b543adc786b0737894d, type: 3}
       propertyPath: cross
       value: 
-      objectReference: {fileID: 3690537762142939323}
+      objectReference: {fileID: 2664789712659897634}
     - target: {fileID: 6553309997974429607, guid: 96101304daf64b543adc786b0737894d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -285,32 +264,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8484796400150997074, guid: 96101304daf64b543adc786b0737894d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8526973374319236980}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96101304daf64b543adc786b0737894d, type: 3}
 --- !u!4 &5110508767096929345 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6553309997974429607, guid: 96101304daf64b543adc786b0737894d, type: 3}
   m_PrefabInstance: {fileID: 2026096590411588582}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7628580183844293556 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8484796400150997074, guid: 96101304daf64b543adc786b0737894d, type: 3}
-  m_PrefabInstance: {fileID: 2026096590411588582}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8526973374319236980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7628580183844293556}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d81b2afc6fdb5cb4e8daa7797a08e2e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  crossRotation: {fileID: 0}
-  eventTriggered: 0

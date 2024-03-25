@@ -82,7 +82,7 @@ public class ChaseState : DemonStateBaseClass
 
         foreach (Collider collider in colliders)
         {
-            if (collider.gameObject == character.player)
+            if (collider.gameObject == character.player && !character.isOpeningDoor)
                 character.ChangeDemonState(DemonCharacter.DemonStates.Attack);
         }
     }

@@ -99,7 +99,7 @@ public class HidingState : PatientStateBaseClass
             value.patient = character;
 
         character.agent.enabled = false;
-        character.rb.velocity = Vector3.zero;
+        //character.rb.velocity = Vector3.zero;
 
         //transform.position = new(hidingLocation.x, transform.position.y, hidingLocation.z);
         transform.SetPositionAndRotation(new(hidingLocation.x, transform.position.y, hidingLocation.z), character.BedDestination.rotation);

@@ -16,11 +16,13 @@ public class MinigameCursor : MonoBehaviour
     private RaycastHit hit;
     private Vector3 targetPos;
     private PlayerInput input;
+    private MeshRenderer rend;
 
     void Start()
     {
         cam = Camera.main;
         input = GameManager.Instance.player.GetComponent<PlayerInput>();
+        rend = GetComponent<MeshRenderer>();
     }
 
 
@@ -28,12 +30,15 @@ public class MinigameCursor : MonoBehaviour
     {
         if (input.currentControlScheme != "Gamepad")
         {
+            rend.enabled = false;
             ray = cam.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit))
             {
                 targetPos = new Vector3(transform.position.x, hit.point.y, hit.point.z);
             }
         }
+        else
+            rend.enabled = true;
 
         // Clamp the movement area
         if (targetPos.z < transform.parent.position.z - cursorMovementArea.x) targetPos.z = transform.parent.position.z - cursorMovementArea.x;

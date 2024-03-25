@@ -89,6 +89,7 @@ public class CrossBehaviour : InteractableTemplate
     public void FallingCross()
     {
         EnterInteractableState();
+        isInverting = false;
         gameObject.AddComponent<Rigidbody>();
         Rigidbody rb = gameObject.GetComponent<Rigidbody>();
         rb.AddRelativeForce(Vector3.back * throwingForce, ForceMode.Impulse);

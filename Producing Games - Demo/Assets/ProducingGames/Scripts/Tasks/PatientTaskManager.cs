@@ -47,9 +47,6 @@ public class PatientTaskManager : MonoBehaviour
     public GameObject satellite;
     public GameObject[] tables;
 
-    [Header("Voice Lines")]
-    public SoundEffect medicationVoiceLines;
-
 
     void Awake()
     {
@@ -327,7 +324,7 @@ public class PatientTaskManager : MonoBehaviour
             {
                 if (NPCManager.Instance.ChosenDemon.demonName == "Leviathan" || NPCManager.Instance.ChosenDemon.demonName == "Beezlebub")
                 {
-                    int satelliteChance = GetDemonTellTaskChance(patientDemonTells, satelliteHasBroken, true);
+                    int satelliteChance = GetDemonTellTaskChance(environmentDemonTells, satelliteHasBroken, true);
                     for (int j = 0; j < satelliteChance; j++)
                     {
                         totalChance += t.chanceToHappen;
@@ -340,7 +337,7 @@ public class PatientTaskManager : MonoBehaviour
             {
                 if (NPCManager.Instance.ChosenDemon.demonName == "Leviathan" || NPCManager.Instance.ChosenDemon.demonName == "Mammon")
                 {
-                    int waterChance = GetDemonTellTaskChance(patientDemonTells, waterHasBroken, true);
+                    int waterChance = GetDemonTellTaskChance(environmentDemonTells, waterHasBroken, true);
                     for (int j = 0; j < waterChance; j++)
                     {
                         totalChance += t.chanceToHappen;
@@ -353,7 +350,7 @@ public class PatientTaskManager : MonoBehaviour
             {
                 if (NPCManager.Instance.ChosenDemon.demonName == "Mammon" || NPCManager.Instance.ChosenDemon.demonName == "Beezlebub")
                 {
-                    int fuseChance = GetDemonTellTaskChance(patientDemonTells, fuseHasBroken, true);
+                    int fuseChance = GetDemonTellTaskChance(environmentDemonTells, fuseHasBroken, true);
                     for (int j = 0; j < fuseChance; j++)
                     {
                         totalChance += t.chanceToHappen;
