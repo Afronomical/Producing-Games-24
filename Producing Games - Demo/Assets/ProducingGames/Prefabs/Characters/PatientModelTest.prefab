@@ -445,6 +445,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   playerDistance: 0
+  radius: 0
+  angle: 0
+  canSeePlayer: 0
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 0
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &3681509020144956913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,7 +468,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 0}
   ToolTipText: NPC
-  VoiceLines: {fileID: 0}
+  VoiceLines:
+  - {fileID: 0}
 --- !u!95 &8768071877154691392
 Animator:
   serializedVersion: 7
