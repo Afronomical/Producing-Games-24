@@ -109,7 +109,8 @@ public class HidingCutScene : InteractableTemplate
 
     public void ExitInput()
     {
-        base.actionTooltip.enabled = false;
+        if (base.actionTooltip)
+            base.actionTooltip.enabled = false;
         PeekAnim(false);
         playerHidingStates = PlayerHidingStates.goOut;
     }
@@ -119,9 +120,12 @@ public class HidingCutScene : InteractableTemplate
     {
         EnteringAnim(false);
         cam.GetComponent<CameraLook>().enabled = true;
-        
-        base.actionTooltip.text = "Press C to stop hiding!";
-        base.actionTooltip.enabled = true;
+
+        if (base.actionTooltip)
+        {
+            base.actionTooltip.text = "Press C to stop hiding!";
+            base.actionTooltip.enabled = true;
+        }
 
 
         //Hold LMB to open the door to peek out, when the LMB is released, it will close the door again
