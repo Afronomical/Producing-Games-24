@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Corkboard1
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: 904faa47c045f2b4f98cc95d65719330, type: 3}
-  volume: 0.75
+  volume: 0.85
   pitch: 1
   priority: 128
   loop: 0
   isMusic: 0
-  spacialAudio: 1
+  spacialAudio: 0
   followObject: 0
   travelDistance: 30
   sentence: Delivery should be in the basement.

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: GivingMedicine2
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: 212399e3161fe30408c4094e80e00896, type: 3}
-  volume: 0.75
+  volume: 0.85
   pitch: 1
   priority: 128
   loop: 0
   isMusic: 0
-  spacialAudio: 1
+  spacialAudio: 0
   followObject: 0
   travelDistance: 30
   sentence: Feeling better?

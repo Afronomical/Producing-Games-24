@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: RitualItem3
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: 9748a521ed9ccef4c86f1f7f47f209d8, type: 3}
-  volume: 0.75
+  volume: 0.85
   pitch: 1
   priority: 128
   loop: 0
   isMusic: 0
-  spacialAudio: 1
+  spacialAudio: 0
   followObject: 0
   travelDistance: 30
   sentence: This could be useful.

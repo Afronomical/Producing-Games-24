@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: GivingMedicine3
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: 8c530680e4e469d4492812dc259c600e, type: 3}
-  volume: 0.75
+  volume: 0.85
   pitch: 1
   priority: 128
   loop: 0
   isMusic: 0
-  spacialAudio: 1
+  spacialAudio: 0
   followObject: 0
   travelDistance: 30
   sentence: That should do for a while.
