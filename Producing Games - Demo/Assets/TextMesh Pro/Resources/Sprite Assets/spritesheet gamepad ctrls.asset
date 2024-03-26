@@ -86,26 +86,26 @@ MonoBehaviour:
     m_Unicode: 65534
     m_GlyphIndex: 7
     m_Scale: 1
-    m_Name: Button_X
-    m_HashCode: -1506998735
+    m_Name: Gamepad_buttonwest
+    m_HashCode: 1497943143
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 8
     m_Scale: 1
-    m_Name: Button_Y
-    m_HashCode: -1506998736
+    m_Name: Gamepad_buttonnorth
+    m_HashCode: -2078094915
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 9
     m_Scale: 1
-    m_Name: Button_A
-    m_HashCode: -1506998744
+    m_Name: Gamepad_buttonsouth
+    m_HashCode: -2111451929
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 10
     m_Scale: 1
-    m_Name: Button_B
-    m_HashCode: -1506998741
+    m_Name: Gamepad_buttoneast
+    m_HashCode: 1498453681
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 11

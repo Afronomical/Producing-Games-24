@@ -44,26 +44,26 @@ MonoBehaviour:
     m_Unicode: 65534
     m_GlyphIndex: 0
     m_Scale: 1
-    m_Name: Space
-    m_HashCode: 99043428
+    m_Name: Keyboard_space
+    m_HashCode: -127893962
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 1
     m_Scale: 1
-    m_Name: Shift
-    m_HashCode: 99897088
+    m_Name: Keyboard_shift
+    m_HashCode: -128189998
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 2
     m_Scale: 1
-    m_Name: Key_W
-    m_HashCode: 90313695
+    m_Name: Keyboard_w
+    m_HashCode: -2081430651
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 3
     m_Scale: 1
-    m_Name: Key_A
-    m_HashCode: 90313673
+    m_Name: Keyboard_a
+    m_HashCode: -2081430637
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 4
@@ -92,8 +92,8 @@ MonoBehaviour:
     m_Unicode: 65534
     m_GlyphIndex: 8
     m_Scale: 1
-    m_Name: Key_C
-    m_HashCode: 90313675
+    m_Name: Keyboard_c
+    m_HashCode: -2081430639
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 9
@@ -104,26 +104,26 @@ MonoBehaviour:
     m_Unicode: 65534
     m_GlyphIndex: 10
     m_Scale: 1
-    m_Name: Key_D
-    m_HashCode: 90313676
+    m_Name: Keyboard_d
+    m_HashCode: -2081430634
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 11
     m_Scale: 1
-    m_Name: Key_F
-    m_HashCode: 90313678
+    m_Name: Keyboard_f
+    m_HashCode: -2081430636
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 12
     m_Scale: 1
-    m_Name: Key_G
-    m_HashCode: 90313679
+    m_Name: Keyboard_g
+    m_HashCode: -2081430635
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 13
     m_Scale: 1
-    m_Name: Key_E
-    m_HashCode: 90313677
+    m_Name: Keyboard_e
+    m_HashCode: -2081430633
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 14
@@ -146,20 +146,20 @@ MonoBehaviour:
     m_Unicode: 65534
     m_GlyphIndex: 17
     m_Scale: 1
-    m_Name: Key_R
-    m_HashCode: 90313690
+    m_Name: Keyboard_r
+    m_HashCode: -2081430656
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 18
     m_Scale: 1
-    m_Name: Key_Q
-    m_HashCode: 90313689
+    m_Name: Keyboard_q
+    m_HashCode: -2081430653
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 19
     m_Scale: 1
-    m_Name: Key_S
-    m_HashCode: 90313691
+    m_Name: Keyboard_s
+    m_HashCode: -2081430655
   m_SpriteGlyphTable:
   - m_Index: 0
     m_Metrics:
