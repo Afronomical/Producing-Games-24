@@ -74,6 +74,8 @@ public class PagerDisplay : MonoBehaviour
         //Scroll text across pager screen
         StartCoroutine(ScrollText(0.2f));
 
+        GetComponent<PagerController>().ActiveNotif = true;
+
         messageList.Add(message);
     }
 
@@ -93,6 +95,7 @@ public class PagerDisplay : MonoBehaviour
         }
 
         alert.gameObject.SetActive(false);
+        GetComponent<PagerController>().ActiveNotif = false;
 
     }
 

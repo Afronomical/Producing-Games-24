@@ -11,6 +11,10 @@ public class PagerController : MonoBehaviour
     Vector3 offset;
     public TMP_Text pagerTooltip;
 
+    public bool ActiveNotif = false;
+    public GameObject PagerLight;
+    public GameObject FPagerLight;
+
     private void Start()
     {
         offset = pagerInterface.transform.localPosition;
@@ -23,6 +27,18 @@ public class PagerController : MonoBehaviour
         //pagerInterface.GetComponent<RectTransform>().position = transform.position + offset;
 
         if (DiegeticUIManager.Instance.hasPager) pagerTooltip.enabled = true;
+        if (ActiveNotif)
+        {
+            if (arms.holdingPager)
+            {
+                PagerLight.SetActive(true);
+                FPagerLight.SetActive(false);
+            } else
+            {
+                PagerLight.SetActive(false);
+                FPagerLight.SetActive(true);
+            }
+        }
     }
 
     public void OnPagerInput(InputAction.CallbackContext context)
