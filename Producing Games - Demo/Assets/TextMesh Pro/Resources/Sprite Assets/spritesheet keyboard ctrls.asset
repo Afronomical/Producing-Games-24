@@ -128,20 +128,20 @@ MonoBehaviour:
     m_Unicode: 65534
     m_GlyphIndex: 14
     m_Scale: 1
-    m_Name: Mouse_Left
-    m_HashCode: -1487150971
+    m_Name: Mouse_leftButton
+    m_HashCode: -1477574221
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 15
     m_Scale: 1
-    m_Name: Mouse_Middle
-    m_HashCode: -343294029
+    m_Name: Mouse_middle
+    m_HashCode: -1512751661
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 16
     m_Scale: 1
-    m_Name: Mouse_Right
-    m_HashCode: -1843478178
+    m_Name: Mouse_rightButton
+    m_HashCode: 1260229928
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 17

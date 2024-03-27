@@ -20,8 +20,8 @@ public static class SwapTextWithSprite
 
     private static string RenameInput(string stringButtonName)
     {
-        //stringButtonName = stringButtonName.Replace(
-            //oldValue:"Interact:", newValue: String.Empty);
+        stringButtonName = stringButtonName.Replace(
+            oldValue:"<Mouse>/", newValue: "Mouse_");
 
         stringButtonName = stringButtonName.Replace(
             oldValue: "<Keyboard>/", newValue: "Keyboard_");
