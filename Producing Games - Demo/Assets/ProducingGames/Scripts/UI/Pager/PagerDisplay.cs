@@ -35,7 +35,7 @@ public class PagerDisplay : MonoBehaviour
         alert.overflowMode = TextOverflowModes.Truncate;
         //alert.text = " ";
 
-        DisplayMessage("This is a test!", 20);
+        //DisplayMessage("This is a test!", 20);
     }
 
     private void Update()

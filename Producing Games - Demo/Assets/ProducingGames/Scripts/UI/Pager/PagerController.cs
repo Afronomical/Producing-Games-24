@@ -39,6 +39,11 @@ public class PagerController : MonoBehaviour
                 FPagerLight.SetActive(true);
             }
         }
+        else
+        {
+            PagerLight.SetActive(false);
+            FPagerLight.SetActive(false);
+        }
     }
 
     public void OnPagerInput(InputAction.CallbackContext context)
