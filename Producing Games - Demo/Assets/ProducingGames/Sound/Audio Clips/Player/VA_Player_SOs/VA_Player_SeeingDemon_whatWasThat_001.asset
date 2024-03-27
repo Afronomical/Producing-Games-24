@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db92280e6d78bce46b3708c9af45f26d, type: 3}
   m_Name: VA_Player_SeeingDemon_whatWasThat_001
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 0}
+  audioClip: {fileID: 8300000, guid: 59ec2cbecfca08747bee731b65c87b38, type: 3}
   volume: 0.75
   pitch: 1
   priority: 128
@@ -21,8 +21,8 @@ MonoBehaviour:
   spacialAudio: 1
   followObject: 0
   travelDistance: 30
-  sentence: Enter text here
-  font: {fileID: 0}
+  sentence: What was that?
+  font: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   typingSpeed: 0.15
   waitTillHide: 4
   canBeHeardByDemon: 0
