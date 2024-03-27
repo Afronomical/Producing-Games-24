@@ -16432,6 +16432,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1340492062}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &473937381 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2255101606753165926, guid: 2d32bef23771ed844b475ddb39431335, type: 3}
+  m_PrefabInstance: {fileID: 1919307716}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &474646574
 GameObject:
   m_ObjectHideFlags: 0
@@ -17166,6 +17171,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 61929464}
   m_SourcePrefab: {fileID: 100100000, guid: f8a8218ac9b88d44e82695a28c77b38c, type: 3}
+--- !u!1 &508664892 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2255101606753165926, guid: 2d32bef23771ed844b475ddb39431335, type: 3}
+  m_PrefabInstance: {fileID: 1715087549}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &510699517
 GameObject:
   m_ObjectHideFlags: 0
@@ -34392,6 +34402,11 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1107107108 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2255101606753165926, guid: 2d32bef23771ed844b475ddb39431335, type: 3}
+  m_PrefabInstance: {fileID: 1533750801}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1110456042
 GameObject:
   m_ObjectHideFlags: 0
@@ -40358,6 +40373,10 @@ PrefabInstance:
       value: NPCManager
       objectReference: {fileID: 0}
     - target: {fileID: 6218499063189601245, guid: bfa4c5cf9d2d0214b8354d0480fac178, type: 3}
+      propertyPath: isTutorial
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6218499063189601245, guid: bfa4c5cf9d2d0214b8354d0480fac178, type: 3}
       propertyPath: heartAttackSound
       value: 
       objectReference: {fileID: 11400000, guid: 15fe5d40846da884eaaf4ce96ad887c1, type: 2}
@@ -40450,6 +40469,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6218499063189601245, guid: bfa4c5cf9d2d0214b8354d0480fac178, type: 3}
+      propertyPath: tutorialBedsList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6218499063189601245, guid: bfa4c5cf9d2d0214b8354d0480fac178, type: 3}
       propertyPath: 'hidingLocations.Array.data[0]'
       value: 
       objectReference: {fileID: 1852130162}
@@ -40513,6 +40536,18 @@ PrefabInstance:
       propertyPath: 'prayingLocations.Array.data[3]'
       value: 
       objectReference: {fileID: 1070344311}
+    - target: {fileID: 6218499063189601245, guid: bfa4c5cf9d2d0214b8354d0480fac178, type: 3}
+      propertyPath: 'tutorialBedsList.Array.data[0]'
+      value: 
+      objectReference: {fileID: 508664892}
+    - target: {fileID: 6218499063189601245, guid: bfa4c5cf9d2d0214b8354d0480fac178, type: 3}
+      propertyPath: 'tutorialBedsList.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1107107108}
+    - target: {fileID: 6218499063189601245, guid: bfa4c5cf9d2d0214b8354d0480fac178, type: 3}
+      propertyPath: 'tutorialBedsList.Array.data[2]'
+      value: 
+      objectReference: {fileID: 473937381}
     - target: {fileID: 6218499063189601245, guid: bfa4c5cf9d2d0214b8354d0480fac178, type: 3}
       propertyPath: 'patrolDestinations.Array.data[0]'
       value: 
@@ -56985,7 +57020,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patients:
   - patient: {fileID: 918029045}
-    hour1Hourly: 0
+    hour1Hourly: 1
     hour1Random: 0
     hour2Hourly: 0
     hour2Random: 0
@@ -57002,9 +57037,9 @@ MonoBehaviour:
     hour8Hourly: 0
     hour8Random: 0
   - patient: {fileID: 1454231619}
-    hour1Hourly: 0
+    hour1Hourly: 4
     hour1Random: 0
-    hour2Hourly: 0
+    hour2Hourly: 3
     hour2Random: 0
     hour3Hourly: 0
     hour3Random: 0
@@ -57020,9 +57055,9 @@ MonoBehaviour:
     hour8Random: 0
   - patient: {fileID: 657829214}
     hour1Hourly: 0
-    hour1Random: 0
+    hour1Random: 3
     hour2Hourly: 0
-    hour2Random: 0
+    hour2Random: 3
     hour3Hourly: 0
     hour3Random: 0
     hour4Hourly: 0
@@ -63704,7 +63739,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh73708
+  m_Name: pb_Mesh38772
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
