@@ -32,6 +32,8 @@ public class PlayerArms : MonoBehaviour
     private bool holdingClipboard;
     private bool holdingObject;
     [HideInInspector] public bool holdingPager;
+    public GameObject PagerLight;
+    public GameObject FPagerLight;
     private bool holdingSyringe;
     private string lastLeftAnimation, lastRightAnimation;
 
@@ -120,6 +122,11 @@ public class PlayerArms : MonoBehaviour
         {
             pager.GetComponent<SkinnedMeshRenderer>().enabled = false;
             pagerScreen.GetComponent<Canvas>().enabled = false;
+            if (PagerLight.activeSelf)
+            {
+                PagerLight.SetActive(false);
+                FPagerLight.SetActive(true);
+            }
             flashlight.gameObject.SetActive(false);
             clipboard.gameObject.SetActive(true);
             PlayerVoiceController.instance.PlayDialogue(PlayerVoiceController.instance.checklistDialogue);
@@ -128,6 +135,11 @@ public class PlayerArms : MonoBehaviour
         {
             pager.GetComponent<SkinnedMeshRenderer>().enabled = true;
             pagerScreen.GetComponent<Canvas>().enabled = true;
+            if (FPagerLight.activeSelf)
+            {
+                PagerLight.SetActive(true);
+                FPagerLight.SetActive(false);
+            }
             flashlight.gameObject.SetActive(false);
             clipboard.SetActive(false);
         }
@@ -137,6 +149,11 @@ public class PlayerArms : MonoBehaviour
             pagerScreen.GetComponent<Canvas>().enabled = false;
             flashlight.gameObject.SetActive(true);
             clipboard.SetActive(false);
+            if (PagerLight.activeSelf)
+            {
+                PagerLight.SetActive(false);
+                FPagerLight.SetActive(true);
+            }
         }
         else if (info.IsName("Default"))
         {
@@ -144,6 +161,11 @@ public class PlayerArms : MonoBehaviour
             pagerScreen.GetComponent<Canvas>().enabled = false;
             flashlight.gameObject.SetActive(false);
             clipboard.SetActive(false);
+            if (PagerLight.activeSelf)
+            {
+                PagerLight.SetActive(false);
+                FPagerLight.SetActive(true);
+            }
         }
 
 

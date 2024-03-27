@@ -29,14 +29,16 @@ public class PagerController : MonoBehaviour
         if (DiegeticUIManager.Instance.hasPager) pagerTooltip.enabled = true;
         if (ActiveNotif)
         {
-            if (arms.holdingPager)
+            if (!PagerLight.activeSelf && !FPagerLight.activeSelf)
             {
-                PagerLight.SetActive(true);
-                FPagerLight.SetActive(false);
-            } else
-            {
-                PagerLight.SetActive(false);
-                FPagerLight.SetActive(true);
+                if (arms.holdingPager)
+                {
+                    PagerLight.SetActive(true);
+                }
+                else
+                {
+                    FPagerLight.SetActive(true);
+                }
             }
         }
         else
