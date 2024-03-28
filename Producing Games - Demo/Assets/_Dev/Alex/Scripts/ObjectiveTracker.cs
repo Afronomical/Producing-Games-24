@@ -50,7 +50,7 @@ public class ObjectiveTracker : MonoBehaviour
         timer++;
     }
 
-    Objectives mainObj = new Objectives();
+   public  Objectives mainObj = new Objectives();
     //Objectives sideObj = new Objectives();
     Objectives urgentObj = new Objectives();
 

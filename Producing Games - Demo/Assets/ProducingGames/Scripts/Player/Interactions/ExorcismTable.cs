@@ -26,8 +26,9 @@ public class ExorcismTable : MonoBehaviour
 
     private void Start()
     {
-        cinematicManagerScript=GameObject.FindGameObjectWithTag("CinematicManager").GetComponent<CinematicMangerScript>();
+        
         AcquireDemonObjects();
+        cinematicManagerScript=GameObject.FindGameObjectWithTag("CinematicManager").GetComponent<CinematicMangerScript>();
     }
 
     private void Update()
