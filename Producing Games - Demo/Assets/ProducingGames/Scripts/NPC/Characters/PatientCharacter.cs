@@ -116,14 +116,16 @@ public class PatientCharacter : AICharacter
 
         BedDestination = bed.transform.Find("PatientPosition");
 
-        if (isPossessed)
+        if (isPossessed && GameManager.Instance.demon == null)
         {
             // INFO: Instantiates the demon and saves it to the game manager so it can be used elsewhere
             GameObject GO = Instantiate(NPCManager.Instance.ChosenDemon.demonPrefab,
                                         NPCManager.Instance.GetDemonInstantionLocation().transform.position,
                                         Quaternion.identity);
-
+            
             GameManager.Instance.demon = GO;
+
+            GO.GetComponent<DemonCharacter>().ChangeDemonState(DemonStates.Inactive);
         }
     }
 
