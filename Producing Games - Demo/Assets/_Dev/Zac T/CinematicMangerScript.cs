@@ -75,7 +75,7 @@ public class CinematicMangerScript : MonoBehaviour
             flashlight.SetActive(false);
             print("cinestart");
         }
-        print(CinematicTime);
+        //print(CinematicTime);
         if (CinematicTime <= 0)
         {
             print("start end hour");

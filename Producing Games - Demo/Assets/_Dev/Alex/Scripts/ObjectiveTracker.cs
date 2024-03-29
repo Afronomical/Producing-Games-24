@@ -30,7 +30,7 @@ public class ObjectiveTracker : MonoBehaviour
     private List<Objectives> urgentObjectives = new List<Objectives>();
 
     //Timer for removing objectives
-    float timerInterval = 100;
+    float timerInterval = 2;
     float timer = 0;
 
     private void Start()
@@ -39,14 +39,14 @@ public class ObjectiveTracker : MonoBehaviour
             instance = this;
 
         //Testing
-        AddObjective("Main objective test!", objectiveTypes.Main);
+        //AddObjective("Main objective test!", objectiveTypes.Main);
         AddObjective("Urgent objective test!", objectiveTypes.Urgent);
     }
 
     private void Update()
     {
-        RemoveObjective(mainObj);
-        //DisplayObjectives();
+        //RemoveObjective(mainObj);
+        DisplayObjectives();
         timer++;
     }
 
