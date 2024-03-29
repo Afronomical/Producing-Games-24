@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c76ba9bd6ee8d4491c07e1d1697379, type: 3}
   m_Name: SO_DemonPill
   m_EditorClassIdentifier: 
-  objectName: Demon Pill
+  objectName: Voodoo Doll
   obj: {fileID: 6279819465787853623, guid: af35edc4373189e41b4de4836d1ce52f, type: 3}
   prefab: {fileID: 6279819465787853623, guid: af35edc4373189e41b4de4836d1ce52f, type: 3}
   interactSound: {fileID: 0}

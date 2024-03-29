@@ -18,7 +18,6 @@ public class DemonBook : MonoBehaviour
     void Start()
     {
         pageArray[0].SetActive(true);
-        bookTooltip.text = "Press B to read the demon book!";
         bookTooltip.enabled = true;
         gameObject.SetActive(false);
     }

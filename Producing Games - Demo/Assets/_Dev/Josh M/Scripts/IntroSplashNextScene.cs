@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class IntroSplashNextScene : MonoBehaviour
 {
-    private float introSplashTime = 7.5f;
+    private float introSplashTime = 7.99f;
 
     private void Start()
     {

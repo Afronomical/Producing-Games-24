@@ -40,7 +40,6 @@ public class CheckList : MonoBehaviour
     {
         //gameObject.SetActive(false); //Toggling the checklist
         pageArray[0].SetActive(true);
-        listTooltip.text = "Hold F to see tasks!";
         listTooltip.enabled = false;
     }
 
