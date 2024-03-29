@@ -93,7 +93,7 @@ public class ObjectiveTracker : MonoBehaviour
     {
         trackers[0].text = mainObj.name;
         //trackers[1].text = sideObj.name;
-        trackers[1].text = urgentObj.name;
+        //trackers[1].text = urgentObj.name;
     }
 
     //Remove a specific objective
