@@ -30,7 +30,7 @@ public class HidingCutScene : InteractableTemplate
         outside
     }
 
-    private PlayerHidingStates playerHidingStates;
+    public PlayerHidingStates playerHidingStates;
     HidingScare hidingScare;
 
     private void Start()
