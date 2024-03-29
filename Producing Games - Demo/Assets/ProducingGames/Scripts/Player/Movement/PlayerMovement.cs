@@ -167,8 +167,11 @@ public class PlayerMovement : MonoBehaviour
             if (stamina < 0) stamina = 0;
             staminaBar.fillAmount = stamina / maxStamina; // Allow stamina bar drain to not go below 0
 
-            if (recharge != null) StopCoroutine(recharge);
-            recharge = StartCoroutine(rechargeStamina());
+            if (staminaBar)
+            {
+                if (recharge != null) StopCoroutine(recharge);
+                recharge = StartCoroutine(rechargeStamina());
+            }
         }
         
         else move *= walkSpeed;  // Basic movement
