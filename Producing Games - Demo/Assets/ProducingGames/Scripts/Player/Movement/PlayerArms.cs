@@ -118,7 +118,7 @@ public class PlayerArms : MonoBehaviour
             AudioManager.instance.PlaySound(playerBody.GetComponent<Flashlight>().toggleSound, null);
 
         AnimatorStateInfo info = leftAnimator.GetCurrentAnimatorStateInfo(0);
-        if (info.IsName("ClipboardUp"))
+        if (info.IsName("ClipboardUp") || info.IsName("ClipboardIdleAnim"))
         {
             pager.GetComponent<SkinnedMeshRenderer>().enabled = false;
             pagerScreen.GetComponent<Canvas>().enabled = false;
