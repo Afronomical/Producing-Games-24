@@ -183,7 +183,7 @@ public class DoorInteractable : InteractableTemplate
         */
     }
 
-    private void ChangeDoorState(DoorStates newState)
+    public void ChangeDoorState(DoorStates newState)
     {
         if (currentState != newState)
         {
