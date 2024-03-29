@@ -496,12 +496,14 @@ MonoBehaviour:
     -Flashlight:
     Right Mouse Button to activate
 
-    -Computer: Located in the Study
+    -Computer: Located in the Study, used to
+    purchase items
 
-    -Pager:
-    Hold Q to view
+    -Pager: Hold Q to view, used to alert of shift end or heart
+    attack
 
-    -Patient Clipboard: Hold F to view
+    -Patient Clipboard: Hold F to view, contains information on every
+    patient under your care
 
 '
   m_isRightToLeft: 0
@@ -639,7 +641,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Patient 4
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aab64c1445f313243bc3493907a44169, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7226aee5706d2ce499c9961e3065c0db, type: 2}
   m_sharedMaterial: {fileID: -4367542782393052838, guid: aab64c1445f313243bc3493907a44169, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -703,9 +705,226 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 3.080451, w: 8.297425}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &645470746636896700
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2355953794655906501}
+  - component: {fileID: 5478514248462682299}
+  - component: {fileID: 914689924923360818}
+  m_Layer: 0
+  m_Name: NotificationLight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2355953794655906501
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645470746636896700}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.104900345, y: -0.18649828, z: 0.05880159}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4409133903471970912}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!108 &5478514248462682299
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645470746636896700}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 2
+  m_Shape: 0
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Intensity: 0.7185899
+  m_Range: 1
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 2
+  m_AreaSize: {x: 0.5, y: 0.5}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 1
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!114 &914689924923360818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645470746636896700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Intensity: 9.030067
+  m_EnableSpotReflector: 1
+  m_LuxAtDistance: 1
+  m_InnerSpotPercent: 0
+  m_SpotIESCutoffPercent: 100
+  m_LightDimmer: 1
+  m_VolumetricDimmer: 1
+  m_LightUnit: 0
+  m_FadeDistance: 10000
+  m_VolumetricFadeDistance: 10000
+  m_AffectDiffuse: 1
+  m_AffectSpecular: 1
+  m_NonLightmappedOnly: 0
+  m_ShapeWidth: 0.5
+  m_ShapeHeight: 0.5
+  m_AspectRatio: 1
+  m_ShapeRadius: 0.025
+  m_SoftnessScale: 1
+  m_UseCustomSpotLightShadowCone: 0
+  m_CustomSpotLightShadowCone: 30
+  m_MaxSmoothness: 0.99
+  m_ApplyRangeAttenuation: 1
+  m_DisplayAreaLightEmissiveMesh: 0
+  m_AreaLightCookie: {fileID: 0}
+  m_IESPoint: {fileID: 0}
+  m_IESSpot: {fileID: 0}
+  m_IncludeForRayTracing: 1
+  m_AreaLightShadowCone: 120
+  m_UseScreenSpaceShadows: 0
+  m_InteractsWithSky: 1
+  m_AngularDiameter: 0.5
+  m_FlareSize: 2
+  m_FlareTint: {r: 1, g: 1, b: 1, a: 1}
+  m_FlareFalloff: 4
+  m_SurfaceTexture: {fileID: 0}
+  m_SurfaceTint: {r: 1, g: 1, b: 1, a: 1}
+  m_Distance: 1.5e+11
+  m_UseRayTracedShadows: 0
+  m_NumRayTracingSamples: 4
+  m_FilterTracedShadow: 1
+  m_FilterSizeTraced: 16
+  m_SunLightConeAngle: 0.5
+  m_LightShadowRadius: 0.5
+  m_SemiTransparentShadow: 0
+  m_ColorShadow: 1
+  m_DistanceBasedFiltering: 0
+  m_EvsmExponent: 15
+  m_EvsmLightLeakBias: 0
+  m_EvsmVarianceBias: 0.00001
+  m_EvsmBlurPasses: 0
+  m_LightlayersMask: 1
+  m_LinkShadowLayers: 1
+  m_ShadowNearPlane: 0.1
+  m_BlockerSampleCount: 24
+  m_FilterSampleCount: 16
+  m_MinFilterSize: 0.1
+  m_KernelSize: 5
+  m_LightAngle: 1
+  m_MaxDepthBias: 0.001
+  m_ShadowResolution:
+    m_Override: 512
+    m_UseOverride: 1
+    m_Level: 0
+  m_ShadowDimmer: 1
+  m_VolumetricShadowDimmer: 1
+  m_ShadowFadeDistance: 10000
+  m_UseContactShadow:
+    m_Override: 0
+    m_UseOverride: 1
+    m_Level: 0
+  m_RayTracedContactShadow: 0
+  m_ShadowTint: {r: 0, g: 0, b: 0, a: 1}
+  m_PenumbraTint: 0
+  m_NormalBias: 0.75
+  m_SlopeBias: 0.5
+  m_ShadowUpdateMode: 0
+  m_AlwaysDrawDynamicShadows: 0
+  m_UpdateShadowOnLightMovement: 0
+  m_CachedShadowTranslationThreshold: 0.01
+  m_CachedShadowAngularThreshold: 0.5
+  m_BarnDoorAngle: 90
+  m_BarnDoorLength: 0.05
+  m_preserveCachedShadow: 0
+  m_OnDemandShadowRenderOnPlacement: 1
+  m_ShadowCascadeRatios:
+  - 0.05
+  - 0.2
+  - 0.3
+  m_ShadowCascadeBorders:
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
+  m_ShadowAlgorithm: 0
+  m_ShadowVariant: 0
+  m_ShadowPrecision: 0
+  useOldInspector: 0
+  useVolumetric: 1
+  featuresFoldout: 1
+  m_AreaLightEmissiveMeshShadowCastingMode: 0
+  m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
+  m_AreaLightEmissiveMeshLayer: -1
+  m_Version: 11
+  m_ObsoleteShadowResolutionTier: 1
+  m_ObsoleteUseShadowQualitySettings: 0
+  m_ObsoleteCustomShadowResolution: 512
+  m_ObsoleteContactShadows: 0
+  m_PointlightHDType: 0
+  m_SpotLightShape: 0
+  m_AreaLightShape: 0
 --- !u!1 &731464127638404581
 GameObject:
   m_ObjectHideFlags: 0
@@ -1366,12 +1585,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Behaviour of the Possessed-
+  m_text: 'Beelzebub is the Demon of Gluttony. Most victims of his sin have been
+    tempted into overindulgence over having recently gained new things.
+
+    Behaviour
+    of the Possessed-
 
     Requesting excessive medication
 
-    Will
-    frequently be seen loitering around kitchens and canteens
+    Will frequently be
+    seen loitering around kitchens and canteens
 
 '
   m_isRightToLeft: 0
@@ -1797,7 +2020,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311237055900740873}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -1904,6 +2127,7 @@ Transform:
   - {fileID: 719788612285634055}
   - {fileID: 3419762230362890557}
   - {fileID: 2520179096921054875}
+  - {fileID: 2355953794655906501}
   m_Father: {fileID: 8055711698189366382}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &1976903249846645865
@@ -2547,8 +2771,8 @@ MonoBehaviour:
   m_text: This patient has been here for 6 years, no noticeable improvements to mental
     health, still plays LoL.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aab64c1445f313243bc3493907a44169, type: 2}
-  m_sharedMaterial: {fileID: -4367542782393052838, guid: aab64c1445f313243bc3493907a44169, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7226aee5706d2ce499c9961e3065c0db, type: 2}
+  m_sharedMaterial: {fileID: 3978764970871789775, guid: 7226aee5706d2ce499c9961e3065c0db, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7761,9 +7985,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\rBeing in the presence of a possesed patient can cause haulinations and
-    demonic events. These events are physical manifestations of demons reaching into
-    the humanities plane from hell itself. \n"
+  m_text: "\rBeing in the presence of a possesed patient can cause hallucinations
+    and demonic events. These events are physical manifestations of demons reaching
+    into humanities plane from hell itself. \n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ea87c580860f07b4c854b2875cc4e264, type: 2}
   m_sharedMaterial: {fileID: 8444577486798796994, guid: ea87c580860f07b4c854b2875cc4e264, type: 2}
@@ -7960,7 +8184,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2264425215359748278}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.014302429, y: 0.014303239, z: 0.014302685}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7968,7 +8192,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -0, y: 0.9}
+  m_AnchoredPosition: {x: 0, y: 0.633}
   m_SizeDelta: {x: 50, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7578671902745185626
@@ -8001,11 +8225,11 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Exorcism Items-
 
-    Gold Coin
+    -Gold Coin
 
-    Symbol of Wealth
+    -Symbol of Wealth
 
-    Hanging Incense
+    -Hanging Incense
 
 
 
@@ -8072,7 +8296,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -7.711849, y: 34.685627, z: -2.4932957, w: -40.47956}
+  m_margin: {x: -7.711849, y: 34.685627, z: -2.4932957, w: -28.165356}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -8279,7 +8503,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Patient 2
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aab64c1445f313243bc3493907a44169, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7226aee5706d2ce499c9961e3065c0db, type: 2}
   m_sharedMaterial: {fileID: -4367542782393052838, guid: aab64c1445f313243bc3493907a44169, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -8343,7 +8567,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 2.4628477, w: 8.297425}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &2354198329445226201
@@ -9057,12 +9281,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Behaviour of the Possessed:
+  m_text: 'Leviathan is the Demon of Envy. His victims often become obssessed with
+    the target of their envy, leading to stalkers and often times murder.
+
+    Behaviour
+    of the Possessed:
 
     Requesting excessive medication
 
-    Frequent
-    hiding and obsessive privacy
+    Frequent hiding and
+    obsessive privacy
 
 '
   m_isRightToLeft: 0
@@ -9314,7 +9542,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aab64c1445f313243bc3493907a44169, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7226aee5706d2ce499c9961e3065c0db, type: 2}
   m_sharedMaterial: {fileID: -4367542782393052838, guid: aab64c1445f313243bc3493907a44169, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -9378,7 +9606,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -5.706293, w: 4.1967664}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &3198977549673603846
@@ -9808,12 +10036,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Behaviour of the Possessed-
+  m_text: 'Mammon is the Demon of Greed. Many humans have fallen victim to his sin,
+    often times encouraging more greed to spread, therefore making him stronger.
+
+    Behaviour
+    of the Possessed-
 
     Requesting excessive medication
 
-    Will
-    frequently be seen loitering around kitchens and canteens
+    Will frequently be
+    seen loitering around kitchens and canteens
 
 '
   m_isRightToLeft: 0
@@ -9997,7 +10229,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3675739620016178336}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -10058,7 +10290,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3730498918556140992}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.014308517, y: 0.014308516, z: 0.014308516}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10066,7 +10298,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.75}
+  m_AnchoredPosition: {x: -0, y: 0.394}
   m_SizeDelta: {x: 50, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4998210662762545651
@@ -10537,7 +10769,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4016914140282678787}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.014302429, y: 0.014303239, z: 0.014302685}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10545,7 +10777,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -0, y: 0.9}
+  m_AnchoredPosition: {x: 0, y: 0.531}
   m_SizeDelta: {x: 50, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &385444358590825412
@@ -10933,8 +11165,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Patient 1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aab64c1445f313243bc3493907a44169, type: 2}
-  m_sharedMaterial: {fileID: -4367542782393052838, guid: aab64c1445f313243bc3493907a44169, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7226aee5706d2ce499c9961e3065c0db, type: 2}
+  m_sharedMaterial: {fileID: 3978764970871789775, guid: 7226aee5706d2ce499c9961e3065c0db, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11418,7 +11650,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aab64c1445f313243bc3493907a44169, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7226aee5706d2ce499c9961e3065c0db, type: 2}
   m_sharedMaterial: {fileID: -4367542782393052838, guid: aab64c1445f313243bc3493907a44169, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -11482,7 +11714,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -5.4377117, w: 4.1967664}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &4733759263751471342
@@ -11554,16 +11786,16 @@ MonoBehaviour:
 
 
 
-    -Identify  the demon
+    -Identify the demon
 
 
 
-    -Collect  corresponding exorcism
+    -Collect corresponding exorcism
     items
 
 
 
-    -Bring them to the altar located in the chappel
+    -Bring them to the altar located in the chapel
 
 
 
@@ -12139,6 +12371,7 @@ MonoBehaviour:
   staminaDrainSpeed: 25
   staminaRegenSpeed: 25
   staminaRequiredToSprint: 25
+  staminaBar: {fileID: 0}
   jumpHeight: 0.75
   gravity: -9
   groundCheckDistance: 0.5
@@ -12785,9 +13018,9 @@ MonoBehaviour:
   medicineDialogue:
     dialoguePercentageChance: 20
     dialogue:
-    - {fileID: 11400000, guid: fa592123b88fb76488376aa4936b8b54, type: 2}
-    - {fileID: 11400000, guid: fea23cf46896fd34fb559c5543e740af, type: 2}
-    - {fileID: 11400000, guid: c0a2a2edc4827c2488cb4c6c50d3045b, type: 2}
+    - {fileID: 11400000, guid: db5759dd859eac3499d5a680076432fd, type: 2}
+    - {fileID: 11400000, guid: 045f04d99a990aa46bf67ec0f97f82fa, type: 2}
+    - {fileID: 11400000, guid: 712f1baafefc29046b2ab7ee5e83978a, type: 2}
   checkCameraDialogue:
     dialoguePercentageChance: 20
     dialogue: []
@@ -12800,33 +13033,32 @@ MonoBehaviour:
   checklistDialogue:
     dialoguePercentageChance: 20
     dialogue:
-    - {fileID: 11400000, guid: 8e886581db15c5547816e1f2f384fe64, type: 2}
-    - {fileID: 11400000, guid: 3b1ece14e155c5440afc0e4e7ef1c456, type: 2}
-    - {fileID: 11400000, guid: 0e3d0d537b80c514caaedcbca9e8fa34, type: 2}
+    - {fileID: 11400000, guid: 91256383bfe0fba45bbf3c2b8fcf2c3d, type: 2}
+    - {fileID: 11400000, guid: cc92afa891b15a14fb987a577d22fea5, type: 2}
+    - {fileID: 11400000, guid: 0b16b357f11cf98499492c3bdddcb4f9, type: 2}
   exorcismItemDialogue:
     dialoguePercentageChance: 20
     dialogue:
-    - {fileID: 11400000, guid: 122f80fba2416874eb024717bc63b00d, type: 2}
-    - {fileID: 11400000, guid: 71c526bf0b25b7242abb2b360e5efe35, type: 2}
+    - {fileID: 11400000, guid: 076c2b9f831eccd4c9ab6017d2293207, type: 2}
+    - {fileID: 11400000, guid: fb479b4730aefd5448699b9db26ccbc0, type: 2}
   horrorEventDialogue:
     dialoguePercentageChance: 20
     dialogue:
-    - {fileID: 11400000, guid: dfe56b20dcf9aeb46a6a7b88b3515c8c, type: 2}
-    - {fileID: 11400000, guid: ccb12ca42f39eff4196f2e35088f79cc, type: 2}
-    - {fileID: 11400000, guid: f4ae16a7d58db7f4abe0c6c9498cb3fa, type: 2}
-    - {fileID: 11400000, guid: 6352cd5ee2e954846a0f64e8c781ceb4, type: 2}
+    - {fileID: 11400000, guid: 7d5b208911425154bbbf55ad00eab730, type: 2}
+    - {fileID: 11400000, guid: b2eb9bdf3d7eff74a82a61d9b270b86b, type: 2}
+    - {fileID: 11400000, guid: 97ca715aff0ba9f4cb1937c8085ac75c, type: 2}
   leaveStudyDialogue:
     dialoguePercentageChance: 50
     dialogue:
-    - {fileID: 11400000, guid: 88f806f5492489b4da5db248619d9745, type: 2}
-    - {fileID: 11400000, guid: 0f6c18136de859a41ad1d00fefa49ef2, type: 2}
-    - {fileID: 11400000, guid: 74b86d0a1a7b84d42b9290a31e061b5e, type: 2}
+    - {fileID: 11400000, guid: 21f21ba5002761447ae73cc139772e1d, type: 2}
+    - {fileID: 11400000, guid: ce56e1adaf0679a4ab62ade7413bbbfa, type: 2}
+    - {fileID: 11400000, guid: acfdd112e6f4a0d4ba7d1a70df2fa31e, type: 2}
   leaveTutorialDialogue:
     dialoguePercentageChance: 20
     dialogue:
-    - {fileID: 11400000, guid: cd3b2786d68cf48408b82c81ae9a2a86, type: 2}
-    - {fileID: 11400000, guid: 0f7d68bab71ca764b93e6bf8ef7d2a02, type: 2}
-    - {fileID: 11400000, guid: 140d204b2444c4e42862171ade72d264, type: 2}
+    - {fileID: 11400000, guid: 9a7e969953cb60f49b8cc63ce89d6e4a, type: 2}
+    - {fileID: 11400000, guid: 5272710d1437da74f9e597ca0a8f0c94, type: 2}
+    - {fileID: 11400000, guid: 83912b62075d08c49989e34f97baf22c, type: 2}
 --- !u!1 &5071186367569005307
 GameObject:
   m_ObjectHideFlags: 0
@@ -12885,6 +13117,8 @@ MonoBehaviour:
   heldItem: {fileID: 1686071197657309528}
   grabItemTime: 0.4
   holdingPager: 0
+  PagerLight: {fileID: 7304151772317660627}
+  FPagerLight: {fileID: 645470746636896700}
   bobAmplitude: 0.03
   bobFrequency: 0.5
   bobResetSpeed: 5
@@ -12955,7 +13189,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: My Tasks
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aab64c1445f313243bc3493907a44169, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7226aee5706d2ce499c9961e3065c0db, type: 2}
   m_sharedMaterial: {fileID: -4367542782393052838, guid: aab64c1445f313243bc3493907a44169, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -13019,7 +13253,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 2.949439, w: 8.297425}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &5639572053536273316
@@ -13131,7 +13365,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.75}
+  m_AnchoredPosition: {x: 0, y: 0.434}
   m_SizeDelta: {x: 50, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2592036876314462211
@@ -13744,7 +13978,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5905757404754601491}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -13845,7 +14079,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aab64c1445f313243bc3493907a44169, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7226aee5706d2ce499c9961e3065c0db, type: 2}
   m_sharedMaterial: {fileID: -4367542782393052838, guid: aab64c1445f313243bc3493907a44169, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -13909,7 +14143,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -5.0048923, w: 4.1967664}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &6021405020201848737
@@ -14118,9 +14352,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: 'Throughout your shift, you will be expected to perform patient care tasks
-    every hour.
+    every hour. There will be penalties if tasks are not completed in time.
 
-    These tasks include-
+    These
+    tasks include-
 
 
 
@@ -14133,7 +14368,7 @@ MonoBehaviour:
 
     -Providing Food
 
-    -Checking Comfort
+    -Checking Patient Comfort
 
 '
   m_isRightToLeft: 0
@@ -14271,7 +14506,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aab64c1445f313243bc3493907a44169, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7226aee5706d2ce499c9961e3065c0db, type: 2}
   m_sharedMaterial: {fileID: -4367542782393052838, guid: aab64c1445f313243bc3493907a44169, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -14335,7 +14570,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -5.4248276, w: 4.1967664}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &6215753486325494192
@@ -14666,6 +14901,9 @@ MonoBehaviour:
 
     Please use the utmost caution
     when dealing with them.
+
+    The Imp has been reported to stalk around the basement,
+    so use caution when travelling through that area.
 
 
 
@@ -15152,7 +15390,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -0, y: 0.9}
+  m_AnchoredPosition: {x: -0, y: 0.633}
   m_SizeDelta: {x: 50, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1671087476063262796
@@ -15254,7 +15492,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -7.711849, y: 34.685627, z: -2.4932957, w: -40.47956}
+  m_margin: {x: -7.711849, y: 34.685627, z: -2.4932957, w: -27.37284}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -15371,6 +15609,111 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &7304151772317660627
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3697185189867363086}
+  - component: {fileID: 9173566066080749996}
+  - component: {fileID: 1082181967065378118}
+  - component: {fileID: 8567539739738893321}
+  m_Layer: 9
+  m_Name: Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3697185189867363086
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7304151772317660627}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.00000004656613, y: -0.000000052154064, z: -0.000000115484, w: 1}
+  m_LocalPosition: {x: 0, y: 0.0001810219, z: 0.00024199707}
+  m_LocalScale: {x: 0.0000373535, y: 0.000037353504, z: 0.000037353497}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4398402272666321470}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &9173566066080749996
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7304151772317660627}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &1082181967065378118
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7304151772317660627}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 257
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 109bf1b6285211d48bcf06685a40f9cb, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &8567539739738893321
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7304151772317660627}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7334078581198586083
 GameObject:
   m_ObjectHideFlags: 0
@@ -15557,7 +15900,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -0, y: 0.9}
+  m_AnchoredPosition: {x: -0, y: 0.574}
   m_SizeDelta: {x: 50, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1592767948856780272
@@ -15803,7 +16146,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Patient 3
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aab64c1445f313243bc3493907a44169, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7226aee5706d2ce499c9961e3065c0db, type: 2}
   m_sharedMaterial: {fileID: -4367542782393052838, guid: aab64c1445f313243bc3493907a44169, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -15867,7 +16210,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 2.7475233, w: 8.297425}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &7463345412548725691
@@ -16071,10 +16414,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\rThese can cause auditory hallucinations, Parnoid behavior and physical
-    manifestations of demonic forces in inanimate objects. These effects  can be
-    prevented or reduced by trying to look after the physical and mental well beings
-    of all the affected nearby humans"
+  m_text: "\rThese can cause auditory hallucinations, paranoid behaviour and physical
+    manifestations of demonic forces in inanimate objects. These effects can be prevented
+    or reduced by trying to look after the physical and mental well beings of all
+    the affected nearby humans."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ea87c580860f07b4c854b2875cc4e264, type: 2}
   m_sharedMaterial: {fileID: 8444577486798796994, guid: ea87c580860f07b4c854b2875cc4e264, type: 2}
@@ -16323,7 +16666,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.002209061, y: 0.0008614339}
+  m_AnchoredPosition: {x: 0.0067817303, y: 0.01750528}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &8434356461011589762
@@ -16681,9 +17024,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "As a nun of the church, you are expecting to perform the following personal
-    tasks every hour-\n\r\n-Praying\r\n-Cleaning\n\r\n-Replace Fuses -located in
-    basement storage room  \n\r\n-Fix Water Pipes- located near storage entrance
-    in basement\n\r\n-Fix Satellite-located upstairs in the back of the Chapel\r\n\r\n"
+    tasks every hour. There will be penalities if these are not completed-\n\r\n-Praying\r\n-Cleaning\n\r\n-Replace
+    Fuses- located in basement storage room  \n\r\n-Fix Water Pipes- located near
+    storage entrance in basement\n\r\n-Fix Satellite- located upstairs in the back
+    of the Chapel\r\n\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ea87c580860f07b4c854b2875cc4e264, type: 2}
   m_sharedMaterial: {fileID: 8444577486798796994, guid: ea87c580860f07b4c854b2875cc4e264, type: 2}
@@ -20462,6 +20806,10 @@ PrefabInstance:
       value: -38.92102
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 3b4518043f9e5b9439a8010d28f580d5, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 3b4518043f9e5b9439a8010d28f580d5, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: cce11dca6643c344f988f342cdddc503, type: 2}
@@ -23226,6 +23574,10 @@ PrefabInstance:
     - target: {fileID: -765133657712465383, guid: 10c1b9655d9f64544bb9d44d1088bce0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -6.927445
+      objectReference: {fileID: 0}
+    - target: {fileID: -715101866666799579, guid: 10c1b9655d9f64544bb9d44d1088bce0, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -712493758872910240, guid: 10c1b9655d9f64544bb9d44d1088bce0, type: 3}
       propertyPath: m_Layer
@@ -27765,6 +28117,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -6.927444
       objectReference: {fileID: 0}
+    - target: {fileID: -715101866666799579, guid: d820bb1db66ebbc4eae65b43185ba108, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -704769002624884635, guid: d820bb1db66ebbc4eae65b43185ba108, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -28096,6 +28452,10 @@ PrefabInstance:
     - target: {fileID: 855599904214515034, guid: d820bb1db66ebbc4eae65b43185ba108, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -4.1841784
+      objectReference: {fileID: 0}
+    - target: {fileID: 900031888775749814, guid: d820bb1db66ebbc4eae65b43185ba108, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 900031888775749814, guid: d820bb1db66ebbc4eae65b43185ba108, type: 3}
       propertyPath: m_DynamicOccludee
@@ -29812,6 +30172,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -3880828382746949779, guid: d820bb1db66ebbc4eae65b43185ba108, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3018128808214915810}
+    - targetCorrespondingSourceObject: {fileID: -3880828382746949779, guid: d820bb1db66ebbc4eae65b43185ba108, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3697185189867363086}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d820bb1db66ebbc4eae65b43185ba108, type: 3}
       insertIndex: -1
@@ -29863,6 +30226,9 @@ MonoBehaviour:
   pagerInterface: {fileID: 4294033640546177467}
   arms: {fileID: 2397263937806965464}
   pagerTooltip: {fileID: 0}
+  ActiveNotif: 0
+  PagerLight: {fileID: 7304151772317660627}
+  FPagerLight: {fileID: 645470746636896700}
 --- !u!114 &6688637818997208028
 MonoBehaviour:
   m_ObjectHideFlags: 0
