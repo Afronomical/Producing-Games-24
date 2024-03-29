@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -25,9 +26,11 @@ public class PlayerMovement : MonoBehaviour
     private float maxStamina;
     [Range(1, 100)]public float stamina = 50;
     [Range(1, 100)] public float staminaDrainSpeed = 25;
-    [Range(1, 100)] public float staminaRegenSpeed = 25;
+    [Range(1, 100)] public float staminaRegenSpeed = 15;
     [Range(1, 100)] public float staminaRequiredToSprint = 25;//The amount of stamina the player needs to Sprint again
     private bool unlimitedStaminaActivated;
+    public Image staminaBar;
+    private Coroutine recharge;
 
     [Header("Air Movement")]
     [Range(0.05f, 1.5f)] public float jumpHeight = 0.5f;
@@ -160,13 +163,31 @@ public class PlayerMovement : MonoBehaviour
         {
             move *= sprintSpeed;
             stamina -= staminaDrainSpeed * Time.deltaTime;
+
+            if (stamina < 0) stamina = 0;
+            staminaBar.fillAmount = stamina / maxStamina; // Allow stamina bar drain to not go below 0
+
+            if (recharge != null) StopCoroutine(recharge);
+            recharge = StartCoroutine(rechargeStamina());
         }
+        
         else move *= walkSpeed;  // Basic movement
 
         return move;
     }
 
+    private IEnumerator rechargeStamina()
+    {
+        yield return new WaitForSeconds(1f);
 
+        while(stamina < maxStamina)
+        {
+            stamina += staminaRegenSpeed / 15f;
+            if (stamina > maxStamina) stamina = maxStamina;
+            staminaBar.fillAmount = stamina / maxStamina;
+            yield return new WaitForSeconds(.1f); // Allow the stamina to recharge after sprint
+        }
+    }
 
     private void Jump()
     {

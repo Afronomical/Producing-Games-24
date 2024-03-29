@@ -12,7 +12,7 @@ public class Flashlight : MonoBehaviour
     public GameObject clipboardFlashlight;
     public Light light;
     public SoundEffect toggleSound;
-
+    bool isFlashlightON = false;
     public float[] intensities;
     
     

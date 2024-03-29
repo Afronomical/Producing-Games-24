@@ -14,7 +14,7 @@ public class PagerController : MonoBehaviour
     private void Start()
     {
         offset = pagerInterface.transform.localPosition;
-        pagerTooltip.text = "Hold Q to switch to pager!";
+        //pagerTooltip.text = "Hold Q to switch to pager!";
         pagerTooltip.enabled = false;
     }
 
