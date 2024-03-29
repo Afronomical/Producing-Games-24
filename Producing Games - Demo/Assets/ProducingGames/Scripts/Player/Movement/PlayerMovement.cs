@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     [Range(1, 100)] public float staminaRegenSpeed = 25;
     [Range(1, 100)] public float staminaRequiredToSprint = 25;//The amount of stamina the player needs to Sprint again
     private bool unlimitedStaminaActivated;
+    public Image staminaBar;
 
     [Header("Air Movement")]
     [Range(0.05f, 1.5f)] public float jumpHeight = 0.5f;
@@ -160,6 +161,9 @@ public class PlayerMovement : MonoBehaviour
         {
             move *= sprintSpeed;
             stamina -= staminaDrainSpeed * Time.deltaTime;
+
+            if (stamina < 0) stamina = 0;
+            staminaBar.fillAmount = stamina / maxStamina;
         }
         else move *= walkSpeed;  // Basic movement
 
