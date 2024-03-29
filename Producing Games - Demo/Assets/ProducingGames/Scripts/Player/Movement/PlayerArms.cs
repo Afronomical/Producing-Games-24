@@ -107,6 +107,33 @@ public class PlayerArms : MonoBehaviour
             }
         }
 
+
+        if (pickUpItem.currentLocker != null || pickUpItem.currentlyInspecting != null)
+        {
+            leftAnimator.SetBool("Interacting", true);
+            rightAnimator.SetBool("Interacting", true);
+
+            pager.GetComponent<SkinnedMeshRenderer>().enabled = false;
+            pagerScreen.GetComponent<Canvas>().enabled = false;
+            if (FPagerLight.activeSelf)
+            {
+                PagerLight.SetActive(false);
+                FPagerLight.SetActive(true);
+            }
+            flashlight.gameObject.SetActive(false);
+            clipboard.SetActive(false);
+
+            heldItem.SetActive(false);
+            syringe.SetActive(false);
+            clipboardFlashlight.SetActive(false);
+
+        }
+        else if (pickUpItem.currentLocker == null && pickUpItem.currentlyInspecting == null)
+        {
+            leftAnimator.SetBool("Interacting", false);
+            rightAnimator.SetBool("Interacting", false);
+        }
+
         ArmBobbing();
     }
 
