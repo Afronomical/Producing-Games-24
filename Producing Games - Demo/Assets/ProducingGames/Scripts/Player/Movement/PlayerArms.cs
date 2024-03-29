@@ -12,13 +12,13 @@ using UnityEngine;
 
 public class PlayerArms : MonoBehaviour
 {
-    public enum leftArmStates { Flashlight, Pager, Clipboard};
+    public enum leftArmStates { Flashlight, Pager, Clipboard, Book};
     public enum rightArmStates { Idle, Object, Clipboard, Injection };
 
     public Transform playerBody;
     private PlayerMovement playerMovement;
     private CharacterController playerController;
-    public GameObject flashlight, pager, pagerScreen, syringe;
+    public GameObject flashlight, pager, pagerScreen, syringe, book;
     public GameObject clipboard, clipboardFlashlight;
     private PickUpItem pickUpItem;
     public Animator leftAnimator, rightAnimator;
@@ -30,6 +30,7 @@ public class PlayerArms : MonoBehaviour
     [Range(0.01f, 1f)] public float grabItemTime = 0.4f;
 
     private bool holdingClipboard;
+    private bool holdingBook;
     private bool holdingObject;
     [HideInInspector] public bool holdingPager;
     public GameObject PagerLight;
@@ -122,6 +123,7 @@ public class PlayerArms : MonoBehaviour
             }
             flashlight.gameObject.SetActive(false);
             clipboard.SetActive(false);
+            book.SetActive(false);
 
             heldItem.SetActive(false);
             syringe.SetActive(false);
@@ -156,7 +158,21 @@ public class PlayerArms : MonoBehaviour
             }
             flashlight.gameObject.SetActive(false);
             clipboard.gameObject.SetActive(true);
+            book.SetActive(false);
             PlayerVoiceController.instance.PlayDialogue(PlayerVoiceController.instance.checklistDialogue);
+        }
+        else if (info.IsName("BookUpAnim"))
+        {
+            pager.GetComponent<SkinnedMeshRenderer>().enabled = false;
+            pagerScreen.GetComponent<Canvas>().enabled = false;
+            if (FPagerLight.activeSelf)
+            {
+                PagerLight.SetActive(false);
+                FPagerLight.SetActive(true);
+            }
+            flashlight.gameObject.SetActive(false);
+            clipboard.SetActive(false);
+            book.SetActive(true);
         }
         else if (info.IsName("PagerUp"))
         {
@@ -169,6 +185,7 @@ public class PlayerArms : MonoBehaviour
             }
             flashlight.gameObject.SetActive(false);
             clipboard.SetActive(false);
+            book.SetActive(false);
         }
         else if (info.IsName("FlashlightUp"))
         {
@@ -181,6 +198,7 @@ public class PlayerArms : MonoBehaviour
                 PagerLight.SetActive(false);
                 FPagerLight.SetActive(true);
             }
+            book.SetActive(false);
         }
         else if (info.IsName("Default"))
         {
@@ -188,6 +206,7 @@ public class PlayerArms : MonoBehaviour
             pagerScreen.GetComponent<Canvas>().enabled = false;
             flashlight.gameObject.SetActive(false);
             clipboard.SetActive(false);
+            book.SetActive(false);
             if (PagerLight.activeSelf)
             {
                 PagerLight.SetActive(false);
@@ -284,6 +303,20 @@ public class PlayerArms : MonoBehaviour
         leftAnimator.SetBool("Checklist", false);
         rightAnimator.SetBool("Checklist", false);
         holdingClipboard = false;
+    }
+
+    public void HoldBook()  // Pick up the book
+    {
+        leftAnimator.SetBool("Book", true);
+        rightAnimator.SetBool("Checklist", true);
+        holdingBook = true;
+    }
+
+    public void DropBook()  // Put down the book
+    {
+        leftAnimator.SetBool("Book", false);
+        rightAnimator.SetBool("Checklist", false);
+        holdingBook = false;
     }
 
     public void GiveInjection()  // Pick up the clipboard
