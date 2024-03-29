@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static HidingCutScene;
 
 public class PickUpItem : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class PickUpItem : MonoBehaviour
             currentlyInspecting.StopInspecting();
             currentlyInspecting = null;
         }
-        if (currentLocker != null)
+        if (currentLocker != null && currentLocker.playerHidingStates == PlayerHidingStates.inside)
         {
             currentLocker.ExitInput();
             currentLocker = null;
