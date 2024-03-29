@@ -12,8 +12,8 @@ using UnityEngine;
 
 public class PlayerArms : MonoBehaviour
 {
-    private enum leftArmStates { Flashlight, Pager, Clipboard};
-    private enum rightArmStates { Idle, Object, Clipboard, Injection };
+    public enum leftArmStates { Flashlight, Pager, Clipboard};
+    public enum rightArmStates { Idle, Object, Clipboard, Injection };
 
     public Transform playerBody;
     private PlayerMovement playerMovement;
@@ -24,8 +24,8 @@ public class PlayerArms : MonoBehaviour
     public Animator leftAnimator, rightAnimator;
     public GameObject heldItem;
 
-    private leftArmStates leftArmState;
-    private rightArmStates rightArmState;
+    [HideInInspector] public leftArmStates leftArmState;
+    [HideInInspector] public rightArmStates rightArmState;
 
     [Range(0.01f, 1f)] public float grabItemTime = 0.4f;
 
