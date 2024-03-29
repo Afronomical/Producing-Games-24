@@ -14,14 +14,13 @@ public class DemonBook : MonoBehaviour
     private float turnPageTimer;
     public SoundEffect pageSound;
     public TMP_Text bookTooltip;
-    private PlayerArms arms;
+    public PlayerArms arms;
 
     void Start()
     {
         pageArray[0].SetActive(true);
         bookTooltip.enabled = true;
         gameObject.SetActive(false);
-        arms = GameManager.Instance.player.GetComponent<PickUpItem>().arms;
     }
 
     private void Update()

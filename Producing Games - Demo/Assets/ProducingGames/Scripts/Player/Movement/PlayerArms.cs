@@ -52,6 +52,7 @@ public class PlayerArms : MonoBehaviour
         playerMovement = playerBody.GetComponent<PlayerMovement>();
         playerController = playerBody.GetComponent<CharacterController>();
         pickUpItem = playerBody.GetComponent<PickUpItem>();
+        book.SetActive(true);
     }
 
 
@@ -161,7 +162,7 @@ public class PlayerArms : MonoBehaviour
             book.SetActive(false);
             PlayerVoiceController.instance.PlayDialogue(PlayerVoiceController.instance.checklistDialogue);
         }
-        else if (info.IsName("BookUpAnim"))
+        else if (info.IsName("BookUpAnim") || info.IsName("BookIdleAnim"))
         {
             pager.GetComponent<SkinnedMeshRenderer>().enabled = false;
             pagerScreen.GetComponent<Canvas>().enabled = false;

@@ -9625,7 +9625,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1174917964530086254
 Transform:
   m_ObjectHideFlags: 0
@@ -9634,9 +9634,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3198977549673603846}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.08529803, y: -0.0026031435, z: -0.000045388937, w: 0.9963521}
-  m_LocalPosition: {x: 0.10962694, y: 1.4151021, z: -0.27788505}
-  m_LocalScale: {x: 0.34130353, y: 0.3413035, z: 0.34130353}
+  m_LocalRotation: {x: 0.05768384, y: -0.5689859, z: -0.7090911, w: -0.41245311}
+  m_LocalPosition: {x: -0.00202, y: -0.00308, z: -0.00115}
+  m_LocalScale: {x: 0.0034130358, y: 0.0034130355, z: 0.0034130367}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9149154382023118104}
@@ -9648,8 +9648,8 @@ Transform:
   - {fileID: 2202486552882434755}
   - {fileID: 2597050707425046571}
   - {fileID: 1786311737608402423}
-  m_Father: {fileID: 8116750730455163576}
-  m_LocalEulerAnglesHint: {x: 9.786, y: -0.302, z: -0.031}
+  m_Father: {fileID: 8578830944475438566}
+  m_LocalEulerAnglesHint: {x: -58.706, y: 48.254, z: 91.354}
 --- !u!114 &7530693451369504078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9679,6 +9679,7 @@ MonoBehaviour:
   turnPageDelay: 0.3
   pageSound: {fileID: 11400000, guid: 8cb31542d5e97794e8367b32073cdf3e, type: 2}
   bookTooltip: {fileID: 0}
+  arms: {fileID: 2397263937806965464}
 --- !u!1 &3232512393834769015
 GameObject:
   m_ObjectHideFlags: 0
@@ -13110,11 +13111,14 @@ MonoBehaviour:
   pager: {fileID: 8917946525867851784}
   pagerScreen: {fileID: 4294033640546177467}
   syringe: {fileID: 5646856249909299674}
+  book: {fileID: 3198977549673603846}
   clipboard: {fileID: 5905757404754601491}
   clipboardFlashlight: {fileID: 1311237055900740873}
   leftAnimator: {fileID: 4995820011611785559}
   rightAnimator: {fileID: 7385205961216807932}
   heldItem: {fileID: 1686071197657309528}
+  leftArmState: 0
+  rightArmState: 0
   grabItemTime: 0.4
   holdingPager: 0
   PagerLight: {fileID: 7304151772317660627}
@@ -30160,15 +30164,15 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: d820bb1db66ebbc4eae65b43185ba108, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1174917964530086254}
     - targetCorrespondingSourceObject: {fileID: -4819471284269699180, guid: d820bb1db66ebbc4eae65b43185ba108, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8329594560224302792}
     - targetCorrespondingSourceObject: {fileID: -9214111953884604235, guid: d820bb1db66ebbc4eae65b43185ba108, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1956252223846578851}
+    - targetCorrespondingSourceObject: {fileID: -9214111953884604235, guid: d820bb1db66ebbc4eae65b43185ba108, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1174917964530086254}
     - targetCorrespondingSourceObject: {fileID: -3880828382746949779, guid: d820bb1db66ebbc4eae65b43185ba108, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3018128808214915810}

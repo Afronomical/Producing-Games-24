@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SatelliteBox : InspectableObject
 {
@@ -11,6 +12,7 @@ public class SatelliteBox : InspectableObject
     [SerializeField] public GameObject cursor;
     [SerializeField] public List<GameObject> wires, wireEnds;
     [SerializeField] public Material[] materials;
+    [SerializeField] public Sprite[] images;
     private int activeWire;
     [SerializeField] public bool complete;
 
@@ -51,10 +53,12 @@ public class SatelliteBox : InspectableObject
             currentWire.colour = (Colours)i;
             w[rand].GetComponent<Renderer>().material = materials[i];
             currentWire.lineRenderer.material = materials[i];
+            w[rand].transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = images[i];
             w.Remove(w[rand]);
 
             rand = Random.Range(0, e.Count);
             e[rand].GetComponent<Renderer>().material = materials[i];
+            e[rand].transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = images[i];
             currentWire.wireEnd = e[rand];
             e.Remove(e[rand]);
         }
@@ -67,10 +71,13 @@ public class SatelliteBox : InspectableObject
 
     public void Select()
     {
+        Debug.Log("Select");
         foreach (GameObject obj in cursor.GetComponent<MinigameCursor>().collidingObjects)
         {
+            Debug.Log(obj);
             if (wires.Contains(obj) && !obj.GetComponent<SatelliteWire>().connected)
             {
+                Debug.Log("Selected " + obj);
                 activeWire = wires.IndexOf(obj);
                 obj.GetComponent<SatelliteWire>().Hold();
                 break;
