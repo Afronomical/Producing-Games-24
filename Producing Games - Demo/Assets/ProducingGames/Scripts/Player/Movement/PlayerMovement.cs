@@ -163,7 +163,7 @@ public class PlayerMovement : MonoBehaviour
             stamina -= staminaDrainSpeed * Time.deltaTime;
 
             if (stamina < 0) stamina = 0;
-            staminaBar.fillAmount = stamina / maxStamina;
+            staminaBar.fillAmount = stamina / maxStamina; // Allow stamina bar drain to not go below 0
         }
         else move *= walkSpeed;  // Basic movement
 
