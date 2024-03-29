@@ -48,6 +48,7 @@ public class CinematicMangerScript : MonoBehaviour
         playerin=playerOb.GetComponent<PlayerInput>();
         playerCont = playerOb.GetComponent<CharacterController>();
         flashlight = playerOb.GetComponentInChildren<PlayerArms>().flashlight;
+      
         
     }
     public void FixedUpdate()
@@ -72,14 +73,16 @@ public class CinematicMangerScript : MonoBehaviour
             playerin.enabled = false;
             playerCont.enabled = false;
             flashlight.SetActive(false);
+            print("cinestart");
         }
-        
+        //print(CinematicTime);
         if (CinematicTime <= 0)
         {
             print("start end hour");
             flashlight.SetActive(true);
             if (exorcismStarted)
             {
+                print("start fail or win state");
                 if (exorcismFailed)
                 {
                     GameManager.Instance.exorcismFailed = true;
@@ -118,18 +121,31 @@ public class CinematicMangerScript : MonoBehaviour
     }
     public void StartFailedExorcism()
     {
-        CinematicTime = failedExorcismCinematicDuration;
-        print("play basement cutscene");
+       
+        print("play fail cutscene");
+        if (exorcismStarted == false)
+        {
+            CinematicTime = failedExorcismCinematicDuration;
         failedExorcismCinematic.Play();
+        }
+        
         cineStart = true;
         exorcismStarted = true;
+        exorcismFailed = true;
     }
     public void StartExorcismWin()
     {
-        CinematicTime = exorcismWinCinematicDuration;
-        print("play basement cutscene");
-        exorcismWinCinematic.Play();
+        
+        print("play succ cutscene");
+        if(exorcismStarted == false)
+        {
+            CinematicTime = exorcismWinCinematicDuration;
+            exorcismWinCinematic.Play();
+
+        }
+        
         cineStart = true;
         exorcismStarted = true;
+        exorcismSuccess= true;
     }
 }

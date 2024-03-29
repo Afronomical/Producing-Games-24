@@ -13,6 +13,7 @@ TagManager:
   - Carpet
   - Crypt Floor
   - Hiding
+  - CinematicManager
   layers:
   - Default
   - TransparentFX

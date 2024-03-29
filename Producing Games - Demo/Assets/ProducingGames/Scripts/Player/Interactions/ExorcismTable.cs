@@ -13,7 +13,7 @@ public class ExorcismTable : MonoBehaviour
 {
     [SerializeField] private float radius = 2.0f;
     [SerializeField] private List<GameObject> playerObjects = new();
-    [SerializeField] private List<Transform> dropLocations = new(); 
+    [SerializeField] private List<Transform> dropLocations = new();
     [ShowOnly] public List<GameObject> requiredObjects = new();
     public SoundEffect confirmSound;
     private bool b_fail_playing = false;
@@ -26,21 +26,23 @@ public class ExorcismTable : MonoBehaviour
 
     private void Start()
     {
+
         AcquireDemonObjects();
+        cinematicManagerScript = GameObject.FindGameObjectWithTag("CinematicManager").GetComponent<CinematicMangerScript>();
     }
 
     private void Update()
     {
-       if(tableAvailable)
+        if (tableAvailable)
 
         {
             if (playerItemAmount < 3)
                 CheckForPlayerItems();
             else if (playerItemAmount == 3)
             {
-                if (DoListsMatch(playerObjects, requiredObjects))
+                if (DoListsMatch(requiredObjects, playerObjects))
                     CompleteExorcism();
-                else if (!DoListsMatch(playerObjects, requiredObjects))
+                else if (!DoListsMatch(requiredObjects, playerObjects))
                     FailExorcism();
             }
         }
@@ -80,10 +82,22 @@ public class ExorcismTable : MonoBehaviour
         if (RequiredObjects.Count != PlayerObjects.Count)
             return false;
 
-        for (int i = 0; i < RequiredObjects.Count; i++)
+        for (int i = 0; i < playerObjects.Count; i++)
         {
-          if(playerObjects[i].GetComponent<InteractableTemplate>().collectible.objectName != requiredObjects[i].GetComponent<InteractableTemplate>().collectible.objectName)
-           
+            string playerObjectName = playerObjects[i].GetComponent<InteractableTemplate>().collectible.objectName;
+            bool matchFound = false;    
+
+            foreach(GameObject requiredObj in requiredObjects)
+            {
+                string requiredObjName = requiredObj.GetComponent<InteractableTemplate>().collectible.objectName;
+                if(playerObjectName == requiredObjName)
+                {
+                    matchFound = true;
+                    Debug.Log("Found a match");
+                    break;
+                }
+            }
+            if (!matchFound)
                 return false;
         }
 
@@ -93,11 +107,11 @@ public class ExorcismTable : MonoBehaviour
     public void FailExorcism()
     {
         Debug.Log("Failed Exorcism");
-        
+
         cinematicManagerScript.StartFailedExorcism();
         //moved below Code to cinematics manager to account for cinematic length
-       // GameManager.Instance.exorcismFailed = true;
-       // GameManager.Instance.EndGame(false);
+        // GameManager.Instance.exorcismFailed = true;
+        // GameManager.Instance.EndGame(false);
         //enable rage mode here. or game end 
 
     }
@@ -121,7 +135,7 @@ public class ExorcismTable : MonoBehaviour
         //set task as complete here. win screen or demon scream etc 
         GameManager.Instance.demon.GetComponent<DemonCharacter>().ChangeDemonState(DemonCharacter.DemonStates.Exorcised);
         cinematicManagerScript.StartExorcismWin();//moved  GameManager.Instance.EndGame(true); moved to Cinematic manager script to account for cinematic length.
-        
+
     }
 
     /// <summary>
@@ -139,7 +153,7 @@ public class ExorcismTable : MonoBehaviour
                 if (collider.gameObject.GetComponent<InteractableTemplate>().isExorcismObject)
                 {
 
-                    if(collider.gameObject.GetComponent<InteractableTemplate>().hasBeenPlaced == false)
+                    if (collider.gameObject.GetComponent<InteractableTemplate>().hasBeenPlaced == false)
                     {
                         //play sound showing that this item is an exorcism object 
                         TooltipManager.Instance.ShowTooltip("Press C to confirm drop", null);
@@ -162,28 +176,28 @@ public class ExorcismTable : MonoBehaviour
 
                         }
                     }
-                    
-                    
+
+
 
                 }
                 else
                 {
                     //AudioManager.instance.PlaySound(failSound, this.gameObject.transform);
                 }
-               
-               
+
+
             }
         }
     }
 
     void AcquireDemonObjects()
     {
-        foreach(var item in NPCManager.Instance.ChosenDemon.itemsForExorcism)
+        foreach (var item in NPCManager.Instance.ChosenDemon.itemsForExorcism)
         {
             requiredObjects.Add(item.gameObject);
             //Debug.Log(item.gameObject + "has been added to required list ");
         }
-        
+
     }
 
 
