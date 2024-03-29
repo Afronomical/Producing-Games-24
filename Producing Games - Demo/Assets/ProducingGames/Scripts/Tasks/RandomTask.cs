@@ -18,5 +18,7 @@ public class RandomTask : ScriptableObject
 
     public InteractiveObject itemToGive;
 
+    public SoundEffect startTaskSound, endTaskSound;
+
     public InteractiveObject tooltipPrompt;
 }

@@ -22,5 +22,7 @@ public class HourlyTask : ScriptableObject
 
     public InteractiveObject tooltipPrompt;
 
+    public SoundEffect startTaskSound, endTaskSound;
+
     public bool genericTask;
 }
