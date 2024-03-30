@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using static DemonCharacter;
 using static DoorInteractable;
 using static ObjectiveTracker;
 
@@ -10,6 +11,9 @@ public class Tutorialmanager : MonoBehaviour
     public ObjectiveTracker tracker;
     public GameObject objectiveTracker;
 
+    public GameObject demon;
+    public DemonCharacter dCharacter;
+
     public bool startshift, demonCanRage, nexthour, demonbook;
 
     public DoorInteractable dManager1, dManager2, dManager3, dManagerStorage, dManagerHall;
@@ -17,17 +21,22 @@ public class Tutorialmanager : MonoBehaviour
 
     public GameObject mainDoorblock,patient1doorblock,patient2doorblock,patient3doorblock,storagedoorblock,halldoorblock;
 
-   // public bool Task1 = false,Task2 = false, Task3 = false, Task4 = false, Task5 = false, Task6 = false, Task7 = false, Task8= false, Task9 = false, Task10 = false, Task11 = false, Task12 = false, Task13 = false;
-    public void Start()
+    // public bool Task1 = false,Task2 = false, Task3 = false, Task4 = false, Task5 = false, Task6 = false, Task7 = false, Task8= false, Task9 = false, Task10 = false, Task11 = false, Task12 = false, Task13 = false;
+    private void Awake()
     {
         dManager1 = paient1Door.GetComponent<DoorInteractable>();
         dManager2 = paient2Door.GetComponent<DoorInteractable>();
         dManager3 = paient3Door.GetComponent<DoorInteractable>();
         dManagerStorage = storageDoor.GetComponent<DoorInteractable>();
         dManagerHall = mainHallDoor.GetComponent<DoorInteractable>();
+        dCharacter = demon.GetComponent<DemonCharacter>();
 
-        
         tracker = objectiveTracker.GetComponent<ObjectiveTracker>();
+    }
+
+    public void Start()
+    {
+        
 
         OnMedicineTask();
     }
@@ -92,18 +101,20 @@ public class Tutorialmanager : MonoBehaviour
     }
     public void OnRageMode()
     {
+        
         if (demonCanRage)
         {
-
+            dCharacter.ChangeDemonState(DemonStates.Chase);
+            dManager3.ChangeDoorState(DoorStates.Open);
+            patient3doorblock.SetActive(false);
+            demon.SetActive(true);
+        dManager1.ChangeDoorState(DoorStates.Shut);
+        dManager2.ChangeDoorState(DoorStates.Shut);
         
-        // Task7 = true;
-       // dManager1.ChangeDoorState(DoorStates.Shut);
-       // dManager2.ChangeDoorState(DoorStates.Shut);
-        //dManager3.ChangeDoorState(DoorStates.Shut);
-       // dManagerStorage.ChangeDoorState(DoorStates.Shut);
+        dManagerStorage.ChangeDoorState(DoorStates.Shut);
         patient1doorblock.SetActive(true);
         patient2doorblock.SetActive(true);
-        patient3doorblock.SetActive(true);
+        
         storagedoorblock.SetActive(true);
         tracker.AddObjective("Get back to Study", objectiveTypes.Main);
         }
