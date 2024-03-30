@@ -20,17 +20,17 @@ public class FuseBox : InspectableObject
     [Header("Correct/Incorrect Config")]
     public Material correctMaterial;
     public Material incorrectMaterial;
-    public Material correctOffMaterial;
-    public Material incorrectOffMaterial;
+    
     
     //Lights Object Reference
-    public GameObject correctObject;
-    public GameObject incorrectObject;
+    public GameObject onOffLightsObject;
+    
 
 
    
     public override void Interact()
     {
+        mainCam = Camera.main;
         base.Interact();
         Cursor.lockState = CursorLockMode.None;
         ToggleBoxCollider(false);
@@ -63,8 +63,8 @@ public class FuseBox : InspectableObject
     {
         complete = false;
         LightManager.Instance.AllLightToggle(false);
-        correctObject.GetComponent<Renderer>().material = correctOffMaterial;
-        incorrectObject.GetComponent<Renderer>().material = incorrectMaterial;
+        onOffLightsObject.GetComponent<Renderer>().material = incorrectMaterial;
+        
         ToggleBoxCollider(true);
 
         List<GameObject> w = new List<GameObject>(fuses);
@@ -137,8 +137,7 @@ public class FuseBox : InspectableObject
                         {
                             complete = true;
                             LightManager.Instance.AllLightToggle(true);
-                            correctObject.GetComponent<Renderer>().material = correctMaterial;
-                            incorrectObject.GetComponent<Renderer>().material = incorrectOffMaterial;
+                            onOffLightsObject.GetComponent<Renderer>().material = correctMaterial;
                             ToggleBoxCollider(false);
                             PatientTaskManager.instance.CheckTaskConditions(gameObject);
                             StopUsing();
