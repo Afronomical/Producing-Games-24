@@ -14,6 +14,7 @@ TagManager:
   - Crypt Floor
   - Hiding
   - CinematicManager
+  - TutorialManager
   layers:
   - Default
   - TransparentFX

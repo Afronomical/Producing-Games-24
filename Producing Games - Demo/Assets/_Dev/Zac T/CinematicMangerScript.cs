@@ -13,7 +13,7 @@ public class CinematicMangerScript : MonoBehaviour
     [Header("Current Cinematic")]
     private float basementCinematicDuration=6.48f;
     private float hallwayCinematicDuration = 4f;
-    private float failedExorcismCinematicDuration = 4f;
+    private float failedExorcismCinematicDuration = 7f;
     private float exorcismWinCinematicDuration = 18.35f;
     private float CinematicTime;
     private bool cineStart;
