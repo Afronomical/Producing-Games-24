@@ -104,13 +104,12 @@ public class Tutorialmanager : MonoBehaviour
         
         if (demonCanRage)
         {
-            dCharacter.ChangeDemonState(DemonStates.Chase);
+            dCharacter.SetInRageMode(true); 
             dManager3.ChangeDoorState(DoorStates.Open);
-            patient3doorblock.SetActive(false);
-            demon.SetActive(true);
+            patient3doorblock.SetActive(false);         
         dManager1.ChangeDoorState(DoorStates.Shut);
         dManager2.ChangeDoorState(DoorStates.Shut);
-        
+        demon.SetActive(true);
         dManagerStorage.ChangeDoorState(DoorStates.Shut);
         patient1doorblock.SetActive(true);
         patient2doorblock.SetActive(true);
