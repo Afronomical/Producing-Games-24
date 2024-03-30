@@ -24,17 +24,17 @@ public class TutorialTriggerboxevents : MonoBehaviour
                 TutorialEvent.Invoke();
                 deactivate= true;
             }
-            else if (demonrage&&demonragereq)
+             if (demonrage&&demonragereq)
             {
                 TutorialEvent.Invoke();
                 deactivate = true;
             }
-            else if (nxtshift && nextshiftreq)
+             if (nxtshift && nextshiftreq)
             {
                 TutorialEvent.Invoke();
                 deactivate = true;
             }
-            else if (startshift && startshiftreq)
+             if (startshift && startshiftreq)
             {
                 TutorialEvent.Invoke();
                 deactivate = true;
