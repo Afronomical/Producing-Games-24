@@ -32,5 +32,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/ProducingGames/Scenes/Tutorial.unity
     guid: 4ea4073b32435d747a70d2868b29586f
+  - enabled: 1
+    path: Assets/_Dev/Adam  H/AdamsScene.unity
+    guid: 32e5a5c06c6b7394880c88dfb3875335
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
