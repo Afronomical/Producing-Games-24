@@ -11,15 +11,23 @@ public class Tutorialmanager : MonoBehaviour
     public ObjectiveTracker tracker;
     public GameObject objectiveTracker;
 
+    public GameManager manager;
+    public GameObject gameManager;
+
     public GameObject demon;
     public DemonCharacter dCharacter;
 
-    public bool startshift, demonCanRage, nexthour, demonbook;
+    public bool startshift = false, demonCanRage, nexthour, demonbook;
 
     public DoorInteractable dManager1, dManager2, dManager3, dManagerStorage, dManagerHall;
     public GameObject paient1Door, paient2Door, paient3Door, storageDoor, mainHallDoor;
 
     public GameObject mainDoorblock,patient1doorblock,patient2doorblock,patient3doorblock,storagedoorblock,halldoorblock;
+
+    public bool clipBoardChecked = false;
+    public bool shiftStarted = false;
+    public bool medsCollected = false;
+    public bool gotBacktoStudy = false;
 
     // public bool Task1 = false,Task2 = false, Task3 = false, Task4 = false, Task5 = false, Task6 = false, Task7 = false, Task8= false, Task9 = false, Task10 = false, Task11 = false, Task12 = false, Task13 = false;
     private void Awake()
@@ -41,15 +49,29 @@ public class Tutorialmanager : MonoBehaviour
         OnMedicineTask();
     }
 
-    public void FixedUpdate()
+    public void Update()
     {
-        
+        if ( Input.GetKeyDown(KeyCode.F) && shiftStarted ) 
+        {
+            onCollectMedicine();
+        }
+
+        if (manager.currentHour == 2)
+        {
+            mainDoorblock.SetActive(true);
+            demon.SetActive(false);
+            gotBacktoStudy = true;
+        }
+
+        if (gotBacktoStudy)
+        {
+            
+            tracker.AddObjective("Find the demon book", objectiveTypes.Main);
+            gotBacktoStudy = false;
+        }
+       
         // tracker.DisplayObjectives();
     }
-
-    
-
-
 
 
     public void OnMedicineTask()
@@ -60,25 +82,35 @@ public class Tutorialmanager : MonoBehaviour
     public void onMedicineBuy()
     {
 
-       // Task1 = true;
-       startshift = true;
+        // Task1 = true;
+        startshift = true;
         mainDoorblock.SetActive(false);
         tracker.AddObjective("Start Shift", objectiveTypes.Main);
     }
     public void OnShiftStartTask()
     {
         //Task2 = true;
+        shiftStarted = true;
+        tracker.AddObjective("Check patient 1 tasks on clipbaord", objectiveTypes.Main);
+       
+    }
 
+    public void onCollectMedicine()
+    {
         storagedoorblock.SetActive(false);
-        tracker.AddObjective("Collect Medicine from Storage", objectiveTypes.Main);
+        tracker.AddObjective("Collect medicine from storage", objectiveTypes.Main);
     }
     public void OnPatient1Task()
     {
         // Task3 = true;
         // dManagerStorage.ChangeDoorState(DoorStates.Shut);
-        patient1doorblock.SetActive(false);
-        tracker.AddObjective("Find and Give patient 1 required medication", objectiveTypes.Main);
-
+        
+        
+        
+            
+            tracker.AddObjective("Find and Give patient 1 required medication", objectiveTypes.Main);
+            patient1doorblock.SetActive(false);
+        
     }
     public void OnCollectMedicine()
     {
