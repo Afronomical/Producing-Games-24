@@ -124,12 +124,12 @@ public class EscortedState : PatientStateBaseClass
 
                 shouldFollow = false;
 
-                //if (character.GetPathLength(character.agent.path) == 0.0f)
-                //    character.ChangePatientState(PatientCharacter.PatientStates.Bed);
+                if (character.GetPathLength(character.agent.path) == 0.0f)
+                    character.ChangePatientState(PatientCharacter.PatientStates.Bed);
 
                 // INFO: Switches to bed state once patient gets close enough to the bed
-                if (character.agent.remainingDistance < 0.1f)
-                    character.ChangePatientState(PatientCharacter.PatientStates.Bed);
+                //if (character.agent.remainingDistance < 0.1f)
+                //    character.ChangePatientState(PatientCharacter.PatientStates.Bed);
             }
         }
     }
