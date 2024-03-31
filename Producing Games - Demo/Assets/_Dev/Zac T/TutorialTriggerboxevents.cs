@@ -7,11 +7,11 @@ using UnityEngine.Events;
 public class TutorialTriggerboxevents : MonoBehaviour
 {
     public UnityEvent TutorialEvent;
-    public GameObject tutorialManager;
-    public Tutorialmanager tutmanagerScript;
+    //public GameObject tutorialManager;
+    //public Tutorialmanager tutmanagerScript;
 
     public GameObject triggerbox;
-    public bool startshift, deactivate, demonbook,demonrage,nxtshift;
+    public bool startshift, deactivate, demonbook, demonrage, nxtshift;
     public static bool startshiftreq,demonbookreq, demonragereq, nextshiftreq;
    // public GameManager manager;
    // public GameObject gameManager;
@@ -47,8 +47,8 @@ public class TutorialTriggerboxevents : MonoBehaviour
     public void Start()
     {
         triggerbox = this.gameObject;
-        tutorialManager = GameObject.FindGameObjectWithTag("TutorialManager");
-        tutmanagerScript = tutorialManager.GetComponent<Tutorialmanager>();
+        //tutorialManager = GameObject.FindGameObjectWithTag("TutorialManager");
+        //tutmanagerScript = tutorialManager.GetComponent<Tutorialmanager>();
        // manager = gameManager.GetComponent<GameManager>();
     }
     public void Update()
@@ -57,15 +57,15 @@ public class TutorialTriggerboxevents : MonoBehaviour
         {
             triggerbox.SetActive(false);
         }
-        if (tutmanagerScript.startshift)
+        if (startshift)
         {
             startshiftreq = true;
         }
-        if (tutmanagerScript.demonCanRage)
+        if (Tutorialmanager.instance.demonCanRage)
         {
             demonragereq = true;
         }
-        if (tutmanagerScript.demonbook)
+        if (demonbook)
         {
             demonbookreq= true;
         }

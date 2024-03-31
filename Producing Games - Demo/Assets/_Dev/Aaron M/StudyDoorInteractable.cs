@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class StudyDoorInteractable : InteractableTemplate
 {
@@ -13,6 +14,7 @@ public class StudyDoorInteractable : InteractableTemplate
 
     public override void Interact()
     {
+
         if (GameManager.Instance.player.GetComponent<PlayerInput>().enabled)
         {
             if (GameManager.Instance.inStudy)

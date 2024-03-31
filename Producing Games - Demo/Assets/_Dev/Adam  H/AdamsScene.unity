@@ -394,8 +394,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  tutorialManager: {fileID: 0}
-  tutmanagerScript: {fileID: 0}
   triggerbox: {fileID: 0}
   startshift: 0
   deactivate: 0
@@ -4550,7 +4548,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-118298
+  m_Name: pb_Mesh-276468
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -5562,7 +5560,7 @@ PrefabInstance:
       objectReference: {fileID: 834708184}
     - target: {fileID: 7218618529350356890, guid: 36c7603b61edf994fb689add91b4ee00, type: 3}
       propertyPath: m_VersionIndex
-      value: 1000
+      value: 1006
       objectReference: {fileID: 0}
     - target: {fileID: 7437401202092222274, guid: 36c7603b61edf994fb689add91b4ee00, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11887,7 +11885,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh82360
+  m_Name: pb_Mesh101390
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -12889,7 +12887,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh80522
+  m_Name: pb_Mesh99500
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -16798,8 +16796,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  tutorialManager: {fileID: 0}
-  tutmanagerScript: {fileID: 0}
   triggerbox: {fileID: 0}
   startshift: 1
   deactivate: 0
@@ -17295,7 +17291,7 @@ PrefabInstance:
       objectReference: {fileID: 1931553794}
     - target: {fileID: 1779709612954594604, guid: e5923978c349c7b41a83c1923f0f6a0b, type: 3}
       propertyPath: m_VersionIndex
-      value: 904
+      value: 910
       objectReference: {fileID: 0}
     - target: {fileID: 2091339700157902269, guid: e5923978c349c7b41a83c1923f0f6a0b, type: 3}
       propertyPath: m_Intensity
@@ -17315,7 +17311,7 @@ PrefabInstance:
       objectReference: {fileID: 1624267542}
     - target: {fileID: 3234839379307786951, guid: e5923978c349c7b41a83c1923f0f6a0b, type: 3}
       propertyPath: m_VersionIndex
-      value: 798
+      value: 804
       objectReference: {fileID: 0}
     - target: {fileID: 4014576561754572548, guid: e5923978c349c7b41a83c1923f0f6a0b, type: 3}
       propertyPath: m_Intensity
@@ -17331,7 +17327,7 @@ PrefabInstance:
       objectReference: {fileID: 1637478912}
     - target: {fileID: 4718584169380183287, guid: e5923978c349c7b41a83c1923f0f6a0b, type: 3}
       propertyPath: m_VersionIndex
-      value: 1134
+      value: 1140
       objectReference: {fileID: 0}
     - target: {fileID: 5039225453445124849, guid: e5923978c349c7b41a83c1923f0f6a0b, type: 3}
       propertyPath: m_Intensity
@@ -17359,7 +17355,7 @@ PrefabInstance:
       objectReference: {fileID: 100477550}
     - target: {fileID: 5429554147926819352, guid: e5923978c349c7b41a83c1923f0f6a0b, type: 3}
       propertyPath: m_VersionIndex
-      value: 757
+      value: 763
       objectReference: {fileID: 0}
     - target: {fileID: 5503947564969298768, guid: e5923978c349c7b41a83c1923f0f6a0b, type: 3}
       propertyPath: m_Mesh
@@ -22476,8 +22472,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  tutorialManager: {fileID: 0}
-  tutmanagerScript: {fileID: 0}
   triggerbox: {fileID: 0}
   startshift: 0
   deactivate: 0
@@ -23764,7 +23758,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh80266
+  m_Name: pb_Mesh99242
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -24795,7 +24789,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh79900
+  m_Name: pb_Mesh98884
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -26136,7 +26130,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-120364
+  m_Name: pb_Mesh-275726
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -26460,7 +26454,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh81124
+  m_Name: pb_Mesh100124
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -27385,7 +27379,7 @@ MonoBehaviour:
   manager: {fileID: 1041529922}
   gameManager: {fileID: 1041529920}
   demon: {fileID: 1320715958}
-  dCharacter: {fileID: 0}
+  dCharacter: {fileID: 1320715959}
   startshift: 0
   demonCanRage: 0
   nexthour: 0
@@ -38092,7 +38086,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh82252
+  m_Name: pb_Mesh101290
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -41658,8 +41652,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  tutorialManager: {fileID: 0}
-  tutmanagerScript: {fileID: 0}
   triggerbox: {fileID: 0}
   startshift: 1
   deactivate: 0
@@ -42098,6 +42090,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6309318585991975335, guid: ee4452a2d541e4e4b9673f1b7859d6a0, type: 3}
   m_PrefabInstance: {fileID: 1124940175}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1320715959 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3338018326454094266, guid: ee4452a2d541e4e4b9673f1b7859d6a0, type: 3}
+  m_PrefabInstance: {fileID: 1124940175}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1320715958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39e0eeff3e10c9946a0f8d90e6f4895a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1324588747
 GameObject:
   m_ObjectHideFlags: 0
@@ -43977,6 +43980,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trackers:
   - {fileID: 1399510806}
+  timerInterval: 20
+  removed: 1
 --- !u!114 &1399510806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44173,7 +44178,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh81314
+  m_Name: pb_Mesh100322
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -52826,7 +52831,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-118464
+  m_Name: pb_Mesh-276634
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -53356,7 +53361,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-118358
+  m_Name: pb_Mesh-276528
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -61089,8 +61094,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  tutorialManager: {fileID: 0}
-  tutmanagerScript: {fileID: 0}
   triggerbox: {fileID: 0}
   startshift: 1
   deactivate: 0
@@ -61103,7 +61106,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh124632
+  m_Name: pb_Mesh101986
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -61781,8 +61784,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  tutorialManager: {fileID: 0}
-  tutmanagerScript: {fileID: 0}
   triggerbox: {fileID: 0}
   startshift: 0
   deactivate: 0
@@ -62178,8 +62179,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  tutorialManager: {fileID: 0}
-  tutmanagerScript: {fileID: 0}
   triggerbox: {fileID: 0}
   startshift: 0
   deactivate: 0
@@ -63908,7 +63907,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-118284
+  m_Name: pb_Mesh-276454
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -65698,8 +65697,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  tutorialManager: {fileID: 0}
-  tutmanagerScript: {fileID: 0}
   triggerbox: {fileID: 0}
   startshift: 0
   deactivate: 0
@@ -65919,8 +65916,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  tutorialManager: {fileID: 902329153}
-  tutmanagerScript: {fileID: 902329155}
   triggerbox: {fileID: 1980464917}
   startshift: 0
   deactivate: 0

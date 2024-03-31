@@ -14,7 +14,7 @@ public class CubeDestroyTest : InteractableTemplate
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("AdamsScene") && playerGateBlock.activeSelf && collectedOnce == false)
         {
             playerGateBlock.SetActive( false );
-            ObjectiveTracker.instance.AddObjective("Find and Give patient 1 required medication", ObjectiveTracker.objectiveTypes.Main);
+            //Tutorialmanager.instance.OnCollectMedicine();
             collectedOnce = true;
         }
 

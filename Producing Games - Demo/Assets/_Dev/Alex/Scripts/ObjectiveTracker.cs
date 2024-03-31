@@ -30,9 +30,9 @@ public class ObjectiveTracker : MonoBehaviour
     //private List<Objectives> urgentObjectives = new List<Objectives>();
 
     //Timer for removing objectives
-    float timerInterval = 2;
+    public float timerInterval = 20.0f;
     float timer = 0;
-    bool removed = false;
+    public bool removed = true;
 
     private void Start()
     {
@@ -40,15 +40,15 @@ public class ObjectiveTracker : MonoBehaviour
             instance = this;
 
         //Testing
-        AddObjective("Main objective test!");
+        //AddObjective("Main objective test!");
         //AddObjective("Urgent objective test!", objectiveTypes.Urgent);
     }
 
     private void Update()
     {
         RemoveObjective();
-        //DisplayObjectives();
-        timer++;
+        DisplayObjectives();
+        //timer++;
     }
 
    public  Objectives mainObj = new Objectives();
@@ -58,7 +58,9 @@ public class ObjectiveTracker : MonoBehaviour
     //Details and type of objective needed
     public void AddObjective(string name)
     {
+        removed = true;
         trackers[0].fontStyle = FontStyles.Normal;
+        trackers[0].color = Color.white;
         mainObj.name = name;
         mainObjectives.Add(mainObj);
 
@@ -91,7 +93,7 @@ public class ObjectiveTracker : MonoBehaviour
         //    default:
         //        break;
         //}
-        DisplayObjectives();
+        //DisplayObjectives();
     }
 
     private void DisplayObjectives()
@@ -104,14 +106,18 @@ public class ObjectiveTracker : MonoBehaviour
     //Remove a specific objective
     public void RemoveObjective()
     {
-        if(removed) return;
-        trackers[0].fontStyle = FontStyles.Strikethrough;
-        trackers[0].color = Color.gray;
-        //StartCoroutine(RemoveText(mainObj.name));
-        if (timer >= timerInterval)
+        if(!removed)
         {
-            mainObj.name = " ";
-            removed = true;
+            if (timer > timerInterval) timer = 0;
+            else timer++;
+            trackers[0].fontStyle = FontStyles.Strikethrough;
+            trackers[0].color = Color.gray;
+            //StartCoroutine(RemoveText(mainObj.name));
+            if (timer >= timerInterval)
+            {
+                mainObj.name = " ";
+                removed = true;
+            }
         }
 
         //switch(objToRemove.type)
@@ -138,7 +144,7 @@ public class ObjectiveTracker : MonoBehaviour
         //    default:
         //        break;
         //}
-        DisplayObjectives();
+        //DisplayObjectives();
     }
 
     //private IEnumerator RemoveText(string name)
