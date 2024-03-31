@@ -10,28 +10,29 @@ public class ObjectiveTracker : MonoBehaviour
 
     public List<TMP_Text> trackers; //Where the text for the objectives displays
 
-    public enum objectiveTypes
-    {
-        Main,
-        //Side,
-        Urgent
-    }
+    //public enum objectiveTypes
+    //{
+    //    Main,
+    //    //Side,
+    //    Urgent
+    //}
 
     public struct Objectives
     {
         public string name;
         public int ID;
-        public objectiveTypes type;
+        //public objectiveTypes type;
     }
 
     //Lists of objectives (different types)
     private List<Objectives> mainObjectives = new List<Objectives>();
     //private List<Objectives> sideObjectives = new List<Objectives>();
-    private List<Objectives> urgentObjectives = new List<Objectives>();
+    //private List<Objectives> urgentObjectives = new List<Objectives>();
 
     //Timer for removing objectives
     float timerInterval = 2;
     float timer = 0;
+    bool removed = false;
 
     private void Start()
     {
@@ -39,53 +40,57 @@ public class ObjectiveTracker : MonoBehaviour
             instance = this;
 
         //Testing
-        //AddObjective("Main objective test!", objectiveTypes.Main);
-        AddObjective("Urgent objective test!", objectiveTypes.Urgent);
+        AddObjective("Main objective test!");
+        //AddObjective("Urgent objective test!", objectiveTypes.Urgent);
     }
 
     private void Update()
     {
-        //RemoveObjective(mainObj);
-        DisplayObjectives();
+        RemoveObjective();
+        //DisplayObjectives();
         timer++;
     }
 
    public  Objectives mainObj = new Objectives();
     //Objectives sideObj = new Objectives();
-    Objectives urgentObj = new Objectives();
+    //Objectives urgentObj = new Objectives();
 
     //Details and type of objective needed
-    public void AddObjective(string name, objectiveTypes type)
+    public void AddObjective(string name)
     {
-        switch(type)
-        {
-            case objectiveTypes.Main:
-                trackers[0].fontStyle = FontStyles.Normal;
-                mainObj.name = name;
-                mainObj.type = type;
-                mainObjectives.Add(mainObj);
-                mainObj.ID = mainObjectives.Count;
-                break;
+        trackers[0].fontStyle = FontStyles.Normal;
+        mainObj.name = name;
+        mainObjectives.Add(mainObj);
 
-            //case objectiveTypes.Side:
-            //    trackers[1].fontStyle = FontStyles.Normal;
-            //    sideObj.name = name;
-            //    sideObj.type = type;
-            //    sideObjectives.Add(sideObj);
-            //    sideObj.ID = sideObjectives.Count;
-            //    break; 
+        //switch(type)
+        //{
+        //    case objectiveTypes.Main:
+        //        trackers[0].fontStyle = FontStyles.Normal;
+        //        mainObj.name = name;
+        //        mainObj.type = type;
+        //        mainObjectives.Add(mainObj);
+        //        mainObj.ID = mainObjectives.Count;
+        //        break;
 
-            case objectiveTypes.Urgent:
-                trackers[1].fontStyle = FontStyles.Normal;
-                urgentObj.name = name;
-                urgentObj.type = type;
-                urgentObjectives.Add(urgentObj);
-                urgentObj.ID = urgentObjectives.Count;
-                break;
-                
-            default:
-                break;
-        }
+        //    //case objectiveTypes.Side:
+        //    //    trackers[1].fontStyle = FontStyles.Normal;
+        //    //    sideObj.name = name;
+        //    //    sideObj.type = type;
+        //    //    sideObjectives.Add(sideObj);
+        //    //    sideObj.ID = sideObjectives.Count;
+        //    //    break; 
+
+        //    case objectiveTypes.Urgent:
+        //        trackers[1].fontStyle = FontStyles.Normal;
+        //        urgentObj.name = name;
+        //        urgentObj.type = type;
+        //        urgentObjectives.Add(urgentObj);
+        //        urgentObj.ID = urgentObjectives.Count;
+        //        break;
+
+        //    default:
+        //        break;
+        //}
         DisplayObjectives();
     }
 
@@ -97,33 +102,42 @@ public class ObjectiveTracker : MonoBehaviour
     }
 
     //Remove a specific objective
-    public void RemoveObjective(Objectives objToRemove)
+    public void RemoveObjective()
     {
-
-        switch(objToRemove.type)
+        if(removed) return;
+        trackers[0].fontStyle = FontStyles.Strikethrough;
+        trackers[0].color = Color.gray;
+        //StartCoroutine(RemoveText(mainObj.name));
+        if (timer >= timerInterval)
         {
-            case objectiveTypes.Main:
-                trackers[0].fontStyle = FontStyles.Strikethrough;
-                trackers[0].color = Color.gray;
-                //StartCoroutine(RemoveText(mainObj.name));
-                if (timer >= timerInterval) mainObj.name = " ";
-                break;
-
-            //case objectiveTypes.Side:
-            //    trackers[1].fontStyle = FontStyles.Strikethrough;
-
-            //    break;
-
-            case objectiveTypes.Urgent:
-                trackers[1].fontStyle = FontStyles.Strikethrough;
-                trackers[1].color = Color.gray;
-                //StartCoroutine(RemoveText(urgentObj.name));
-                if (timer >= timerInterval) urgentObj.name = " ";
-                break;
-
-            default:
-                break;
+            mainObj.name = " ";
+            removed = true;
         }
+
+        //switch(objToRemove.type)
+        //{
+        //    case objectiveTypes.Main:
+        //        trackers[0].fontStyle = FontStyles.Strikethrough;
+        //        trackers[0].color = Color.gray;
+        //        //StartCoroutine(RemoveText(mainObj.name));
+        //        if (timer >= timerInterval) mainObj.name = " ";
+        //        break;
+
+        //    //case objectiveTypes.Side:
+        //    //    trackers[1].fontStyle = FontStyles.Strikethrough;
+
+        //    //    break;
+
+        //    case objectiveTypes.Urgent:
+        //        trackers[1].fontStyle = FontStyles.Strikethrough;
+        //        trackers[1].color = Color.gray;
+        //        //StartCoroutine(RemoveText(urgentObj.name));
+        //        if (timer >= timerInterval) urgentObj.name = " ";
+        //        break;
+
+        //    default:
+        //        break;
+        //}
         DisplayObjectives();
     }
 
