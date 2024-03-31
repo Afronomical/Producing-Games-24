@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SFX_CarpetFootstep
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: 690927795e1b1e045a9a4bdd4bc192ce, type: 3}
-  volume: 0.4
+  volume: 0.1
   pitch: 1
   priority: 128
   loop: 0

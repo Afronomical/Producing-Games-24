@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SFX_WoodFootStep
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: 419392ad5b713944eb07f60b1a552fe2, type: 3}
-  volume: 0.3
+  volume: 0.1
   pitch: 1
   priority: 128
   loop: 0
