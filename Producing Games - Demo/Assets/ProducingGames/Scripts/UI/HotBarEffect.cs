@@ -6,9 +6,11 @@ public class HotBarEffect : MonoBehaviour
 {
     
     [SerializeField] private AccessibilitySettingsManager AccessibilitySettings;
+    private bool scroll;
 
     private void Start()
     {
+        scroll = false;
         if (AccessibilitySettings != null)
         {
             AccessibilitySettings.inventoryScaleSlider.onValueChanged.AddListener(SetinventoryPanelScale);
@@ -33,6 +35,12 @@ public class HotBarEffect : MonoBehaviour
     {
         InventoryHotbar.instance.OnItemPickedUp -= StartSizeEffect;
         InventoryHotbar.instance.OnItemSelected -= StartSizeEffect;
+    }
+
+    public void ScrollInput()
+    {
+        scroll = true;
+
     }
 
     private void SetinventoryPanelScale(float inventoryScaleValue)
@@ -69,7 +77,7 @@ public class HotBarEffect : MonoBehaviour
             float timer = 0f;
             while (timer < AccessibilitySettings.effectWaitDuration)
             {
-                if (Input.mouseScrollDelta.y != 0)
+                if (scroll == true)
                 {
                     if (AccessibilitySettings.demonBook.activeSelf == true || AccessibilitySettings.checkList.activeSelf == true)
                     {
@@ -80,6 +88,7 @@ public class HotBarEffect : MonoBehaviour
                     {
 
                         timer = 0f;
+                        scroll = false;
 
                     }
 
