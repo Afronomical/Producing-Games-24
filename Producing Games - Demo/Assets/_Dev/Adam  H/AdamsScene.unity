@@ -4691,7 +4691,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-80954
+  m_Name: pb_Mesh-725676
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -5703,7 +5703,7 @@ PrefabInstance:
       objectReference: {fileID: 834708184}
     - target: {fileID: 7218618529350356890, guid: 36c7603b61edf994fb689add91b4ee00, type: 3}
       propertyPath: m_VersionIndex
-      value: 994
+      value: 997
       objectReference: {fileID: 0}
     - target: {fileID: 7437401202092222274, guid: 36c7603b61edf994fb689add91b4ee00, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5800,6 +5800,10 @@ PrefabInstance:
     - target: {fileID: 8737839989431867032, guid: 36c7603b61edf994fb689add91b4ee00, type: 3}
       propertyPath: m_Name
       value: Basement jumpscare
+      objectReference: {fileID: 0}
+    - target: {fileID: 8737839989431867032, guid: 36c7603b61edf994fb689add91b4ee00, type: 3}
+      propertyPath: m_TagString
+      value: CinematicManager
       objectReference: {fileID: 0}
     - target: {fileID: 8858657127980293901, guid: 36c7603b61edf994fb689add91b4ee00, type: 3}
       propertyPath: m_LocalRotation.w
@@ -17432,7 +17436,7 @@ PrefabInstance:
       objectReference: {fileID: 1931553794}
     - target: {fileID: 1779709612954594604, guid: e5923978c349c7b41a83c1923f0f6a0b, type: 3}
       propertyPath: m_VersionIndex
-      value: 898
+      value: 901
       objectReference: {fileID: 0}
     - target: {fileID: 2091339700157902269, guid: e5923978c349c7b41a83c1923f0f6a0b, type: 3}
       propertyPath: m_Intensity
@@ -17452,7 +17456,7 @@ PrefabInstance:
       objectReference: {fileID: 1624267542}
     - target: {fileID: 3234839379307786951, guid: e5923978c349c7b41a83c1923f0f6a0b, type: 3}
       propertyPath: m_VersionIndex
-      value: 792
+      value: 795
       objectReference: {fileID: 0}
     - target: {fileID: 4014576561754572548, guid: e5923978c349c7b41a83c1923f0f6a0b, type: 3}
       propertyPath: m_Intensity
@@ -17468,7 +17472,7 @@ PrefabInstance:
       objectReference: {fileID: 1637478912}
     - target: {fileID: 4718584169380183287, guid: e5923978c349c7b41a83c1923f0f6a0b, type: 3}
       propertyPath: m_VersionIndex
-      value: 1128
+      value: 1131
       objectReference: {fileID: 0}
     - target: {fileID: 5039225453445124849, guid: e5923978c349c7b41a83c1923f0f6a0b, type: 3}
       propertyPath: m_Intensity
@@ -17482,6 +17486,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5066911569665732687, guid: e5923978c349c7b41a83c1923f0f6a0b, type: 3}
+      propertyPath: m_TagString
+      value: CinematicManager
+      objectReference: {fileID: 0}
     - target: {fileID: 5215329614835626276, guid: e5923978c349c7b41a83c1923f0f6a0b, type: 3}
       propertyPath: m_Intensity
       value: 126.31926
@@ -17492,7 +17500,7 @@ PrefabInstance:
       objectReference: {fileID: 100477550}
     - target: {fileID: 5429554147926819352, guid: e5923978c349c7b41a83c1923f0f6a0b, type: 3}
       propertyPath: m_VersionIndex
-      value: 751
+      value: 754
       objectReference: {fileID: 0}
     - target: {fileID: 5503947564969298768, guid: e5923978c349c7b41a83c1923f0f6a0b, type: 3}
       propertyPath: m_Mesh
@@ -26265,7 +26273,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-73676
+  m_Name: pb_Mesh-732714
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -28301,6 +28309,17 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.029764092, y: 0.05103143, z: 0.00096564833}
   m_Center: {x: 0.014882044, y: 0.025515685, z: 0.0004828183}
+--- !u!114 &932949883 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7240830278238979957, guid: 92a8fedf32ad54342bb8a6cdb0bebf28, type: 3}
+  m_PrefabInstance: {fileID: 1450897755}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &935648437
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33079,7 +33098,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   budget: 2000
-  money: {fileID: 0}
+  money: {fileID: 932949883}
   boughtItems: []
 --- !u!1001 &1042897613
 PrefabInstance:
@@ -42684,11 +42703,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6218499063189601245, guid: bfa4c5cf9d2d0214b8354d0480fac178, type: 3}
       propertyPath: kitchenLocations.Array.size
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6218499063189601245, guid: bfa4c5cf9d2d0214b8354d0480fac178, type: 3}
       propertyPath: prayingLocations.Array.size
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6218499063189601245, guid: bfa4c5cf9d2d0214b8354d0480fac178, type: 3}
       propertyPath: tutorialBedsList.Array.size
@@ -42812,7 +42831,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6218499063189601245, guid: bfa4c5cf9d2d0214b8354d0480fac178, type: 3}
       propertyPath: wanderingDestinations.Array.size
-      value: 16
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6218499063189601245, guid: bfa4c5cf9d2d0214b8354d0480fac178, type: 3}
       propertyPath: 'patrolDestinations.Array.data[10]'
@@ -52916,7 +52935,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-81120
+  m_Name: pb_Mesh-725842
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -53446,7 +53465,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-81014
+  m_Name: pb_Mesh-725736
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -63940,7 +63959,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-80940
+  m_Name: pb_Mesh-725662
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -67950,8 +67969,8 @@ MonoBehaviour:
   openDoor: {fileID: 1110456042}
   closedDoor: {fileID: 2039863420}
   endShift: {fileID: 416783312}
-  openAnim: {fileID: 0}
-  closeAnim: {fileID: 0}
+  openAnim: {fileID: 7400000, guid: 79b55c80ffb62e24a9a8f9a71419bab4, type: 2}
+  closeAnim: {fileID: 7400000, guid: c9158aa792fb849459c53babd5c3cdca, type: 2}
 --- !u!65 &2039863423
 BoxCollider:
   m_ObjectHideFlags: 0

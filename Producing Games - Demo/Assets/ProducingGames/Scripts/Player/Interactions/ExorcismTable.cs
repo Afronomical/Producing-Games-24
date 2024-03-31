@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -108,7 +109,8 @@ public class ExorcismTable : MonoBehaviour
     {
         Debug.Log("Failed Exorcism");
 
-        cinematicManagerScript.StartFailedExorcism();
+        if (cinematicManagerScript != null)
+            cinematicManagerScript.StartFailedExorcism();
         //moved below Code to cinematics manager to account for cinematic length
         // GameManager.Instance.exorcismFailed = true;
         // GameManager.Instance.EndGame(false);
@@ -134,7 +136,8 @@ public class ExorcismTable : MonoBehaviour
         Debug.Log("Exorcism Completed!");
         //set task as complete here. win screen or demon scream etc 
         GameManager.Instance.demon.GetComponent<DemonCharacter>().ChangeDemonState(DemonCharacter.DemonStates.Exorcised);
-        cinematicManagerScript.StartExorcismWin();//moved  GameManager.Instance.EndGame(true); moved to Cinematic manager script to account for cinematic length.
+        if (cinematicManagerScript != null)
+            cinematicManagerScript.StartExorcismWin();//moved  GameManager.Instance.EndGame(true); moved to Cinematic manager script to account for cinematic length.
 
     }
 
