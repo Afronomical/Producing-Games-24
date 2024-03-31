@@ -24,6 +24,8 @@ public class CinematicMangerScript : MonoBehaviour
     private PlayerInput playerin;
     private CharacterController playerCont;
 
+    public bool Tutorial;
+
 
     public PlayableDirector currentcinematic;
     public PlayableDirector hallwayCinematic;
@@ -128,6 +130,10 @@ public class CinematicMangerScript : MonoBehaviour
             CinematicTime = failedExorcismCinematicDuration;
         failedExorcismCinematic.Play();
         }
+        if (Tutorial)
+        {
+            GameManager.Instance.EndGame(false);
+        }
         
         cineStart = true;
         exorcismStarted = true;
@@ -143,7 +149,11 @@ public class CinematicMangerScript : MonoBehaviour
             exorcismWinCinematic.Play();
 
         }
-        
+        if (Tutorial)
+        {
+            GameManager.Instance.EndGame(true);
+        }
+
         cineStart = true;
         exorcismStarted = true;
         exorcismSuccess= true;

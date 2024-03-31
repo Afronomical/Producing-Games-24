@@ -7,14 +7,14 @@ using UnityEngine.Events;
 public class TutorialTriggerboxevents : MonoBehaviour
 {
     public UnityEvent TutorialEvent;
-    //public GameObject tutorialManager;
-    //public Tutorialmanager tutmanagerScript;
+    public GameObject tutorialManager;
+    public Tutorialmanager tutmanagerScript;
 
     public GameObject triggerbox;
     public bool startshift, deactivate, demonbook, demonrage, nxtshift;
-    public static bool startshiftreq,demonbookreq, demonragereq, nextshiftreq;
-   // public GameManager manager;
-   // public GameObject gameManager;
+    public static bool startshiftreq, demonbookreq, demonragereq, nextshiftreq;
+    // public GameManager manager;
+    // public GameObject gameManager;
     public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -22,57 +22,54 @@ public class TutorialTriggerboxevents : MonoBehaviour
             if (demonbookreq && demonbook)
             {
                 TutorialEvent.Invoke();
-                deactivate= true;
+                deactivate = true;
             }
-             if (demonrage&&demonragereq)
+            if (demonrage && demonragereq)
             {
                 TutorialEvent.Invoke();
                 deactivate = true;
             }
-             if (nxtshift && nextshiftreq)
+            if (nxtshift && nextshiftreq)
             {
                 TutorialEvent.Invoke();
                 deactivate = true;
             }
-             if (startshift && startshiftreq)
+            if (startshift && startshiftreq)
             {
                 TutorialEvent.Invoke();
                 deactivate = true;
             }
-            
-            
+
+
         }
     }
 
     public void Start()
     {
         triggerbox = this.gameObject;
-        //tutorialManager = GameObject.FindGameObjectWithTag("TutorialManager");
-        //tutmanagerScript = tutorialManager.GetComponent<Tutorialmanager>();
-       // manager = gameManager.GetComponent<GameManager>();
+        tutorialManager = GameObject.FindGameObjectWithTag("TutorialManager");
+        tutmanagerScript = tutorialManager.GetComponent<Tutorialmanager>();
+        // manager = gameManager.GetComponent<GameManager>();
     }
     public void Update()
     {
-        if(deactivate)
+        if (deactivate)
         {
             triggerbox.SetActive(false);
         }
-        if (startshift)
+        if (tutmanagerScript.startshift)
         {
             startshiftreq = true;
         }
-        if (Tutorialmanager.instance.demonCanRage)
+        if (tutmanagerScript.demonCanRage)
         {
             demonragereq = true;
         }
-        if (demonbook)
+        if (tutmanagerScript.demonbook)
         {
-            demonbookreq= true;
+            demonbookreq = true;
         }
-       // if (tutorialManager.Task1 == true && manager.currentTime > 0)
-       // {
-        //    tutorialManager.OnShiftStartTask();
-       // }
-        
+
+
     }
 }

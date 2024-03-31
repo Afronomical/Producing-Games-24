@@ -5,9 +5,8 @@ using static DemonCharacter;
 using static DoorInteractable;
 using static ObjectiveTracker;
 
-class Tutorialmanager : MonoBehaviour
+public class Tutorialmanager : MonoBehaviour
 {
-    public static Tutorialmanager instance;
 
     public ObjectiveTracker tracker;
     public GameObject objectiveTracker;
@@ -23,14 +22,12 @@ class Tutorialmanager : MonoBehaviour
     public DoorInteractable dManager1, dManager2, dManager3, dManagerStorage, dManagerHall;
     public GameObject paient1Door, paient2Door, paient3Door, storageDoor, mainHallDoor;
 
-    public GameObject mainDoorblock,patient1doorblock,patient2doorblock,patient3doorblock,storagedoorblock,halldoorblock;
+    public GameObject mainDoorblock, patient1doorblock, patient2doorblock, patient3doorblock, storagedoorblock, halldoorblock;
 
     public bool clipBoardChecked = false;
     public bool shiftStarted = false;
     public bool medsCollected = false;
     public bool gotBacktoStudy = false;
-
-    string objectiveToAdd;
 
     // public bool Task1 = false,Task2 = false, Task3 = false, Task4 = false, Task5 = false, Task6 = false, Task7 = false, Task8= false, Task9 = false, Task10 = false, Task11 = false, Task12 = false, Task13 = false;
     private void Awake()
@@ -47,17 +44,16 @@ class Tutorialmanager : MonoBehaviour
 
     public void Start()
     {
-        if(instance != null)
-            instance = this;
+
 
         OnMedicineTask();
     }
 
     public void Update()
     {
-        if ( Input.GetKeyDown(KeyCode.F) && shiftStarted ) 
+        if (Input.GetKeyDown(KeyCode.F) && shiftStarted)
         {
-            OnCollectMedicine();
+            onCollectMedicine();
         }
 
         if (manager.currentHour == 2)
@@ -69,13 +65,9 @@ class Tutorialmanager : MonoBehaviour
 
         if (gotBacktoStudy)
         {
-            tracker.AddObjective("Find the demon book");
-            gotBacktoStudy = false;
-        }
 
-        if (ObjectiveTracker.instance.removed)
-        {
-            tracker.AddObjective(objectiveToAdd);
+            tracker.AddObjective("Find the demon book", objectiveTypes.Main);
+            gotBacktoStudy = false;
         }
 
         // tracker.DisplayObjectives();
@@ -84,89 +76,89 @@ class Tutorialmanager : MonoBehaviour
 
     public void OnMedicineTask()
     {
-        //tracker.AddObjective("Order Medicine at Computer");
-        objectiveToAdd = "Order Medicine at Computer";
+        tracker.AddObjective("Order Medicine at Computer", objectiveTypes.Main);
+
     }
     public void onMedicineBuy()
     {
+
         // Task1 = true;
         startshift = true;
         mainDoorblock.SetActive(false);
-        ObjectiveTracker.instance.removed = false;
-        objectiveToAdd = "Start Shift";
+        tracker.AddObjective("Start Shift", objectiveTypes.Main);
     }
     public void OnShiftStartTask()
     {
         //Task2 = true;
         shiftStarted = true;
-        ObjectiveTracker.instance.removed = false;
-        objectiveToAdd = "Check patient 1 tasks on clipbaord";
+        tracker.AddObjective("Check patient 1 tasks on clipbaord", objectiveTypes.Main);
+
     }
 
-    public void OnCollectMedicine()
+    public void onCollectMedicine()
     {
         storagedoorblock.SetActive(false);
-        tracker.AddObjective("Collect medicine from storage");
+        tracker.AddObjective("Collect medicine from storage", objectiveTypes.Main);
     }
     public void OnPatient1Task()
     {
         // Task3 = true;
         // dManagerStorage.ChangeDoorState(DoorStates.Shut);
-        
-        
-        
-            
-            tracker.AddObjective("Find and Give patient 1 required medication");
-            patient1doorblock.SetActive(false);
-        
+
+
+
+
+        tracker.AddObjective("Find and Give patient 1 required medication", objectiveTypes.Main);
+        patient1doorblock.SetActive(false);
+
     }
-    //public void OnCollectMedicine()
-    //{
-       // Task4 = true;
-       // tracker.AddObjective("Take medicine to patient ", objectiveTypes.Main);
-    //}
+    public void OnCollectMedicine()
+    {
+        // Task4 = true;
+        // tracker.AddObjective("Take medicine to patient ", objectiveTypes.Main);
+    }
     public void OnPatient2Task()
     {
-       // Task5 = true;
+        // Task5 = true;
         patient2doorblock.SetActive(false);
-        tracker.AddObjective("Use F clipboard and attend to patient 2");
+        tracker.AddObjective("Use F clipboard and attend to patient 2", objectiveTypes.Main);
     }
     public void OnAttendToPatient3Task()
     {
-       // Task6 = true;
-       // dManager3.ChangeDoorState(DoorStates.Shut);
-        tracker.AddObjective("Attend to patient 3");
+        // Task6 = true;
+        // dManager3.ChangeDoorState(DoorStates.Shut);
+        tracker.AddObjective("Attend to patient 3", objectiveTypes.Main);
         demonCanRage = true;
 
     }
     public void OnRageMode()
     {
-        
+
         if (demonCanRage)
         {
-            dCharacter.SetInRageMode(true); 
+            dCharacter.SetInRageMode(true);
             dManager3.ChangeDoorState(DoorStates.Open);
-            patient3doorblock.SetActive(false);         
-        dManager1.ChangeDoorState(DoorStates.Shut);
-        dManager2.ChangeDoorState(DoorStates.Shut);
-        demon.SetActive(true);
-        dManagerStorage.ChangeDoorState(DoorStates.Shut);
-        patient1doorblock.SetActive(true);
-        patient2doorblock.SetActive(true);
-        
-        storagedoorblock.SetActive(true);
-        tracker.AddObjective("Get back to Study");
+            patient3doorblock.SetActive(false);
+            dManager1.ChangeDoorState(DoorStates.Shut);
+            dManager2.ChangeDoorState(DoorStates.Shut);
+            demon.SetActive(true);
+            dManagerStorage.ChangeDoorState(DoorStates.Shut);
+            patient1doorblock.SetActive(true);
+            patient2doorblock.SetActive(true);
+
+            storagedoorblock.SetActive(true);
+            tracker.AddObjective("Get back to Study", objectiveTypes.Main);
         }
     }
     public void OnEndShiftTask()
     {
-        if(demonCanRage)
+        if (demonCanRage)
         {
-            tracker.AddObjective("End shift at bed.");
+            tracker.AddObjective("End shift at bed.", objectiveTypes.Main);
             nexthour = true;
         }
-       // Task8 = true;
-        
+        // Task8 = true;
+
 
     }
     public void OnDemonBookTask()
@@ -178,7 +170,7 @@ class Tutorialmanager : MonoBehaviour
             patient2doorblock.SetActive(false);
             patient3doorblock.SetActive(false);
             storagedoorblock.SetActive(false);
-            tracker.AddObjective("Get Exorcism GuideBook.");
+            tracker.AddObjective("Get Exorcism GuideBook.", objectiveTypes.Main);
             demonbook = true;
         }
     }
@@ -188,7 +180,7 @@ class Tutorialmanager : MonoBehaviour
         if (demonbook)
         {
             demonbook = true;
-            tracker.AddObjective("Save patient 2 from heart attack.");
+            tracker.AddObjective("Save patient 2 from heart attack.", objectiveTypes.Main);
         }
     }
     public void OnHidingTask()
@@ -196,24 +188,24 @@ class Tutorialmanager : MonoBehaviour
         // Task11 = true;
         if (demonbook)
         {
-            tracker.AddObjective("Find where patient 3 is hiding and escort them to bed.");
+            tracker.AddObjective("Find where patient 3 is hiding and escort them to bed.", objectiveTypes.Main);
         }
-       
+
     }
     public void OnOrganPlayTask()
     {
         if (demonbook)
         {
-        // Task12 = true;
-        mainDoorblock.SetActive(false);
-        tracker.AddObjective("Play organ to activate altar");
+            // Task12 = true;
+            mainDoorblock.SetActive(false);
+            tracker.AddObjective("Play organ to activate altar", objectiveTypes.Main);
         }
     }
     public void OnExorciseDemonTask()
     {
-       // Task13 = true;
+        // Task13 = true;
         tracker.AddObjective("Place exorcism items on altar" +
-            "Use B to look at Guidebook");
+            "Use B to look at Guidebook", objectiveTypes.Main);
     }
     public IEnumerator WaitForOBJ(float waitBetweenOjectives)
     {

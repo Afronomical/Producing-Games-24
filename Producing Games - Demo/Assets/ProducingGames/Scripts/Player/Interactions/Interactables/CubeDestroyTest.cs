@@ -13,12 +13,12 @@ public class CubeDestroyTest : InteractableTemplate
 
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("AdamsScene") && playerGateBlock.activeSelf && collectedOnce == false)
         {
-            playerGateBlock.SetActive( false );
-            //Tutorialmanager.instance.OnCollectMedicine();
+            playerGateBlock.SetActive(false);
+            ObjectiveTracker.instance.AddObjective("Find and Give patient 1 required medication", ObjectiveTracker.objectiveTypes.Main);
             collectedOnce = true;
         }
 
-        Debug.Log("***Cube code is running*** \n Collected " + collectible.name);
+        Debug.Log("Cube code is running \n Collected " + collectible.name);
         InventoryHotbar.instance.AddToInventory(collectible);
         Destroy(gameObject);
     }
