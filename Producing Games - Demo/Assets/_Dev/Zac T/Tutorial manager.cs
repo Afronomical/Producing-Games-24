@@ -25,7 +25,7 @@ public class Tutorialmanager : MonoBehaviour
     public DoorInteractable dManager1, dManager2, dManager3, dManagerStorage, dManagerHall;
     public GameObject paient1Door, paient2Door, paient3Door, storageDoor, mainHallDoor;
 
-    public GameObject mainDoorblock, patient1doorblock, patient2doorblock, patient3doorblock, storagedoorblock, halldoorblock;
+    public GameObject mainDoorblock, patient1doorblock, patient2doorblock, patient3doorblock, storagedoorblock, halldoorblock,demonBookBlock;
 
     public bool clipBoardChecked = false;
     public bool shiftStarted = false;
@@ -193,16 +193,26 @@ public class Tutorialmanager : MonoBehaviour
             patient3doorblock.SetActive(false);
             storagedoorblock.SetActive(false);
             tracker.AddObjective("Get Exorcism GuideBook.", objectiveTypes.Main);
-            demonbook = true;
+            demonBookBlock.SetActive(false);
+           
         }
     }
     public void OnHeartAttackTask()
     {
         // Task10 = true;
+        if (nexthour)
+        {
+            demonbook = true;
+            tracker.AddObjective("Save patient 1 from heart attack.", objectiveTypes.Main);
+        }
+    }
+    public void OnRequestMedicationTask()
+    {
+        // Task10 = true;
         if (demonbook)
         {
             demonbook = true;
-            tracker.AddObjective("Save patient 2 from heart attack.", objectiveTypes.Main);
+            tracker.AddObjective("Attend to patient 2 take note their activity", objectiveTypes.Main);
         }
     }
     public void OnHidingTask()
@@ -220,7 +230,7 @@ public class Tutorialmanager : MonoBehaviour
         {
             // Task12 = true;
             mainDoorblock.SetActive(false);
-            tracker.AddObjective("Play organ to activate altar", objectiveTypes.Main);
+            tracker.AddObjective("Enter main hall and play organ to activate exorcism", objectiveTypes.Main);
         }
     }
     public void OnExorciseDemonTask()

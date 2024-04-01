@@ -13,7 +13,7 @@ public class TutorialTriggerboxevents : MonoBehaviour
     public bool inTrigger = false;
 
     public GameObject triggerbox;
-    public bool startshift, deactivate, demonbook, demonrage, nxtshift;
+    public bool startshift, deactivate, demonbook, demonrage, nxtshift, clickRequired, hour1objective;
     public static bool startshiftreq, demonbookreq, demonragereq, nextshiftreq;
     // public GameManager manager;
     // public GameObject gameManager;
@@ -21,6 +21,7 @@ public class TutorialTriggerboxevents : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if (clickRequired == false) { 
             if (demonbookreq && demonbook)
             {
                 TutorialEvent.Invoke();
@@ -41,7 +42,7 @@ public class TutorialTriggerboxevents : MonoBehaviour
                 TutorialEvent.Invoke();
                 deactivate = true;
             }
-            
+            }
             inTrigger = true;
 
         }
@@ -73,19 +74,29 @@ public class TutorialTriggerboxevents : MonoBehaviour
         {
             demonragereq = true;
         }
+        if (tutmanagerScript.nexthour)
+        {
+            nextshiftreq = true;
+        }
         if (tutmanagerScript.demonbook)
         {
             demonbookreq = true;
         }
 
-        if (inTrigger && Input.GetKeyDown(KeyCode.Mouse0))
+        if (inTrigger && Input.GetKeyDown(KeyCode.Mouse0)&&clickRequired)
         {
+            if (hour1objective)
+            {
+
+           
             TutorialEvent.Invoke();
             deactivate = true;
-            inTrigger = false;
+            inTrigger = false; 
+                clickRequired = false;
+            }
         }
 
-        if (inTrigger && Input.GetKeyDown(KeyCode.Mouse0) && demonbook)
+        if (inTrigger && Input.GetKeyDown(KeyCode.Mouse0) && nextshiftreq &&clickRequired)
         {
             TutorialEvent.Invoke();
           
