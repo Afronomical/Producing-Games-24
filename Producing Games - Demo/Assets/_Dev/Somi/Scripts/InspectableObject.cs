@@ -117,7 +117,7 @@ public class InspectableObject : InteractableTemplate
             mainCam.transform.position = Vector3.MoveTowards(mainCam.transform.position, oldCamPosition, 2.5f * Time.deltaTime);
             mainCam.transform.rotation = Quaternion.Lerp(mainCam.transform.rotation, oldCamRotation, 2.5f * Time.deltaTime);
 
-            mainCam.transform.parent = GameManager.Instance.player.transform;
+            mainCam.transform.parent = GameManager.Instance.player.gameObject.transform.GetChild(1).transform;
 
             if (mainCam.transform.position == oldCamPosition)
             {
