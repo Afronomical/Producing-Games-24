@@ -12,7 +12,8 @@ public class FuseBox : InspectableObject
     
     
     public List<GameObject> fuses, fuseSlots;//Fuses/FuseSlots references
-    public Material[] materials;//All the Colour Materials
+    public Material fuseMaterial;//Fuse Colour Materials
+    public Material[] fuseSlotsMaterials;//Slots Colour Materials
     private int heldFuses;//Correct Fuses
     public bool complete;//If this minigame is completed
 
@@ -30,17 +31,17 @@ public class FuseBox : InspectableObject
    
     public override void Interact()
     {
-        mainCam = Camera.main;
         base.Interact();
+
+        GetComponent<BoxCollider>().enabled = false;
         Cursor.lockState = CursorLockMode.None;
-        ToggleBoxCollider(false);
         cursor.SetActive(true);
     }
     protected override void Start()
     {
+        base.Start();
         ToggleBoxCollider(true);
         InitializeBox();
-        base.Start();
     }
 
     protected override void Update()
@@ -73,14 +74,9 @@ public class FuseBox : InspectableObject
         {
             int rand = Random.Range(0, w.Count);
             Fuse currentFuse = w[rand].GetComponent<Fuse>();
-            currentFuse.colour = (Colours)i;
-            w[rand].GetComponent<Renderer>().material = materials[i];
-            w.Remove(w[rand]);
-
-            rand = Random.Range(0, e.Count);
-            e[rand].GetComponent<Renderer>().material = materials[i];
             currentFuse.fuseSlot = e[rand];
             e.Remove(e[rand]);
+            w.Remove(w[rand]);
         }
 
         foreach (GameObject obj in fuses)

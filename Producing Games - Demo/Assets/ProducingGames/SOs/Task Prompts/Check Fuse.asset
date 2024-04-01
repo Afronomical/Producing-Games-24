@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Check Fuse
   m_EditorClassIdentifier: 
   objectName: 
-  obj: {fileID: 4704354271574323777, guid: ccbd868f7eb4e8b4a8f6dfba82e040df, type: 3}
-  prefab: {fileID: 4704354271574323777, guid: ccbd868f7eb4e8b4a8f6dfba82e040df, type: 3}
+  obj: {fileID: 1163268102612214577, guid: 71422232b523986458b45214330e6b15, type: 3}
+  prefab: {fileID: 1163268102612214577, guid: 71422232b523986458b45214330e6b15, type: 3}
   interactSound: {fileID: 0}
   objectImage: {fileID: 0}
   tooltipText: Check Fuse
