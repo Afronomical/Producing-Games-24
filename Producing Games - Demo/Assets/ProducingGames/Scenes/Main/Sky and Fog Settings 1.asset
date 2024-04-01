@@ -33,7 +33,7 @@ MonoBehaviour:
     m_Value: 1
   m_MaxRaySteps:
     m_OverrideState: 1
-    m_Value: 32
+    m_Value: 64
   m_DenoiseSS:
     m_OverrideState: 1
     m_Value: 1
@@ -42,7 +42,7 @@ MonoBehaviour:
     m_Value: 1
   m_DenoiserRadiusSS:
     m_OverrideState: 1
-    m_Value: 0.75
+    m_Value: 0.5
   m_SecondDenoiserPassSS:
     m_OverrideState: 1
     m_Value: 1
@@ -620,7 +620,7 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 65535
   reflectionProbeIntensityMultiplier:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
 --- !u!114 &1102873436055675467
 MonoBehaviour:
@@ -788,21 +788,21 @@ MonoBehaviour:
     m_Value: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 2
   directLightingStrength:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.1
   radius:
     m_OverrideState: 0
     m_Value: 5
   spatialBilateralAggressiveness:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0.15
   temporalAccumulation:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
   ghostingReduction:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0.5
   blurSharpness:
     m_OverrideState: 0
