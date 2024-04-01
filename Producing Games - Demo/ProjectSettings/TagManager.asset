@@ -15,6 +15,7 @@ TagManager:
   - Hiding
   - CinematicManager
   - TutorialManager
+  - patient1trigger
   layers:
   - Default
   - TransparentFX

@@ -17,7 +17,10 @@ public class Tutorialmanager : MonoBehaviour
     public GameObject demon;
     public DemonCharacter dCharacter;
 
-    public bool startshift = false, demonCanRage, nexthour, demonbook;
+    public GameObject patient1Trigger, patient2Trigger, patient3Trigger, demonbookTrigger;
+    public GameObject demonBookAsset;
+
+    public bool startshift , demonCanRage, nexthour, demonbook;
 
     public DoorInteractable dManager1, dManager2, dManager3, dManagerStorage, dManagerHall;
     public GameObject paient1Door, paient2Door, paient3Door, storageDoor, mainHallDoor;
@@ -28,6 +31,9 @@ public class Tutorialmanager : MonoBehaviour
     public bool shiftStarted = false;
     public bool medsCollected = false;
     public bool gotBacktoStudy = false;
+    public bool nextHourStarted = true;
+
+  
 
     // public bool Task1 = false,Task2 = false, Task3 = false, Task4 = false, Task5 = false, Task6 = false, Task7 = false, Task8= false, Task9 = false, Task10 = false, Task11 = false, Task12 = false, Task13 = false;
     private void Awake()
@@ -54,26 +60,35 @@ public class Tutorialmanager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F) && shiftStarted)
         {
             onCollectMedicine();
+            shiftStarted = false;
         }
 
-        if (manager.currentHour == 2)
-        {
-            mainDoorblock.SetActive(true);
-            demon.SetActive(false);
+        
+
+        if (manager.currentHour == 2 && nextHourStarted)
+        {  
             gotBacktoStudy = true;
         }
 
         if (gotBacktoStudy)
         {
-
+            mainDoorblock.SetActive(true);
+            demon.SetActive(false);
+            demonbookTrigger.SetActive(true);
             tracker.AddObjective("Find the demon book", objectiveTypes.Main);
             gotBacktoStudy = false;
+            nextHourStarted = false;
         }
 
         // tracker.DisplayObjectives();
     }
 
+    
 
+    private void OnTriggerExit(Collider other)
+    {
+        
+    }
     public void OnMedicineTask()
     {
         tracker.AddObjective("Order Medicine at Computer", objectiveTypes.Main);
@@ -85,6 +100,13 @@ public class Tutorialmanager : MonoBehaviour
         // Task1 = true;
         startshift = true;
         mainDoorblock.SetActive(false);
+        tracker.AddObjective("Start Shift", objectiveTypes.Main);
+    }
+    public void startHourTwo()
+    {
+        demonBookAsset.SetActive(false); 
+        mainDoorblock.SetActive(false);
+        demonbookTrigger.SetActive(false) ;
         tracker.AddObjective("Start Shift", objectiveTypes.Main);
     }
     public void OnShiftStartTask()
@@ -121,7 +143,7 @@ public class Tutorialmanager : MonoBehaviour
     {
         // Task5 = true;
         patient2doorblock.SetActive(false);
-        tracker.AddObjective("Use F clipboard and attend to patient 2", objectiveTypes.Main);
+        tracker.AddObjective("Attend to patient 2", objectiveTypes.Main);
     }
     public void OnAttendToPatient3Task()
     {

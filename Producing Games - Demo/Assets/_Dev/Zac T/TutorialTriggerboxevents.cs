@@ -10,6 +10,8 @@ public class TutorialTriggerboxevents : MonoBehaviour
     public GameObject tutorialManager;
     public Tutorialmanager tutmanagerScript;
 
+    public bool inTrigger = false;
+
     public GameObject triggerbox;
     public bool startshift, deactivate, demonbook, demonrage, nxtshift;
     public static bool startshiftreq, demonbookreq, demonragereq, nextshiftreq;
@@ -39,9 +41,15 @@ public class TutorialTriggerboxevents : MonoBehaviour
                 TutorialEvent.Invoke();
                 deactivate = true;
             }
-
+            
+            inTrigger = true;
 
         }
+        
+    }
+    public void OnTriggerExit(Collider other)
+    {
+        other = null;
     }
 
     public void Start()
@@ -70,6 +78,18 @@ public class TutorialTriggerboxevents : MonoBehaviour
             demonbookreq = true;
         }
 
+        if (inTrigger && Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            TutorialEvent.Invoke();
+            deactivate = true;
+            inTrigger = false;
+        }
 
+        if (inTrigger && Input.GetKeyDown(KeyCode.Mouse0) && demonbook)
+        {
+            TutorialEvent.Invoke();
+          
+            inTrigger = false;
+        }
     }
 }
