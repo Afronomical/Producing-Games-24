@@ -36,7 +36,7 @@ public class ExorcismTable : MonoBehaviour
     {
         if (tableAvailable)
 
-        {
+        {   
             if (playerItemAmount < 3)
                 CheckForPlayerItems();
             else if (playerItemAmount == 3)

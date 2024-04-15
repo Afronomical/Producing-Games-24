@@ -21491,6 +21491,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7677589460d37f2479784fa06e02ad45, type: 3}
+--- !u!114 &645270223 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4552499446670353929, guid: 7677589460d37f2479784fa06e02ad45, type: 3}
+  m_PrefabInstance: {fileID: 645270222}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800934311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 022f26aa31f9e914cb00722c4c873f75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &646030971 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ed9f8768b440eba4ca0fb79304518d5a, type: 3}
@@ -40377,6 +40388,14 @@ PrefabInstance:
       value: -0.031
       objectReference: {fileID: 0}
     - target: {fileID: 2571292562704163160, guid: f1c720f5fe3a3e04b9560027bdf60ffa, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2571292562704163160, guid: f1c720f5fe3a3e04b9560027bdf60ffa, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2571292562704163160, guid: f1c720f5fe3a3e04b9560027bdf60ffa, type: 3}
       propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 0}
@@ -40407,6 +40426,18 @@ PrefabInstance:
     - target: {fileID: 2571292562704163160, guid: f1c720f5fe3a3e04b9560027bdf60ffa, type: 3}
       propertyPath: m_ActionEvents.Array.data[13].m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
+      objectReference: {fileID: 645270223}
+    - target: {fileID: 2571292562704163160, guid: f1c720f5fe3a3e04b9560027bdf60ffa, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2571292562704163160, guid: f1c720f5fe3a3e04b9560027bdf60ffa, type: 3}
+      propertyPath: m_ActionEvents.Array.data[13].m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnConfirmInput
+      objectReference: {fileID: 0}
+    - target: {fileID: 2571292562704163160, guid: f1c720f5fe3a3e04b9560027bdf60ffa, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: DropItem, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2604761008673467045, guid: f1c720f5fe3a3e04b9560027bdf60ffa, type: 3}
       propertyPath: m_LocalPosition.x
