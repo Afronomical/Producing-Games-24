@@ -12,7 +12,8 @@ public class FuseBox : InspectableObject
     
     
     public List<GameObject> fuses, fuseSlots;//Fuses/FuseSlots references
-    public Material[] materials;//All the Colour Materials
+    public Material fuseMaterial;//Fuse Colour Materials
+    public Material[] fuseSlotsMaterials;//Slots Colour Materials
     private int heldFuses;//Correct Fuses
     public bool complete;//If this minigame is completed
 
@@ -20,27 +21,27 @@ public class FuseBox : InspectableObject
     [Header("Correct/Incorrect Config")]
     public Material correctMaterial;
     public Material incorrectMaterial;
-    public Material correctOffMaterial;
-    public Material incorrectOffMaterial;
+    
     
     //Lights Object Reference
-    public GameObject correctObject;
-    public GameObject incorrectObject;
+    public GameObject onOffLightsObject;
+    
 
 
    
     public override void Interact()
     {
         base.Interact();
+
+        GetComponent<BoxCollider>().enabled = false;
         Cursor.lockState = CursorLockMode.None;
-        ToggleBoxCollider(false);
         cursor.SetActive(true);
     }
     protected override void Start()
     {
+        base.Start();
         ToggleBoxCollider(true);
         InitializeBox();
-        base.Start();
     }
 
     protected override void Update()
@@ -63,8 +64,8 @@ public class FuseBox : InspectableObject
     {
         complete = false;
         LightManager.Instance.AllLightToggle(false);
-        correctObject.GetComponent<Renderer>().material = correctOffMaterial;
-        incorrectObject.GetComponent<Renderer>().material = incorrectMaterial;
+        onOffLightsObject.GetComponent<Renderer>().material = incorrectMaterial;
+        
         ToggleBoxCollider(true);
 
         List<GameObject> w = new List<GameObject>(fuses);
@@ -73,14 +74,9 @@ public class FuseBox : InspectableObject
         {
             int rand = Random.Range(0, w.Count);
             Fuse currentFuse = w[rand].GetComponent<Fuse>();
-            currentFuse.colour = (Colours)i;
-            w[rand].GetComponent<Renderer>().material = materials[i];
-            w.Remove(w[rand]);
-
-            rand = Random.Range(0, e.Count);
-            e[rand].GetComponent<Renderer>().material = materials[i];
             currentFuse.fuseSlot = e[rand];
             e.Remove(e[rand]);
+            w.Remove(w[rand]);
         }
 
         foreach (GameObject obj in fuses)
@@ -137,8 +133,7 @@ public class FuseBox : InspectableObject
                         {
                             complete = true;
                             LightManager.Instance.AllLightToggle(true);
-                            correctObject.GetComponent<Renderer>().material = correctMaterial;
-                            incorrectObject.GetComponent<Renderer>().material = incorrectOffMaterial;
+                            onOffLightsObject.GetComponent<Renderer>().material = correctMaterial;
                             ToggleBoxCollider(false);
                             PatientTaskManager.instance.CheckTaskConditions(gameObject);
                             StopUsing();

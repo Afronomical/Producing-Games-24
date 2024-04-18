@@ -23,7 +23,10 @@ public class Task : MonoBehaviour
         if (!isHourlyTask)
         {
             taskNoticed = false;
+            AudioManager.instance.PlaySound(rTask.startTaskSound, transform);
         }
+        else
+            AudioManager.instance.PlaySound(hTask.startTaskSound, transform);
     }
 
 
@@ -69,6 +72,10 @@ public class Task : MonoBehaviour
         taskTarget.GetComponent<InteractableTemplate>().collectible = PatientTaskManager.instance.noTaskPrompt;
         TooltipManager.Instance.HideTooltip();
 
+        if (!isHourlyTask)
+            AudioManager.instance.PlaySound(rTask.endTaskSound, transform);
+        else
+            AudioManager.instance.PlaySound(hTask.endTaskSound, transform);
 
         //steam achievement for completing first task
         //if(SteamManager.Initialized)

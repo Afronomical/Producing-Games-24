@@ -30,34 +30,34 @@ public class ObjectiveTracker : MonoBehaviour
     private List<Objectives> urgentObjectives = new List<Objectives>();
 
     //Timer for removing objectives
-    float timerInterval = 100;
+    float timerInterval = 2;
     float timer = 0;
 
     private void Start()
     {
-        if(instance == null)
+        if (instance == null)
             instance = this;
 
         //Testing
-        AddObjective("Main objective test!", objectiveTypes.Main);
+        //AddObjective("Main objective test!", objectiveTypes.Main);
         AddObjective("Urgent objective test!", objectiveTypes.Urgent);
     }
 
     private void Update()
     {
-        RemoveObjective(mainObj);
-        //DisplayObjectives();
+        //RemoveObjective(mainObj);
+        DisplayObjectives();
         timer++;
     }
 
-    Objectives mainObj = new Objectives();
+    public Objectives mainObj = new Objectives();
     //Objectives sideObj = new Objectives();
     Objectives urgentObj = new Objectives();
 
     //Details and type of objective needed
     public void AddObjective(string name, objectiveTypes type)
     {
-        switch(type)
+        switch (type)
         {
             case objectiveTypes.Main:
                 trackers[0].fontStyle = FontStyles.Normal;
@@ -82,7 +82,7 @@ public class ObjectiveTracker : MonoBehaviour
                 urgentObjectives.Add(urgentObj);
                 urgentObj.ID = urgentObjectives.Count;
                 break;
-                
+
             default:
                 break;
         }
@@ -93,14 +93,14 @@ public class ObjectiveTracker : MonoBehaviour
     {
         trackers[0].text = mainObj.name;
         //trackers[1].text = sideObj.name;
-        trackers[1].text = urgentObj.name;
+        //trackers[1].text = urgentObj.name;
     }
 
     //Remove a specific objective
     public void RemoveObjective(Objectives objToRemove)
     {
 
-        switch(objToRemove.type)
+        switch (objToRemove.type)
         {
             case objectiveTypes.Main:
                 trackers[0].fontStyle = FontStyles.Strikethrough;

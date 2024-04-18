@@ -145,6 +145,7 @@ MonoBehaviour:
   hasBeenPlaced: 0
   UIToDisable: []
   actionTooltip: {fileID: 0}
+  playerGateBlock: {fileID: 0}
 --- !u!54 &4645773044749604420
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -261,7 +262,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.116161965
-  m_Height: 0.5404449
+  m_Radius: 0.11163765
+  m_Height: 0.4602699
   m_Direction: 1
-  m_Center: {x: -0.15178059, y: 0.22977754, z: 0.0043866416}
+  m_Center: {x: 0.02239426, y: 0.18969005, z: 0.0043866416}

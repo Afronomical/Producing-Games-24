@@ -17,7 +17,7 @@ public class TutorialTooltips : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            textBox.text = tooltip;
+            //textBox.text = tooltip;
             textBox.enabled = true;
         }
     }

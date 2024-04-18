@@ -319,4 +319,19 @@ public class PatientCharacter : AICharacter
     {
         PatientID = newID;
     }
+
+    public float GetPathLength(NavMeshPath path)
+    {
+        float pathLength = 0.0f;
+
+        if (path.corners.Length < 2)
+            return pathLength;
+
+        for (int i = 0; i < path.corners.Length - 1; i++)
+        {
+            pathLength += Vector3.Distance(path.corners[i], path.corners[i + 1]);
+        }
+
+        return pathLength;
+    }
 }

@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -31,7 +30,7 @@ public class HidingCutScene : InteractableTemplate
         outside
     }
 
-    private PlayerHidingStates playerHidingStates;
+    public PlayerHidingStates playerHidingStates;
     HidingScare hidingScare;
 
     private void Start()
@@ -40,8 +39,6 @@ public class HidingCutScene : InteractableTemplate
         cam = Camera.main;
         playerTransformRef = GameManager.Instance.player.transform;
         hidingScare = Object.FindFirstObjectByType<HidingScare>();
-        
-
 
         // INFO: Get Local Reference to Player
         playerMovement = GameManager.Instance.player.GetComponent<PlayerMovement>();
@@ -82,11 +79,11 @@ public class HidingCutScene : InteractableTemplate
     public void GoIn()
     {
         EnteringAnim(true);
+        TooltipManager.Instance.HideTooltip();
 
         playerMovement.isHiding = true;
         playerIsOccupying = true;
 
-        playerTransformRef.GetComponent<PickUpItem>().enabled = false;
         cam.transform.rotation = playerTransformRef.rotation;
         cam.GetComponent<CameraLook>().enabled = false;
         PlayerControlsAccess(false);
@@ -119,7 +116,8 @@ public class HidingCutScene : InteractableTemplate
     public void Inside()
     {
         EnteringAnim(false);
-        cam.GetComponent<CameraLook>().enabled = true;
+        if (!PauseMenu.instance.isPaused) cam.GetComponent<CameraLook>().enabled = true;
+        
 
         if (base.actionTooltip)
         {
@@ -176,7 +174,8 @@ public class HidingCutScene : InteractableTemplate
         playerTransformRef.GetComponent<DropItem>().enabled = canControl;
         playerTransformRef.GetComponent<CharacterController>().enabled = canControl;
         playerTransformRef.GetComponent<MeshRenderer>().enabled = canControl;
-        
+        playerTransformRef.GetComponent<PickUpItem>().enabled = canControl;
+
         cam.GetComponent<CameraLook>().canHeadBob = canControl;
     }
 

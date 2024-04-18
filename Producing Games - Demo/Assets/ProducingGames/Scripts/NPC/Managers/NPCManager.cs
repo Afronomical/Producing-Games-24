@@ -78,7 +78,10 @@ public class NPCManager : MonoBehaviour
         ManLaughOne,
         
     }
-
+    [Header("Tutorial Settings")]
+    public bool isTutorial = false;
+    [Tooltip("Ensure the order and size of the beds list matches that of the patient list to get the desired results")]
+    public List<GameObject> tutorialBedsList = new();
 
     [Header("Name 1 Patient Voice Lines:")]
     [Tooltip("Ensure the order and size of both lists match up with each other")]
@@ -155,13 +158,15 @@ public class NPCManager : MonoBehaviour
         else
             Instance = this;
 
+        /*
         // INFO: Get all patients in the scene and store them in the patients list
-        //PatientCharacter[] aICharacters = FindObjectsByType<PatientCharacter>(FindObjectsSortMode.None);
-        //foreach (PatientCharacter character in aICharacters)
-        //{
-        //    character.gameObject.SetActive(true);
-        //    patientList.Add(character.gameObject);
-        //}
+        PatientCharacter[] aICharacters = FindObjectsByType<PatientCharacter>(FindObjectsSortMode.None);
+        foreach (PatientCharacter character in aICharacters)
+        {
+            character.gameObject.SetActive(true);
+            patientList.Add(character.gameObject);
+        }
+        */
 
         // INFO: Put all female voices onto the dictionary with their respective keys
         for (int i = 0; i < MartinaVoiceLineList.Count; i++)
@@ -185,7 +190,6 @@ public class NPCManager : MonoBehaviour
         {
             lucianoVoiceLinesDict.Add(lucianoVoiceLines[i], LucianoVoiceLineList[i]);
         }
-
 
         foreach (GameObject character in patientList)
         {
@@ -230,7 +234,15 @@ public class NPCManager : MonoBehaviour
         foreach (Transform transform in kitchenLocations)
             hungryLib.Add(transform.position, false);
 
-        AssignBeds();
+        if (isTutorial)
+        {
+            AssignBedsUniformly();
+        }
+        else
+        {
+            AssignBedsRandomly();
+        }
+
         AssignPatientID();
         AssignRandomDemonType();
     }
@@ -238,7 +250,7 @@ public class NPCManager : MonoBehaviour
     /// <summary>
     /// Assigns the available beds randomly to each patient
     /// </summary>
-    private void AssignBeds()
+    private void AssignBedsRandomly()
     {
         foreach (GameObject Patient in patientList)
         {
@@ -249,6 +261,35 @@ public class NPCManager : MonoBehaviour
             patientBeds.Remove(chosenBed);
         }
     }
+
+    /// <summary>
+    /// Assigns the available beds uniformly to each patient, based on the order of the patient list
+    /// (i.e. first patient gets first bed, second patient gets second bed, etc.)
+    /// </summary>
+    private void AssignBedsUniformly()
+    {
+        if (patientList.Count != tutorialBedsList.Count)
+        {
+            Debug.LogError("The number of patients and beds do not match. Please ensure that the number of patients and beds are the same.");
+            return;
+        }
+
+        foreach (GameObject bed in tutorialBedsList)
+        {
+            if (!bed.CompareTag("Bed"))
+            {
+                Debug.LogWarning("One of the objects in the tutorial beds list is not tagged as a bed. Please ensure that all objects in the tutorial beds list are tagged as beds.");
+            }
+        }
+
+        for (int i = 0; i < patientList.Count; i++)
+        {
+            GameObject chosenBed = tutorialBedsList[i];
+            patientList[i].GetComponent<PatientCharacter>().bed = chosenBed;
+            Debug.Log("Set " + patientList[i].name + " to bed number: " + chosenBed);
+        }
+    }
+
     /// <summary>
     /// Assigns a random ID for each patient for uses in game such as drawing specific blood from patients, and using it in exorcism 
     /// </summary>
@@ -267,8 +308,8 @@ public class NPCManager : MonoBehaviour
             
             patientIDs.Add(ID);
             Patient.GetComponent<PatientCharacter>().SetID(ID);
-            Patient.gameObject.name = "Patient: " + ID;
-            Debug.Log("Patient is now Patient: " + ID.ToString());
+            //Patient.gameObject.name = "Patient: " + ID;
+            //Debug.Log("Patient is now Patient: " + ID.ToString());
         }
     }
 

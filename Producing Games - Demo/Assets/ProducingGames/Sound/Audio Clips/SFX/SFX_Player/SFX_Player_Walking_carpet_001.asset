@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SFX_Player_Walking_carpet_001
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: 3a1146ac4fc04204ebba2c1ffadeb66c, type: 3}
-  volume: 0.75
+  volume: 0.05
   pitch: 1
   priority: 128
   loop: 0

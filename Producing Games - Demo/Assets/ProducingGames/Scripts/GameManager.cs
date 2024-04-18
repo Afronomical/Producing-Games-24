@@ -78,6 +78,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        sanityEvents = GetComponent<SanityEventTracker>();
+
         StartGame();
     }
 

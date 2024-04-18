@@ -781,7 +781,7 @@ MonoBehaviour:
   demonStateScript: {fileID: 0}
   soundDestination: {fileID: 0}
   ghostRoaming: {fileID: 0}
-  impStage1Grunt: {fileID: 0}
-  impRoaming: {fileID: 0}
-  impWalking: {fileID: 0}
+  impStage1Grunt: {fileID: 11400000, guid: 8e1c5779718b1134cb5e501f1d0ee10c, type: 2}
+  impRoaming: {fileID: 11400000, guid: a318f75f1b0f35040b1865c27a7cf45b, type: 2}
+  impWalking: {fileID: 11400000, guid: dff27cbf2b9867f45bf417c4ef3f4936, type: 2}
   playerMovement: {fileID: 0}

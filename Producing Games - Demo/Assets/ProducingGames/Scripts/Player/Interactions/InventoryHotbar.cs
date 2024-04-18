@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 using UnityEngine.InputSystem;
 using TMPro;
+using Unity.VisualScripting;
 
 public class InventoryHotbar : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class InventoryHotbar : MonoBehaviour
     public event ItemPickedUpEvent OnItemPickedUp;
     public event Action OnItemSelected;
 
+    private PlayerArms arms;
+
 
     public Transform spawnPos;
     public GameObject go = null;
@@ -43,6 +46,11 @@ public class InventoryHotbar : MonoBehaviour
         {
             itemSlots.Add(child.gameObject);
         }
+    }
+
+    private void Start()
+    {
+        arms = GameManager.Instance.player.GetComponent<PickUpItem>().arms;
     }
 
 
@@ -60,18 +68,21 @@ public class InventoryHotbar : MonoBehaviour
 
     public void OnScrollInput(InputAction.CallbackContext context)
     {
-        if (context.performed && changeSlotTimer >= changeSlotDelay)
+        if (arms.rightArmState != PlayerArms.rightArmStates.Clipboard)
         {
-            if (context.ReadValue<Vector2>().y > 0)
+            if (context.performed && changeSlotTimer >= changeSlotDelay)
             {
-                ScrollInventory(1);
-            }
-            else if (context.ReadValue<Vector2>().y < 0)
-            {
-                ScrollInventory(-1);
-            }
+                if (context.ReadValue<Vector2>().y > 0)
+                {
+                    ScrollInventory(1);
+                }
+                else if (context.ReadValue<Vector2>().y < 0)
+                {
+                    ScrollInventory(-1);
+                }
 
-            changeSlotTimer = 0;
+                changeSlotTimer = 0;
+            }
         }
     }
 

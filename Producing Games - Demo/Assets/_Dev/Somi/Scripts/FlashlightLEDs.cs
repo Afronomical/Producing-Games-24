@@ -31,11 +31,11 @@ public class FlashlightLEDs : MonoBehaviour
             yield return new WaitForSeconds(TimeBetweenImpulses / 2);
              canFlicker = false;
             meshRenderer.material = firstColour;
-            Debug.Log("Flashlight LED set flicker ON");
+            //Debug.Log("Flashlight LED set flicker ON");
 
             yield return new WaitForSeconds(TimeBetweenImpulses / 2);
             meshRenderer.material = colourToFlashTo;
-            Debug.Log("Flashlight LED set flicker OFF");
+            //Debug.Log("Flashlight LED set flicker OFF");
         canFlicker = true;
 
             

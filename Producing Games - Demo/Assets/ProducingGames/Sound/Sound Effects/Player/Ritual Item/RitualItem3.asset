@@ -23,6 +23,6 @@ MonoBehaviour:
   travelDistance: 30
   sentence: This could be useful.
   font: {fileID: 0}
-  typingSpeed: 0.15
+  typingSpeed: 0.045
   waitTillHide: 4
   canBeHeardByDemon: 0

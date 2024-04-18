@@ -11,10 +11,14 @@ public class PagerController : MonoBehaviour
     Vector3 offset;
     public TMP_Text pagerTooltip;
 
+    public bool ActiveNotif = false;
+    public GameObject PagerLight;
+    public GameObject FPagerLight;
+
     private void Start()
     {
         offset = pagerInterface.transform.localPosition;
-        pagerTooltip.text = "Hold Q to switch to pager!";
+        //pagerTooltip.text = "Hold Q to switch to pager!";
         pagerTooltip.enabled = false;
     }
 
@@ -23,6 +27,25 @@ public class PagerController : MonoBehaviour
         //pagerInterface.GetComponent<RectTransform>().position = transform.position + offset;
 
         if (DiegeticUIManager.Instance.hasPager) pagerTooltip.enabled = true;
+        if (ActiveNotif)
+        {
+            if (!PagerLight.activeSelf && !FPagerLight.activeSelf)
+            {
+                if (arms.holdingPager)
+                {
+                    PagerLight.SetActive(true);
+                }
+                else
+                {
+                    FPagerLight.SetActive(true);
+                }
+            }
+        }
+        else
+        {
+            PagerLight.SetActive(false);
+            FPagerLight.SetActive(false);
+        }
     }
 
     public void OnPagerInput(InputAction.CallbackContext context)

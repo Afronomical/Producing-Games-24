@@ -14,11 +14,11 @@ public class DemonBook : MonoBehaviour
     private float turnPageTimer;
     public SoundEffect pageSound;
     public TMP_Text bookTooltip;
+    public PlayerArms arms;
 
     void Start()
     {
         pageArray[0].SetActive(true);
-        bookTooltip.text = "Press B to read the demon book!";
         bookTooltip.enabled = true;
         gameObject.SetActive(false);
     }
@@ -34,7 +34,11 @@ public class DemonBook : MonoBehaviour
     {
         if(DiegeticUIManager.Instance.hasDemonBook)
         {
-            gameObject.SetActive(!gameObject.activeSelf);
+            if (context.performed)
+                arms.HoldBook();
+            if (context.canceled)
+                arms.DropBook();
+
             bookTooltip.gameObject.SetActive(false);
         }
     }

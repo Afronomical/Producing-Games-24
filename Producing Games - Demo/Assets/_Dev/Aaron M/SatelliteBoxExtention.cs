@@ -17,6 +17,7 @@ public class SatelliteBoxExtention : Editor
         EditorGUILayout.PropertyField(serializedObject.FindProperty("wires"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("wireEnds"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("materials"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("images"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("complete"));
 
         if (GUILayout.Button("Reset default wire positions"))
