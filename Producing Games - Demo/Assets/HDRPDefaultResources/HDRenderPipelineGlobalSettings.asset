@@ -72,6 +72,7 @@ MonoBehaviour:
   defaultRenderingLayerMask: 257
   renderingLayerNames:
   - Default
+  - DiageticUI
   lightLayerName0: 
   lightLayerName1: 
   lightLayerName2: 
