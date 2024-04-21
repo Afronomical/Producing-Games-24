@@ -60,7 +60,7 @@ public class Tutorialmanager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F) && shiftStarted)
         {
             onCollectMedicine();
-            shiftStarted = false;
+            shiftStarted = true;
         }
 
         
@@ -92,15 +92,19 @@ public class Tutorialmanager : MonoBehaviour
     public void OnMedicineTask()
     {
         tracker.AddObjective("Order Medicine at Computer", objectiveTypes.Main);
-
+        startshift = false;
     }
     public void onMedicineBuy()
     {
 
         // Task1 = true;
+        if(startshift==false)
+        {
         startshift = true;
         mainDoorblock.SetActive(false);
         tracker.AddObjective("Start Shift", objectiveTypes.Main);
+        }
+        
     }
     public void startHourTwo()
     {
