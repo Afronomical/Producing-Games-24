@@ -25,7 +25,7 @@ public static class LevelManager
     public enum Scenes
     {
         Loading,
-        Tutorial,
+        NewTutorial,
         Settings,
         MainUpdated,
         Credits,
