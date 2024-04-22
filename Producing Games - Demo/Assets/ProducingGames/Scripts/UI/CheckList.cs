@@ -123,8 +123,7 @@ public class CheckList : MonoBehaviour
         TMP_Text newText = newTask.GetComponent<TMP_Text>();
 
         //Setting up text
-        newText.text = task.taskTarget.name;
-        newText.text += " - ";
+        newText.text = "";
         if (task.isHourlyTask)
             newText.text += task.hTask.taskName;
         else

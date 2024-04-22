@@ -91,9 +91,11 @@ public class OrganTrigger : InteractableTemplate
             needToInteract = true;
             //StartCoroutine(EnableExorcismDelay(3f/*until animation ends*/));
             // isPanning = true;
-            PanToTable();
             originalPlayerRot = player.transform.rotation;
-            
+            //PanToTable();
+            exorcismTable.tableAvailable = true;
+            cameraLook.enabled = true;
+            needToInteract = false;
         }
         
         
@@ -108,7 +110,6 @@ public class OrganTrigger : InteractableTemplate
         currentTime = 0;
         isPanning = true;
         exorcismTable.tableAvailable = true;
-
     }
 
     private void Return()

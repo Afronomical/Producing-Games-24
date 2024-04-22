@@ -60,28 +60,34 @@ public class ObjectiveTracker : MonoBehaviour
         switch (type)
         {
             case objectiveTypes.Main:
-                trackers[0].fontStyle = FontStyles.Normal;
-                mainObj.name = name;
-                mainObj.type = type;
-                mainObjectives.Add(mainObj);
-                mainObj.ID = mainObjectives.Count;
-                break;
+                {
+                    trackers[0].fontStyle = FontStyles.Normal;
+                    mainObj.name = name;
+                    mainObj.type = type;
+                    mainObjectives.Add(mainObj);
+                    mainObj.ID = mainObjectives.Count;
+                    break;
+                }
 
             //case objectiveTypes.Side:
+            //  {
             //    trackers[1].fontStyle = FontStyles.Normal;
             //    sideObj.name = name;
             //    sideObj.type = type;
             //    sideObjectives.Add(sideObj);
             //    sideObj.ID = sideObjectives.Count;
             //    break; 
+            //  }
 
-            case objectiveTypes.Urgent:
-                trackers[1].fontStyle = FontStyles.Normal;
-                urgentObj.name = name;
-                urgentObj.type = type;
-                urgentObjectives.Add(urgentObj);
-                urgentObj.ID = urgentObjectives.Count;
-                break;
+            //case objectiveTypes.Urgent:
+            //    {
+            //        trackers[1].fontStyle = FontStyles.Normal;
+            //        urgentObj.name = name;
+            //        urgentObj.type = type;
+            //        urgentObjectives.Add(urgentObj);
+            //        urgentObj.ID = urgentObjectives.Count;
+            //        break;
+            //    }
 
             default:
                 break;

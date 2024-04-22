@@ -142,31 +142,31 @@ public class TutorialTaskManager : MonoBehaviour
                     {
                         case PatientTaskManager.RandomTasks.Wandering:
                             newTask = transform.AddComponent<RWanderingTask>();
-                            newTask.rTask = PatientTaskManager.instance.randomTasks[1];
+                            newTask.rTask = PatientTaskManager.instance.randomTasks[0];
                             break;
                         case PatientTaskManager.RandomTasks.HeartAttack:
                             newTask = transform.AddComponent<RHeartAttackTask>();
-                            newTask.rTask = PatientTaskManager.instance.randomTasks[2];
+                            newTask.rTask = PatientTaskManager.instance.randomTasks[1];
                             break;
                         case PatientTaskManager.RandomTasks.Hiding:
                             newTask = transform.AddComponent<RHidingTask>();
-                            newTask.rTask = PatientTaskManager.instance.randomTasks[3];
+                            newTask.rTask = PatientTaskManager.instance.randomTasks[2];
                             break;
                         case PatientTaskManager.RandomTasks.Hungry:
                             newTask = transform.AddComponent<RHungryTask>();
-                            newTask.rTask = PatientTaskManager.instance.randomTasks[4];
+                            newTask.rTask = PatientTaskManager.instance.randomTasks[3];
                             break;
                         case PatientTaskManager.RandomTasks.Prayer:
                             newTask = transform.AddComponent<RPrayingTask>();
-                            newTask.rTask = PatientTaskManager.instance.randomTasks[5];
+                            newTask.rTask = PatientTaskManager.instance.randomTasks[4];
                             break;
                         case PatientTaskManager.RandomTasks.Medication:
                             newTask = transform.AddComponent<RMedicationTask>();
-                            newTask.rTask = PatientTaskManager.instance.randomTasks[6];
+                            newTask.rTask = PatientTaskManager.instance.randomTasks[5];
                             break;
                         case PatientTaskManager.RandomTasks.Cardiogram:
                             newTask = transform.AddComponent<RCardiogramTask>();
-                            newTask.rTask = PatientTaskManager.instance.randomTasks[7];
+                            newTask.rTask = PatientTaskManager.instance.randomTasks[6];
                             break;
                         default:
                             break;
@@ -225,17 +225,17 @@ public class TutorialTaskManager : MonoBehaviour
             {
                 case PatientTaskManager.HourlyTasks.Pray:
                     newTask = transform.AddComponent<PPrayTask>();
-                    newTask.hTask = PatientTaskManager.instance.playerTasks[1];
+                    newTask.hTask = PatientTaskManager.instance.playerTasks[0];
                     newTask.taskTarget = PatientTaskManager.instance.altar;
                     break;
                 case PatientTaskManager.HourlyTasks.Satellite:
                     newTask = transform.AddComponent<PSatelliteTask>();
-                    newTask.hTask = PatientTaskManager.instance.playerTasks[2];
+                    newTask.hTask = PatientTaskManager.instance.playerTasks[1];
                     newTask.taskTarget = PatientTaskManager.instance.satellite;
                     break;
                 case PatientTaskManager.HourlyTasks.CheckWater:
                     newTask = transform.AddComponent<PPipeTask>();
-                    newTask.hTask = PatientTaskManager.instance.playerTasks[3];
+                    newTask.hTask = PatientTaskManager.instance.playerTasks[2];
                     newTask.taskTarget = PatientTaskManager.instance.pipes;
                     break;
                 case HourlyTasks.Clean:
