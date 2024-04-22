@@ -147,7 +147,7 @@ public class CheckList : MonoBehaviour
     public void CompleteTask(Task task)
     {
         TMP_Text newText = task.checkList.GetComponent<TMP_Text>();
-        newText.color = Color.gray;
+        newText.color = Color.red;
         newText.fontStyle = FontStyles.Strikethrough;
     }
 }
