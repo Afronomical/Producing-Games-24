@@ -7,6 +7,8 @@ public class CreditsScroll : MonoBehaviour
     public float scrollSpeed = 30.0f;
     public float stopDelay = 5.0f; // Time to wait after reaching the end before stopping
     public KeyCode stopKey = KeyCode.Space; // Key to stop the scrolling
+    public KeyCode speedKey = KeyCode.Mouse0;
+    public float speedAccelRate = 2;
 
     private RectTransform rectTransform;
     private bool isScrolling = false;
@@ -28,28 +30,22 @@ public class CreditsScroll : MonoBehaviour
         if (!isScrolling)
             return;
 
-        rectTransform.anchoredPosition += new Vector2(0f, -scrollSpeed * Time.deltaTime);
+        if (Input.GetKey(speedKey))
+        {
+            rectTransform.anchoredPosition += new Vector2(0f, -scrollSpeed * Time.deltaTime * speedAccelRate);
+        }
+        else
+        {
+            rectTransform.anchoredPosition += new Vector2(0f, -scrollSpeed * Time.deltaTime);
+        }
 
-        // Stop scrolling if the specified key is pressed
-        if (Input.GetKeyDown(stopKey))
-            StopScrolling();
+
 
         // Add additional logic to stop scrolling after a certain time
         // or when reaching a specific position
-        if (rectTransform.anchoredPosition.y <= -500.0f) // Adjust the threshold as needed
-            StopScrolling();
+        if (rectTransform.anchoredPosition.y >= 4200.0f) // Adjust the threshold as needed
+            GetComponent<BackToMenu>().QuitToMainMenu();
     }
 
-    void StopScrolling()
-    {
-        isScrolling = false;
-        StartCoroutine(StopAfterDelay());
-    }
 
-    IEnumerator StopAfterDelay()
-    {
-        yield return new WaitForSeconds(stopDelay);
-        // Add any additional logic or events to trigger after stopping
-        Debug.Log("Credits stopped scrolling");
-    }
 }
